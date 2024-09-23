@@ -24,7 +24,7 @@ public class SecurityConfig {
 	 * @return PasswordEncoderオブジェクト
 	 */
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
@@ -35,7 +35,7 @@ public class SecurityConfig {
 	 * @throws Exception
 	 */
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
 				.requestMatchers("/css/**").permitAll()
 				.requestMatchers("/js/**").permitAll()
