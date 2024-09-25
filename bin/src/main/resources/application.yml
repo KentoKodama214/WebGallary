@@ -2,7 +2,7 @@ spring:
   application:
     name: WebGallary
   datasource:
-    url: jdbc:postgresql://localhost:5432/web_gallary
+    url: jdbc:postgresql://localhost:5432/kento_official_page
     username: postgres
     password: postgres
   servlet:

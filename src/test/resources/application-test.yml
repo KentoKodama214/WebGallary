@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/web_gallary_test
+    username: postgres
+    password: postgres
+  sql:
+    init:
+      mode: always
+  jackson:
+    time-zone: Asia/Tokyo
