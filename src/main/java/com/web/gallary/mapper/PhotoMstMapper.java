@@ -1,7 +1,5 @@
 package com.web.gallary.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,13 +10,6 @@ import com.web.gallary.entity.PhotoMst;
  */
 @Mapper
 public interface PhotoMstMapper {
-	/**
-	 * 条件に該当する写真マスタの一覧を取得する
-	 * @param	photoMst	抽出条件
-	 * @return				{@link PhotoMst}
-	 */
-	public List<PhotoMst> select(PhotoMst photoMst);
-	
 	/**
 	 * 条件に該当する写真マスタの件数を取得する
 	 * @param	photoMst	カウント条件
@@ -40,13 +31,6 @@ public interface PhotoMstMapper {
 	 * @return						更新件数
 	 */
 	public Integer update(@Param("condition") PhotoMst conditionPhotoMst, @Param("target") PhotoMst targetPhotoMst);
-	
-	/**
-	 * 写真マスタを削除する
-	 * @param	photoMst	削除対象の抽出条件
-	 * @return				削除件数
-	 */
-	public Integer delete(PhotoMst photoMst);
 	
 	/**
 	 * アカウントが登録済みの最大の写真番号を取得する

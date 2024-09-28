@@ -2,46 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.web.gallary.mapper.PhotoMstMapper">
-	<select id="select" parameterType="com.web.gallary.entity.PhotoMst" resultType="com.web.gallary.entity.PhotoMst">
-		SELECT
-			account_no AS accountNo,
-			photo_no AS photoNo,
-			created_by AS createdBy,
-			created_at AS createdAt,
-			updated_by AS updatedBy,
-			updated_at AS updatedAt,
-			is_deleted AS isDeleted,
-			photo_at AS photoAt,
-			location_no AS locationNo,
-			image_file_path AS imageFilePath,
-			photo_japanese_title AS photoJapaneseTitle,
-			photo_english_title AS photoEnglishTitle,
-			caption,
-			direction_kbn_code AS directionKbnCode,
-			focal_length AS focalLength,
-			f_value AS fValue,
-			shutter_speed AS shutterSpeed,
-			iso
-		FROM
-			photo.photo_mst
-		<where>
-			<if test="accountNo != null"> AND account_no = #{accountNo}</if>
-			<if test="photoNo != null"> AND photo_no = #{photoNo}</if>
-			<if test="isDeleted != null"> AND is_deleted = #{isDeleted}</if>
-			<if test="photoAt != null"> AND photo_at = #{photoAt}</if>
-			<if test="locationNo != null"> AND location_no = #{locationNo}</if>
-			<if test="imageFilePath != null"> AND image_file_path = #{imageFilePath}</if>
-			<if test="photoJapaneseTitle != null"> AND photo_japanese_title = #{photoJapaneseTitle}</if>
-			<if test="photoEnglishTitle != null"> AND photo_english_title = #{photoEnglishTitle}</if>
-			<if test="caption != null"> AND caption = #{caption}</if>
-			<if test="directionKbnCode != null"> AND direction_kbn_code = #{directionKbnCode}</if>
-			<if test="focalLength != null"> AND focal_length = #{focalLength}</if>
-			<if test="fValue != null"> AND f_value = #{fValue}</if>
-			<if test="shutterSpeed != null"> AND shutter_speed = #{shutterSpeed}</if>
-			<if test="iso != null"> AND iso = #{iso}</if>
-		</where>
-	</select>
-	
 	<select id="count" parameterType="com.web.gallary.entity.PhotoMst" resultType="Integer">
 		SELECT
 			COUNT(*)
@@ -146,27 +106,6 @@
 			<if test="condition.iso != null"> AND iso = #{condition.iso}</if>
 		</where>
 	</update>
-	
-	<delete id="delete" parameterType="com.web.gallary.entity.PhotoMst">
-		DELETE FROM
-			photo.photo_mst
-		<where>
-			<if test="accountNo != null"> AND account_no = #{accountNo}</if>
-			<if test="photoNo != null"> AND photo_no = #{photoNo}</if>
-			<if test="isDeleted != null"> AND is_deleted = #{isDeleted}</if>
-			<if test="photoAt != null"> AND photo_at = #{photoAt}</if>
-			<if test="locationNo != null"> AND location_no = #{locationNo}</if>
-			<if test="imageFilePath != null"> AND image_file_path = #{imageFilePath}</if>
-			<if test="photoJapaneseTitle != null"> AND photo_japanese_title = #{photoJapaneseTitle}</if>
-			<if test="photoEnglishTitle != null"> AND photo_english_title = #{photoEnglishTitle}</if>
-			<if test="caption != null"> AND caption = #{caption}</if>
-			<if test="directionKbnCode != null"> AND direction_kbn_code = #{directionKbnCode}</if>
-			<if test="focalLength != null"> AND focal_length = #{focalLength}</if>
-			<if test="fValue != null"> AND f_value = #{fValue}</if>
-			<if test="shutterSpeed != null"> AND shutter_speed = #{shutterSpeed}</if>
-			<if test="iso != null"> AND iso = #{iso}</if>
-		</where>
-	</delete>
 	
 	<select id="getMaxPhotoNo" parameterType="Integer" resultType="Integer">
 		SELECT

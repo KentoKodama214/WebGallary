@@ -30,14 +30,12 @@ import com.web.gallary.model.PhotoListGetModel;
 import com.web.gallary.model.PhotoModel;
 import com.web.gallary.model.PhotoTagDeleteModel;
 import com.web.gallary.model.PhotoTagModel;
-import com.web.gallary.model.PortfolioDeleteModel;
 import com.web.gallary.repository.AccountRepository;
 import com.web.gallary.repository.FileRepository;
 import com.web.gallary.repository.PhotoDetailRepository;
 import com.web.gallary.repository.PhotoFavoriteRepository;
 import com.web.gallary.repository.PhotoMstRepository;
 import com.web.gallary.repository.PhotoTagMstRepository;
-import com.web.gallary.repository.PortfolioRepository;
 import com.web.gallary.service.PhotoService;
 
 import lombok.RequiredArgsConstructor;
@@ -56,7 +54,6 @@ public class PhotoServiceImpl implements PhotoService {
 	private final PhotoMstRepository photoMstRepository;
 	private final PhotoTagMstRepository photoTagMstRepository;
 	private final PhotoFavoriteRepository photoFavoriteRepository;
-	private final PortfolioRepository portfolioRepository;
 	private final AccountRepository accountRepository;
 	private final FileRepository fileRepository;
 	private final PhotoConfig fileConfig;
@@ -147,12 +144,6 @@ public class PhotoServiceImpl implements PhotoService {
 				PhotoFavoriteDeleteModel.builder()
 					.favoritePhotoAccountNo(photoDeleteModel.getAccountNo())
 					.favoritePhotoNo(photoDeleteModel.getPhotoNo())
-					.build()
-			);
-			portfolioRepository.clear(
-				PortfolioDeleteModel.builder()
-					.accountNo(photoDeleteModel.getAccountNo())
-					.photoNo(photoDeleteModel.getPhotoNo())
 					.build()
 			);
 			deletePhotoTags(photoDeleteModel.getAccountNo(), photoDeleteModel.getPhotoNo());

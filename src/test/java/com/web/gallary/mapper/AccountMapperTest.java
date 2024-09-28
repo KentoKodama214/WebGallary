@@ -485,7 +485,7 @@ public class AccountMapperTest {
 		@Test
 		@Order(14)
 		@DisplayName("正常系：selectで0件の場合")
-		void select_not_fount() {
+		void select_not_found() {
 			Account account = Account.builder().accountNo(99).build();
 			List<Account> selectedAccoutList = accountMapper.select(account);
 			List<Account> expectedAccoutList = new ArrayList<Account>();
@@ -757,8 +757,6 @@ public class AccountMapperTest {
 		@DisplayName("正常系：登録成功")
 		@Sql("/sql/ResetAccountNoSeq.sql")
 		void insert_success() {
-//			now = LocalDateTime.now(clock);
-			
 			Account insertAccount = Account.builder()
 					.accountNo(1)
 					.createdBy(1)
@@ -989,7 +987,7 @@ public class AccountMapperTest {
 	class delete {
 		@Test
 		@Order(1)
-		@DisplayName("正常系：アカウント番号での削除")
+		@DisplayName("正常系：アカウント番号でのdelete")
 		void delete_by_accountNo() {
 			Account deleteAccount = Account.builder().accountNo(1).build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -998,7 +996,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(2)
-		@DisplayName("正常系：削除フラグでの削除")
+		@DisplayName("正常系：削除フラグでのdelete")
 		void delete_by_isDeleted() {
 			Account deleteAccount = Account.builder().isDeleted(true).build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1007,7 +1005,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(3)
-		@DisplayName("正常系：アカウントIDでの削除")
+		@DisplayName("正常系：アカウントIDでのdelete")
 		void delete_by_accountId() {
 			Account deleteAccount = Account.builder().accountId("aaaaaaaa").build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1016,7 +1014,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(4)
-		@DisplayName("正常系：アカウント名での削除")
+		@DisplayName("正常系：アカウント名でのdelete")
 		void delete_by_accountName() {
 			Account deleteAccount = Account.builder().accountName("AAAAAAAA").build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1025,7 +1023,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(5)
-		@DisplayName("正常系：パスワードでの削除")
+		@DisplayName("正常系：パスワードでのdelete")
 		void delete_by_password() {
 			Account deleteAccount = Account.builder().password("$2a$10$password1").build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1034,7 +1032,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(6)
-		@DisplayName("正常系：生年月日での削除")
+		@DisplayName("正常系：生年月日でのdelete")
 		void delete_by_birthdate() {
 			Account deleteAccount = Account.builder().birthdate(LocalDate.of(1991, 2, 14)).build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1043,7 +1041,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(7)
-		@DisplayName("正常系：性別区分コードでの削除")
+		@DisplayName("正常系：性別区分コードでのdelete")
 		void delete_by_sexKbnCode() {
 			Account deleteAccount = Account.builder().sexKbnCode("man").build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1052,7 +1050,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(8)
-		@DisplayName("正常系：出身都道府県区分コードでの削除")
+		@DisplayName("正常系：出身都道府県区分コードでのdelete")
 		void delete_by_birthplacePrefectureKbnCode() {
 			Account deleteAccount = Account.builder().birthplacePrefectureKbnCode("Hokkaido").build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1061,7 +1059,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(9)
-		@DisplayName("正常系：在住都道府県区分コードでの削除")
+		@DisplayName("正常系：在住都道府県区分コードでのdelete")
 		void delete_by_residentPrefectureKbnCode() {
 			Account deleteAccount = Account.builder().residentPrefectureKbnCode("Okinawa").build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1070,7 +1068,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(10)
-		@DisplayName("正常系：フリーメモでの削除")
+		@DisplayName("正常系：フリーメモでのdelete")
 		void delete_by_freeMemo() {
 			Account deleteAccount = Account.builder().freeMemo("フリーメモ").build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1079,7 +1077,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(11)
-		@DisplayName("正常系：権限区分コードでの削除")
+		@DisplayName("正常系：権限区分コードでのdelete")
 		void delete_by_authorityKbnCode() {
 			Account deleteAccount = Account.builder().authorityKbnCode("mini-user").build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
@@ -1088,7 +1086,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(12)
-		@DisplayName("正常系：最終ログイン日時での削除")
+		@DisplayName("正常系：最終ログイン日時でのdelete")
 		void delete_by_lastLoginDatetime() {
 			Account deleteAccount = Account.builder()
 					.lastLoginDatetime(OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
@@ -1099,7 +1097,7 @@ public class AccountMapperTest {
 		
 		@Test
 		@Order(13)
-		@DisplayName("正常系：ログイン失敗回数での削除")
+		@DisplayName("正常系：ログイン失敗回数でのdelete")
 		void delete_by_loginFailureCount() {
 			Account deleteAccount = Account.builder().loginFailureCount(2).build();
 			Integer deleteCount = accountMapper.delete(deleteAccount);
