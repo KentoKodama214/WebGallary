@@ -1,0 +1,1 @@
+ALTER SEQUENCE common.account_account_no_seq RESTART 1;
