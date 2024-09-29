@@ -296,7 +296,7 @@ public class PhotoMstMapperTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウント番号に該当する写真がある場合")
-		void getMaxPhotoNo_success() {
+		void getMaxPhotoNo_found() {
 			assertTrue(false);
 		}
 		

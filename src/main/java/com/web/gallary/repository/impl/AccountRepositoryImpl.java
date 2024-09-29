@@ -148,6 +148,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 	 * @param	accountModel			{@link AccountModel}
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
+	@Override
 	public void updateLoginFailureCount(AccountModel accountModel) throws UpdateFailureException {
 		Account cndAccount = Account.builder().accountNo(accountModel.getAccountNo()).build();
 		
