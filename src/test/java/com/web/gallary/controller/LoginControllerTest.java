@@ -13,17 +13,16 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class AccountControllerTest {
+public class LoginControllerTest {
 
-	
 	@Nested
 	@Order(1)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class register {
+	class login {
 		@Test
 		@Order(1)
 		@DisplayName("正常系")
-		void register_success() {
+		void login_success() {
 			assertTrue(false);
 		}
 	}
@@ -31,37 +30,18 @@ public class AccountControllerTest {
 	@Nested
 	@Order(2)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class account_setting {
+	class success {
 		@Test
 		@Order(1)
-		@DisplayName("正常系：生年月日が1900/01/01の場合")
-		void account_setting_birthdate_is_19000101() {
+		@DisplayName("正常系：非ログインユーザーの場合")
+		void success_not_login_user() {
 			assertTrue(false);
 		}
 		
 		@Test
 		@Order(2)
-		@DisplayName("正常系：生年月日が1900/01/01以外の場合")
-		void account_setting_birthdate_is_not_19000101() {
-			assertTrue(false);
-		}
-		
-		@Test
-		@Order(3)
-		@DisplayName("正常系：ForbiddenAccountExceptionをthrowする")
-		void account_setting_ForbiddenAccountException() {
-			assertTrue(false);
-		}
-	}
-	
-	@Nested
-	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class account_list {
-		@Test
-		@Order(1)
-		@DisplayName("正常系")
-		void account_list_success() {
+		@DisplayName("正常系：ログインユーザーの場合")
+		void success_login_user() {
 			assertTrue(false);
 		}
 	}

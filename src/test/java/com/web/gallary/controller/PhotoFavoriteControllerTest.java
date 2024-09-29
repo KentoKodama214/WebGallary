@@ -13,17 +13,31 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class AccountControllerTest {
-
+public class PhotoFavoriteControllerTest {
+	
 	
 	@Nested
 	@Order(1)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class register {
+	class addFavorite {
 		@Test
 		@Order(1)
 		@DisplayName("正常系")
-		void register_success() {
+		void addFavorite_success() {
+			assertTrue(false);
+		}
+		
+		@Test
+		@Order(2)
+		@DisplayName("異常系：BadRequestExceptionをthrowする")
+		void addFavorite_BadRequestException() {
+			assertTrue(false);
+		}
+		
+		@Test
+		@Order(3)
+		@DisplayName("異常系：RegistFailureExceptionをthrowする")
+		void addFavorite_RegistFailureException() {
 			assertTrue(false);
 		}
 	}
@@ -31,37 +45,25 @@ public class AccountControllerTest {
 	@Nested
 	@Order(2)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class account_setting {
+	class deleteFavorite {
 		@Test
 		@Order(1)
-		@DisplayName("正常系：生年月日が1900/01/01の場合")
-		void account_setting_birthdate_is_19000101() {
+		@DisplayName("正常系")
+		void deleteFavorite_success() {
 			assertTrue(false);
 		}
 		
 		@Test
 		@Order(2)
-		@DisplayName("正常系：生年月日が1900/01/01以外の場合")
-		void account_setting_birthdate_is_not_19000101() {
+		@DisplayName("異常系：BadRequestExceptionをthrowする")
+		void deleteFavorite_BadRequestException() {
 			assertTrue(false);
 		}
 		
 		@Test
 		@Order(3)
-		@DisplayName("正常系：ForbiddenAccountExceptionをthrowする")
-		void account_setting_ForbiddenAccountException() {
-			assertTrue(false);
-		}
-	}
-	
-	@Nested
-	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class account_list {
-		@Test
-		@Order(1)
-		@DisplayName("正常系")
-		void account_list_success() {
+		@DisplayName("異常系：UpdateFailureExceptionをthrowする")
+		void deleteFavorite_UpdateFailureException() {
 			assertTrue(false);
 		}
 	}
