@@ -2,6 +2,12 @@ package com.web.gallary.mapper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Nested;
@@ -11,9 +17,10 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+
+import com.web.gallary.entity.KbnMst;
 
 @MybatisTest
 @ActiveProfiles("test")
@@ -22,9 +29,6 @@ public class KbmMstMapperTest {
 	@Autowired
 	private KbnMstMapper kbnMstMapper;
 	
-	@Autowired
-    private JdbcTemplate jdbcTemplate;
-	
 	@Nested
 	@Order(1)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -32,100 +36,639 @@ public class KbmMstMapperTest {
 	class select {
 		@Test
 		@Order(1)
-		@DisplayName("正常系：区分クラスコードでのselectで1件の場合")
+		@DisplayName("正常系：区分クラスコードでのselectで1件以上の場合")
 		void select_by_kbnClassCode() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnClassCode("sex").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst1 = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("man")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(1)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("男性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("man")
+					.explanation("")
+					.build();
+			
+			KbnMst expectedKbnMst2 = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("woman")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(2)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("女性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("woman")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst1);
+			expectedKbnMstList.add(expectedKbnMst2);
+			
+			assertEquals(selectedKbnMstList.size(), 2);
+			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
 		@Order(2)
-		@DisplayName("正常系：区分コードでのselectで1件の場合")
+		@DisplayName("正常系：区分コードでのselectで1件以上の場合")
 		void select_by_kbnCode() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnCode("man").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("man")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(1)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("男性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("man")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst);
+			
+			assertEquals(selectedKbnMstList.size(), 1);
+			assertEquals(selectedKbnMstList, expectedKbnMstList);
 		}
 		
 		@Test
 		@Order(3)
 		@DisplayName("正常系：並び順でのselectで1件の場合")
 		void select_by_sortOrder() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().sortOrder(47).build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Okinawa")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(47)
+					.kbnGroupCode("Kyushu_Okinawa")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("九州・沖縄")
+					.kbnJapaneseName("沖縄")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Kyushu_Okinawa")
+					.kbnEnglishName("Okinawa")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst);
+			
+			assertEquals(selectedKbnMstList.size(), 1);
+			assertEquals(selectedKbnMstList, expectedKbnMstList);
 		}
 		
 		@Test
 		@Order(4)
 		@DisplayName("正常系：区分グループコードでのselectで1件の場合")
 		void select_by_kbnGroupCode() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnGroupCode("Shikoku").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst1 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Tokushima")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(36)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("徳島")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Tokushima")
+					.explanation("")
+					.build();
+			KbnMst expectedKbnMst2 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Kagawa")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(37)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("香川")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Kagawa")
+					.explanation("")
+					.build();
+			KbnMst expectedKbnMst3 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Ehime")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(38)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("愛媛")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Ehime")
+					.explanation("")
+					.build();
+			KbnMst expectedKbnMst4 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Kochi")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(39)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("高知")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Kochi")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst1);
+			expectedKbnMstList.add(expectedKbnMst2);
+			expectedKbnMstList.add(expectedKbnMst3);
+			expectedKbnMstList.add(expectedKbnMst4);
+			
+			assertEquals(selectedKbnMstList.size(), 4);
+			assertEquals(selectedKbnMstList, expectedKbnMstList);
 		}
 		
 		@Test
 		@Order(5)
 		@DisplayName("正常系：区分クラス日本語名でのselectで1件の場合")
 		void select_by_kbnClassJapaneseName() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnClassJapaneseName("性別").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst1 = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("man")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(1)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("男性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("man")
+					.explanation("")
+					.build();
+			
+			KbnMst expectedKbnMst2 = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("woman")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(2)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("女性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("woman")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst1);
+			expectedKbnMstList.add(expectedKbnMst2);
+			
+			assertEquals(selectedKbnMstList.size(), 2);
+			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
 		@Order(6)
 		@DisplayName("正常系：区分グループ日本語名でのselectで1件の場合")
 		void select_by_kbnGroupJapaneseName() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnGroupJapaneseName("四国").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst1 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Tokushima")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(36)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("徳島")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Tokushima")
+					.explanation("")
+					.build();
+			KbnMst expectedKbnMst2 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Kagawa")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(37)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("香川")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Kagawa")
+					.explanation("")
+					.build();
+			KbnMst expectedKbnMst3 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Ehime")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(38)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("愛媛")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Ehime")
+					.explanation("")
+					.build();
+			KbnMst expectedKbnMst4 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Kochi")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(39)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("高知")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Kochi")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst1);
+			expectedKbnMstList.add(expectedKbnMst2);
+			expectedKbnMstList.add(expectedKbnMst3);
+			expectedKbnMstList.add(expectedKbnMst4);
+			
+			assertEquals(selectedKbnMstList.size(), 4);
+			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
 		@Order(7)
 		@DisplayName("正常系：区分日本語名でのselectで1件の場合")
 		void select_by_kbnJapaneseName() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnJapaneseName("男性").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("man")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(1)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("男性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("man")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst);
+			
+			assertEquals(selectedKbnMstList.size(), 1);
+			assertEquals(selectedKbnMstList, expectedKbnMstList);
 		}
 		
 		@Test
 		@Order(8)
 		@DisplayName("正常系：区分クラス英語名でのselectで1件の場合")
 		void select_by_kbnClassEnglishName() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnClassEnglishName("sex").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst1 = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("man")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(1)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("男性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("man")
+					.explanation("")
+					.build();
+			
+			KbnMst expectedKbnMst2 = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("woman")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(2)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("女性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("woman")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst1);
+			expectedKbnMstList.add(expectedKbnMst2);
+			
+			assertEquals(selectedKbnMstList.size(), 2);
+			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
 		@Order(9)
 		@DisplayName("正常系：区分グループ英語名でのselectで1件の場合")
 		void select_by_kbnGroupEnglishName() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnGroupEnglishName("Shikoku").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst1 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Tokushima")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(36)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("徳島")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Tokushima")
+					.explanation("")
+					.build();
+			KbnMst expectedKbnMst2 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Kagawa")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(37)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("香川")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Kagawa")
+					.explanation("")
+					.build();
+			KbnMst expectedKbnMst3 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Ehime")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(38)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("愛媛")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Ehime")
+					.explanation("")
+					.build();
+			KbnMst expectedKbnMst4 = KbnMst.builder()
+					.kbnClassCode("prefecture")
+					.kbnCode("Kochi")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(39)
+					.kbnGroupCode("Shikoku")
+					.kbnClassJapaneseName("都道府県")
+					.kbnGroupJapaneseName("四国")
+					.kbnJapaneseName("高知")
+					.kbnClassEnglishName("prefecture")
+					.kbnGroupEnglishName("Shikoku")
+					.kbnEnglishName("Kochi")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst1);
+			expectedKbnMstList.add(expectedKbnMst2);
+			expectedKbnMstList.add(expectedKbnMst3);
+			expectedKbnMstList.add(expectedKbnMst4);
+			
+			assertEquals(selectedKbnMstList.size(), 4);
+			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
 		@Order(10)
 		@DisplayName("正常系：区分英語名でのselectで1件の場合")
 		void select_by_kbnEnglishName() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnEnglishName("man").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("man")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(1)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("男性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("man")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst);
+			
+			assertEquals(selectedKbnMstList.size(), 1);
+			assertEquals(selectedKbnMstList, expectedKbnMstList);
 		}
 		
 		@Test
 		@Order(11)
 		@DisplayName("正常系：説明でのselectで1件の場合")
 		void select_by_explanation() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().explanation("サイトを管理・運営する人").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst = KbnMst.builder()
+					.kbnClassCode("authority")
+					.kbnCode("administrator")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(3)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("権限")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("管理者")
+					.kbnClassEnglishName("authority")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("administrator")
+					.explanation("サイトを管理・運営する人")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst);
+			
+			assertEquals(selectedKbnMstList.size(), 1);
+			assertEquals(selectedKbnMstList, expectedKbnMstList);
 		}
 		
 		@Test
 		@Order(12)
 		@DisplayName("正常系：selectで0件の場合")
 		void select_not_found() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnCode("superman").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			
+			assertEquals(selectedKbnMstList.size(), 0);
+			assertEquals(selectedKbnMstList, expectedKbnMstList);
 		}
 		
 		@Test
 		@Order(13)
 		@DisplayName("正常系：selectで2件以上の場合")
 		void select_kbnMsts() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder().kbnClassCode("sex").build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst1 = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("man")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(1)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("男性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("man")
+					.explanation("")
+					.build();
+			
+			KbnMst expectedKbnMst2 = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("woman")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(2)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("女性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("woman")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst1);
+			expectedKbnMstList.add(expectedKbnMst2);
+			
+			assertEquals(selectedKbnMstList.size(), 2);
+			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
 		@Order(14)
 		@DisplayName("正常系：複数の条件でselectする場合")
 		void select_some_conditions() {
-			assertTrue(false);
+			KbnMst kbnMst = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("man")
+					.build();
+			
+			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			
+			KbnMst expectedKbnMst1 = KbnMst.builder()
+					.kbnClassCode("sex")
+					.kbnCode("man")
+					.createdBy(0)
+					.createdAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
+					.sortOrder(1)
+					.kbnGroupCode("")
+					.kbnClassJapaneseName("性別")
+					.kbnGroupJapaneseName("")
+					.kbnJapaneseName("男性")
+					.kbnClassEnglishName("sex")
+					.kbnGroupEnglishName("")
+					.kbnEnglishName("man")
+					.explanation("")
+					.build();
+			
+			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			expectedKbnMstList.add(expectedKbnMst1);
+			
+			assertEquals(selectedKbnMstList.size(), 1);
+			assertEquals(selectedKbnMstList, expectedKbnMstList);
 		}
 	}
 }

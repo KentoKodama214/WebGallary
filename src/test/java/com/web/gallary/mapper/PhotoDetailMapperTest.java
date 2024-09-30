@@ -11,7 +11,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -21,9 +20,6 @@ import org.springframework.test.context.jdbc.Sql;
 public class PhotoDetailMapperTest {
 	@Autowired
 	private PhotoDetailMapper photoDetailMapper;
-	
-	@Autowired
-    private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)

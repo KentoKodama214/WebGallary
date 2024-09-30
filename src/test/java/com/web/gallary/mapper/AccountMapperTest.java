@@ -28,7 +28,6 @@ import com.web.gallary.entity.Account;
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AccountMapperTest {
-	
 	@Autowired
 	private AccountMapper accountMapper;
 	
