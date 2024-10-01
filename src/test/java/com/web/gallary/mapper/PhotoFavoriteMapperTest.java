@@ -1,6 +1,10 @@
 package com.web.gallary.mapper;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.OffsetDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -15,6 +19,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
+import com.web.gallary.entity.PhotoFavorite;
+
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -27,13 +33,33 @@ public class PhotoFavoriteMapperTest {
 	
 	@Nested
 	@Order(1)
+	@Sql("/sql/PhotoFavoriteMapperTest.sql")
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class insert {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：登録成功")
 		void insert_success() {
-			assertTrue(false);
+			PhotoFavorite insertPhotoFavorite = PhotoFavorite.builder()
+					.accountNo(1)
+					.favoritePhotoAccountNo(2)
+					.favoritePhotoNo(1)
+					.createdBy(1)
+					.build();
+			
+			Integer insertCount = photoFavoriteMapper.insert(insertPhotoFavorite);
+			assertThat(insertCount).isEqualTo(1);
+			
+			List<PhotoFavorite> expectedPhotoFavoriteList = jdbcTemplate.query(
+					"SELECT * FROM photo.photo_favorite WHERE account_no=1 and favorite_photo_account_no=2 and favorite_photo_no=1", (rs, rowNum) ->
+						PhotoFavorite.builder()
+							.accountNo(rs.getInt("account_no"))
+							.favoritePhotoAccountNo(rs.getInt("favorite_photo_account_no"))
+							.favoritePhotoNo(rs.getInt("favorite_photo_no"))
+							.createdBy(rs.getInt("created_by"))
+							.createdAt(rs.getObject("created_at", OffsetDateTime.class))
+							.build());
+			assertEquals(1, expectedPhotoFavoriteList.size());
 		}
 	}
 	
@@ -46,42 +72,49 @@ public class PhotoFavoriteMapperTest {
 		@Order(1)
 		@DisplayName("正常系：アカウント番号でのdelete")
 		void delete_by_accountNo() {
-			assertTrue(false);
+			PhotoFavorite deletePhotoFavorite = PhotoFavorite.builder().accountNo(1).build();
+			Integer deleteCount = photoFavoriteMapper.delete(deletePhotoFavorite);
+			assertEquals(deleteCount, 2);
 		}
 		
 		@Test
 		@Order(2)
 		@DisplayName("正常系：お気に入り写真アカウント番号でのdelete")
 		void delete_by_favoritePhotoAccountNo() {
-			assertTrue(false);
+			PhotoFavorite deletePhotoFavorite = PhotoFavorite.builder().favoritePhotoAccountNo(1).build();
+			Integer deleteCount = photoFavoriteMapper.delete(deletePhotoFavorite);
+			assertEquals(deleteCount, 3);
 		}
 		
 		@Test
 		@Order(3)
 		@DisplayName("正常系：お気に入り写真番号でのdelete")
 		void delete_by_favoritePhotoNo() {
-			assertTrue(false);
+			PhotoFavorite deletePhotoFavorite = PhotoFavorite.builder().favoritePhotoNo(1).build();
+			Integer deleteCount = photoFavoriteMapper.delete(deletePhotoFavorite);
+			assertEquals(deleteCount, 2);
 		}
 		
 		@Test
 		@Order(4)
 		@DisplayName("正常系：削除対象のレコードなし")
 		void delete_not_found() {
-			assertTrue(false);
+			PhotoFavorite deletePhotoFavorite = PhotoFavorite.builder().accountNo(3).build();
+			Integer deleteCount = photoFavoriteMapper.delete(deletePhotoFavorite);
+			assertEquals(deleteCount, 0);
 		}
 		
 		@Test
 		@Order(5)
-		@DisplayName("正常系：deleteで2件以上の場合")
-		void delete_PhotoFavorites() {
-			assertTrue(false);
-		}
-		
-		@Test
-		@Order(6)
 		@DisplayName("正常系：複数の条件でdeleteする場合")
 		void delete_some_conditions() {
-			assertTrue(false);
+			PhotoFavorite deletePhotoFavorite = PhotoFavorite.builder()
+					.accountNo(1)
+					.favoritePhotoAccountNo(1)
+					.favoritePhotoNo(1)
+					.build();
+			Integer deleteCount = photoFavoriteMapper.delete(deletePhotoFavorite);
+			assertEquals(deleteCount, 1);
 		}
 	}
 }

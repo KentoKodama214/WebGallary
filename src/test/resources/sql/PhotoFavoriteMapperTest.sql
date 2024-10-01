@@ -5,8 +5,8 @@ insert into common.account values(2,  2,  '2000-01-02 09:00:00 Asia/Tokyo', 2,  
 -- photo.photo_mst
 insert into photo.photo_mst values(1, 1, 1, now(), 1, now(), false, '2021-01-01 00:00:00', 1, 'https://www.xxx.com/DSC111.jpg', 'タイトル1', '', 'キャプション1', 'horizontal', 24, 8.0, 5, 100);
 insert into photo.photo_mst values(1, 2, 1, now(), 1, now(), false, '2021-02-01 00:00:00', 1, 'https://www.xxx.com/DSC222.jpg', 'タイトル2', '', 'キャプション2', 'horizontal', 24, 8.0, 5, 100);
-insert into photo.photo_mst values(2, 1, 1, now(), 1, now(), false, '2021-01-01 00:00:00', 1, 'https://www.xxx.com/DSC111.jpg', 'タイトル1', '', 'キャプション1', 'horizontal', 24, 8.0, 5, 100);
-insert into photo.photo_mst values(2, 2, 1, now(), 1, now(), false, '2021-02-01 00:00:00', 1, 'https://www.xxx.com/DSC222.jpg', 'タイトル2', '', 'キャプション2', 'horizontal', 24, 8.0, 5, 100);
+insert into photo.photo_mst values(2, 1, 1, now(), 1, now(), false, '2021-01-01 00:00:00', 1, 'https://www.xxx.com/DSC333.jpg', 'タイトル1', '', 'キャプション3', 'horizontal', 24, 8.0, 5, 100);
+insert into photo.photo_mst values(2, 2, 1, now(), 1, now(), false, '2021-02-01 00:00:00', 1, 'https://www.xxx.com/DSC444.jpg', 'タイトル2', '', 'キャプション4', 'horizontal', 24, 8.0, 5, 100);
 
 -- photo.photo_favorite
 insert into photo.photo_favorite values(1, 1, 1, 1, now());
