@@ -33,7 +33,7 @@ public class PhotoFavoriteMapperTest {
 	
 	@Nested
 	@Order(1)
-	@Sql("/sql/PhotoFavoriteMapperTest.sql")
+	@Sql("/sql/mapper/PhotoFavoriteMapperTest.sql")
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class insert {
 		@Test
@@ -66,7 +66,7 @@ public class PhotoFavoriteMapperTest {
 	@Nested
 	@Order(2)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	@Sql("/sql/PhotoFavoriteMapperTest.sql")
+	@Sql("/sql/mapper/PhotoFavoriteMapperTest.sql")
 	class delete {
 		@Test
 		@Order(1)

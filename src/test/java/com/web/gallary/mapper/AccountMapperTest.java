@@ -37,7 +37,7 @@ public class AccountMapperTest {
 	@Nested
 	@Order(1)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	@Sql("/sql/AccountMapperTest.sql")
+	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class select {
 		@Test
 		@Order(1)
@@ -592,7 +592,7 @@ public class AccountMapperTest {
 	@Nested
 	@Order(2)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	@Sql("/sql/AccountMapperTest.sql")
+	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class count {
 		@Test
 		@Order(1)
@@ -754,7 +754,7 @@ public class AccountMapperTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：登録成功")
-		@Sql("/sql/ResetAccountNoSeq.sql")
+		@Sql("/sql/mapper/ResetAccountNoSeq.sql")
 		void insert_success() {
 			Account insertAccount = Account.builder()
 					.accountNo(1)
@@ -808,7 +808,7 @@ public class AccountMapperTest {
 	@Nested
 	@Order(4)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	@Sql("/sql/AccountMapperTest.sql")
+	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class update {
 		@Test
 		@Order(1)
@@ -982,7 +982,7 @@ public class AccountMapperTest {
 	@Nested
 	@Order(5)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	@Sql("/sql/AccountMapperTest.sql")
+	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class delete {
 		@Test
 		@Order(1)
@@ -1140,7 +1140,7 @@ public class AccountMapperTest {
 	@Nested
 	@Order(6)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	@Sql("/sql/AccountMapperTest.sql")
+	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class isExistAccount {
 		@Test
 		@Order(1)

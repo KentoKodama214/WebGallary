@@ -24,7 +24,7 @@ public class PhotoDetailMapperTest {
 	@Nested
 	@Order(1)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	@Sql("/sql/PhotoDetailMapperTest.sql")
+	@Sql("/sql/mapper/PhotoDetailMapperTest.sql")
 	class getPhotoList {
 		@Test
 		@Order(1)
@@ -43,7 +43,7 @@ public class PhotoDetailMapperTest {
 	@Nested
 	@Order(2)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	@Sql("/sql/PhotoDetailMapperTest.sql")
+	@Sql("/sql/mapper/PhotoDetailMapperTest.sql")
 	class getPhotoDetail {
 		@Test
 		@Order(1)
