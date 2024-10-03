@@ -102,8 +102,8 @@ public class PhotoDetailMapperTest {
 			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getPhotoAt());
 			assertEquals(1, actual.getLocationNo());
 			assertEquals("住所1", actual.getAddress());
-			assertTrue(BigDecimal.valueOf(38.1).compareTo(actual.getLatitude()) == 0);
-			assertTrue(BigDecimal.valueOf(115.1).compareTo(actual.getLongitude()) == 0);
+			assertEquals(BigDecimal.valueOf(38.1).compareTo(actual.getLatitude()), 0);
+			assertEquals(BigDecimal.valueOf(115.1).compareTo(actual.getLongitude()), 0);
 			assertEquals("ロケーション1", actual.getLocationName());
 			assertEquals("https://www.xxx.com/DSC111.jpg", actual.getImageFilePath());
 			assertEquals("タイトル11", actual.getPhotoJapaneseTitle());
@@ -111,8 +111,8 @@ public class PhotoDetailMapperTest {
 			assertEquals("キャプション11", actual.getCaption());
 			assertEquals("vertical", actual.getDirectionKbnCode());
 			assertEquals(24, actual.getFocalLength());
-			assertTrue(BigDecimal.valueOf(8.0).compareTo(actual.getFValue()) == 0);
-			assertTrue(BigDecimal.valueOf(1).compareTo(actual.getShutterSpeed()) == 0);
+			assertEquals(BigDecimal.valueOf(8.0).compareTo(actual.getFValue()), 0);
+			assertEquals(BigDecimal.valueOf(1).compareTo(actual.getShutterSpeed()), 0);
 			assertEquals(100, actual.getIso());
 		}
 		@Test
