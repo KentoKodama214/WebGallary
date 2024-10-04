@@ -1,6 +1,5 @@
 package com.web.gallary.mapper;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
@@ -44,7 +43,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：アカウント番号でのselectで1件の場合")
 		void select_by_accountNo() {
 			Account account = Account.builder().accountNo(1).build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(1)
@@ -66,11 +65,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -78,7 +77,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：削除フラグでのselectで1件の場合")
 		void select_by_isDeleted() {
 			Account account = Account.builder().isDeleted(true).build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 		
 			Account expectedAccount = Account.builder()
 					.accountNo(9)
@@ -100,11 +99,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -112,7 +111,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：アカウントIDでのselectで1件の場合")
 		void select_by_accountId() {
 			Account account = Account.builder().accountId("aaaaaaaa").build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(1)
@@ -134,11 +133,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -146,7 +145,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：アカウント名でのselectで1件の場合")
 		void select_by_accountName() {
 			Account account = Account.builder().accountName("AAAAAAAA").build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(1)
@@ -168,11 +167,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -180,7 +179,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：パスワードでのselectで1件の場合")
 		void select_by_password() {
 			Account account = Account.builder().password("$2a$10$password1").build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(1)
@@ -202,11 +201,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -214,7 +213,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：生年月日でのselectで1件の場合")
 		void select_by_birthdate() {
 			Account account = Account.builder().birthdate(LocalDate.of(1991, 2, 14)).build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(1)
@@ -236,11 +235,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -248,7 +247,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：性別区分コードでのselectで1件の場合")
 		void select_by_sexKbnCode() {
 			Account account = Account.builder().sexKbnCode("man").build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(2)
@@ -270,11 +269,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -282,7 +281,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：出身都道府県区分コードでのselectで1件の場合")
 		void select_by_birthplacePrefectureKbnCode() {
 			Account account = Account.builder().birthplacePrefectureKbnCode("Hokkaido").build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(3)
@@ -304,11 +303,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -316,7 +315,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：在住都道府県区分コードでのselectで1件の場合")
 		void select_by_residentPrefectureKbnCode() {
 			Account account = Account.builder().residentPrefectureKbnCode("Okinawa").build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(4)
@@ -338,11 +337,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -350,7 +349,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：フリーメモでのselectで1件の場合")
 		void select_by_freeMemo() {
 			Account account = Account.builder().freeMemo("フリーメモ").build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(5)
@@ -372,11 +371,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -384,7 +383,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：権限区分コードでのselectで1件の場合")
 		void select_by_authorityKbnCode() {
 			Account account = Account.builder().authorityKbnCode("mini-user").build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(6)
@@ -406,11 +405,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -418,7 +417,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：最終ログイン日時でのselectで1件の場合")
 		void select_by_lastLoginDatetime() {
 			Account account = Account.builder().lastLoginDatetime(OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0))).build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(7)
@@ -440,11 +439,11 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -452,7 +451,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：ログイン失敗回数でのselectで1件の場合")
 		void select_by_loginFailureCount() {
 			Account account = Account.builder().loginFailureCount(2).build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
 					.accountNo(8)
@@ -474,11 +473,11 @@ public class AccountMapperTest {
 					.loginFailureCount(2)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -486,11 +485,11 @@ public class AccountMapperTest {
 		@DisplayName("正常系：selectで0件の場合")
 		void select_not_found() {
 			Account account = Account.builder().accountNo(99).build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
-			List<Account> expectedAccoutList = new ArrayList<Account>();
+			List<Account> actual = accountMapper.select(account);
+			List<Account> expected = new ArrayList<Account>();
 			
-			assertEquals(selectedAccoutList.size(), 0);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(0, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -498,7 +497,7 @@ public class AccountMapperTest {
 		@DisplayName("正常系：selectで2件以上の場合")
 		void select_accounts() {
 			Account account = Account.builder().authorityKbnCode("special-user").build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount1 = Account.builder()
 					.accountNo(9)
@@ -540,12 +539,12 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount1);
-			expectedAccoutList.add(expectedAccount2);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount1);
+			expected.add(expectedAccount2);
 			
-			assertEquals(selectedAccoutList.size(), 2);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(2, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -559,7 +558,7 @@ public class AccountMapperTest {
 					.residentPrefectureKbnCode("Tokyo")
 					.freeMemo("よろしく")
 					.build();
-			List<Account> selectedAccoutList = accountMapper.select(account);
+			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount1 = Account.builder()
 					.accountNo(12)
@@ -581,11 +580,11 @@ public class AccountMapperTest {
 					.loginFailureCount(3)
 					.build();
 			
-			List<Account> expectedAccoutList = new ArrayList<Account>();
-			expectedAccoutList.add(expectedAccount1);
+			List<Account> expected = new ArrayList<Account>();
+			expected.add(expectedAccount1);
 			
-			assertEquals(selectedAccoutList.size(), 1);
-			assertEquals(selectedAccoutList, expectedAccoutList);
+			assertEquals(1, actual.size());
+			assertEquals(expected, actual);
 		}
 	}
 
@@ -599,8 +598,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：アカウント番号でのcount")
 		void count_by_accountNo() {
 			Account account = Account.builder().accountNo(1).build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -608,8 +607,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：削除フラグでのcount")
 		void count_by_isDeleted() {
 			Account account = Account.builder().isDeleted(true).build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -617,8 +616,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：アカウントIDでのcount")
 		void count_by_accountId() {
 			Account account = Account.builder().accountId("aaaaaaaa").build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -626,8 +625,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：アカウント名でのcount")
 		void count_by_accountName() {
 			Account account = Account.builder().accountName("AAAAAAAA").build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -635,8 +634,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：パスワードでのcount")
 		void count_by_password() {
 			Account account = Account.builder().password("$2a$10$password1").build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -644,8 +643,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：生年月日でのcount")
 		void count_by_birthdate() {
 			Account account = Account.builder().birthdate(LocalDate.of(1991, 2, 14)).build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -653,8 +652,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：性別区分コードでのcount")
 		void count_by_sexKbnCode() {
 			Account account = Account.builder().sexKbnCode("man").build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -662,8 +661,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：出身都道府県区分コードでのcount")
 		void count_by_birthplacePrefectureKbnCode() {
 			Account account = Account.builder().birthplacePrefectureKbnCode("Hokkaido").build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -671,8 +670,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：在住都道府県区分コードでのcount")
 		void count_by_residentPrefectureKbnCode() {
 			Account account = Account.builder().residentPrefectureKbnCode("Okinawa").build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -680,8 +679,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：フリーメモでのcount")
 		void count_by_freeMemo() {
 			Account account = Account.builder().freeMemo("フリーメモ").build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -689,8 +688,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：権限区分コードでのcount")
 		void count_by_authorityKbnCode() {
 			Account account = Account.builder().authorityKbnCode("mini-user").build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -700,8 +699,8 @@ public class AccountMapperTest {
 			Account account = Account.builder()
 					.lastLoginDatetime(OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -709,8 +708,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：ログイン失敗回数でのcount")
 		void count_by_loginFailureCount() {
 			Account account = Account.builder().loginFailureCount(2).build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -718,8 +717,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：countで0件の場合")
 		void count_not_found() {
 			Account account = Account.builder().accountNo(99).build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 0);
+			Integer actual = accountMapper.count(account);
+			assertEquals(0, actual);
 		}
 		
 		@Test
@@ -727,8 +726,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：countで2件以上の場合")
 		void count_accounts() {
 			Account account = Account.builder().authorityKbnCode("special-user").build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 2);
+			Integer actual = accountMapper.count(account);
+			assertEquals(2, actual);
 		}
 		
 		@Test
@@ -742,8 +741,8 @@ public class AccountMapperTest {
 					.residentPrefectureKbnCode("Tokyo")
 					.freeMemo("よろしく")
 					.build();
-			Integer count = accountMapper.count(account);
-			assertEquals(count, 1);
+			Integer actual = accountMapper.count(account);
+			assertEquals(1, actual);
 		}
 	}
 	
@@ -776,10 +775,10 @@ public class AccountMapperTest {
 					.loginFailureCount(0)
 					.build();
 			
-			Integer insertCount = accountMapper.insert(insertAccount);
-			assertThat(insertCount).isEqualTo(1);
+			Integer actualCount = accountMapper.insert(insertAccount);
+			assertEquals(1, actualCount);
 			
-			List<Account> expectedAccountList = jdbcTemplate.query(
+			List<Account> actualData = jdbcTemplate.query(
 					"SELECT * FROM common.account", (rs, rowNum) ->
 						Account.builder()
 							.accountNo(rs.getInt("account_no"))
@@ -801,7 +800,7 @@ public class AccountMapperTest {
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
 			
-			assertEquals(1, expectedAccountList.size());
+			assertEquals(actualData.size(), 1);
 		}
 	}
 	
@@ -816,8 +815,8 @@ public class AccountMapperTest {
 		void update_by_accountNo() {
 			Account conditionAccount = Account.builder().accountNo(1).build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -826,8 +825,8 @@ public class AccountMapperTest {
 		void update_by_isDeleted() {
 			Account conditionAccount = Account.builder().isDeleted(true).build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -836,8 +835,8 @@ public class AccountMapperTest {
 		void update_by_accountId() {
 			Account conditionAccount = Account.builder().accountId("aaaaaaaa").build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -846,8 +845,8 @@ public class AccountMapperTest {
 		void update_by_accountName() {
 			Account conditionAccount = Account.builder().accountName("AAAAAAAA").build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -856,8 +855,8 @@ public class AccountMapperTest {
 		void update_by_password() {
 			Account conditionAccount = Account.builder().password("$2a$10$password1").build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -866,8 +865,8 @@ public class AccountMapperTest {
 		void update_by_birthdate() {
 			Account conditionAccount = Account.builder().birthdate(LocalDate.of(1991, 2, 14)).build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -876,8 +875,8 @@ public class AccountMapperTest {
 		void update_by_sexKbnCode() {
 			Account conditionAccount = Account.builder().sexKbnCode("man").build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -886,8 +885,8 @@ public class AccountMapperTest {
 		void update_by_birthplacePrefectureKbnCode() {
 			Account conditionAccount = Account.builder().birthplacePrefectureKbnCode("Hokkaido").build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -896,8 +895,8 @@ public class AccountMapperTest {
 		void update_by_residentPrefectureKbnCode() {
 			Account conditionAccount = Account.builder().residentPrefectureKbnCode("Okinawa").build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -906,8 +905,8 @@ public class AccountMapperTest {
 		void update_by_freeMemo() {
 			Account conditionAccount = Account.builder().freeMemo("フリーメモ").build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -916,8 +915,8 @@ public class AccountMapperTest {
 		void update_by_authorityKbnCode() {
 			Account conditionAccount = Account.builder().authorityKbnCode("mini-user").build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -928,8 +927,8 @@ public class AccountMapperTest {
 					.lastLoginDatetime(OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -938,8 +937,8 @@ public class AccountMapperTest {
 		void update_by_loginFailureCounte() {
 			Account conditionAccount = Account.builder().loginFailureCount(2).build();
 			Account targetAccount = Account.builder().loginFailureCount(0).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -948,8 +947,8 @@ public class AccountMapperTest {
 		void update_not_found() {
 			Account conditionAccount = Account.builder().accountNo(99).build();
 			Account targetAccount = Account.builder().loginFailureCount(0).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(0);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(0, actual);
 		}
 		
 		@Test
@@ -958,8 +957,8 @@ public class AccountMapperTest {
 		void update_accounts() {
 			Account conditionAccount = Account.builder().authorityKbnCode("special-user").build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(2);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(2, actual);
 		}
 		
 		@Test
@@ -974,8 +973,8 @@ public class AccountMapperTest {
 					.freeMemo("よろしく")
 					.build();
 			Account targetAccount = Account.builder().loginFailureCount(0).build();
-			Integer count = accountMapper.update(conditionAccount, targetAccount);
-			assertThat(count).isEqualTo(1);
+			Integer actual = accountMapper.update(conditionAccount, targetAccount);
+			assertEquals(1, actual);
 		}
 	}
 	
@@ -989,8 +988,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：アカウント番号でのdelete")
 		void delete_by_accountNo() {
 			Account deleteAccount = Account.builder().accountNo(1).build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -998,8 +997,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：削除フラグでのdelete")
 		void delete_by_isDeleted() {
 			Account deleteAccount = Account.builder().isDeleted(true).build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1007,8 +1006,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：アカウントIDでのdelete")
 		void delete_by_accountId() {
 			Account deleteAccount = Account.builder().accountId("aaaaaaaa").build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1016,8 +1015,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：アカウント名でのdelete")
 		void delete_by_accountName() {
 			Account deleteAccount = Account.builder().accountName("AAAAAAAA").build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1025,8 +1024,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：パスワードでのdelete")
 		void delete_by_password() {
 			Account deleteAccount = Account.builder().password("$2a$10$password1").build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1034,8 +1033,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：生年月日でのdelete")
 		void delete_by_birthdate() {
 			Account deleteAccount = Account.builder().birthdate(LocalDate.of(1991, 2, 14)).build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1043,8 +1042,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：性別区分コードでのdelete")
 		void delete_by_sexKbnCode() {
 			Account deleteAccount = Account.builder().sexKbnCode("man").build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1052,8 +1051,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：出身都道府県区分コードでのdelete")
 		void delete_by_birthplacePrefectureKbnCode() {
 			Account deleteAccount = Account.builder().birthplacePrefectureKbnCode("Hokkaido").build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1061,8 +1060,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：在住都道府県区分コードでのdelete")
 		void delete_by_residentPrefectureKbnCode() {
 			Account deleteAccount = Account.builder().residentPrefectureKbnCode("Okinawa").build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1070,8 +1069,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：フリーメモでのdelete")
 		void delete_by_freeMemo() {
 			Account deleteAccount = Account.builder().freeMemo("フリーメモ").build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1079,8 +1078,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：権限区分コードでのdelete")
 		void delete_by_authorityKbnCode() {
 			Account deleteAccount = Account.builder().authorityKbnCode("mini-user").build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1090,8 +1089,8 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder()
 					.lastLoginDatetime(OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1099,8 +1098,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：ログイン失敗回数でのdelete")
 		void delete_by_loginFailureCount() {
 			Account deleteAccount = Account.builder().loginFailureCount(2).build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -1108,8 +1107,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：削除対象のレコードなし")
 		void delete_not_found() {
 			Account deleteAccount = Account.builder().accountNo(99).build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 0);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(0, actual);
 		}
 		
 		@Test
@@ -1117,8 +1116,8 @@ public class AccountMapperTest {
 		@DisplayName("正常系：2件以上deleteする場合")
 		void delete_accounts() {
 			Account deleteAccount = Account.builder().authorityKbnCode("special-user").build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 2);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(2, actual);
 		}
 		
 		@Test
@@ -1132,8 +1131,8 @@ public class AccountMapperTest {
 					.residentPrefectureKbnCode("Tokyo")
 					.freeMemo("よろしく")
 					.build();
-			Integer deleteCount = accountMapper.delete(deleteAccount);
-			assertEquals(deleteCount, 1);
+			Integer actual = accountMapper.delete(deleteAccount);
+			assertEquals(1, actual);
 		}
 	}
 	

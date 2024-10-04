@@ -1,6 +1,5 @@
 package com.web.gallary.mapper;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
@@ -43,8 +42,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：アカウント番号でのcountで1件の場合")
 		void count_by_accountNo() {
 			PhotoMst photoMst = PhotoMst.builder().accountNo(1).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 3);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(3, actual);
 		}
 		
 		@Test
@@ -52,8 +51,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：写真番号でのcountで1件の場合")
 		void count_by_photoNo() {
 			PhotoMst photoMst = PhotoMst.builder().photoNo(1).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 2);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(2, actual);
 		}
 		
 		@Test
@@ -61,8 +60,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：削除フラグでのcountで1件の場合")
 		void count_by_isDeleted() {
 			PhotoMst photoMst = PhotoMst.builder().isDeleted(true).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -71,8 +70,8 @@ public class PhotoMstMapperTest {
 		void count_by_photoAt() {
 			PhotoMst photoMst = PhotoMst.builder()
 					.photoAt(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0))).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -80,8 +79,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：ロケーション番号でのcountで1件の場合")
 		void count_by_locationNo() {
 			PhotoMst photoMst = PhotoMst.builder().locationNo(1).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -89,8 +88,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：画像ファイルパスでのcountで1件の場合")
 		void count_by_imageFilePath() {
 			PhotoMst photoMst = PhotoMst.builder().imageFilePath("https://www.xxx.com/DSC111.jpg").build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -98,8 +97,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：写真タイトル日本語でのcountで1件の場合")
 		void count_by_photoJapaneseTitle() {
 			PhotoMst photoMst = PhotoMst.builder().photoJapaneseTitle("タイトル11").build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -107,8 +106,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：写真タイトル英語でのcountで1件の場合")
 		void count_by_photoEnglishTitle() {
 			PhotoMst photoMst = PhotoMst.builder().photoEnglishTitle("title11").build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -116,8 +115,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：キャプションでのcountで1件の場合")
 		void count_by_caption() {
 			PhotoMst photoMst = PhotoMst.builder().caption("キャプション11").build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -125,8 +124,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：向き区分コードでのcountで1件の場合")
 		void count_by_directionKbnCode() {
 			PhotoMst photoMst = PhotoMst.builder().directionKbnCode("vertical").build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -134,8 +133,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：焦点距離でのcountで1件の場合")
 		void count_by_focalLength() {
 			PhotoMst photoMst = PhotoMst.builder().focalLength(24).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -143,8 +142,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：F値でのcountで1件の場合")
 		void count_by_fValue() {
 			PhotoMst photoMst = PhotoMst.builder().fValue(BigDecimal.valueOf(8.0)).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -152,8 +151,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：シャッタースピードでのcountで1件の場合")
 		void count_by_shutterSpeed() {
 			PhotoMst photoMst = PhotoMst.builder().shutterSpeed(BigDecimal.valueOf(1)).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -161,8 +160,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：ISOでのcountで1件の場合")
 		void count_by_iso() {
 			PhotoMst photoMst = PhotoMst.builder().iso(100).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -170,8 +169,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：countで0件の場合")
 		void count_not_found() {
 			PhotoMst photoMst = PhotoMst.builder().accountNo(100).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 0);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(0, actual);
 		}
 		
 		@Test
@@ -179,8 +178,8 @@ public class PhotoMstMapperTest {
 		@DisplayName("正常系：複数の条件でcountする場合")
 		void count_some_conditions() {
 			PhotoMst photoMst = PhotoMst.builder().accountNo(1).photoNo(1).build();
-			Integer count = photoMstMapper.count(photoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.count(photoMst);
+			assertEquals(1, actual);
 		}
 	}
 	
@@ -214,10 +213,10 @@ public class PhotoMstMapperTest {
 					.iso(100)
 					.build();
 			
-			Integer insertCount = photoMstMapper.insert(insertPhotoMst);
-			assertThat(insertCount).isEqualTo(1);
+			Integer actualCount = photoMstMapper.insert(insertPhotoMst);
+			assertEquals(1, actualCount);
 			
-			List<PhotoMst> expectedPhotoMstList = jdbcTemplate.query(
+			List<PhotoMst> actualData = jdbcTemplate.query(
 					"SELECT * FROM photo.photo_mst WHERE account_no=1 and photo_no=4", (rs, rowNum) ->
 						PhotoMst.builder()
 							.accountNo(rs.getInt("account_no"))
@@ -240,7 +239,7 @@ public class PhotoMstMapperTest {
 							.iso(rs.getInt("iso"))
 							.build());
 			
-			assertEquals(1, expectedPhotoMstList.size());
+			assertEquals(1, actualData.size());
 		}
 	}
 	
@@ -255,8 +254,8 @@ public class PhotoMstMapperTest {
 		void update_by_accountNo() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().accountNo(1).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 3);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(3, actual);
 		}
 		
 		@Test
@@ -265,8 +264,8 @@ public class PhotoMstMapperTest {
 		void update_by_photoNo() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().photoNo(1).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 2);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(2, actual);
 		}
 		
 		@Test
@@ -275,8 +274,8 @@ public class PhotoMstMapperTest {
 		void update_by_isDeleted() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().isDeleted(true).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -286,8 +285,8 @@ public class PhotoMstMapperTest {
 			PhotoMst conditionPhotoMst = PhotoMst.builder()
 					.photoAt(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0))).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -296,8 +295,8 @@ public class PhotoMstMapperTest {
 		void update_by_locationNo() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().locationNo(1).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -306,8 +305,8 @@ public class PhotoMstMapperTest {
 		void update_by_imageFilePath() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().imageFilePath("https://www.xxx.com/DSC111.jpg").build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -316,8 +315,8 @@ public class PhotoMstMapperTest {
 		void update_by_photoJapaneseTitle() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().photoJapaneseTitle("タイトル11").build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -326,8 +325,8 @@ public class PhotoMstMapperTest {
 		void update_by_photoEnglishTitle() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().photoEnglishTitle("title11").build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -336,8 +335,8 @@ public class PhotoMstMapperTest {
 		void update_by_caption() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().caption("キャプション11").build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -346,8 +345,8 @@ public class PhotoMstMapperTest {
 		void update_by_directionKbnCode() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().directionKbnCode("vertical").build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -356,8 +355,8 @@ public class PhotoMstMapperTest {
 		void update_by_focalLength() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().focalLength(24).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -366,8 +365,8 @@ public class PhotoMstMapperTest {
 		void update_by_fValue() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().fValue(BigDecimal.valueOf(8.0)).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -376,8 +375,8 @@ public class PhotoMstMapperTest {
 		void update_by_shutterSpeed() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().shutterSpeed(BigDecimal.valueOf(1)).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -386,8 +385,8 @@ public class PhotoMstMapperTest {
 		void update_by_iso() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().iso(100).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 		
 		@Test
@@ -396,8 +395,8 @@ public class PhotoMstMapperTest {
 		void update_not_found() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().accountNo(100).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 0);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(0, actual);
 		}
 		
 		@Test
@@ -406,8 +405,8 @@ public class PhotoMstMapperTest {
 		void update_some_conditions() {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().accountNo(1).photoNo(1).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
-			Integer count = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(count, 1);
+			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
+			assertEquals(1, actual);
 		}
 	}
 	
@@ -420,16 +419,16 @@ public class PhotoMstMapperTest {
 		@Order(1)
 		@DisplayName("正常系：アカウント番号に該当する写真がある場合")
 		void getMaxPhotoNo_found() {
-			Integer maxPhotoNo = photoMstMapper.getMaxPhotoNo(1);
-			assertEquals(maxPhotoNo,3);
+			Integer actual = photoMstMapper.getMaxPhotoNo(1);
+			assertEquals(3, actual);
 		}
 		
 		@Test
 		@Order(2)
 		@DisplayName("正常系：アカウント番号に該当する写真がない場合")
 		void getMaxPhotoNo_not_found() {
-			Integer maxPhotoNo = photoMstMapper.getMaxPhotoNo(3);
-			assertNull(maxPhotoNo);
+			Integer actual = photoMstMapper.getMaxPhotoNo(3);
+			assertNull(actual);
 		}
 	}
 	

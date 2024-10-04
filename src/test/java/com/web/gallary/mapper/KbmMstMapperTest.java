@@ -40,7 +40,7 @@ public class KbmMstMapperTest {
 		void select_by_kbnClassCode() {
 			KbnMst kbnMst = KbnMst.builder().kbnClassCode("sex").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst1 = KbnMst.builder()
 					.kbnClassCode("sex")
@@ -74,13 +74,13 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst1);
-			expectedKbnMstList.add(expectedKbnMst2);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst1);
+			expected.add(expectedKbnMst2);
 			
-			assertEquals(selectedKbnMstList.size(), 2);
-			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
-					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
+			assertEquals(2, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -89,7 +89,7 @@ public class KbmMstMapperTest {
 		void select_by_kbnCode() {
 			KbnMst kbnMst = KbnMst.builder().kbnCode("man").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst = KbnMst.builder()
 					.kbnClassCode("sex")
@@ -107,11 +107,12 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst);
 			
-			assertEquals(selectedKbnMstList.size(), 1);
-			assertEquals(selectedKbnMstList, expectedKbnMstList);
+			assertEquals(1, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -120,7 +121,7 @@ public class KbmMstMapperTest {
 		void select_by_sortOrder() {
 			KbnMst kbnMst = KbnMst.builder().sortOrder(47).build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst = KbnMst.builder()
 					.kbnClassCode("prefecture")
@@ -138,11 +139,12 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst);
 			
-			assertEquals(selectedKbnMstList.size(), 1);
-			assertEquals(selectedKbnMstList, expectedKbnMstList);
+			assertEquals(1, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -151,7 +153,7 @@ public class KbmMstMapperTest {
 		void select_by_kbnGroupCode() {
 			KbnMst kbnMst = KbnMst.builder().kbnGroupCode("Shikoku").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst1 = KbnMst.builder()
 					.kbnClassCode("prefecture")
@@ -214,14 +216,15 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst1);
-			expectedKbnMstList.add(expectedKbnMst2);
-			expectedKbnMstList.add(expectedKbnMst3);
-			expectedKbnMstList.add(expectedKbnMst4);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst1);
+			expected.add(expectedKbnMst2);
+			expected.add(expectedKbnMst3);
+			expected.add(expectedKbnMst4);
 			
-			assertEquals(selectedKbnMstList.size(), 4);
-			assertEquals(selectedKbnMstList, expectedKbnMstList);
+			assertEquals(4, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -230,7 +233,7 @@ public class KbmMstMapperTest {
 		void select_by_kbnClassJapaneseName() {
 			KbnMst kbnMst = KbnMst.builder().kbnClassJapaneseName("性別").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst1 = KbnMst.builder()
 					.kbnClassCode("sex")
@@ -264,13 +267,13 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst1);
-			expectedKbnMstList.add(expectedKbnMst2);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst1);
+			expected.add(expectedKbnMst2);
 			
-			assertEquals(selectedKbnMstList.size(), 2);
-			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
-					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
+			assertEquals(2, actual.size());
+			assertEquals(actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -279,7 +282,7 @@ public class KbmMstMapperTest {
 		void select_by_kbnGroupJapaneseName() {
 			KbnMst kbnMst = KbnMst.builder().kbnGroupJapaneseName("四国").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst1 = KbnMst.builder()
 					.kbnClassCode("prefecture")
@@ -342,15 +345,15 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst1);
-			expectedKbnMstList.add(expectedKbnMst2);
-			expectedKbnMstList.add(expectedKbnMst3);
-			expectedKbnMstList.add(expectedKbnMst4);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst1);
+			expected.add(expectedKbnMst2);
+			expected.add(expectedKbnMst3);
+			expected.add(expectedKbnMst4);
 			
-			assertEquals(selectedKbnMstList.size(), 4);
-			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
-					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
+			assertEquals(4, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -359,7 +362,7 @@ public class KbmMstMapperTest {
 		void select_by_kbnJapaneseName() {
 			KbnMst kbnMst = KbnMst.builder().kbnJapaneseName("男性").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst = KbnMst.builder()
 					.kbnClassCode("sex")
@@ -377,11 +380,12 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst);
 			
-			assertEquals(selectedKbnMstList.size(), 1);
-			assertEquals(selectedKbnMstList, expectedKbnMstList);
+			assertEquals(1, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -390,7 +394,7 @@ public class KbmMstMapperTest {
 		void select_by_kbnClassEnglishName() {
 			KbnMst kbnMst = KbnMst.builder().kbnClassEnglishName("sex").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst1 = KbnMst.builder()
 					.kbnClassCode("sex")
@@ -424,13 +428,13 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst1);
-			expectedKbnMstList.add(expectedKbnMst2);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst1);
+			expected.add(expectedKbnMst2);
 			
-			assertEquals(selectedKbnMstList.size(), 2);
-			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
-					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
+			assertEquals(2, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -439,7 +443,7 @@ public class KbmMstMapperTest {
 		void select_by_kbnGroupEnglishName() {
 			KbnMst kbnMst = KbnMst.builder().kbnGroupEnglishName("Shikoku").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst1 = KbnMst.builder()
 					.kbnClassCode("prefecture")
@@ -502,15 +506,15 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst1);
-			expectedKbnMstList.add(expectedKbnMst2);
-			expectedKbnMstList.add(expectedKbnMst3);
-			expectedKbnMstList.add(expectedKbnMst4);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst1);
+			expected.add(expectedKbnMst2);
+			expected.add(expectedKbnMst3);
+			expected.add(expectedKbnMst4);
 			
-			assertEquals(selectedKbnMstList.size(), 4);
-			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
-					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
+			assertEquals(4, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -519,7 +523,7 @@ public class KbmMstMapperTest {
 		void select_by_kbnEnglishName() {
 			KbnMst kbnMst = KbnMst.builder().kbnEnglishName("man").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst = KbnMst.builder()
 					.kbnClassCode("sex")
@@ -537,11 +541,12 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst);
 			
-			assertEquals(selectedKbnMstList.size(), 1);
-			assertEquals(selectedKbnMstList, expectedKbnMstList);
+			assertEquals(1, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -550,7 +555,7 @@ public class KbmMstMapperTest {
 		void select_by_explanation() {
 			KbnMst kbnMst = KbnMst.builder().explanation("サイトを管理・運営する人").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst = KbnMst.builder()
 					.kbnClassCode("authority")
@@ -568,11 +573,12 @@ public class KbmMstMapperTest {
 					.explanation("サイトを管理・運営する人")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst);
 			
-			assertEquals(selectedKbnMstList.size(), 1);
-			assertEquals(selectedKbnMstList, expectedKbnMstList);
+			assertEquals(1, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -581,11 +587,11 @@ public class KbmMstMapperTest {
 		void select_not_found() {
 			KbnMst kbnMst = KbnMst.builder().kbnCode("superman").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
 			
-			assertEquals(selectedKbnMstList.size(), 0);
-			assertEquals(selectedKbnMstList, expectedKbnMstList);
+			assertEquals(0, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -594,7 +600,7 @@ public class KbmMstMapperTest {
 		void select_kbnMsts() {
 			KbnMst kbnMst = KbnMst.builder().kbnClassCode("sex").build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst1 = KbnMst.builder()
 					.kbnClassCode("sex")
@@ -628,13 +634,13 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst1);
-			expectedKbnMstList.add(expectedKbnMst2);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst1);
+			expected.add(expectedKbnMst2);
 			
-			assertEquals(selectedKbnMstList.size(), 2);
-			assertEquals(selectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
-					expectedKbnMstList.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
+			assertEquals(2, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 		
 		@Test
@@ -646,7 +652,7 @@ public class KbmMstMapperTest {
 					.kbnCode("man")
 					.build();
 			
-			List<KbnMst> selectedKbnMstList = kbnMstMapper.select(kbnMst);
+			List<KbnMst> actual = kbnMstMapper.select(kbnMst);
 			
 			KbnMst expectedKbnMst1 = KbnMst.builder()
 					.kbnClassCode("sex")
@@ -664,11 +670,12 @@ public class KbmMstMapperTest {
 					.explanation("")
 					.build();
 			
-			List<KbnMst> expectedKbnMstList = new ArrayList<KbnMst>();
-			expectedKbnMstList.add(expectedKbnMst1);
+			List<KbnMst> expected = new ArrayList<KbnMst>();
+			expected.add(expectedKbnMst1);
 			
-			assertEquals(selectedKbnMstList.size(), 1);
-			assertEquals(selectedKbnMstList, expectedKbnMstList);
+			assertEquals(1, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList(),
+					actual.stream().sorted(Comparator.comparing(KbnMst::getSortOrder)).toList());
 		}
 	}
 }

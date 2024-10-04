@@ -78,14 +78,14 @@ public class AccountRepositoryImplTest {
 			ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
 			doReturn(accountList).when(accountMapper).select(accountCaptor.capture());
 			
-			Account getAccount = accountRepositoryImpl.getByAccountNo(1);
+			Account actual = accountRepositoryImpl.getByAccountNo(1);
 
 			verify(accountMapper).select(any(Account.class));
 			Account accountCapture = accountCaptor.getValue();
-			assertEquals(accountCapture.getAccountNo(), 1);
+			assertEquals(1, accountCapture.getAccountNo());
 
-			assertNotNull(getAccount);
-			assertEquals(getAccount, accountList.getFirst());
+			assertNotNull(actual);
+			assertEquals(accountList.getFirst(), actual);
 		}
 		
 		@Test
@@ -95,13 +95,13 @@ public class AccountRepositoryImplTest {
 			ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
 			doReturn(new ArrayList<Account>()).when(accountMapper).select(accountCaptor.capture());
 			
-			Account getAccount = accountRepositoryImpl.getByAccountNo(1);
+			Account actual = accountRepositoryImpl.getByAccountNo(1);
 			
 			verify(accountMapper).select(any(Account.class));
 			Account accountCapture = accountCaptor.getValue();
-			assertEquals(accountCapture.getAccountNo(), 1);
+			assertEquals(1, accountCapture.getAccountNo());
 			
-			assertNull(getAccount);
+			assertNull(actual);
 		}
 	}
 	
@@ -139,14 +139,14 @@ public class AccountRepositoryImplTest {
 			ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
 			doReturn(accountList).when(accountMapper).select(accountCaptor.capture());
 			
-			Account getAccount = accountRepositoryImpl.getByAccountId("aaaaaaaa");
+			Account actual = accountRepositoryImpl.getByAccountId("aaaaaaaa");
 
 			verify(accountMapper).select(any(Account.class));
 			Account accountCapture = accountCaptor.getValue();
-			assertEquals(accountCapture.getAccountId(), "aaaaaaaa");
+			assertEquals("aaaaaaaa", accountCapture.getAccountId());
 
-			assertNotNull(getAccount);
-			assertEquals(getAccount, accountList.getFirst());
+			assertNotNull(actual);
+			assertEquals(accountList.getFirst(), actual);
 		}
 		
 		@Test
@@ -156,13 +156,13 @@ public class AccountRepositoryImplTest {
 			ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
 			doReturn(new ArrayList<Account>()).when(accountMapper).select(accountCaptor.capture());
 			
-			Account getAccount = accountRepositoryImpl.getByAccountId("aaaaaaaa");
+			Account actual = accountRepositoryImpl.getByAccountId("aaaaaaaa");
 			
 			verify(accountMapper).select(any(Account.class));
 			Account accountCapture = accountCaptor.getValue();
-			assertEquals(accountCapture.getAccountId(), "aaaaaaaa");
+			assertEquals("aaaaaaaa", accountCapture.getAccountId());
 			
-			assertNull(getAccount);
+			assertNull(actual);
 		}
 	}
 	
@@ -188,23 +188,23 @@ public class AccountRepositoryImplTest {
 			
 			verify(accountMapper).insert(any(Account.class));
 			Account accountCapture = accountCaptor.getValue();
-			assertEquals(accountCapture.getAccountNo(), null);
-			assertEquals(accountCapture.getCreatedBy(), 0);
-			assertEquals(accountCapture.getCreatedAt(), null);
-			assertEquals(accountCapture.getUpdatedBy(), 0);
-			assertEquals(accountCapture.getUpdatedAt(), null);
-			assertEquals(accountCapture.getIsDeleted(), null);
-			assertEquals(accountCapture.getAccountId(), "aaaaaaaa");
-			assertEquals(accountCapture.getAccountName(), "AAAAAAAA");
-			assertEquals(accountCapture.getPassword(), "$2a$10$password1");
-			assertEquals(accountCapture.getBirthdate(), LocalDate.of(1900, 1, 1));
-			assertEquals(accountCapture.getSexKbnCode(), "none");
-			assertEquals(accountCapture.getBirthplacePrefectureKbnCode(), "none");
-			assertEquals(accountCapture.getResidentPrefectureKbnCode(), "none");
-			assertEquals(accountCapture.getFreeMemo(), "");
-			assertEquals(accountCapture.getAuthorityKbnCode(), "mini-user");
-			assertEquals(accountCapture.getLastLoginDatetime(), OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)));
-			assertEquals(accountCapture.getLoginFailureCount(), 0);
+			assertEquals(null, accountCapture.getAccountNo());
+			assertEquals(0, accountCapture.getCreatedBy());
+			assertEquals(null, accountCapture.getCreatedAt());
+			assertEquals(0, accountCapture.getUpdatedBy());
+			assertEquals(null, accountCapture.getUpdatedAt());
+			assertEquals(null, accountCapture.getIsDeleted());
+			assertEquals("aaaaaaaa", accountCapture.getAccountId());
+			assertEquals("AAAAAAAA", accountCapture.getAccountName());
+			assertEquals("$2a$10$password1", accountCapture.getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), accountCapture.getBirthdate());
+			assertEquals("none", accountCapture.getSexKbnCode());
+			assertEquals("none", accountCapture.getBirthplacePrefectureKbnCode());
+			assertEquals("none", accountCapture.getResidentPrefectureKbnCode());
+			assertEquals("", accountCapture.getFreeMemo());
+			assertEquals("mini-user", accountCapture.getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), accountCapture.getLastLoginDatetime());
+			assertEquals(0, accountCapture.getLoginFailureCount());
 		}
 		
 		@Test
@@ -230,23 +230,23 @@ public class AccountRepositoryImplTest {
 			
 			verify(accountMapper).insert(any(Account.class));
 			Account accountCapture = accountCaptor.getValue();
-			assertEquals(accountCapture.getAccountNo(), null);
-			assertEquals(accountCapture.getCreatedBy(), 0);
-			assertEquals(accountCapture.getCreatedAt(), null);
-			assertEquals(accountCapture.getUpdatedBy(), 0);
-			assertEquals(accountCapture.getUpdatedAt(), null);
-			assertEquals(accountCapture.getIsDeleted(), null);
-			assertEquals(accountCapture.getAccountId(), "aaaaaaaa");
-			assertEquals(accountCapture.getAccountName(), "AAAAAAAA");
-			assertEquals(accountCapture.getPassword(), "$2a$10$password1");
-			assertEquals(accountCapture.getBirthdate(), LocalDate.of(1991, 2, 14));
-			assertEquals(accountCapture.getSexKbnCode(), "woman");
-			assertEquals(accountCapture.getBirthplacePrefectureKbnCode(), "Hokkaido");
-			assertEquals(accountCapture.getResidentPrefectureKbnCode(), "Okinawa");
-			assertEquals(accountCapture.getFreeMemo(), "フリーメモ");
-			assertEquals(accountCapture.getAuthorityKbnCode(), "mini-user");
-			assertEquals(accountCapture.getLastLoginDatetime(), OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)));
-			assertEquals(accountCapture.getLoginFailureCount(), 0);
+			assertEquals(null, accountCapture.getAccountNo());
+			assertEquals(0, accountCapture.getCreatedBy());
+			assertEquals(null, accountCapture.getCreatedAt());
+			assertEquals(0, accountCapture.getUpdatedBy());
+			assertEquals(null, accountCapture.getUpdatedAt());
+			assertEquals(null, accountCapture.getIsDeleted());
+			assertEquals("aaaaaaaa", accountCapture.getAccountId());
+			assertEquals("AAAAAAAA", accountCapture.getAccountName());
+			assertEquals("$2a$10$password1", accountCapture.getPassword());
+			assertEquals(LocalDate.of(1991, 2, 14), accountCapture.getBirthdate());
+			assertEquals("woman", accountCapture.getSexKbnCode());
+			assertEquals("Hokkaido", accountCapture.getBirthplacePrefectureKbnCode());
+			assertEquals("Okinawa", accountCapture.getResidentPrefectureKbnCode());
+			assertEquals("フリーメモ", accountCapture.getFreeMemo());
+			assertEquals("mini-user", accountCapture.getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), accountCapture.getLastLoginDatetime());
+			assertEquals(0, accountCapture.getLoginFailureCount());
 		}
 		
 		@Test
@@ -267,23 +267,23 @@ public class AccountRepositoryImplTest {
 			
 			verify(accountMapper).insert(any(Account.class));
 			Account accountCapture = accountCaptor.getValue();
-			assertEquals(accountCapture.getAccountNo(), null);
-			assertEquals(accountCapture.getCreatedBy(), 0);
-			assertEquals(accountCapture.getCreatedAt(), null);
-			assertEquals(accountCapture.getUpdatedBy(), 0);
-			assertEquals(accountCapture.getUpdatedAt(), null);
-			assertEquals(accountCapture.getIsDeleted(), null);
-			assertEquals(accountCapture.getAccountId(), "aaaaaaaa");
-			assertEquals(accountCapture.getAccountName(), "AAAAAAAA");
-			assertEquals(accountCapture.getPassword(), "$2a$10$password1");
-			assertEquals(accountCapture.getBirthdate(), LocalDate.of(1900, 1, 1));
-			assertEquals(accountCapture.getSexKbnCode(), "none");
-			assertEquals(accountCapture.getBirthplacePrefectureKbnCode(), "none");
-			assertEquals(accountCapture.getResidentPrefectureKbnCode(), "none");
-			assertEquals(accountCapture.getFreeMemo(), "");
-			assertEquals(accountCapture.getAuthorityKbnCode(), "mini-user");
-			assertEquals(accountCapture.getLastLoginDatetime(), OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)));
-			assertEquals(accountCapture.getLoginFailureCount(), 0);
+			assertEquals(null, accountCapture.getAccountNo());
+			assertEquals(0, accountCapture.getCreatedBy());
+			assertEquals(null, accountCapture.getCreatedAt());
+			assertEquals(0, accountCapture.getUpdatedBy());
+			assertEquals(null, accountCapture.getUpdatedAt());
+			assertEquals(null, accountCapture.getIsDeleted());
+			assertEquals("aaaaaaaa", accountCapture.getAccountId());
+			assertEquals("AAAAAAAA", accountCapture.getAccountName());
+			assertEquals("$2a$10$password1", accountCapture.getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), accountCapture.getBirthdate());
+			assertEquals("none", accountCapture.getSexKbnCode());
+			assertEquals("none", accountCapture.getBirthplacePrefectureKbnCode());
+			assertEquals("none", accountCapture.getResidentPrefectureKbnCode());
+			assertEquals("", accountCapture.getFreeMemo());
+			assertEquals("mini-user", accountCapture.getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), accountCapture.getLastLoginDatetime());
+			assertEquals(0, accountCapture.getLoginFailureCount());
 		}
 	}
 	
@@ -309,25 +309,25 @@ public class AccountRepositoryImplTest {
 			
 			verify(accountMapper).update(any(Account.class), any(Account.class));
 			Account cndAccountCapture = cndAccountCaptor.getValue();
-			assertEquals(cndAccountCapture.getAccountNo(), 1);
+			assertEquals(1, cndAccountCapture.getAccountNo());
 			
 			Account targetAccountCapture = targetAccountCaptor.getValue();
-			assertEquals(targetAccountCapture.getCreatedBy(), null);
-			assertEquals(targetAccountCapture.getCreatedAt(), null);
-			assertEquals(targetAccountCapture.getUpdatedBy(), null);
-			assertEquals(targetAccountCapture.getUpdatedAt(), null);
-			assertEquals(targetAccountCapture.getIsDeleted(), null);
-			assertEquals(targetAccountCapture.getAccountId(), "aaaaaaaa");
-			assertEquals(targetAccountCapture.getAccountName(), "AAAAAAAA");
-			assertEquals(targetAccountCapture.getPassword(), null);
-			assertEquals(targetAccountCapture.getBirthdate(), LocalDate.of(1900, 1, 1));
-			assertEquals(targetAccountCapture.getSexKbnCode(), "none");
-			assertEquals(targetAccountCapture.getBirthplacePrefectureKbnCode(), "none");
-			assertEquals(targetAccountCapture.getResidentPrefectureKbnCode(), "none");
-			assertEquals(targetAccountCapture.getFreeMemo(), "");
-			assertEquals(targetAccountCapture.getAuthorityKbnCode(), null);
-			assertEquals(targetAccountCapture.getLastLoginDatetime(), OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)));
-			assertEquals(targetAccountCapture.getLoginFailureCount(), 0);
+			assertEquals(null, targetAccountCapture.getCreatedBy());
+			assertEquals(null, targetAccountCapture.getCreatedAt());
+			assertEquals(null, targetAccountCapture.getUpdatedBy());
+			assertEquals(null, targetAccountCapture.getUpdatedAt());
+			assertEquals(null, targetAccountCapture.getIsDeleted());
+			assertEquals("aaaaaaaa", targetAccountCapture.getAccountId());
+			assertEquals("AAAAAAAA", targetAccountCapture.getAccountName());
+			assertEquals(null, targetAccountCapture.getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), targetAccountCapture.getBirthdate());
+			assertEquals("none", targetAccountCapture.getSexKbnCode());
+			assertEquals("none", targetAccountCapture.getBirthplacePrefectureKbnCode());
+			assertEquals("none", targetAccountCapture.getResidentPrefectureKbnCode());
+			assertEquals("", targetAccountCapture.getFreeMemo());
+			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), targetAccountCapture.getLastLoginDatetime());
+			assertEquals(0, targetAccountCapture.getLoginFailureCount());
 		}
 		
 		@Test
@@ -357,25 +357,25 @@ public class AccountRepositoryImplTest {
 			
 			verify(accountMapper).update(any(Account.class), any(Account.class));
 			Account cndAccountCapture = cndAccountCaptor.getValue();
-			assertEquals(cndAccountCapture.getAccountNo(), 1);
+			assertEquals(1, cndAccountCapture.getAccountNo());
 			
 			Account targetAccountCapture = targetAccountCaptor.getValue();
-			assertEquals(targetAccountCapture.getCreatedBy(), null);
-			assertEquals(targetAccountCapture.getCreatedAt(), null);
-			assertEquals(targetAccountCapture.getUpdatedBy(), null);
-			assertEquals(targetAccountCapture.getUpdatedAt(), null);
-			assertEquals(targetAccountCapture.getIsDeleted(), null);
-			assertEquals(targetAccountCapture.getAccountId(), "aaaaaaaa");
-			assertEquals(targetAccountCapture.getAccountName(), "AAAAAAAA");
-			assertEquals(targetAccountCapture.getPassword(), "$2a$10$password1");
-			assertEquals(targetAccountCapture.getBirthdate(), LocalDate.of(1991, 2, 14));
-			assertEquals(targetAccountCapture.getSexKbnCode(), "woman");
-			assertEquals(targetAccountCapture.getBirthplacePrefectureKbnCode(), "Hokkaido");
-			assertEquals(targetAccountCapture.getResidentPrefectureKbnCode(), "Okinawa");
-			assertEquals(targetAccountCapture.getFreeMemo(), "フリーメモ");
-			assertEquals(targetAccountCapture.getAuthorityKbnCode(), null);
-			assertEquals(targetAccountCapture.getLastLoginDatetime(), OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)));
-			assertEquals(targetAccountCapture.getLoginFailureCount(), 2);
+			assertEquals(null, targetAccountCapture.getCreatedBy());
+			assertEquals(null, targetAccountCapture.getCreatedAt());
+			assertEquals(null, targetAccountCapture.getUpdatedBy());
+			assertEquals(null, targetAccountCapture.getUpdatedAt());
+			assertEquals(null, targetAccountCapture.getIsDeleted());
+			assertEquals("aaaaaaaa", targetAccountCapture.getAccountId());
+			assertEquals("AAAAAAAA", targetAccountCapture.getAccountName());
+			assertEquals("$2a$10$password1", targetAccountCapture.getPassword());
+			assertEquals(LocalDate.of(1991, 2, 14), targetAccountCapture.getBirthdate());
+			assertEquals("woman", targetAccountCapture.getSexKbnCode());
+			assertEquals("Hokkaido", targetAccountCapture.getBirthplacePrefectureKbnCode());
+			assertEquals("Okinawa", targetAccountCapture.getResidentPrefectureKbnCode());
+			assertEquals("フリーメモ", targetAccountCapture.getFreeMemo());
+			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), targetAccountCapture.getLastLoginDatetime());
+			assertEquals(2, targetAccountCapture.getLoginFailureCount());
 		}
 		
 		@Test
@@ -396,25 +396,25 @@ public class AccountRepositoryImplTest {
 			
 			verify(accountMapper).update(any(Account.class), any(Account.class));
 			Account cndAccountCapture = cndAccountCaptor.getValue();
-			assertEquals(cndAccountCapture.getAccountNo(), 1);
+			assertEquals(1, cndAccountCapture.getAccountNo());
 			
 			Account targetAccountCapture = targetAccountCaptor.getValue();
-			assertEquals(targetAccountCapture.getCreatedBy(), null);
-			assertEquals(targetAccountCapture.getCreatedAt(), null);
-			assertEquals(targetAccountCapture.getUpdatedBy(), null);
-			assertEquals(targetAccountCapture.getUpdatedAt(), null);
-			assertEquals(targetAccountCapture.getIsDeleted(), null);
-			assertEquals(targetAccountCapture.getAccountId(), "aaaaaaaa");
-			assertEquals(targetAccountCapture.getAccountName(), "AAAAAAAA");
-			assertEquals(targetAccountCapture.getPassword(), null);
-			assertEquals(targetAccountCapture.getBirthdate(), LocalDate.of(1900, 1, 1));
-			assertEquals(targetAccountCapture.getSexKbnCode(), "none");
-			assertEquals(targetAccountCapture.getBirthplacePrefectureKbnCode(), "none");
-			assertEquals(targetAccountCapture.getResidentPrefectureKbnCode(), "none");
-			assertEquals(targetAccountCapture.getFreeMemo(), "");
-			assertEquals(targetAccountCapture.getAuthorityKbnCode(), null);
-			assertEquals(targetAccountCapture.getLastLoginDatetime(), OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)));
-			assertEquals(targetAccountCapture.getLoginFailureCount(), 0);
+			assertEquals(null, targetAccountCapture.getCreatedBy());
+			assertEquals(null, targetAccountCapture.getCreatedAt());
+			assertEquals(null, targetAccountCapture.getUpdatedBy());
+			assertEquals(null, targetAccountCapture.getUpdatedAt());
+			assertEquals(null, targetAccountCapture.getIsDeleted());
+			assertEquals("aaaaaaaa", targetAccountCapture.getAccountId());
+			assertEquals("AAAAAAAA", targetAccountCapture.getAccountName());
+			assertEquals(null, targetAccountCapture.getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), targetAccountCapture.getBirthdate());
+			assertEquals("none", targetAccountCapture.getSexKbnCode());
+			assertEquals("none", targetAccountCapture.getBirthplacePrefectureKbnCode());
+			assertEquals("none", targetAccountCapture.getResidentPrefectureKbnCode());
+			assertEquals("", targetAccountCapture.getFreeMemo());
+			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), targetAccountCapture.getLastLoginDatetime());
+			assertEquals(0, targetAccountCapture.getLoginFailureCount());
 		}
 	}
 	
@@ -441,22 +441,22 @@ public class AccountRepositoryImplTest {
 			assertEquals(cndAccountCapture.getAccountNo(), 1);
 			
 			Account targetAccountCapture = targetAccountCaptor.getValue();
-			assertEquals(targetAccountCapture.getCreatedBy(), null);
-			assertEquals(targetAccountCapture.getCreatedAt(), null);
-			assertEquals(targetAccountCapture.getUpdatedBy(), null);
-			assertEquals(targetAccountCapture.getUpdatedAt(), null);
-			assertEquals(targetAccountCapture.getIsDeleted(), null);
-			assertEquals(targetAccountCapture.getAccountId(), null);
-			assertEquals(targetAccountCapture.getAccountName(), null);
-			assertEquals(targetAccountCapture.getPassword(), null);
-			assertEquals(targetAccountCapture.getBirthdate(), null);
-			assertEquals(targetAccountCapture.getSexKbnCode(), null);
-			assertEquals(targetAccountCapture.getBirthplacePrefectureKbnCode(), null);
-			assertEquals(targetAccountCapture.getResidentPrefectureKbnCode(), null);
-			assertEquals(targetAccountCapture.getFreeMemo(), null);
-			assertEquals(targetAccountCapture.getAuthorityKbnCode(), null);
-			assertEquals(targetAccountCapture.getLastLoginDatetime(), null);
-			assertEquals(targetAccountCapture.getLoginFailureCount(), 0);
+			assertEquals(null, targetAccountCapture.getCreatedBy());
+			assertEquals(null, targetAccountCapture.getCreatedAt());
+			assertEquals(null, targetAccountCapture.getUpdatedBy());
+			assertEquals(null, targetAccountCapture.getUpdatedAt());
+			assertEquals(null, targetAccountCapture.getIsDeleted());
+			assertEquals(null, targetAccountCapture.getAccountId());
+			assertEquals(null, targetAccountCapture.getAccountName());
+			assertEquals(null, targetAccountCapture.getPassword());
+			assertEquals(null, targetAccountCapture.getBirthdate());
+			assertEquals(null, targetAccountCapture.getSexKbnCode());
+			assertEquals(null, targetAccountCapture.getBirthplacePrefectureKbnCode());
+			assertEquals(null, targetAccountCapture.getResidentPrefectureKbnCode());
+			assertEquals(null, targetAccountCapture.getFreeMemo());
+			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(null, targetAccountCapture.getLastLoginDatetime());
+			assertEquals(0, targetAccountCapture.getLoginFailureCount());
 		}
 		
 		@Test
@@ -479,22 +479,22 @@ public class AccountRepositoryImplTest {
 			assertEquals(cndAccountCapture.getAccountNo(), 1);
 			
 			Account targetAccountCapture = targetAccountCaptor.getValue();
-			assertEquals(targetAccountCapture.getCreatedBy(), null);
-			assertEquals(targetAccountCapture.getCreatedAt(), null);
-			assertEquals(targetAccountCapture.getUpdatedBy(), null);
-			assertEquals(targetAccountCapture.getUpdatedAt(), null);
-			assertEquals(targetAccountCapture.getIsDeleted(), null);
-			assertEquals(targetAccountCapture.getAccountId(), null);
-			assertEquals(targetAccountCapture.getAccountName(), null);
-			assertEquals(targetAccountCapture.getPassword(), null);
-			assertEquals(targetAccountCapture.getBirthdate(), null);
-			assertEquals(targetAccountCapture.getSexKbnCode(), null);
-			assertEquals(targetAccountCapture.getBirthplacePrefectureKbnCode(), null);
-			assertEquals(targetAccountCapture.getResidentPrefectureKbnCode(), null);
-			assertEquals(targetAccountCapture.getFreeMemo(), null);
-			assertEquals(targetAccountCapture.getAuthorityKbnCode(), null);
-			assertEquals(targetAccountCapture.getLastLoginDatetime(), null);
-			assertEquals(targetAccountCapture.getLoginFailureCount(), 2);
+			assertEquals(null, targetAccountCapture.getCreatedBy());
+			assertEquals(null, targetAccountCapture.getCreatedAt());
+			assertEquals(null, targetAccountCapture.getUpdatedBy());
+			assertEquals(null, targetAccountCapture.getUpdatedAt());
+			assertEquals(null, targetAccountCapture.getIsDeleted());
+			assertEquals(null, targetAccountCapture.getAccountId());
+			assertEquals(null, targetAccountCapture.getAccountName());
+			assertEquals(null, targetAccountCapture.getPassword());
+			assertEquals(null, targetAccountCapture.getBirthdate());
+			assertEquals(null, targetAccountCapture.getSexKbnCode());
+			assertEquals(null, targetAccountCapture.getBirthplacePrefectureKbnCode());
+			assertEquals(null, targetAccountCapture.getResidentPrefectureKbnCode());
+			assertEquals(null, targetAccountCapture.getFreeMemo());
+			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(null, targetAccountCapture.getLastLoginDatetime());
+			assertEquals(2, targetAccountCapture.getLoginFailureCount());
 		}
 		
 		@Test
@@ -516,22 +516,22 @@ public class AccountRepositoryImplTest {
 			assertEquals(cndAccountCapture.getAccountNo(), 1);
 			
 			Account targetAccountCapture = targetAccountCaptor.getValue();
-			assertEquals(targetAccountCapture.getCreatedBy(), null);
-			assertEquals(targetAccountCapture.getCreatedAt(), null);
-			assertEquals(targetAccountCapture.getUpdatedBy(), null);
-			assertEquals(targetAccountCapture.getUpdatedAt(), null);
-			assertEquals(targetAccountCapture.getIsDeleted(), null);
-			assertEquals(targetAccountCapture.getAccountId(), null);
-			assertEquals(targetAccountCapture.getAccountName(), null);
-			assertEquals(targetAccountCapture.getPassword(), null);
-			assertEquals(targetAccountCapture.getBirthdate(), null);
-			assertEquals(targetAccountCapture.getSexKbnCode(), null);
-			assertEquals(targetAccountCapture.getBirthplacePrefectureKbnCode(), null);
-			assertEquals(targetAccountCapture.getResidentPrefectureKbnCode(), null);
-			assertEquals(targetAccountCapture.getFreeMemo(), null);
-			assertEquals(targetAccountCapture.getAuthorityKbnCode(), null);
-			assertEquals(targetAccountCapture.getLastLoginDatetime(), null);
-			assertEquals(targetAccountCapture.getLoginFailureCount(), 0);
+			assertEquals(null, targetAccountCapture.getCreatedBy());
+			assertEquals(null, targetAccountCapture.getCreatedAt());
+			assertEquals(null, targetAccountCapture.getUpdatedBy());
+			assertEquals(null, targetAccountCapture.getUpdatedAt());
+			assertEquals(null, targetAccountCapture.getIsDeleted());
+			assertEquals(null, targetAccountCapture.getAccountId());
+			assertEquals(null, targetAccountCapture.getAccountName());
+			assertEquals(null, targetAccountCapture.getPassword());
+			assertEquals(null, targetAccountCapture.getBirthdate());
+			assertEquals(null, targetAccountCapture.getSexKbnCode());
+			assertEquals(null, targetAccountCapture.getBirthplacePrefectureKbnCode());
+			assertEquals(null, targetAccountCapture.getResidentPrefectureKbnCode());
+			assertEquals(null, targetAccountCapture.getFreeMemo());
+			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(null, targetAccountCapture.getLastLoginDatetime());
+			assertEquals(0, targetAccountCapture.getLoginFailureCount());
 		}
 	}
 	
@@ -550,8 +550,8 @@ public class AccountRepositoryImplTest {
 			verify(accountMapper, times(1)).isExistAccount(any(Account.class));
 			
 			Account accountCapture = accountCaptor.getValue();
-			assertEquals(accountCapture.getAccountNo(), 1);
-			assertEquals(accountCapture.getAccountId(), "aaaaaaaa");
+			assertEquals(1, accountCapture.getAccountNo());
+			assertEquals("aaaaaaaa", accountCapture.getAccountId());
 		}
 		
 		@Test
@@ -565,8 +565,8 @@ public class AccountRepositoryImplTest {
 			verify(accountMapper, times(1)).isExistAccount(any());
 			
 			Account accountCapture = accountCaptor.getValue();
-			assertEquals(accountCapture.getAccountNo(), 1);
-			assertEquals(accountCapture.getAccountId(), "aaaaaaaa");
+			assertEquals(1, accountCapture.getAccountNo());
+			assertEquals("aaaaaaaa", accountCapture.getAccountId());
 		}
 	}
 	
@@ -627,44 +627,44 @@ public class AccountRepositoryImplTest {
 			List<AccountModel> actual = accountRepositoryImpl.getAccountList();
 			
 			AccountModel actualAccountModel1 = actual.stream().sorted(Comparator.comparing(AccountModel::getAccountNo)).toList().getFirst();
-			assertEquals(actualAccountModel1.getAccountNo(), 1);
-			assertEquals(actualAccountModel1.getAccountId(), "aaaaaaaa");
-			assertEquals(actualAccountModel1.getAccountName(), "AAAAAAAA");
-			assertEquals(actualAccountModel1.getPassword(), "$2a$10$password1");
-			assertEquals(actualAccountModel1.getBirthdate(), LocalDate.of(1991, 1, 1));
-			assertEquals(actualAccountModel1.getSexKbnCode(), "man");
-			assertEquals(actualAccountModel1.getBirthplacePrefectureKbnCode(), "Hokkaido");
-			assertEquals(actualAccountModel1.getResidentPrefectureKbnCode(), "Aomori");
-			assertEquals(actualAccountModel1.getFreeMemo(), "よろしく");
-			assertEquals(actualAccountModel1.getAuthorityKbnCode(), "mini-user");
-			assertEquals(actualAccountModel1.getLastLoginDatetime(), OffsetDateTime.of(2001, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)));
-			assertEquals(actualAccountModel1.getLoginFailureCount(), 0);
+			assertEquals(1, actualAccountModel1.getAccountNo());
+			assertEquals("aaaaaaaa", actualAccountModel1.getAccountId());
+			assertEquals("AAAAAAAA", actualAccountModel1.getAccountName());
+			assertEquals("$2a$10$password1", actualAccountModel1.getPassword());
+			assertEquals(LocalDate.of(1991, 1, 1), actualAccountModel1.getBirthdate());
+			assertEquals("man", actualAccountModel1.getSexKbnCode());
+			assertEquals("Hokkaido", actualAccountModel1.getBirthplacePrefectureKbnCode());
+			assertEquals("Aomori", actualAccountModel1.getResidentPrefectureKbnCode());
+			assertEquals("よろしく", actualAccountModel1.getFreeMemo());
+			assertEquals("mini-user", actualAccountModel1.getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2001, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualAccountModel1.getLastLoginDatetime());
+			assertEquals(0, actualAccountModel1.getLoginFailureCount());
 			
 			AccountModel actualAccountModel2 = actual.stream().sorted(Comparator.comparing(AccountModel::getAccountNo)).toList().getLast();
-			assertEquals(actualAccountModel2.getAccountNo(), 2);
-			assertEquals(actualAccountModel2.getAccountId(), "bbbbbbbb");
-			assertEquals(actualAccountModel2.getAccountName(), "BBBBBBBB");
-			assertEquals(actualAccountModel2.getPassword(), "$2a$10$password2");
-			assertEquals(actualAccountModel2.getBirthdate(), LocalDate.of(1991, 2, 1));
-			assertEquals(actualAccountModel2.getSexKbnCode(), "woman");
-			assertEquals(actualAccountModel2.getBirthplacePrefectureKbnCode(), "Iwate");
-			assertEquals(actualAccountModel2.getResidentPrefectureKbnCode(), "Okinawa");
-			assertEquals(actualAccountModel2.getFreeMemo(), "お願いします");
-			assertEquals(actualAccountModel2.getAuthorityKbnCode(), "administrator");
-			assertEquals(actualAccountModel2.getLastLoginDatetime(), OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)));
-			assertEquals(actualAccountModel2.getLoginFailureCount(), 1);
+			assertEquals(2, actualAccountModel2.getAccountNo());
+			assertEquals("bbbbbbbb", actualAccountModel2.getAccountId());
+			assertEquals("BBBBBBBB", actualAccountModel2.getAccountName());
+			assertEquals("$2a$10$password2", actualAccountModel2.getPassword());
+			assertEquals(LocalDate.of(1991, 2, 1), actualAccountModel2.getBirthdate());
+			assertEquals("woman", actualAccountModel2.getSexKbnCode());
+			assertEquals("Iwate", actualAccountModel2.getBirthplacePrefectureKbnCode());
+			assertEquals("Okinawa", actualAccountModel2.getResidentPrefectureKbnCode());
+			assertEquals("お願いします", actualAccountModel2.getFreeMemo());
+			assertEquals("administrator", actualAccountModel2.getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualAccountModel2.getLastLoginDatetime());
+			assertEquals(1, actualAccountModel2.getLoginFailureCount());
 		}
 		
 		@Test
 		@Order(2)
 		@DisplayName("正常系：アカウントが0件")
 		void getAccountList_not_found() {
-			List<Account> accountList = new ArrayList<Account>();
+			List<Account> expected = new ArrayList<Account>();
 			
-			doReturn(accountList).when(accountMapper).select(any(Account.class));
+			doReturn(expected).when(accountMapper).select(any(Account.class));
 
 			List<AccountModel> actual = accountRepositoryImpl.getAccountList();
-			assertEquals(actual, accountList);
+			assertEquals(expected, actual);
 		}
 	}
 }

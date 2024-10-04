@@ -1,6 +1,5 @@
 package com.web.gallary.mapper;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.OffsetDateTime;
@@ -44,7 +43,7 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：アカウント番号でのselectで1件以上の場合")
 		void select_by_accountNo() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().accountNo(1).build();
-			List<PhotoTagMst> selectedPhotoTagMstList = photoTagMstMapper.select(photoTagMst);
+			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
 			
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
@@ -91,16 +90,16 @@ public class PhotoTagMstMapperTest {
 					.tagJapaneseName("花")
 					.tagEnglishName("flower")
 					.build();
-			List<PhotoTagMst> expectedPhotoTagMstList = new ArrayList<PhotoTagMst>();
-			expectedPhotoTagMstList.add(expectedPhotoTagMst1);
-			expectedPhotoTagMstList.add(expectedPhotoTagMst2);
-			expectedPhotoTagMstList.add(expectedPhotoTagMst3);
-			expectedPhotoTagMstList.add(expectedPhotoTagMst4);
-			expectedPhotoTagMstList.add(expectedPhotoTagMst5);
+			List<PhotoTagMst> expected = new ArrayList<PhotoTagMst>();
+			expected.add(expectedPhotoTagMst1);
+			expected.add(expectedPhotoTagMst2);
+			expected.add(expectedPhotoTagMst3);
+			expected.add(expectedPhotoTagMst4);
+			expected.add(expectedPhotoTagMst5);
 			
-			assertEquals(selectedPhotoTagMstList.size(), 5);
-			assertEquals(selectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
-					expectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
+			assertEquals(5, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
+					actual.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
 		}
 		
 		@Test
@@ -108,7 +107,7 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：写真番号でのselectで1件の場合")
 		void select_by_photoNo() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().photoNo(1).build();
-			List<PhotoTagMst> selectedPhotoTagMstList = photoTagMstMapper.select(photoTagMst);
+			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
 			
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
@@ -128,13 +127,13 @@ public class PhotoTagMstMapperTest {
 					.tagJapaneseName("青空")
 					.tagEnglishName("bluesky")
 					.build();
-			List<PhotoTagMst> expectedPhotoTagMstList = new ArrayList<PhotoTagMst>();
-			expectedPhotoTagMstList.add(expectedPhotoTagMst1);
-			expectedPhotoTagMstList.add(expectedPhotoTagMst2);
+			List<PhotoTagMst> expected = new ArrayList<PhotoTagMst>();
+			expected.add(expectedPhotoTagMst1);
+			expected.add(expectedPhotoTagMst2);
 			
-			assertEquals(selectedPhotoTagMstList.size(), 2);
-			assertEquals(selectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
-					expectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
+			assertEquals(2, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
+					actual.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
 		}
 		
 		@Test
@@ -142,7 +141,7 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：タグ番号でのselectで1件の場合")
 		void select_by_tagNo() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().tagNo(1).build();
-			List<PhotoTagMst> selectedPhotoTagMstList = photoTagMstMapper.select(photoTagMst);
+			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
 			
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
@@ -162,13 +161,13 @@ public class PhotoTagMstMapperTest {
 					.tagJapaneseName("太陽")
 					.tagEnglishName("sun")
 					.build();
-			List<PhotoTagMst> expectedPhotoTagMstList = new ArrayList<PhotoTagMst>();
-			expectedPhotoTagMstList.add(expectedPhotoTagMst1);
-			expectedPhotoTagMstList.add(expectedPhotoTagMst2);
+			List<PhotoTagMst> expected = new ArrayList<PhotoTagMst>();
+			expected.add(expectedPhotoTagMst1);
+			expected.add(expectedPhotoTagMst2);
 			
-			assertEquals(selectedPhotoTagMstList.size(), 2);
-			assertEquals(selectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
-					expectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
+			assertEquals(2, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
+					actual.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
 		}
 		
 		@Test
@@ -176,7 +175,7 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：タグ日本語名でのselectで1件の場合")
 		void select_by_tagJapaneseName() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().tagJapaneseName("太陽").build();
-			List<PhotoTagMst> selectedPhotoTagMstList = photoTagMstMapper.select(photoTagMst);
+			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
 			
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
@@ -196,13 +195,13 @@ public class PhotoTagMstMapperTest {
 					.tagJapaneseName("太陽")
 					.tagEnglishName("sun")
 					.build();
-			List<PhotoTagMst> expectedPhotoTagMstList = new ArrayList<PhotoTagMst>();
-			expectedPhotoTagMstList.add(expectedPhotoTagMst1);
-			expectedPhotoTagMstList.add(expectedPhotoTagMst2);
+			List<PhotoTagMst> expected = new ArrayList<PhotoTagMst>();
+			expected.add(expectedPhotoTagMst1);
+			expected.add(expectedPhotoTagMst2);
 			
-			assertEquals(selectedPhotoTagMstList.size(), 2);
-			assertEquals(selectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
-					expectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
+			assertEquals(2, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
+					actual.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
 		}
 		
 		@Test
@@ -210,7 +209,7 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：タグ英語名でのselectで1件の場合")
 		void select_by_tagEnglishName() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().tagEnglishName("sun").build();
-			List<PhotoTagMst> selectedPhotoTagMstList = photoTagMstMapper.select(photoTagMst);
+			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
 			
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
@@ -230,13 +229,13 @@ public class PhotoTagMstMapperTest {
 					.tagJapaneseName("太陽")
 					.tagEnglishName("sun")
 					.build();
-			List<PhotoTagMst> expectedPhotoTagMstList = new ArrayList<PhotoTagMst>();
-			expectedPhotoTagMstList.add(expectedPhotoTagMst1);
-			expectedPhotoTagMstList.add(expectedPhotoTagMst2);
+			List<PhotoTagMst> expected = new ArrayList<PhotoTagMst>();
+			expected.add(expectedPhotoTagMst1);
+			expected.add(expectedPhotoTagMst2);
 			
-			assertEquals(selectedPhotoTagMstList.size(), 2);
-			assertEquals(selectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
-					expectedPhotoTagMstList.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
+			assertEquals(2, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
+					actual.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
 		}
 		
 		@Test
@@ -244,10 +243,10 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：selectで0件の場合")
 		void select_not_found() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().accountNo(3).build();
-			List<PhotoTagMst> selectedPhotoTagMstList = photoTagMstMapper.select(photoTagMst);
-			List<PhotoTagMst> expectedPhotoTagMstList = new ArrayList<PhotoTagMst>();
-			assertEquals(selectedPhotoTagMstList.size(), 0);
-			assertEquals(selectedPhotoTagMstList, expectedPhotoTagMstList);
+			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
+			List<PhotoTagMst> expected = new ArrayList<PhotoTagMst>();
+			assertEquals(0, actual.size());
+			assertEquals(expected, actual);
 		}
 		
 		@Test
@@ -259,7 +258,7 @@ public class PhotoTagMstMapperTest {
 					.photoNo(1)
 					.tagNo(1)
 					.build();
-			List<PhotoTagMst> selectedPhotoTagMstList = photoTagMstMapper.select(photoTagMst);
+			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
 			
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
@@ -270,11 +269,12 @@ public class PhotoTagMstMapperTest {
 					.tagJapaneseName("太陽")
 					.tagEnglishName("sun")
 					.build();
-			List<PhotoTagMst> expectedPhotoTagMstList = new ArrayList<PhotoTagMst>();
-			expectedPhotoTagMstList.add(expectedPhotoTagMst1);
+			List<PhotoTagMst> expected = new ArrayList<PhotoTagMst>();
+			expected.add(expectedPhotoTagMst1);
 			
-			assertEquals(selectedPhotoTagMstList.size(), 1);
-			assertEquals(selectedPhotoTagMstList, expectedPhotoTagMstList);
+			assertEquals(1, actual.size());
+			assertEquals(expected.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList(),
+					actual.stream().sorted(Comparator.comparing(PhotoTagMst::getCreatedAt)).toList());
 		}
 	}
 	
@@ -296,10 +296,10 @@ public class PhotoTagMstMapperTest {
 					.tagEnglishName("spring")
 					.build();
 			
-			Integer insertCount = photoTagMstMapper.insert(photoTagMst);
-			assertThat(insertCount).isEqualTo(1);
+			Integer actualCount = photoTagMstMapper.insert(photoTagMst);
+			assertEquals(1, actualCount);
 			
-			List<PhotoTagMst> expectedPhotoTagMstList = jdbcTemplate.query(
+			List<PhotoTagMst> actualData = jdbcTemplate.query(
 					"SELECT * FROM photo.photo_tag_mst WHERE account_no=1 and photo_no=1 and tag_no=1", (rs, rowNum) ->
 						PhotoTagMst.builder()
 							.accountNo(rs.getInt("account_no"))
@@ -310,7 +310,7 @@ public class PhotoTagMstMapperTest {
 							.tagJapaneseName("春")
 							.tagEnglishName("spring")
 							.build());
-			assertEquals(1, expectedPhotoTagMstList.size());
+			assertEquals(1, actualData.size());
 		}
 	}
 	
@@ -342,8 +342,8 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：タグ番号でのdelete")
 		void delete_by_tagNo() {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().tagNo(1).build();
-			Integer deleteCount = photoTagMstMapper.delete(deletePhotoTagMst);
-			assertEquals(deleteCount, 2);
+			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
+			assertEquals(2, actual);
 		}
 		
 		@Test
@@ -351,8 +351,8 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：タグ日本語名でのdelete")
 		void delete_by_tagJapaneseName() {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().tagJapaneseName("太陽").build();
-			Integer deleteCount = photoTagMstMapper.delete(deletePhotoTagMst);
-			assertEquals(deleteCount, 2);
+			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
+			assertEquals(2, actual);
 		}
 		
 		@Test
@@ -360,8 +360,8 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：タグ英語名でのdelete")
 		void delete_by_tagEnglishName() {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().tagEnglishName("sun").build();
-			Integer deleteCount = photoTagMstMapper.delete(deletePhotoTagMst);
-			assertEquals(deleteCount, 2);
+			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
+			assertEquals(2, actual);
 		}
 		
 		@Test
@@ -369,8 +369,8 @@ public class PhotoTagMstMapperTest {
 		@DisplayName("正常系：deleteで0件の場合")
 		void delete_not_found() {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().accountNo(3).build();
-			Integer deleteCount = photoTagMstMapper.delete(deletePhotoTagMst);
-			assertEquals(deleteCount, 0);
+			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
+			assertEquals(0, actual);
 		}
 		
 		@Test
@@ -382,8 +382,8 @@ public class PhotoTagMstMapperTest {
 					.photoNo(1)
 					.tagNo(1)
 					.build();
-			Integer deleteCount = photoTagMstMapper.delete(deletePhotoTagMst);
-			assertEquals(deleteCount, 1);
+			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
+			assertEquals(1, actual);
 		}
 	}
 }
