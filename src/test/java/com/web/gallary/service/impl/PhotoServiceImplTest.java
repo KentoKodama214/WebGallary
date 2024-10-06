@@ -20,10 +20,11 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,8 +53,8 @@ import com.web.gallary.repository.impl.PhotoFavoriteRepositoryImpl;
 import com.web.gallary.repository.impl.PhotoMstRepositoryImpl;
 import com.web.gallary.repository.impl.PhotoTagMstRepositoryImpl;
 
-@SpringBootTest
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 public class PhotoServiceImplTest {
 	@InjectMocks
 	private PhotoServiceImpl photoServiceImpl;
@@ -735,7 +736,6 @@ public class PhotoServiceImplTest {
 			// 更新1枚目
 			PhotoDetailModel photoDetailModel2 = createUpdatePhoto();
 			photoDetailModelList.add(photoDetailModel2);
-			doNothing().when(photoMstRepositoryImpl).update(photoDetailModel2);
 			
 			assertThrows(FileDuplicateException.class, () -> photoServiceImpl.savePhotos(accountId, photoDetailModelList));
 			
@@ -767,7 +767,6 @@ public class PhotoServiceImplTest {
 			// 更新1枚目
 			PhotoDetailModel photoDetailModel2 = createUpdatePhoto();
 			photoDetailModelList.add(photoDetailModel2);
-			doNothing().when(photoMstRepositoryImpl).update(photoDetailModel2);
 			
 			assertThrows(RegistFailureException.class, () -> photoServiceImpl.savePhotos(accountId, photoDetailModelList));
 			
@@ -790,14 +789,8 @@ public class PhotoServiceImplTest {
 			doReturn(5).when(photoMstRepositoryImpl).getNewPhotoNo(1);
 			doReturn(filePath).when(fileConfig).getOutputPath();
 			
-			ArgumentCaptor<PhotoTagDeleteModel> photoTagDeleteModelCaptor = ArgumentCaptor.forClass(PhotoTagDeleteModel.class);
-			doNothing().when(photoTagMstRepositoryImpl).clear(photoTagDeleteModelCaptor.capture());
-			
 			ArgumentCaptor<PhotoTagModel> photoTagModelCaptor = ArgumentCaptor.forClass(PhotoTagModel.class);
 			doThrow(RegistFailureException.class).when(photoTagMstRepositoryImpl).regist(photoTagModelCaptor.capture());
-			
-			ArgumentCaptor<FileModel> fileModelCaptor = ArgumentCaptor.forClass(FileModel.class);
-			doNothing().when(fileRepositoryImpl).save(fileModelCaptor.capture());
 			
 			// 新規登録1枚目
 			PhotoDetailModel photoDetailModel1 = createNewPhotoWithTag();
@@ -808,7 +801,6 @@ public class PhotoServiceImplTest {
 			// 更新1枚目
 			PhotoDetailModel photoDetailModel2 = createUpdatePhoto();
 			photoDetailModelList.add(photoDetailModel2);
-			doNothing().when(photoMstRepositoryImpl).update(photoDetailModel2);
 			
 			assertThrows(RegistFailureException.class, () -> photoServiceImpl.savePhotos(accountId, photoDetailModelList));
 			
@@ -852,7 +844,6 @@ public class PhotoServiceImplTest {
 			// 更新2枚目
 			PhotoDetailModel photoDetailModel2 = createUpdatePhoto();
 			photoDetailModelList.add(photoDetailModel2);
-			doNothing().when(photoMstRepositoryImpl).update(photoDetailModel2);
 			
 			assertThrows(RegistFailureException.class, () -> photoServiceImpl.savePhotos(accountId, photoDetailModelList));
 			
@@ -882,12 +873,6 @@ public class PhotoServiceImplTest {
 			doReturn(5).when(photoMstRepositoryImpl).getNewPhotoNo(1);
 			doReturn(filePath).when(fileConfig).getOutputPath();
 			
-			ArgumentCaptor<PhotoTagDeleteModel> photoTagDeleteModelCaptor = ArgumentCaptor.forClass(PhotoTagDeleteModel.class);
-			doNothing().when(photoTagMstRepositoryImpl).clear(photoTagDeleteModelCaptor.capture());
-			
-			ArgumentCaptor<PhotoTagModel> photoTagModelCaptor = ArgumentCaptor.forClass(PhotoTagModel.class);
-			doNothing().when(photoTagMstRepositoryImpl).regist(photoTagModelCaptor.capture());
-			
 			// 更新1枚目
 			PhotoDetailModel photoDetailModel1 = createUpdatePhotoWithTag();
 			photoDetailModelList.add(photoDetailModel1);
@@ -896,7 +881,6 @@ public class PhotoServiceImplTest {
 			// 更新2枚目
 			PhotoDetailModel photoDetailModel2 = createUpdatePhoto();
 			photoDetailModelList.add(photoDetailModel2);
-			doNothing().when(photoMstRepositoryImpl).update(photoDetailModel2);
 			
 			assertThrows(UpdateFailureException.class, () -> photoServiceImpl.savePhotos(accountId, photoDetailModelList));
 			
@@ -919,10 +903,6 @@ public class PhotoServiceImplTest {
 		@DisplayName("正常系：photoDeleteModelListが0件の場合、終了")
 		void deletePhotos_photoDeleteModelList_empty() throws UpdateFailureException {
 			doReturn("https://localhost:8080/image/").when(fileConfig).getOutputPath();
-			doNothing().when(photoFavoriteRepositoryImpl).clear(any(PhotoFavoriteDeleteModel.class));
-			doNothing().when(photoTagMstRepositoryImpl).clear(any(PhotoTagDeleteModel.class));
-			doNothing().when(photoMstRepositoryImpl).delete(any(PhotoDeleteModel.class));
-			doNothing().when(fileRepositoryImpl).delete(any(String.class));
 			
 			photoServiceImpl.deletePhotos("aaaaaaaa", new ArrayList<PhotoDeleteModel>());
 			verify(photoFavoriteRepositoryImpl, times(0)).clear(any(PhotoFavoriteDeleteModel.class));
@@ -1003,7 +983,6 @@ public class PhotoServiceImplTest {
 			doNothing().when(photoFavoriteRepositoryImpl).clear(photoFavoriteDeleteModelCaptor.capture());
 			doNothing().when(photoTagMstRepositoryImpl).clear(any(PhotoTagDeleteModel.class));
 			doThrow(UpdateFailureException.class).when(photoMstRepositoryImpl).delete(any(PhotoDeleteModel.class));
-			doNothing().when(fileRepositoryImpl).delete(any(String.class));
 			
 			List<PhotoDeleteModel> photoDeleteModelList = new ArrayList<PhotoDeleteModel>();
 			photoDeleteModelList.add(PhotoDeleteModel.builder()
