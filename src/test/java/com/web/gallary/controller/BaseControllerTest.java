@@ -2,19 +2,27 @@ package com.web.gallary.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.servlet.ModelAndView;
 
-@SpringBootTest
+import com.web.gallary.controller.request.ErrorRequest;
+
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 public class BaseControllerTest {
-	
+	@InjectMocks
+	private BaseController baseController;
 	
 	@Nested
 	@Order(1)
@@ -24,7 +32,7 @@ public class BaseControllerTest {
 		@Order(1)
 		@DisplayName("正常系")
 		void header_success() {
-			assertTrue(false);
+			assertEquals("header", baseController.header());
 		}
 	}
 	
@@ -36,7 +44,7 @@ public class BaseControllerTest {
 		@Order(1)
 		@DisplayName("正常系")
 		void footer_success() {
-			assertTrue(false);
+			assertEquals("footer", baseController.footer());
 		}
 	}
 	
@@ -48,7 +56,7 @@ public class BaseControllerTest {
 		@Order(1)
 		@DisplayName("正常系")
 		void error_success() {
-			assertTrue(false);
+			assertEquals("error", baseController.error());
 		}
 	}
 	
@@ -60,14 +68,38 @@ public class BaseControllerTest {
 		@Order(1)
 		@DisplayName("正常系：Nullのパラメータを含むErrorRequest")
 		void error_contain_null_parameter() {
-			assertTrue(false);
+			ErrorRequest errorRequest = ErrorRequest.builder()
+					.errorCode("400")
+					.httpStatus(400)
+					.build();
+			
+			ModelAndView actual = baseController.error_page(errorRequest);
+			Map<String, Object> models = actual.getModel();
+			assertEquals("error_page", actual.getViewName());
+			assertEquals("/", models.get("goBackPageUrl").toString());
+			assertEquals("エラーが発生しました。システム管理者に問い合わせてください。", models.get("errorMessage").toString());
+			assertEquals("400", models.get("errorCode").toString());
+			assertEquals(400, (Integer) models.get("httpStatus"));
 		}
 		
 		@Test
 		@Order(2)
 		@DisplayName("正常系：Nullのパラメータを含まないErrorRequest")
 		void error_not_contain_null_parameter() {
-			assertTrue(false);
+			ErrorRequest errorRequest = ErrorRequest.builder()
+					.errorCode("400")
+					.httpStatus(400)
+					.goBackPageUrl("/login")
+					.errorMessage("パラメータが不正です。")
+					.build();
+			
+			ModelAndView actual = baseController.error_page(errorRequest);
+			Map<String, Object> models = actual.getModel();
+			assertEquals("error_page", actual.getViewName());
+			assertEquals("/login", models.get("goBackPageUrl").toString());
+			assertEquals("パラメータが不正です。", models.get("errorMessage").toString());
+			assertEquals("400", models.get("errorCode").toString());
+			assertEquals(400, (Integer) models.get("httpStatus"));
 		}
 	}
 }
