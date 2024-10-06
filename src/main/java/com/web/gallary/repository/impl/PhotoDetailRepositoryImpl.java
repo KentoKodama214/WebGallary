@@ -42,16 +42,16 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 	
 	/**
 	 * 該当アカウントの写真の一覧を取得する
-	 * @param	photoSelectModel	{@link PhotoGetModel}
+	 * @param	photoGetModel	{@link PhotoGetModel}
 	 * @return						{@link PhotoModel}
 	 */
 	@Override
-	public List<PhotoModel> getPhotoList(PhotoGetModel photoSelectModel) {
-		PhotoListGetDto photoSelectDto = modelMapper.map(photoSelectModel, PhotoListGetDto.class);
+	public List<PhotoModel> getPhotoList(PhotoGetModel photoGetModel) {
+		PhotoListGetDto photoSelectDto = modelMapper.map(photoGetModel, PhotoListGetDto.class);
 		List<PhotoDto> photoDtoList = photoDetailMapper.getPhotoList(photoSelectDto);
 		
 		PhotoTagMst photoTagMst = PhotoTagMst.builder()
-				.accountNo(photoSelectModel.getPhotoAccountNo())
+				.accountNo(photoGetModel.getPhotoAccountNo())
 				.build();
 		List<PhotoTagMst> photoTagMstList = photoTagMstMapper.select(photoTagMst);
 		
