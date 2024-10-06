@@ -45,7 +45,7 @@ public class KbnMstRepositoryImpl implements KbnMstRepository {
 						.kbnClassJapaneseName(kbnMstData.getKbnClassJapaneseName())
 						.kbnGroupJapaneseName(kbnMstData.getKbnGroupJapaneseName())
 						.kbnJapaneseName(kbnMstData.getKbnJapaneseName())
-						.kbnClassEnglishName(kbnMstData.getKbnClassJapaneseName())
+						.kbnClassEnglishName(kbnMstData.getKbnClassEnglishName())
 						.kbnGroupEnglishName(kbnMstData.getKbnGroupEnglishName())
 						.kbnEnglishName(kbnMstData.getKbnEnglishName())
 						.explanation(kbnMstData.getExplanation())
