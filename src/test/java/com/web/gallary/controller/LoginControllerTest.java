@@ -1,6 +1,9 @@
 package com.web.gallary.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.util.HashMap;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -8,13 +11,24 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.servlet.ModelAndView;
 
-@SpringBootTest
+import com.web.gallary.helper.SessionHelper;
+
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 public class LoginControllerTest {
-
+	@InjectMocks
+	private LoginController loginController;
+	
+	@Mock
+	private SessionHelper sessionHelper;
+	
 	@Nested
 	@Order(1)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -23,7 +37,9 @@ public class LoginControllerTest {
 		@Order(1)
 		@DisplayName("正常系")
 		void login_success() {
-			assertTrue(false);
+			ModelAndView actual = loginController.login();
+			assertEquals("login", actual.getViewName());
+			assertEquals(new HashMap<>(), actual.getModel());
 		}
 	}
 	
@@ -35,14 +51,17 @@ public class LoginControllerTest {
 		@Order(1)
 		@DisplayName("正常系：非ログインユーザーの場合")
 		void success_not_login_user() {
-			assertTrue(false);
+			doReturn(null).when(sessionHelper).getAccountId();
+			assertEquals("redirect:/login", loginController.success());
 		}
 		
 		@Test
 		@Order(2)
 		@DisplayName("正常系：ログインユーザーの場合")
 		void success_login_user() {
-			assertTrue(false);
+			String accountId = "aaaaaaaa";
+			doReturn(accountId).when(sessionHelper).getAccountId();
+			assertEquals("redirect:/photo/" + accountId + "/photo_list", loginController.success());
 		}
 	}
 }
