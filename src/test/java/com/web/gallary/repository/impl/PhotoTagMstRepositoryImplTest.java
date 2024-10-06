@@ -67,8 +67,8 @@ public class PhotoTagMstRepositoryImplTest {
 		
 		@Test
 		@Order(2)
-		@DisplayName("異常系：DuplicateKeyExceptionをthrowする")
-		void regist_DuplicateKeyException() {
+		@DisplayName("異常系：RegistFailureExceptionをthrowする")
+		void regist_RegistFailureException() {
 			PhotoTagModel photoTagModel = PhotoTagModel.builder()
 					.accountNo(1)
 					.photoNo(1)

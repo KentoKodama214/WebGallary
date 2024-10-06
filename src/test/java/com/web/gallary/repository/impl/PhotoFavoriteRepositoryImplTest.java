@@ -64,8 +64,8 @@ public class PhotoFavoriteRepositoryImplTest {
 		
 		@Test
 		@Order(2)
-		@DisplayName("異常系：DuplicateKeyExceptionをthrowする")
-		void regist_DuplicateKeyException() {
+		@DisplayName("異常系：RegistFailureExceptionをthrowする")
+		void regist_RegistFailureException() {
 			PhotoFavoriteModel favoriteModel = PhotoFavoriteModel.builder()
 					.accountNo(1)
 					.favoritePhotoAccountNo(1)

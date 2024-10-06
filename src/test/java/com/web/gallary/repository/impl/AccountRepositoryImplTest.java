@@ -251,8 +251,8 @@ public class AccountRepositoryImplTest {
 		
 		@Test
 		@Order(3)
-		@DisplayName("異常系：DuplicateKeyExceptionをthrowする")
-		void regist_DuplicateKeyException() throws RegistFailureException {
+		@DisplayName("異常系：RegistFailureExceptionをthrowする")
+		void regist_RegistFailureException() throws RegistFailureException {
 			AccountModel accountModel = AccountModel.builder()
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
