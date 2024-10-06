@@ -1,7 +1,5 @@
 package com.web.gallary.repository.impl;
 
-import java.util.Optional;
-
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
@@ -38,8 +36,8 @@ public class PhotoTagMstRepositoryImpl implements PhotoTagMstRepository {
 				.photoNo(photoTagModel.getPhotoNo())
 				.tagNo(photoTagModel.getTagNo())
 				.createdBy(photoTagModel.getAccountNo())
-				.tagJapaneseName(Optional.ofNullable(photoTagModel.getTagJapaneseName()).orElse(""))
-				.tagEnglishName(Optional.ofNullable(photoTagModel.getTagEnglishName()).orElse(""))
+				.tagJapaneseName(photoTagModel.getTagJapaneseName())
+				.tagEnglishName(photoTagModel.getTagEnglishName())
 				.build();
 		
 		try {
