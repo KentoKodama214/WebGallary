@@ -238,11 +238,12 @@ public class PhotoRestController {
 	 * @return				{@link PhotoListGetResponse}
 	 */
 	private PhotoListGetResponse createPhotoListGetResponse(List<PhotoModel> photoList, Integer pageNo) {
+		Integer photoCountPerPage = photoConfig.getPhotoCountPerPage();
 		List<PhotoListResponse> photoListResponseList = new ArrayList<PhotoListResponse>();
 		
 		photoList.subList(
-			(pageNo - 1) * photoConfig.getPhotoCountPerPage(), 
-			Math.min(pageNo * photoConfig.getPhotoCountPerPage(), photoList.size())).forEach(photo -> {
+			(pageNo - 1) * photoCountPerPage, 
+			Math.min(pageNo * photoCountPerPage, photoList.size())).forEach(photo -> {
 				photoListResponseList.add(PhotoListResponse.builder()
 						.accountNo(photo.getAccountNo())
 						.photoNo(photo.getPhotoNo())
@@ -254,7 +255,7 @@ public class PhotoRestController {
 			});
 		
 		return PhotoListGetResponse.builder()
-				.isLast(pageNo * photoConfig.getPhotoCountPerPage() >= photoList.size())
+				.isLast(pageNo * photoCountPerPage >= photoList.size())
 				.photolList(photoListResponseList)
 				.build();
 	}
