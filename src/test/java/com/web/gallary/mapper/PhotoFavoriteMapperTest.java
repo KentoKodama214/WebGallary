@@ -59,6 +59,10 @@ public class PhotoFavoriteMapperTest {
 							.createdAt(rs.getObject("created_at", OffsetDateTime.class))
 							.build());
 			assertEquals(1, actualData.size());
+			assertEquals(1, actualData.getFirst().getAccountNo());
+			assertEquals(2, actualData.getFirst().getFavoritePhotoAccountNo());
+			assertEquals(1, actualData.getFirst().getFavoritePhotoNo());
+			assertEquals(1, actualData.getFirst().getCreatedBy());
 		}
 	}
 	
@@ -67,6 +71,18 @@ public class PhotoFavoriteMapperTest {
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/PhotoFavoriteMapperTest.sql")
 	class delete {
+		private List<PhotoFavorite> getPhotoFavoriteList(String condition) {
+			return jdbcTemplate.query(
+					"SELECT * FROM photo.photo_favorite WHERE " + condition, (rs, rowNum) ->
+						PhotoFavorite.builder()
+							.accountNo(rs.getInt("account_no"))
+							.favoritePhotoAccountNo(rs.getInt("favorite_photo_account_no"))
+							.favoritePhotoNo(rs.getInt("favorite_photo_no"))
+							.createdBy(rs.getInt("created_by"))
+							.createdAt(rs.getObject("created_at", OffsetDateTime.class))
+							.build());
+		}
+		
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウント番号でのdelete")
@@ -74,6 +90,12 @@ public class PhotoFavoriteMapperTest {
 			PhotoFavorite deletePhotoFavorite = PhotoFavorite.builder().accountNo(1).build();
 			Integer actual = photoFavoriteMapper.delete(deletePhotoFavorite);
 			assertEquals(2, actual);
+			
+			List<PhotoFavorite> actualData = getPhotoFavoriteList("account_no=1");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoFavorite> actualRestData = getPhotoFavoriteList("account_no<>1");
+			assertEquals(2, actualRestData.size());
 		}
 		
 		@Test
@@ -83,6 +105,12 @@ public class PhotoFavoriteMapperTest {
 			PhotoFavorite deletePhotoFavorite = PhotoFavorite.builder().favoritePhotoAccountNo(1).build();
 			Integer actual = photoFavoriteMapper.delete(deletePhotoFavorite);
 			assertEquals(3, actual);
+			
+			List<PhotoFavorite> actualData = getPhotoFavoriteList("favorite_photo_account_no=1");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoFavorite> actualRestData = getPhotoFavoriteList("favorite_photo_account_no<>1");
+			assertEquals(1, actualRestData.size());
 		}
 		
 		@Test
@@ -92,6 +120,12 @@ public class PhotoFavoriteMapperTest {
 			PhotoFavorite deletePhotoFavorite = PhotoFavorite.builder().favoritePhotoNo(1).build();
 			Integer actual = photoFavoriteMapper.delete(deletePhotoFavorite);
 			assertEquals(2, actual);
+			
+			List<PhotoFavorite> actualData = getPhotoFavoriteList("favorite_photo_no=1");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoFavorite> actualRestData = getPhotoFavoriteList("favorite_photo_no<>1");
+			assertEquals(2, actualRestData.size());
 		}
 		
 		@Test
@@ -101,6 +135,12 @@ public class PhotoFavoriteMapperTest {
 			PhotoFavorite deletePhotoFavorite = PhotoFavorite.builder().accountNo(3).build();
 			Integer actual = photoFavoriteMapper.delete(deletePhotoFavorite);
 			assertEquals(0, actual);
+			
+			List<PhotoFavorite> actualData = getPhotoFavoriteList("account_no=3");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoFavorite> actualRestData = getPhotoFavoriteList("account_no<>3");
+			assertEquals(4, actualRestData.size());
 		}
 		
 		@Test
@@ -114,6 +154,12 @@ public class PhotoFavoriteMapperTest {
 					.build();
 			Integer actual = photoFavoriteMapper.delete(deletePhotoFavorite);
 			assertEquals(1, actual);
+			
+			List<PhotoFavorite> actualData = getPhotoFavoriteList("account_no=1 and favorite_photo_account_no=1 and favorite_photo_no=1");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoFavorite> actualRestData = getPhotoFavoriteList("account_no<>1 or favorite_photo_account_no<>1 or favorite_photo_no<>1");
+			assertEquals(3, actualRestData.size());
 		}
 	}
 }

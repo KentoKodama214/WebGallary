@@ -300,17 +300,23 @@ public class PhotoTagMstMapperTest {
 			assertEquals(1, actualCount);
 			
 			List<PhotoTagMst> actualData = jdbcTemplate.query(
-					"SELECT * FROM photo.photo_tag_mst WHERE account_no=1 and photo_no=1 and tag_no=1", (rs, rowNum) ->
+					"SELECT * FROM photo.photo_tag_mst WHERE account_no=1 and photo_no=1 and tag_no=3", (rs, rowNum) ->
 						PhotoTagMst.builder()
 							.accountNo(rs.getInt("account_no"))
 							.photoNo(rs.getInt("photo_no"))
 							.tagNo(rs.getInt("tag_no"))
 							.createdBy(rs.getInt("created_by"))
 							.createdAt(rs.getObject("created_at", OffsetDateTime.class))
-							.tagJapaneseName("春")
-							.tagEnglishName("spring")
+							.tagJapaneseName(rs.getObject("tag_japanese_name").toString())
+							.tagEnglishName(rs.getObject("tag_english_name").toString())
 							.build());
 			assertEquals(1, actualData.size());
+			assertEquals(1, actualData.getFirst().getAccountNo());
+			assertEquals(1, actualData.getFirst().getPhotoNo());
+			assertEquals(3, actualData.getFirst().getTagNo());
+			assertEquals(1, actualData.getFirst().getCreatedBy());
+			assertEquals("春", actualData.getFirst().getTagJapaneseName());
+			assertEquals("spring", actualData.getFirst().getTagEnglishName());
 		}
 	}
 	
@@ -319,6 +325,20 @@ public class PhotoTagMstMapperTest {
 	@Sql("/sql/mapper/PhotoTagMstMapperTest.sql")
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class delete {
+		private List<PhotoTagMst> getPhotoTagMstList(String condition) {
+			return jdbcTemplate.query(
+					"SELECT * FROM photo.photo_tag_mst WHERE " + condition, (rs, rowNum) ->
+						PhotoTagMst.builder()
+							.accountNo(rs.getInt("account_no"))
+							.photoNo(rs.getInt("photo_no"))
+							.tagNo(rs.getInt("tag_no"))
+							.createdBy(rs.getInt("created_by"))
+							.createdAt(rs.getObject("created_at", OffsetDateTime.class))
+							.tagJapaneseName(rs.getObject("tag_japanese_name").toString())
+							.tagEnglishName(rs.getObject("tag_english_name").toString())
+							.build());
+		}
+		
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウント番号でのdelete")
@@ -326,6 +346,12 @@ public class PhotoTagMstMapperTest {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().accountNo(1).build();
 			Integer deleteCount = photoTagMstMapper.delete(deletePhotoTagMst);
 			assertEquals(deleteCount, 5);
+			
+			List<PhotoTagMst> actualData = getPhotoTagMstList("account_no=1");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoTagMst> actualRestData = getPhotoTagMstList("account_no<>1");
+			assertEquals(0, actualRestData.size());
 		}
 		
 		@Test
@@ -335,6 +361,12 @@ public class PhotoTagMstMapperTest {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().photoNo(1).build();
 			Integer deleteCount = photoTagMstMapper.delete(deletePhotoTagMst);
 			assertEquals(deleteCount, 2);
+			
+			List<PhotoTagMst> actualData = getPhotoTagMstList("photo_no=1");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoTagMst> actualRestData = getPhotoTagMstList("photo_no<>1");
+			assertEquals(3, actualRestData.size());
 		}
 		
 		@Test
@@ -344,6 +376,12 @@ public class PhotoTagMstMapperTest {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().tagNo(1).build();
 			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
 			assertEquals(2, actual);
+			
+			List<PhotoTagMst> actualData = getPhotoTagMstList("tag_no=1");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoTagMst> actualRestData = getPhotoTagMstList("tag_no<>1");
+			assertEquals(3, actualRestData.size());
 		}
 		
 		@Test
@@ -353,6 +391,12 @@ public class PhotoTagMstMapperTest {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().tagJapaneseName("太陽").build();
 			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
 			assertEquals(2, actual);
+			
+			List<PhotoTagMst> actualData = getPhotoTagMstList("tag_japanese_name='太陽'");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoTagMst> actualRestData = getPhotoTagMstList("tag_japanese_name<>'太陽'");
+			assertEquals(3, actualRestData.size());
 		}
 		
 		@Test
@@ -362,6 +406,12 @@ public class PhotoTagMstMapperTest {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().tagEnglishName("sun").build();
 			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
 			assertEquals(2, actual);
+			
+			List<PhotoTagMst> actualData = getPhotoTagMstList("tag_english_name='sun'");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoTagMst> actualRestData = getPhotoTagMstList("tag_english_name<>'sun'");
+			assertEquals(3, actualRestData.size());
 		}
 		
 		@Test
@@ -371,6 +421,12 @@ public class PhotoTagMstMapperTest {
 			PhotoTagMst deletePhotoTagMst = PhotoTagMst.builder().accountNo(3).build();
 			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
 			assertEquals(0, actual);
+			
+			List<PhotoTagMst> actualData = getPhotoTagMstList("account_no=3");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoTagMst> actualRestData = getPhotoTagMstList("account_no<>3");
+			assertEquals(5, actualRestData.size());
 		}
 		
 		@Test
@@ -384,6 +440,12 @@ public class PhotoTagMstMapperTest {
 					.build();
 			Integer actual = photoTagMstMapper.delete(deletePhotoTagMst);
 			assertEquals(1, actual);
+			
+			List<PhotoTagMst> actualData = getPhotoTagMstList("account_no=1 and photo_no=1 and tag_no=1");
+			assertEquals(0, actualData.size());
+			
+			List<PhotoTagMst> actualRestData = getPhotoTagMstList("account_no<>1 or photo_no<>1 or tag_no<>1");
+			assertEquals(4, actualRestData.size());
 		}
 	}
 }

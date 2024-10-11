@@ -200,7 +200,7 @@ public class PhotoMstMapperTest {
 					.updatedBy(1)
 					.updatedAt(OffsetDateTime.of(2001, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)))
 					.isDeleted(false)
-					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)))
+					.photoAt(OffsetDateTime.of(2000, 1, 1, 9, 0, 0, 0, ZoneOffset.ofHours(9)))
 					.locationNo(6)
 					.imageFilePath("https://www.xxx.com/DSC666.jpg")
 					.photoJapaneseTitle("")
@@ -210,7 +210,7 @@ public class PhotoMstMapperTest {
 					.focalLength(100)
 					.fValue(BigDecimal.valueOf(2.8))
 					.shutterSpeed(BigDecimal.valueOf(0.01))
-					.iso(100)
+					.iso(200)
 					.build();
 			
 			Integer actualCount = photoMstMapper.insert(insertPhotoMst);
@@ -220,7 +220,7 @@ public class PhotoMstMapperTest {
 					"SELECT * FROM photo.photo_mst WHERE account_no=1 and photo_no=4", (rs, rowNum) ->
 						PhotoMst.builder()
 							.accountNo(rs.getInt("account_no"))
-							.accountNo(rs.getInt("photo_no"))
+							.photoNo(rs.getInt("photo_no"))
 							.createdBy(rs.getInt("created_by"))
 							.createdAt(rs.getObject("created_at", OffsetDateTime.class))
 							.updatedBy(rs.getInt("updated_by"))
@@ -240,6 +240,22 @@ public class PhotoMstMapperTest {
 							.build());
 			
 			assertEquals(1, actualData.size());
+			assertEquals(1, actualData.getFirst().getAccountNo());
+			assertEquals(4, actualData.getFirst().getPhotoNo());
+			assertEquals(1, actualData.getFirst().getCreatedBy());
+			assertEquals(1, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getPhotoAt());
+			assertEquals(6, actualData.getFirst().getLocationNo());
+			assertEquals("https://www.xxx.com/DSC666.jpg", actualData.getFirst().getImageFilePath());
+			assertEquals("", actualData.getFirst().getPhotoJapaneseTitle());
+			assertEquals("", actualData.getFirst().getPhotoEnglishTitle());
+			assertEquals("", actualData.getFirst().getCaption());
+			assertEquals("", actualData.getFirst().getDirectionKbnCode());
+			assertEquals(100, actualData.getFirst().getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(2.8).compareTo(actualData.getFirst().getFValue()));
+			assertEquals(0, BigDecimal.valueOf(0.01).compareTo(actualData.getFirst().getShutterSpeed()));
+			assertEquals(200, actualData.getFirst().getIso());
 		}
 	}
 	
@@ -248,6 +264,31 @@ public class PhotoMstMapperTest {
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/PhotoMstMapperTest.sql")
 	class update {
+		private List<PhotoMst> getPhotoMstList(String condition) {
+			return jdbcTemplate.query(
+					"SELECT * FROM photo.photo_mst WHERE " + condition, (rs, rowNum) ->
+						PhotoMst.builder()
+							.accountNo(rs.getInt("account_no"))
+							.photoNo(rs.getInt("photo_no"))
+							.createdBy(rs.getInt("created_by"))
+							.createdAt(rs.getObject("created_at", OffsetDateTime.class))
+							.updatedBy(rs.getInt("updated_by"))
+							.updatedAt(rs.getObject("updated_at", OffsetDateTime.class))
+							.isDeleted(rs.getBoolean("is_deleted"))
+							.photoAt(rs.getObject("photo_at", OffsetDateTime.class))
+							.locationNo(rs.getInt("location_no"))
+							.imageFilePath(rs.getString("image_file_path"))
+							.photoJapaneseTitle(rs.getString("photo_japanese_title"))
+							.photoEnglishTitle(rs.getString("photo_english_title"))
+							.caption(rs.getString("caption"))
+							.directionKbnCode(rs.getString("direction_kbn_code"))
+							.focalLength(rs.getInt("focal_length"))
+							.fValue(rs.getBigDecimal("f_value"))
+							.shutterSpeed(rs.getBigDecimal("shutter_speed"))
+							.iso(rs.getInt("iso"))
+							.build());
+		}
+		
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウント番号でのupdate")
@@ -256,6 +297,25 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(3, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("account_no=1");
+			assertEquals(3, actualData.size());
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -266,6 +326,43 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(2, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("photo_no=1");
+			assertEquals(2, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
+			
+			assertEquals(2, actualData.get(1).getAccountNo());
+			assertEquals(1, actualData.get(1).getPhotoNo());
+			assertEquals(1, actualData.get(1).getCreatedBy());
+			assertEquals(1, actualData.get(1).getUpdatedBy());
+			assertFalse(actualData.get(1).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(1).getPhotoAt());
+			assertEquals(4, actualData.get(1).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC444.jpg", actualData.get(1).getImageFilePath());
+			assertEquals("タイトル21", actualData.get(1).getPhotoJapaneseTitle());
+			assertEquals("title21", actualData.get(1).getPhotoEnglishTitle());
+			assertEquals("キャプション21", actualData.get(1).getCaption());
+			assertEquals("horizontal", actualData.get(1).getDirectionKbnCode());
+			assertEquals(80, actualData.get(1).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(12.0).compareTo(actualData.get(1).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(5).compareTo(actualData.get(1).getShutterSpeed()));
+			assertEquals(1000, actualData.get(1).getIso());
 		}
 		
 		@Test
@@ -276,6 +373,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("is_deleted=true");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(3, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertTrue(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 3, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(3, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC333.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル13", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title13", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション13", actualData.get(0).getCaption());
+			assertEquals("horizontal", actualData.get(0).getDirectionKbnCode());
+			assertEquals(50, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(10.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(3).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -287,6 +404,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("photo_at='2021-01-01 00:00:00.000 +0000'");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -297,6 +434,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("location_no=1");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -307,6 +464,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("image_file_path='https://www.xxx.com/DSC111.jpg'");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -317,6 +494,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("photo_japanese_title='タイトル11'");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -327,6 +524,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("photo_english_title='title11'");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -337,6 +554,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("caption='キャプション11'");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -347,6 +584,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("direction_kbn_code='vertical'");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -357,6 +614,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("focal_length=24");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -367,6 +644,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("f_value=8.0");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -377,6 +674,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("shutter_speed=1");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -387,6 +704,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("iso=1000");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 		
 		@Test
@@ -397,6 +734,9 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(0, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("account_no=100");
+			assertEquals(0, actualData.size());
 		}
 		
 		@Test
@@ -407,6 +747,26 @@ public class PhotoMstMapperTest {
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
+			
+			List<PhotoMst> actualData = getPhotoMstList("account_no=1 and photo_no=1");
+			assertEquals(1, actualData.size());
+			
+			assertEquals(1, actualData.get(0).getAccountNo());
+			assertEquals(1, actualData.get(0).getPhotoNo());
+			assertEquals(1, actualData.get(0).getCreatedBy());
+			assertEquals(1, actualData.get(0).getUpdatedBy());
+			assertFalse(actualData.get(0).getIsDeleted());
+			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(1, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC111.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション11", actualData.get(0).getCaption());
+			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(24, actualData.get(0).getFocalLength());
+			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
+			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
+			assertEquals(1000, actualData.get(0).getIso());
 		}
 	}
 	

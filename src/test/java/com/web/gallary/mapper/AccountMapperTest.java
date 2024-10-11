@@ -766,12 +766,12 @@ public class AccountMapperTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
-					.freeMemo("")
+					.sexKbnCode("woman")
+					.birthplacePrefectureKbnCode("Hokkaido")
+					.residentPrefectureKbnCode("Okinawa")
+					.freeMemo("フリーメモ")
 					.authorityKbnCode("administrator")
-					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)))
+					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 9, 0, 0, 0, ZoneOffset.ofHours(9)))
 					.loginFailureCount(0)
 					.build();
 			
@@ -800,7 +800,22 @@ public class AccountMapperTest {
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
 			
-			assertEquals(actualData.size(), 1);
+			assertEquals(1, actualData.size());
+			assertEquals(1, actualData.getFirst().getAccountNo());
+			assertEquals(1, actualData.getFirst().getCreatedBy());
+			assertEquals(1, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("aaaaaaaa", actualData.getFirst().getAccountId());
+			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
+			assertEquals("woman", actualData.getFirst().getSexKbnCode());
+			assertEquals("Hokkaido", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("Okinawa", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("フリーメモ", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
 	}
 	
@@ -809,6 +824,30 @@ public class AccountMapperTest {
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class update {
+		private List<Account> getAccountList(String condition) {
+			return jdbcTemplate.query(
+					"SELECT * FROM common.account WHERE " + condition, (rs, rowNum) ->
+						Account.builder()
+							.accountNo(rs.getInt("account_no"))
+							.createdBy(rs.getInt("created_by"))
+							.createdAt(rs.getObject("created_at", OffsetDateTime.class))
+							.updatedBy(rs.getInt("updated_by"))
+							.updatedAt(rs.getObject("updated_at", OffsetDateTime.class))
+							.isDeleted(rs.getBoolean("is_deleted"))
+							.accountId(rs.getString("account_id"))
+							.accountName(rs.getString("account_name"))
+							.password(rs.getString("password"))
+							.birthdate(rs.getObject("birthdate", LocalDate.class))
+							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
+							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
+							.freeMemo(rs.getString("free_memo"))
+							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
+							.loginFailureCount(rs.getInt("login_failure_count"))
+							.build());
+		}
+		
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウント番号でのupdate")
@@ -817,6 +856,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("account_no=1");
+			assertEquals(1, actualData.size());
+			assertEquals(1, actualData.getFirst().getAccountNo());
+			assertEquals(1, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(1, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("aaaaaaaa", actualData.getFirst().getAccountId());
+			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -827,6 +885,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("is_deleted=true");
+			assertEquals(1, actualData.size());
+			assertEquals(9, actualData.getFirst().getAccountNo());
+			assertEquals(9, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 9, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(9, actualData.getFirst().getUpdatedBy());
+			assertTrue(actualData.getFirst().getIsDeleted());
+			assertEquals("iiiiiiii", actualData.getFirst().getAccountId());
+			assertEquals("IIIIIIII", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password9", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("special-user", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -837,6 +914,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("account_id='aaaaaaaa'");
+			assertEquals(1, actualData.size());
+			assertEquals(1, actualData.getFirst().getAccountNo());
+			assertEquals(1, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(1, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("aaaaaaaa", actualData.getFirst().getAccountId());
+			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -847,6 +943,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("account_name='AAAAAAAA'");
+			assertEquals(1, actualData.size());
+			assertEquals(1, actualData.getFirst().getAccountNo());
+			assertEquals(1, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(1, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("aaaaaaaa", actualData.getFirst().getAccountId());
+			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -857,6 +972,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("password='$2a$10$password1'");
+			assertEquals(1, actualData.size());
+			assertEquals(1, actualData.getFirst().getAccountNo());
+			assertEquals(1, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(1, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("aaaaaaaa", actualData.getFirst().getAccountId());
+			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -867,6 +1001,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("birthdate='1991-02-14'");
+			assertEquals(1, actualData.size());
+			assertEquals(1, actualData.getFirst().getAccountNo());
+			assertEquals(1, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(1, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("aaaaaaaa", actualData.getFirst().getAccountId());
+			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -877,6 +1030,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("sex_kbn_code='man'");
+			assertEquals(1, actualData.size());
+			assertEquals(2, actualData.getFirst().getAccountNo());
+			assertEquals(2, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 2, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(2, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("bbbbbbbb", actualData.getFirst().getAccountId());
+			assertEquals("BBBBBBBB", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password2", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
+			assertEquals("man", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -887,6 +1059,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("birthplace_prefecture_kbn_code='Hokkaido'");
+			assertEquals(1, actualData.size());
+			assertEquals(3, actualData.getFirst().getAccountNo());
+			assertEquals(3, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 3, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(3, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("cccccccc", actualData.getFirst().getAccountId());
+			assertEquals("CCCCCCCC", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password3", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("Hokkaido", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -897,6 +1088,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("resident_prefecture_kbn_code='Okinawa'");
+			assertEquals(1, actualData.size());
+			assertEquals(4, actualData.getFirst().getAccountNo());
+			assertEquals(4, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 4, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(4, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("dddddddd", actualData.getFirst().getAccountId());
+			assertEquals("DDDDDDDD", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password4", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("Okinawa", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -907,6 +1117,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("free_memo='フリーメモ'");
+			assertEquals(1, actualData.size());
+			assertEquals(5, actualData.getFirst().getAccountNo());
+			assertEquals(5, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 5, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(5, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("eeeeeeee", actualData.getFirst().getAccountId());
+			assertEquals("EEEEEEEE", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password5", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("フリーメモ", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -917,6 +1146,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("authority_kbn_code='mini-user'");
+			assertEquals(1, actualData.size());
+			assertEquals(6, actualData.getFirst().getAccountNo());
+			assertEquals(6, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 6, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(6, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("ffffffff", actualData.getFirst().getAccountId());
+			assertEquals("FFFFFFFF", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password6", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("mini-user", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -929,6 +1177,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("last_login_datetime='2024-01-01 00:00:00.000 +0000'");
+			assertEquals(1, actualData.size());
+			assertEquals(7, actualData.getFirst().getAccountNo());
+			assertEquals(7, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 7, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(7, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("gggggggg", actualData.getFirst().getAccountId());
+			assertEquals("GGGGGGGG", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password7", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -939,6 +1206,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(0).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("account_no=8");
+			assertEquals(1, actualData.size());
+			assertEquals(8, actualData.getFirst().getAccountNo());
+			assertEquals(8, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 8, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(8, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("hhhhhhhh", actualData.getFirst().getAccountId());
+			assertEquals("HHHHHHHH", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password8", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
+			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("", actualData.getFirst().getFreeMemo());
+			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
 		
 		@Test
@@ -949,6 +1235,9 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(0).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(0, actual);
+			
+			List<Account> actualData = getAccountList("account_no=99");
+			assertEquals(0, actualData.size());
 		}
 		
 		@Test
@@ -959,6 +1248,42 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(2, actual);
+			
+			List<Account> actualData = getAccountList("authority_kbn_code='special-user' order by account_no");
+			assertEquals(2, actualData.size());
+			assertEquals(9, actualData.get(0).getAccountNo());
+			assertEquals(9, actualData.get(0).getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 9, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getCreatedAt());
+			assertEquals(9, actualData.get(0).getUpdatedBy());
+			assertTrue(actualData.get(0).getIsDeleted());
+			assertEquals("iiiiiiii", actualData.get(0).getAccountId());
+			assertEquals("IIIIIIII", actualData.get(0).getAccountName());
+			assertEquals("$2a$10$password9", actualData.get(0).getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.get(0).getBirthdate());
+			assertEquals("", actualData.get(0).getSexKbnCode());
+			assertEquals("", actualData.get(0).getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.get(0).getResidentPrefectureKbnCode());
+			assertEquals("", actualData.get(0).getFreeMemo());
+			assertEquals("special-user", actualData.get(0).getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getLastLoginDatetime());
+			assertEquals(1, actualData.get(0).getLoginFailureCount());
+			
+			assertEquals(10, actualData.get(1).getAccountNo());
+			assertEquals(10, actualData.get(1).getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 10, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(1).getCreatedAt());
+			assertEquals(10, actualData.get(1).getUpdatedBy());
+			assertFalse(actualData.get(1).getIsDeleted());
+			assertEquals("jjjjjjjj", actualData.get(1).getAccountId());
+			assertEquals("JJJJJJJJ", actualData.get(1).getAccountName());
+			assertEquals("$2a$10$password10", actualData.get(1).getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.get(1).getBirthdate());
+			assertEquals("", actualData.get(1).getSexKbnCode());
+			assertEquals("", actualData.get(1).getBirthplacePrefectureKbnCode());
+			assertEquals("", actualData.get(1).getResidentPrefectureKbnCode());
+			assertEquals("", actualData.get(1).getFreeMemo());
+			assertEquals("special-user", actualData.get(1).getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(1).getLastLoginDatetime());
+			assertEquals(1, actualData.get(1).getLoginFailureCount());
 		}
 		
 		@Test
@@ -975,6 +1300,25 @@ public class AccountMapperTest {
 			Account targetAccount = Account.builder().loginFailureCount(0).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("account_id='llllllll'");
+			assertEquals(1, actualData.size());
+			assertEquals(12, actualData.getFirst().getAccountNo());
+			assertEquals(12, actualData.getFirst().getCreatedBy());
+			assertEquals(OffsetDateTime.of(2000, 1, 12, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getCreatedAt());
+			assertEquals(12, actualData.getFirst().getUpdatedBy());
+			assertFalse(actualData.getFirst().getIsDeleted());
+			assertEquals("llllllll", actualData.getFirst().getAccountId());
+			assertEquals("LLLLLLLL", actualData.getFirst().getAccountName());
+			assertEquals("$2a$10$password12", actualData.getFirst().getPassword());
+			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
+			assertEquals("woman", actualData.getFirst().getSexKbnCode());
+			assertEquals("Okinawa", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("Tokyo", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("よろしく", actualData.getFirst().getFreeMemo());
+			assertEquals("normal-user", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
+			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
 	}
 	
@@ -983,6 +1327,30 @@ public class AccountMapperTest {
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class delete {
+		private List<Account> getAccountList(String condition) {
+			return jdbcTemplate.query(
+					"SELECT * FROM common.account WHERE " + condition, (rs, rowNum) ->
+						Account.builder()
+							.accountNo(rs.getInt("account_no"))
+							.createdBy(rs.getInt("created_by"))
+							.createdAt(rs.getObject("created_at", OffsetDateTime.class))
+							.updatedBy(rs.getInt("updated_by"))
+							.updatedAt(rs.getObject("updated_at", OffsetDateTime.class))
+							.isDeleted(rs.getBoolean("is_deleted"))
+							.accountId(rs.getString("account_id"))
+							.accountName(rs.getString("account_name"))
+							.password(rs.getString("password"))
+							.birthdate(rs.getObject("birthdate", LocalDate.class))
+							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
+							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
+							.freeMemo(rs.getString("free_memo"))
+							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
+							.loginFailureCount(rs.getInt("login_failure_count"))
+							.build());
+		}
+		
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウント番号でのdelete")
@@ -990,6 +1358,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().accountNo(1).build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("account_no=1");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("account_no<>1");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -999,6 +1373,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().isDeleted(true).build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("is_deleted=true");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("is_deleted=false");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1008,6 +1388,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().accountId("aaaaaaaa").build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("account_id='aaaaaaaa'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("account_id<>'aaaaaaaa'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1017,6 +1403,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().accountName("AAAAAAAA").build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("account_name='AAAAAAAA'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("account_name<>'AAAAAAAA'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1026,6 +1418,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().password("$2a$10$password1").build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("password='$2a$10$password1'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("password<>'$2a$10$password1'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1035,6 +1433,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().birthdate(LocalDate.of(1991, 2, 14)).build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("birthdate='1991-02-14'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("birthdate<>'1991-02-14'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1044,6 +1448,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().sexKbnCode("man").build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("sex_kbn_code='man'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("sex_kbn_code<>'man'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1053,6 +1463,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().birthplacePrefectureKbnCode("Hokkaido").build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("birthplace_prefecture_kbn_code='Hokkaido'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("birthplace_prefecture_kbn_code<>'Hokkaido'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1062,6 +1478,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().residentPrefectureKbnCode("Okinawa").build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("resident_prefecture_kbn_code='Okinawa'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("resident_prefecture_kbn_code<>'Okinawa'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1071,6 +1493,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().freeMemo("フリーメモ").build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("free_memo='フリーメモ'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("free_memo<>'フリーメモ'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1080,6 +1508,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().authorityKbnCode("mini-user").build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("authority_kbn_code='mini-user'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("authority_kbn_code<>'mini-user'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1091,6 +1525,12 @@ public class AccountMapperTest {
 					.build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("last_login_datetime='2024-01-01 00:00:00.000 +0000'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("last_login_datetime<>'2024-01-01 00:00:00.000 +0000'");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1100,6 +1540,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().loginFailureCount(2).build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData = getAccountList("login_failure_count=2");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("login_failure_count<>2");
+			assertEquals(11, actualRestData.size());
 		}
 		
 		@Test
@@ -1109,6 +1555,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().accountNo(99).build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(0, actual);
+			
+			List<Account> actualData = getAccountList("account_no=99");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("account_no<>99");
+			assertEquals(12, actualRestData.size());
 		}
 		
 		@Test
@@ -1118,6 +1570,12 @@ public class AccountMapperTest {
 			Account deleteAccount = Account.builder().authorityKbnCode("special-user").build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(2, actual);
+			
+			List<Account> actualData = getAccountList("authority_kbn_code='special-user'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("authority_kbn_code<>'special-user'");
+			assertEquals(10, actualRestData.size());
 		}
 		
 		@Test
@@ -1133,6 +1591,21 @@ public class AccountMapperTest {
 					.build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
+			
+			List<Account> actualData
+				= getAccountList("account_id='llllllll'"
+						+ " and sex_kbn_code='woman'"
+						+ " and birthplace_prefecture_kbn_code='Okinawa'"
+						+ " and resident_prefecture_kbn_code='Tokyo'"
+						+ " and free_memo='よろしく'");
+			assertEquals(0, actualData.size());
+			
+			List<Account> actualRestData = getAccountList("account_id<>'llllllll'"
+					+ " and sex_kbn_code<>'woman'"
+					+ " and birthplace_prefecture_kbn_code<>'Okinawa'"
+					+ " and resident_prefecture_kbn_code<>'Tokyo'"
+					+ " and free_memo<>'よろしく'");
+			assertEquals(10, actualRestData.size());
 		}
 	}
 	
