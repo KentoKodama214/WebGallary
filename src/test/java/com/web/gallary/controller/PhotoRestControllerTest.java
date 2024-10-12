@@ -590,6 +590,7 @@ public class PhotoRestControllerTest {
 		
 		@Test
 		@Order(7)
+		@SuppressWarnings("unchecked")
 		@DisplayName("異常系：画像ファイル、ファイルパス以外のパラメータ不正。BadRequestExceptionをthrowする")
 		void savePhoto_BadRequestException_others() throws FileDuplicateException, RegistFailureException, UpdateFailureException {
 			String photoAccountId = "aaaaaaaa";
