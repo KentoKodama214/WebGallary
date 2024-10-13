@@ -26,6 +26,7 @@ import com.web.gallary.entity.Account;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class AccountMapperTest {
 	@Autowired
 	private AccountMapper accountMapper;
@@ -753,7 +754,6 @@ public class AccountMapperTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：登録成功")
-		@Sql("/sql/mapper/ResetAccountNoSeq.sql")
 		void insert_success() {
 			Account insertAccount = Account.builder()
 					.accountNo(1)
@@ -1608,6 +1608,7 @@ public class AccountMapperTest {
 			assertEquals(10, actualRestData.size());
 		}
 	}
+	
 	
 	@Nested
 	@Order(6)

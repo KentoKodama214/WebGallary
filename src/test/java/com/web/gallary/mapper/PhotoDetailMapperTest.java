@@ -29,6 +29,7 @@ import com.web.gallary.dto.PhotoListGetDto;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoDetailMapperTest {
 	@Autowired
 	private PhotoDetailMapper photoDetailMapper;
@@ -68,6 +69,7 @@ public class PhotoDetailMapperTest {
 			assertEquals("キャプション12", actualPhotoDto2.getCaption());
 			assertEquals("horizontal", actualPhotoDto2.getDirectionKbnCode());
 		}
+		
 		@Test
 		@Order(2)
 		@DisplayName("正常系：selectで0件の場合")
@@ -115,6 +117,7 @@ public class PhotoDetailMapperTest {
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actual.getShutterSpeed()));
 			assertEquals(100, actual.getIso());
 		}
+		
 		@Test
 		@Order(2)
 		@DisplayName("正常系：selectで0件の場合")

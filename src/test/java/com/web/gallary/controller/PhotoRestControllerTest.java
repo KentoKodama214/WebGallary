@@ -613,7 +613,7 @@ public class PhotoRestControllerTest {
 		}
 		
 		@Test
-		@Order(10)
+		@Order(8)
 		@SuppressWarnings("unchecked")
 		@DisplayName("異常系：FileDuplicateExceptionをthrowする")
 		void savePhoto_FileDuplicateException() throws UpdateFailureException, FileDuplicateException, RegistFailureException {
@@ -673,7 +673,7 @@ public class PhotoRestControllerTest {
 		}
 		
 		@Test
-		@Order(11)
+		@Order(9)
 		@SuppressWarnings("unchecked")
 		@DisplayName("異常系：RegistFailureExceptionをthrowする")
 		void savePhoto_RegistFailureException() throws FileDuplicateException, RegistFailureException, UpdateFailureException {
@@ -733,7 +733,7 @@ public class PhotoRestControllerTest {
 		}
 		
 		@Test
-		@Order(8)
+		@Order(10)
 		@SuppressWarnings("unchecked")
 		@DisplayName("異常系：UpdateFailureExceptionをthrowする")
 		void savePhoto_UpdateFailureException() throws FileDuplicateException, RegistFailureException, UpdateFailureException {

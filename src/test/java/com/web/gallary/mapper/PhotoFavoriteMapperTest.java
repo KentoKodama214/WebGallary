@@ -23,6 +23,7 @@ import com.web.gallary.entity.PhotoFavorite;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoFavoriteMapperTest {
 	@Autowired
 	private PhotoFavoriteMapper photoFavoriteMapper;

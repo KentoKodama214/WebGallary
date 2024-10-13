@@ -578,7 +578,6 @@ public class AccountRepositoryImplTest {
 		@Order(1)
 		@DisplayName("正常系：アカウントを2件以上取得")
 		void getAccountList_found_some_accounts() {
-			
 			Account account1 = Account.builder()
 					.accountNo(1)
 					.createdBy(1)
