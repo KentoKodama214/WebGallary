@@ -10,8 +10,8 @@ insert into common.account values(5,  5,  '2000-01-05 09:00:00 Asia/Tokyo', 5,  
 insert into common.location_mst values(1, 1, 1, '2000-01-05 09:00:00 Asia/Tokyo', 1, '2000-01-05 09:00:00 Asia/Tokyo', false, 'ロケーション1', '住所1', 38.100, 115.100);
 insert into common.location_mst values(1, 2, 1, '2000-01-05 09:00:00 Asia/Tokyo', 1, '2000-01-05 09:00:00 Asia/Tokyo', false, 'ロケーション2', '住所2', 38.200, 115.200);
 insert into common.location_mst values(1, 3, 1, '2000-01-05 09:00:00 Asia/Tokyo', 1, '2000-01-05 09:00:00 Asia/Tokyo', true, 'ロケーション3', '住所3', 38.300, 115.300);
-insert into common.location_mst values(2, 1, 1, '2000-01-05 09:00:00 Asia/Tokyo', 1, '2000-01-05 09:00:00 Asia/Tokyo', false, 'ロケーション4', '住所4', 38.400, 115.400);
-insert into common.location_mst values(2, 2, 1, '2000-01-05 09:00:00 Asia/Tokyo', 1, '2000-01-05 09:00:00 Asia/Tokyo', true, 'ロケーション5', '住所5', 38.500, 115.500);
+insert into common.location_mst values(2, 4, 1, '2000-01-05 09:00:00 Asia/Tokyo', 1, '2000-01-05 09:00:00 Asia/Tokyo', false, 'ロケーション4', '住所4', 38.400, 115.400);
+insert into common.location_mst values(2, 5, 1, '2000-01-05 09:00:00 Asia/Tokyo', 1, '2000-01-05 09:00:00 Asia/Tokyo', true, 'ロケーション5', '住所5', 38.500, 115.500);
 
 -- photo.photo_mst
 insert into photo.photo_mst values(1, 1, 1, '2000-01-01 09:00:00 Asia/Tokyo', 1, '2000-01-01 09:00:00 Asia/Tokyo', false, '2021-01-01 09:00:00 Asia/Tokyo', 1, 'https://www.xxx.com/DSC111.jpg', 'タイトル11', 'title11', 'キャプション11', 'vertical',   24, 8.0,  1,  100);
@@ -22,7 +22,13 @@ insert into photo.photo_mst values(2, 2, 1, '2000-01-01 09:00:00 Asia/Tokyo', 1,
 
 -- photo.photo_favorite
 insert into photo.photo_favorite values(1, 1, 1, 1, now());
---insert into photo.photo_favorite values(1, 1, 2, 1, now());
 insert into photo.photo_favorite values(2, 1, 1, 1, now());
 insert into photo.photo_favorite values(2, 1, 2, 1, now());
 insert into photo.photo_favorite values(2, 2, 1, 1, now());
+
+-- photo.photo_tag_mst
+insert into photo.photo_tag_mst values(1, 1, 1, 1, '2000-01-01 10:00:00 Asia/Tokyo', '太陽', 'sun');
+insert into photo.photo_tag_mst values(1, 1, 2, 1, '2000-01-01 11:00:00 Asia/Tokyo', '青空', 'bluesky');
+insert into photo.photo_tag_mst values(1, 2, 1, 1, '2000-02-01 10:00:00 Asia/Tokyo', '太陽', 'sun');
+insert into photo.photo_tag_mst values(1, 2, 2, 1, '2000-02-01 11:00:00 Asia/Tokyo', '曇天', 'cloudy');
+insert into photo.photo_tag_mst values(1, 2, 3, 1, '2000-02-01 12:00:00 Asia/Tokyo', '花',   'flower');

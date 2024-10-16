@@ -123,5 +123,6 @@
 			photo.photo_mst
 		WHERE
 			image_file_path LIKE CONCAT('%', #{filename})
+		AND is_deleted = false
 	</select>
 </mapper>

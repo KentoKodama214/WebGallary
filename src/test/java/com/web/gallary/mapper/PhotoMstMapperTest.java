@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -328,7 +329,8 @@ public class PhotoMstMapperTest {
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(2, actual);
 			
-			List<PhotoMst> actualData = getPhotoMstList("photo_no=1");
+			List<PhotoMst> actualData = getPhotoMstList("photo_no=1")
+					.stream().sorted(Comparator.comparing(PhotoMst::getAccountNo)).toList();
 			assertEquals(2, actualData.size());
 			
 			assertEquals(1, actualData.get(0).getAccountNo());
@@ -800,13 +802,20 @@ public class PhotoMstMapperTest {
 	class isExistPhoto {
 		@Test
 		@Order(1)
-		@DisplayName("正常系：画像ファイルパスに該当する写真がない場合")
+		@DisplayName("正常系：画像ファイルパスに該当する写真がある場合")
 		void isExistPhoto_found() {
 			assertTrue(photoMstMapper.isExistPhoto("https://www.xxx.com/DSC111.jpg"));
 		}
 		
 		@Test
 		@Order(2)
+		@DisplayName("正常系：画像ファイルパスに該当する写真があるが、削除済みの場合")
+		void isExistPhoto_found_is_deleted() {
+			assertFalse(photoMstMapper.isExistPhoto("https://www.xxx.com/DSC333.jpg"));
+		}
+		
+		@Test
+		@Order(3)
 		@DisplayName("正常系：画像ファイルパスに該当する写真がない場合")
 		void isExistPhoto_not_found() {
 			assertFalse(photoMstMapper.isExistPhoto("https://www.xxx.com/DSC999.jpg"));

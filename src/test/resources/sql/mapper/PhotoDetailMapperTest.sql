@@ -22,7 +22,6 @@ insert into photo.photo_mst values(2, 2, 1, '2000-01-01 09:00:00 Asia/Tokyo', 1,
 
 -- photo.photo_favorite
 insert into photo.photo_favorite values(1, 1, 1, 1, now());
---insert into photo.photo_favorite values(1, 1, 2, 1, now());
 insert into photo.photo_favorite values(2, 1, 1, 1, now());
 insert into photo.photo_favorite values(2, 1, 2, 1, now());
 insert into photo.photo_favorite values(2, 2, 1, 1, now());

@@ -523,7 +523,7 @@ public class PhotoMstRepositoryImplTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：画像ファイルパスに該当する写真がない場合")
-		void isExistPhoto_found() {
+		void isExistPhoto_not_found() {
 			String filename = "DSC111.jpg";
 			doReturn(false).when(photoMstMapper).isExistPhoto(filename);
 			assertFalse(photoMstRepositoryImpl.isExistPhoto(filename));
@@ -531,8 +531,8 @@ public class PhotoMstRepositoryImplTest {
 		
 		@Test
 		@Order(2)
-		@DisplayName("正常系：画像ファイルパスに該当する写真がない場合")
-		void isExistPhoto_not_found() {
+		@DisplayName("正常系：画像ファイルパスに該当する写真がある場合")
+		void isExistPhoto_found() {
 			String filename = "DSC111.jpg";
 			doReturn(true).when(photoMstMapper).isExistPhoto(filename);
 			assertTrue(photoMstRepositoryImpl.isExistPhoto(filename));
