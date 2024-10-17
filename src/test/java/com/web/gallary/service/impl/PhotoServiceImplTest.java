@@ -893,7 +893,6 @@ public class PhotoServiceImplTest {
 		}
 	}
 	
-	
 	@Nested
 	@Order(4)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -1003,7 +1002,6 @@ public class PhotoServiceImplTest {
 		}
 	}
 	
-	
 	@Nested
 	@Order(5)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -1092,7 +1090,6 @@ public class PhotoServiceImplTest {
 			assertTrue(photoServiceImpl.isReachedUpperLimit(accountNo));
 		}
 	}
-	
 	
 	@Nested
 	@Order(6)
@@ -1399,7 +1396,6 @@ public class PhotoServiceImplTest {
 		}
 	}
 	
-	
 	@Nested
 	@Order(7)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -1432,7 +1428,6 @@ public class PhotoServiceImplTest {
 		}
 	}
 	
-	
 	@Nested
 	@Order(8)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -1464,7 +1459,6 @@ public class PhotoServiceImplTest {
 			assertFalse((Boolean) filteringByIsFavorite.invoke(photoServiceImpl, false, true));
 		}
 	}
-	
 	
 	@Nested
 	@Order(9)
@@ -1720,7 +1714,6 @@ public class PhotoServiceImplTest {
 		}
 	}
 	
-	
 	@Nested
 	@Order(11)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -1750,7 +1743,6 @@ public class PhotoServiceImplTest {
 			assertEquals(multipartFile, fileModelCapture.getImageFile());
 		}
 	}
-	
 	
 	@Nested
 	@Order(12)
