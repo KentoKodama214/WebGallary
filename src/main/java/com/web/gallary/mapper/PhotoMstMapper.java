@@ -44,5 +44,6 @@ public interface PhotoMstMapper {
 	 * @param	filename	ファイル名
 	 * @return				登録有無
 	 */
-	public Boolean isExistPhoto(String filename);
+//	public Boolean isExistPhoto(String filename);
+	public Boolean isExistPhoto(PhotoMst photoMst);
 }

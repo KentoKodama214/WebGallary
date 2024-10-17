@@ -59,11 +59,11 @@ public class PhotoMstMapperTest {
 		
 		@Test
 		@Order(3)
-		@DisplayName("正常系：削除フラグでのcountで1件の場合")
+		@DisplayName("正常系：削除フラグでのcountで1件以上の場合")
 		void count_by_isDeleted() {
 			PhotoMst photoMst = PhotoMst.builder().isDeleted(true).build();
 			Integer actual = photoMstMapper.count(photoMst);
-			assertEquals(1, actual);
+			assertEquals(3, actual);
 		}
 		
 		@Test
@@ -375,22 +375,23 @@ public class PhotoMstMapperTest {
 			PhotoMst conditionPhotoMst = PhotoMst.builder().isDeleted(true).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
-			assertEquals(1, actual);
+			assertEquals(3, actual);
 			
 			List<PhotoMst> actualData = getPhotoMstList("is_deleted=true");
-			assertEquals(1, actualData.size());
+			assertEquals(3, actualData.size());
 			
-			assertEquals(1, actualData.get(0).getAccountNo());
+			actualData = actualData.stream().filter(photoMst -> photoMst.getAccountNo() == 2).toList();
+			assertEquals(2, actualData.get(0).getAccountNo());
 			assertEquals(3, actualData.get(0).getPhotoNo());
 			assertEquals(1, actualData.get(0).getCreatedBy());
 			assertEquals(1, actualData.get(0).getUpdatedBy());
 			assertTrue(actualData.get(0).getIsDeleted());
-			assertEquals(OffsetDateTime.of(2021, 3, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
-			assertEquals(3, actualData.get(0).getLocationNo());
-			assertEquals("https://www.xxx.com/DSC333.jpg", actualData.get(0).getImageFilePath());
-			assertEquals("タイトル13", actualData.get(0).getPhotoJapaneseTitle());
-			assertEquals("title13", actualData.get(0).getPhotoEnglishTitle());
-			assertEquals("キャプション13", actualData.get(0).getCaption());
+			assertEquals(OffsetDateTime.of(2022, 3, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getPhotoAt());
+			assertEquals(6, actualData.get(0).getLocationNo());
+			assertEquals("https://www.xxx.com/DSC555.jpg", actualData.get(0).getImageFilePath());
+			assertEquals("タイトル23", actualData.get(0).getPhotoJapaneseTitle());
+			assertEquals("title23", actualData.get(0).getPhotoEnglishTitle());
+			assertEquals("キャプション23", actualData.get(0).getCaption());
 			assertEquals("horizontal", actualData.get(0).getDirectionKbnCode());
 			assertEquals(50, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(10.0).compareTo(actualData.get(0).getFValue()));
@@ -802,23 +803,46 @@ public class PhotoMstMapperTest {
 	class isExistPhoto {
 		@Test
 		@Order(1)
-		@DisplayName("正常系：画像ファイルパスに該当する写真がある場合")
-		void isExistPhoto_found() {
-			assertTrue(photoMstMapper.isExistPhoto("https://www.xxx.com/DSC111.jpg"));
+		@DisplayName("正常系：画像ファイルパスに該当する写真が1つある場合")
+		void isExistPhoto_photo_found() {
+			PhotoMst photoMst = PhotoMst.builder()
+					.accountNo(1)
+					.imageFilePath("DSC111.jpg")
+					.build();
+			assertTrue(photoMstMapper.isExistPhoto(photoMst));
 		}
 		
 		@Test
 		@Order(2)
-		@DisplayName("正常系：画像ファイルパスに該当する写真があるが、削除済みの場合")
-		void isExistPhoto_found_is_deleted() {
-			assertFalse(photoMstMapper.isExistPhoto("https://www.xxx.com/DSC333.jpg"));
+		@DisplayName("正常系：画像ファイルパスに該当する写真が複数ある場合")
+		void isExistPhoto_photos_found() {
+			PhotoMst photoMst = PhotoMst.builder()
+					.accountNo(2)
+					.imageFilePath("DSC555.jpg")
+					.build();
+			assertTrue(photoMstMapper.isExistPhoto(photoMst));
 		}
 		
 		@Test
 		@Order(3)
+		@DisplayName("正常系：画像ファイルパスに該当する写真があるが、削除済みの場合")
+		void isExistPhoto_found_is_deleted() {
+			PhotoMst photoMst = PhotoMst.builder()
+					.accountNo(1)
+					.imageFilePath("DSC333.jpg")
+					.build();
+			assertFalse(photoMstMapper.isExistPhoto(photoMst));
+		}
+		
+		@Test
+		@Order(4)
 		@DisplayName("正常系：画像ファイルパスに該当する写真がない場合")
 		void isExistPhoto_not_found() {
-			assertFalse(photoMstMapper.isExistPhoto("https://www.xxx.com/DSC999.jpg"));
+			PhotoMst photoMst = PhotoMst.builder()
+					.accountNo(1)
+					.imageFilePath("DSC999.jpg")
+					.build();
+			assertFalse(photoMstMapper.isExistPhoto(photoMst));
 		}
 	}
 }

@@ -17,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.gallary.entity.PhotoMst;
 import com.web.gallary.exception.RegistFailureException;
@@ -430,23 +432,82 @@ public class PhotoMstRepositoryImplIntegrationTest {
 	class isExistPhoto {
 		@Test
 		@Order(1)
-		@DisplayName("正常系：画像ファイルパスに該当する写真がある場合")
-		void isExistPhoto_not_found() {
-			assertTrue(photoMstRepositoryImpl.isExistPhoto("DSC11.jpg"));
+		@DisplayName("正常系：画像ファイルパスに該当する写真が1つある場合")
+		void isExistPhoto_photo_found() {
+			MultipartFile multipartFile = new MockMultipartFile(
+					"file",
+					"DSC11.jpg",
+					"multipart/form-data",
+					"sample image".getBytes()
+			);
+			
+			PhotoDetailModel photoDetailModel = PhotoDetailModel.builder()
+					.accountNo(1)
+					.imageFile(multipartFile)
+					.imageFilePath("")
+					.build();
+			
+			assertTrue(photoMstRepositoryImpl.isExistPhoto(photoDetailModel));
 		}
 		
 		@Test
 		@Order(2)
-		@DisplayName("正常系：画像ファイルパスに該当する写真があるが、削除済みの場合")
-		void isExistPhoto_found_is_deleted() {
-			assertFalse(photoMstRepositoryImpl.isExistPhoto("DSC13.jpg"));
+		@DisplayName("正常系：画像ファイルパスに該当する写真が複数ある場合")
+		void isExistPhoto_photos_found() {
+			MultipartFile multipartFile = new MockMultipartFile(
+					"file",
+					"DSC22.jpg",
+					"multipart/form-data",
+					"sample image".getBytes()
+			);
+			
+			PhotoDetailModel photoDetailModel = PhotoDetailModel.builder()
+					.accountNo(2)
+					.imageFile(multipartFile)
+					.imageFilePath("")
+					.build();
+			
+			assertTrue(photoMstRepositoryImpl.isExistPhoto(photoDetailModel));
 		}
 		
 		@Test
 		@Order(3)
+		@DisplayName("正常系：画像ファイルパスに該当する写真があるが、削除済みの場合")
+		void isExistPhoto_found_is_deleted() {
+			MultipartFile multipartFile = new MockMultipartFile(
+					"file",
+					"DSC13.jpg",
+					"multipart/form-data",
+					"sample image".getBytes()
+			);
+			
+			PhotoDetailModel photoDetailModel = PhotoDetailModel.builder()
+					.accountNo(1)
+					.imageFile(multipartFile)
+					.imageFilePath("")
+					.build();
+			
+			assertFalse(photoMstRepositoryImpl.isExistPhoto(photoDetailModel));
+		}
+		
+		@Test
+		@Order(4)
 		@DisplayName("正常系：画像ファイルパスに該当する写真がない場合")
-		void isExistPhoto_found() {
-			assertFalse(photoMstRepositoryImpl.isExistPhoto("DSC14.jpg"));
+		void isExistPhoto_not_found() {
+			MultipartFile multipartFile = new MockMultipartFile(
+					"file",
+					"DSC99.jpg",
+					"multipart/form-data",
+					"sample image".getBytes()
+			);
+			
+			PhotoDetailModel photoDetailModel = PhotoDetailModel.builder()
+					.accountNo(1)
+					.imageFile(multipartFile)
+					.imageFilePath("")
+					.build();
+			
+			assertFalse(photoMstRepositoryImpl.isExistPhoto(photoDetailModel));
 		}
 		
 	}

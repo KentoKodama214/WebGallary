@@ -161,12 +161,16 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 	
 	/**
 	 * 同じファイル名の写真が存在するかチェックする
-	 * @param	fileName	ファイル名
-	 * @return				写真が存在する場合、true
+	 * @param	photoDetailModel	{@link PhotoDetailModel}
+	 * @return						写真が存在する場合、true
 	 */
 	@Override
-	public Boolean isExistPhoto(String fileName) {
-		return photoMstMapper.isExistPhoto(fileName);
+	public Boolean isExistPhoto(PhotoDetailModel photoDetailModel) {
+		PhotoMst photoMst = PhotoMst.builder()
+				.accountNo(photoDetailModel.getAccountNo())
+				.imageFilePath(photoDetailModel.getImageFile().getOriginalFilename())
+				.build();
+		return photoMstMapper.isExistPhoto(photoMst);
 	}
 	
 	/**
