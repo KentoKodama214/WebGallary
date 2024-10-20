@@ -20,16 +20,6 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class BaseController {
-	
-	/**
-	 * ヘッダーページ
-	 * @return	String	"header"
-	 */
-	@GetMapping("header")
-	public String header() {
-		return "header";
-	}
-	
 	/**
 	 * フッターページ
 	 * @return	String	"footer"

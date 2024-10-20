@@ -27,18 +27,6 @@ public class BaseControllerTest {
 	@Nested
 	@Order(1)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class header {
-		@Test
-		@Order(1)
-		@DisplayName("正常系")
-		void header_success() {
-			assertEquals("header", baseController.header());
-		}
-	}
-	
-	@Nested
-	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class footer {
 		@Test
 		@Order(1)
@@ -49,7 +37,7 @@ public class BaseControllerTest {
 	}
 	
 	@Nested
-	@Order(3)
+	@Order(2)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class error {
 		@Test
@@ -61,7 +49,7 @@ public class BaseControllerTest {
 	}
 	
 	@Nested
-	@Order(4)
+	@Order(3)
     @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class error_page {
 		@Test
