@@ -621,9 +621,13 @@ public class AccountRepositoryImplTest {
 			accountList.add(account1);
 			accountList.add(account2);
 			
-			doReturn(accountList).when(accountMapper).select(any(Account.class));
+			ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
+			doReturn(accountList).when(accountMapper).select(accountCaptor.capture());
 
 			List<AccountModel> actual = accountRepositoryImpl.getAccountList();
+			
+			Account account = accountCaptor.getValue();
+			assertFalse(account.getIsDeleted());
 			
 			AccountModel actualAccountModel1 = actual.stream().sorted(Comparator.comparing(AccountModel::getAccountNo)).toList().getFirst();
 			assertEquals(1, actualAccountModel1.getAccountNo());
@@ -660,10 +664,14 @@ public class AccountRepositoryImplTest {
 		void getAccountList_not_found() {
 			List<Account> expected = new ArrayList<Account>();
 			
-			doReturn(expected).when(accountMapper).select(any(Account.class));
+			ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
+			doReturn(expected).when(accountMapper).select(accountCaptor.capture());
 
 			List<AccountModel> actual = accountRepositoryImpl.getAccountList();
 			assertEquals(expected, actual);
+			
+			Account account = accountCaptor.getValue();
+			assertFalse(account.getIsDeleted());
 		}
 	}
 }

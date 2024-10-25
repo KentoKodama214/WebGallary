@@ -522,7 +522,7 @@ public class AccountRepositoryImplIntegrationTest {
 		@Sql("/sql/repository/AccountRepositoryImplIntegrationTest.sql")
 		void getAccountList_found_some_accounts() {
 			List<AccountModel> actual = accountRepositoryImpl.getAccountList();
-			assertEquals(12, actual.size());
+			assertEquals(11, actual.size());
 		}
 		
 		@Test

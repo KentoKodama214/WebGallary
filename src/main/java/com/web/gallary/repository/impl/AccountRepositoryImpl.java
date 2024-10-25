@@ -180,7 +180,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 	 */
 	@Override
 	public List<AccountModel> getAccountList() {
-		Account account = Account.builder().build();
+		Account account = Account.builder().isDeleted(false).build();
 		
 		List<Account> accountList = accountMapper.select(account);
 		
