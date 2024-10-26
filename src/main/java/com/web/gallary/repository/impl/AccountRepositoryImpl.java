@@ -153,6 +153,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 		Account cndAccount = Account.builder().accountNo(accountModel.getAccountNo()).build();
 		
 		Account targetAccount = Account.builder()
+				.lastLoginDatetime(accountModel.getLastLoginDatetime())
 				.loginFailureCount(Optional.ofNullable(accountModel.getLoginFailureCount()).orElse(0))
 				.build();
 		

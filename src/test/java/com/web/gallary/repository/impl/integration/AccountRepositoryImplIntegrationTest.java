@@ -434,6 +434,7 @@ public class AccountRepositoryImplIntegrationTest {
 		void updateLoginFailureCount_not_contain_null_parameter() throws UpdateFailureException {
 			AccountModel accountModel = AccountModel.builder()
 					.accountNo(1)
+					.lastLoginDatetime(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)))
 					.loginFailureCount(2)
 					.build();
 			
@@ -475,7 +476,7 @@ public class AccountRepositoryImplIntegrationTest {
 			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
 			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
-			assertEquals(OffsetDateTime.of(2002, 1, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
+			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(2, actualData.getFirst().getLoginFailureCount());
 		}
 		

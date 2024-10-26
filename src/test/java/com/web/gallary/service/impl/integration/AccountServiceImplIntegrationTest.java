@@ -372,8 +372,7 @@ public class AccountServiceImplIntegrationTest {
 			assertEquals("Tokyo", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("よろしく", actualData.getFirst().getFreeMemo());
 			assertEquals("normal-user", actualData.getFirst().getAuthorityKbnCode());
-			// TODO 最終ログイン日時を更新する
-			//assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
+			assertNotEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
 	}
