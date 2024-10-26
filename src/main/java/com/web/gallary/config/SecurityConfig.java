@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -48,6 +49,8 @@ public class SecurityConfig {
 				.requestMatchers("/register").permitAll()
 				.requestMatchers("/account_list").permitAll()
 				.requestMatchers("/photo/**").permitAll()
+				.requestMatchers("/{name}/account_setting")
+					.access(new WebExpressionAuthorizationManager("#name == authentication.name"))
 				.anyRequest().authenticated())
 			.formLogin(formLogin -> formLogin
 				.loginPage("/login")

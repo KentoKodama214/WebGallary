@@ -2,6 +2,7 @@ package com.web.gallary.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,7 +89,9 @@ public class AccountController {
 		
 		List<AccountModel> accountModelList = accountService.getAccountList();
 		mv.addObject("AccountList", accountModelList);
-		mv.addObject("my_photo_list_url", "/photo/" + sessionHelper.getAccountId() + "/photo_list");
+		
+		if(!Objects.isNull(sessionHelper.getAccountId()))
+			mv.addObject("my_photo_list_url", "/photo/" + sessionHelper.getAccountId() + "/photo_list");
 		
 		return mv;
 	}

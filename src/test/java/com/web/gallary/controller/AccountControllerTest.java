@@ -345,8 +345,8 @@ public class AccountControllerTest {
 	class account_list {
 		@Test
 		@Order(1)
-		@DisplayName("正常系")
-		void account_list_success() {
+		@DisplayName("正常系：ログインユーザー")
+		void account_list_success_login_user() {
 			List<AccountModel> accountModelList = new ArrayList<AccountModel>();
 			accountModelList.add(AccountModel.builder().accountNo(1).build());
 			accountModelList.add(AccountModel.builder().accountNo(2).build());
@@ -362,6 +362,25 @@ public class AccountControllerTest {
 			assertEquals("account_list", actual.getViewName());
 			assertEquals(accountModelList, models.get("AccountList"));
 			assertEquals("/photo/" + accountId + "/photo_list", models.get("my_photo_list_url"));
+		}
+		
+		@Test
+		@Order(2)
+		@DisplayName("正常系：非ログインユーザー")
+		void account_list_success_not_login_user() {
+			List<AccountModel> accountModelList = new ArrayList<AccountModel>();
+			accountModelList.add(AccountModel.builder().accountNo(1).build());
+			accountModelList.add(AccountModel.builder().accountNo(2).build());
+			accountModelList.add(AccountModel.builder().accountNo(3).build());
+			
+			doReturn(accountModelList).when(accountServiceImpl).getAccountList();
+			doReturn(null).when(sessionHelper).getAccountId();
+			
+			ModelAndView actual = accountController.account_list();
+			Map<String, Object> models = actual.getModel();
+			assertEquals("account_list", actual.getViewName());
+			assertEquals(accountModelList, models.get("AccountList"));
+			assertEquals(null, models.get("my_photo_list_url"));
 		}
 	}
 }
