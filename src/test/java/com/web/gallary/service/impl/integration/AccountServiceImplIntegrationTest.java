@@ -40,7 +40,6 @@ import com.web.gallary.service.impl.AccountServiceImpl;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Transactional
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class AccountServiceImplIntegrationTest {
 	@Autowired
 	private AccountServiceImpl accountServiceImpl;
@@ -77,6 +76,7 @@ public class AccountServiceImplIntegrationTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウントを新規登録")
+		@Sql("/sql/common/ResetAccountNoSeq.sql")
 		void registAccount_success() throws RegistFailureException {
 			AccountModel accountModel = AccountModel.builder()
 					.accountId("mmmmmmmm")

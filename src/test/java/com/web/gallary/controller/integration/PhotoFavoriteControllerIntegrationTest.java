@@ -40,7 +40,6 @@ import com.web.gallary.enumuration.ErrorValues;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoFavoriteControllerIntegrationTest {
 	@Autowired
 	private MockMvc mockMvc;

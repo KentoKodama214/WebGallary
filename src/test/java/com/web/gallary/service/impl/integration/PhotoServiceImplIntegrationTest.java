@@ -42,7 +42,6 @@ import com.web.gallary.service.impl.PhotoServiceImpl;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Transactional
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoServiceImplIntegrationTest {
 	@Autowired
 	private PhotoServiceImpl photoServiceImpl;

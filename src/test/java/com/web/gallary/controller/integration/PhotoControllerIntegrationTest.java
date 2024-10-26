@@ -43,7 +43,6 @@ import com.web.gallary.model.PhotoTagModel;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoControllerIntegrationTest {
 	@Autowired
 	private MockMvc mockMvc;

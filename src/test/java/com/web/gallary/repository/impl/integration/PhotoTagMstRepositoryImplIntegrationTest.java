@@ -28,7 +28,6 @@ import com.web.gallary.repository.impl.PhotoTagMstRepositoryImpl;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Transactional
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoTagMstRepositoryImplIntegrationTest {
 	@Autowired
 	private PhotoTagMstRepositoryImpl photoTagMstRepositoryImpl;

@@ -29,7 +29,6 @@ import com.web.gallary.repository.impl.PhotoFavoriteRepositoryImpl;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Transactional
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoFavoriteRepositoryImplIntegrationTest {
 	@Autowired
 	private PhotoFavoriteRepositoryImpl photoFavoriteRepositoryImpl;

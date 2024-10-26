@@ -30,7 +30,6 @@ import com.web.gallary.repository.impl.AccountRepositoryImpl;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Transactional
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class AccountRepositoryImplIntegrationTest {
 	@Autowired
 	private AccountRepositoryImpl accountRepositoryImpl;
@@ -123,6 +122,7 @@ public class AccountRepositoryImplIntegrationTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：Nullのパラメータを含むAccountModelの登録")
+		@Sql("/sql/common/ResetAccountNoSeq.sql")
 		void regist_contain_null_parameter() throws RegistFailureException {
 			AccountModel accountModel = AccountModel.builder()
 					.accountId("zzzzzzzz")
@@ -174,6 +174,7 @@ public class AccountRepositoryImplIntegrationTest {
 		@Test
 		@Order(2)
 		@DisplayName("正常系：Nullのパラメータを含まないAccountModelの登録")
+		@Sql("/sql/common/ResetAccountNoSeq.sql")
 		void regist_not_contain_null_parameter() throws RegistFailureException {
 			AccountModel accountModel = AccountModel.builder()
 					.accountId("zzzzzzzz")

@@ -30,7 +30,6 @@ import com.web.gallary.repository.impl.PhotoDetailRepositoryImpl;
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Transactional
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoDetailRepositoryImplIntegrationTest {
 	@Autowired
 	private PhotoDetailRepositoryImpl photoDetailRepositoryImpl;

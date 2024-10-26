@@ -29,7 +29,6 @@ import com.web.gallary.dto.PhotoListGetDto;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoDetailMapperTest {
 	@Autowired
 	private PhotoDetailMapper photoDetailMapper;

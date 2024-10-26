@@ -26,7 +26,6 @@ import com.web.gallary.entity.Account;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class AccountMapperTest {
 	@Autowired
 	private AccountMapper accountMapper;
@@ -750,6 +749,7 @@ public class AccountMapperTest {
 	@Nested
 	@Order(3)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/ResetAccountNoSeq.sql")
 	class insert {
 		@Test
 		@Order(1)

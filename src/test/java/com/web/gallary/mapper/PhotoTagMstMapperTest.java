@@ -26,7 +26,6 @@ import com.web.gallary.entity.PhotoTagMst;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoTagMstMapperTest {
 	@Autowired
 	private PhotoTagMstMapper photoTagMstMapper;
