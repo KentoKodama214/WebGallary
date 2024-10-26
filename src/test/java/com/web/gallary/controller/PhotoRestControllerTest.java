@@ -433,7 +433,7 @@ public class PhotoRestControllerTest {
 			photoTagSaveRequest2.setPhotoNo(1);
 			photoTagSaveRequest2.setTagNo(2);
 			photoTagSaveRequest2.setTagJapaneseName("海");
-			photoTagSaveRequest2.setTagEnglishName("sea");
+			photoTagSaveRequest2.setTagEnglishName(null);
 			photoTagRegistRequestList.add(photoTagSaveRequest2);
 			
 			PhotoSaveRequest photoSaveRequest = new PhotoSaveRequest();
@@ -503,7 +503,7 @@ public class PhotoRestControllerTest {
 			assertEquals("sun", photoDetailModelList.getFirst().getPhotoTagModelList().get(0).getTagEnglishName());
 			assertEquals(2, photoDetailModelList.getFirst().getPhotoTagModelList().get(1).getTagNo());
 			assertEquals("海", photoDetailModelList.getFirst().getPhotoTagModelList().get(1).getTagJapaneseName());
-			assertEquals("sea", photoDetailModelList.getFirst().getPhotoTagModelList().get(1).getTagEnglishName());
+			assertEquals("", photoDetailModelList.getFirst().getPhotoTagModelList().get(1).getTagEnglishName());
 			
 			assertEquals(photoAccountId, photoAcountIdCaptor.getValue());
 		}

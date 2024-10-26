@@ -29,18 +29,19 @@ async function deletePhoto(obj) {
 	const ImageFilePath = document.getElementsByName('imageFilePath')[0];
 	const postUrl = document.getElementById('photo_delete_url').value;
 	
-	const formData = new FormData();
-	formData.append('accountNo', AccountNo.value);
-	formData.append('photoNo', PhotoNo.value);
-	formData.append('imageFilePath', ImageFilePath.src);
-	
+	const requestData = {
+		accountNo: AccountNo.value,
+		photoNo: PhotoNo.value,
+		imageFilePath: ImageFilePath.src
+	};
 	const otherParam = {
 		headers: {
 			"X-CSRF-Token": csrf_token,
+			"Content-Type": "application/json; charset=UTF-8"
 		},
 		method: "POST",
 		credentials: "same-origin",
-		body: formData
+		body: JSON.stringify(requestData)
 	};
 	
 	const response = await fetch(postUrl, otherParam)

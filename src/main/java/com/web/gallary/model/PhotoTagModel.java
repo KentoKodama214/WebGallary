@@ -15,7 +15,6 @@ public class PhotoTagModel {
 	private Integer accountNo;
 
 	/** 写真番号 */
-	@NonNull
 	private Integer photoNo;
 
 	/** タグ番号 */
