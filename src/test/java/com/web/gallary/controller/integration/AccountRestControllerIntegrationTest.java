@@ -30,11 +30,11 @@ public class AccountRestControllerIntegrationTest {
 	private AccountRestController accountRestController;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/AccountRestControllerIntegrationTest.sql")
 	class register {
 		@Test
@@ -68,7 +68,7 @@ public class AccountRestControllerIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/AccountRestControllerIntegrationTest.sql")
 	class update {
 		@Test

@@ -28,19 +28,19 @@ public class SessionHelperTest {
 	private SessionHelper sessionHelper;
 
 	@Mock
-    private Authentication authentication;
+	private Authentication authentication;
 
-    @Mock
-    private AccountPrincipal accountPrincipal;
-    
-    @BeforeEach
-    public void setUp() {
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
-    
+	@Mock
+	private AccountPrincipal accountPrincipal;
+	
+	@BeforeEach
+	public void setUp() {
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+	}
+	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getAccountNo {
 		@Test
 		@Order(1)
@@ -67,7 +67,7 @@ public class SessionHelperTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getAccountId {
 		@Test
 		@Order(1)
@@ -94,7 +94,7 @@ public class SessionHelperTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getPassword {
 		@Test
 		@Order(1)

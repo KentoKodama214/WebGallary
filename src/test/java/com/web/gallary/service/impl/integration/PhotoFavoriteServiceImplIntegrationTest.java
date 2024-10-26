@@ -34,11 +34,11 @@ public class PhotoFavoriteServiceImplIntegrationTest {
 	private PhotoFavoriteServiceImpl photoFavoriteServiceImpl;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/service/PhotoFavoriteServiceImplIntegrationTest.sql")
 	class addFavorite {
 		@Test
@@ -85,7 +85,7 @@ public class PhotoFavoriteServiceImplIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/service/PhotoFavoriteServiceImplIntegrationTest.sql")
 	class deleteFavorite {
 		@Test

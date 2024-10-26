@@ -46,11 +46,11 @@ import com.web.gallary.model.PhotoTagModel;
 @Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoControllerIntegrationTest {
 	@Autowired
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/PhotoControllerIntegrationTest.sql")
 	class photoList {
 		@Test
@@ -194,7 +194,7 @@ public class PhotoControllerIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/PhotoControllerIntegrationTest.sql")
 	class photoDetail {
 		@Test
@@ -482,7 +482,7 @@ public class PhotoControllerIntegrationTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/PhotoControllerIntegrationTest.sql")
 	class photoSetting {
 		@Test

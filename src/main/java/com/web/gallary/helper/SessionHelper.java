@@ -19,7 +19,7 @@ public class SessionHelper {
 		Integer accountNo = null;
 
 		Authentication authentication =
-		        SecurityContextHolder.getContext().getAuthentication();
+				SecurityContextHolder.getContext().getAuthentication();
 		
 		if (authentication.getPrincipal() instanceof AccountPrincipal) {
 			AccountPrincipal accountPrincipal =
@@ -37,7 +37,7 @@ public class SessionHelper {
 		String accountId = null;
 
 		Authentication authentication =
-		        SecurityContextHolder.getContext().getAuthentication();
+				SecurityContextHolder.getContext().getAuthentication();
 		
 		if (authentication.getPrincipal() instanceof AccountPrincipal) {
 			AccountPrincipal accountPrincipal =
@@ -56,7 +56,7 @@ public class SessionHelper {
 		String password = null;
 		
 		Authentication authentication =
-		        SecurityContextHolder.getContext().getAuthentication();
+				SecurityContextHolder.getContext().getAuthentication();
 		
 		if (authentication.getPrincipal() instanceof AccountPrincipal) {
 			AccountPrincipal accountPrincipal =

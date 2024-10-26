@@ -29,7 +29,7 @@ public class KbnMstRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/KbnMstRepositoryImplIntegrationTest.sql")
 	class get {
 		@Test

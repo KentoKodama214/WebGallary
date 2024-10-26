@@ -48,11 +48,11 @@ public class PhotoServiceImplIntegrationTest {
 	private PhotoServiceImpl photoServiceImpl;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/service/PhotoServiceImplIntegrationTest.sql")
 	class getPhotoList {
 		@Test
@@ -334,7 +334,7 @@ public class PhotoServiceImplIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/service/PhotoServiceImplIntegrationTest.sql")
 	class getPhotoDetail {
 		@Test
@@ -393,7 +393,7 @@ public class PhotoServiceImplIntegrationTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/service/PhotoServiceImplIntegrationTest.sql")
 	class savePhotos {
 		PhotoDetailModel createNewPhotoWithTag() {
@@ -805,7 +805,7 @@ public class PhotoServiceImplIntegrationTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/service/PhotoServiceImplIntegrationTest.sql")
 	class deletePhotos {
 		@Test
@@ -974,7 +974,7 @@ public class PhotoServiceImplIntegrationTest {
 	
 	@Nested
 	@Order(5)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/service/PhotoServiceImplIntegrationTest.sql")
 	class isReachedUpperLimit {
 		@Test

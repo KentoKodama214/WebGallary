@@ -52,7 +52,7 @@ public class AccountControllerTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class register {
 		private List<KbnMstModel> createPrefectureList() {
 			List<KbnMstModel> prefectureList = new ArrayList<KbnMstModel>();
@@ -170,7 +170,7 @@ public class AccountControllerTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class account_setting {
 		private List<KbnMstModel> createPrefectureList() {
 			List<KbnMstModel> prefectureList = new ArrayList<KbnMstModel>();
@@ -341,7 +341,7 @@ public class AccountControllerTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class account_list {
 		@Test
 		@Order(1)

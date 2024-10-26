@@ -82,7 +82,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getPhotoList {
 		List<PhotoModel> createPhotoModelList() {
 			String directionKbnCode = "vertical";
@@ -381,7 +381,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getPhotoDetail {
 		@Test
 		@Order(1)
@@ -419,7 +419,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class savePhotos {
 		PhotoDetailModel createNewPhotoWithTag() {
 			List<PhotoTagModel> photoTagModelList = new ArrayList<PhotoTagModel>();
@@ -895,7 +895,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class deletePhotos {
 		@Test
 		@Order(1)
@@ -1004,7 +1004,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(5)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class isReachedUpperLimit {
 		@Test
 		@Order(1)
@@ -1101,7 +1101,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(6)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getComparator {
 		@Test
 		@Order(1)
@@ -1406,7 +1406,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(7)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class filteringByDirectionKbnCode {
 		@Test
 		@Order(1)
@@ -1438,7 +1438,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(8)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class filteringByIsFavorite {
 		@Test
 		@Order(1)
@@ -1470,7 +1470,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(9)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class filteringByTag {
 		@Test
 		@Order(1)
@@ -1572,7 +1572,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(10)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class registPhotoTags {
 		@Test
 		@Order(1)
@@ -1724,7 +1724,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(11)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class uploadFile {
 		@Test
 		@Order(1)
@@ -1738,11 +1738,11 @@ public class PhotoServiceImplTest {
 			
 			String filePath = "DSC111.jpg";
 			MultipartFile multipartFile = new MockMultipartFile(
-	                "file",
-	                "DSC111.jpg",
-	                "multipart/form-data",
-	                "sample image".getBytes()
-	        );
+					"file",
+					"DSC111.jpg",
+					"multipart/form-data",
+					"sample image".getBytes()
+			);
 			uploadFile.invoke(photoServiceImpl, filePath, multipartFile);
 			
 			verify(fileRepositoryImpl).save(any(FileModel.class));
@@ -1754,7 +1754,7 @@ public class PhotoServiceImplTest {
 	
 	@Nested
 	@Order(12)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class deletePhotoTags {
 		@Test
 		@Order(1)

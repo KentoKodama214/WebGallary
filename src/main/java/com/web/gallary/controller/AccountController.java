@@ -48,15 +48,15 @@ public class AccountController {
 		mv.addObject("prefectureGroupList", kbnHepler.convertToLinkedHashMap(prefectureList));
 		
 		return mv;
-    }
-    
-    /**
-     * アカウント設定を行うページ
-     * @return	ModelAndView	アカウント編集ページ。
-     * @throws ForbiddenAccountException 
-     */
-    @GetMapping("/{accountId}/account_setting")
-    public ModelAndView account_setting(@PathVariable String accountId) throws ForbiddenAccountException {
+	}
+	
+	/**
+	 * アカウント設定を行うページ
+	 * @return	ModelAndView	アカウント編集ページ。
+	 * @throws ForbiddenAccountException 
+	 */
+	@GetMapping("/{accountId}/account_setting")
+	public ModelAndView account_setting(@PathVariable String accountId) throws ForbiddenAccountException {
 		if (!accountId.equals(sessionHelper.getAccountId())) {
 			throw new ForbiddenAccountException(ErrorValues.EC0003);
 		}
@@ -76,13 +76,13 @@ public class AccountController {
 		
 		return mv;
 	}
-    
-    /**
-     *  * アカウントの一覧を参照するページ
-     * @return	ModelAndView	アカウント一覧ページ。Modelとしてアカウント一覧（AccountList）と写真一覧のURL（my_photo_list_url）を返す
-     */
-    @GetMapping("/account_list")
-    public ModelAndView account_list() {
+	
+	/**
+	 * アカウントの一覧を参照するページ
+	 * @return	ModelAndView	アカウント一覧ページ。Modelとしてアカウント一覧（AccountList）と写真一覧のURL（my_photo_list_url）を返す
+	 */
+	@GetMapping("/account_list")
+	public ModelAndView account_list() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("account_list");
 		

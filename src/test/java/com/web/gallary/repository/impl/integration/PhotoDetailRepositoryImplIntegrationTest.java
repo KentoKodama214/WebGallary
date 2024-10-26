@@ -37,7 +37,7 @@ public class PhotoDetailRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoDetailRepositoryImplIntegrationTest.sql")
 	class getPhotoList {
 		@Test
@@ -122,7 +122,7 @@ public class PhotoDetailRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoDetailRepositoryImplIntegrationTest.sql")
 	class getPhotoDetail {
 		@Test

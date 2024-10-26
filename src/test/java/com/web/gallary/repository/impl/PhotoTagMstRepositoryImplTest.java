@@ -35,7 +35,7 @@ public class PhotoTagMstRepositoryImplTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class regist {
 		@Test
 		@Order(1)
@@ -96,7 +96,7 @@ public class PhotoTagMstRepositoryImplTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class clear {
 		@Test
 		@Order(1)

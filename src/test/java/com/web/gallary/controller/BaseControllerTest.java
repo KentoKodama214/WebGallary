@@ -26,7 +26,7 @@ public class BaseControllerTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class footer {
 		@Test
 		@Order(1)
@@ -38,7 +38,7 @@ public class BaseControllerTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class error {
 		@Test
 		@Order(1)
@@ -50,7 +50,7 @@ public class BaseControllerTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class error_page {
 		@Test
 		@Order(1)

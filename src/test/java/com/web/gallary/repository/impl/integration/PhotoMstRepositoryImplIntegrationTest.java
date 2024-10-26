@@ -39,11 +39,11 @@ public class PhotoMstRepositoryImplIntegrationTest {
 	private PhotoMstRepositoryImpl photoMstRepositoryImpl;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoMstRepositoryImplIntegrationTest.sql")
 	class regist {
 		@Test
@@ -186,7 +186,7 @@ public class PhotoMstRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoMstRepositoryImplIntegrationTest.sql")
 	class update {
 		@Test
@@ -329,7 +329,7 @@ public class PhotoMstRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoMstRepositoryImplIntegrationTest.sql")
 	class delete {
 		@Test
@@ -407,7 +407,7 @@ public class PhotoMstRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoMstRepositoryImplIntegrationTest.sql")
 	class getNewPhotoNo {
 		@Test
@@ -427,7 +427,7 @@ public class PhotoMstRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(5)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoMstRepositoryImplIntegrationTest.sql")
 	class isExistPhoto {
 		@Test
@@ -514,7 +514,7 @@ public class PhotoMstRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(6)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoMstRepositoryImplIntegrationTest.sql")
 	class count {
 		@Test

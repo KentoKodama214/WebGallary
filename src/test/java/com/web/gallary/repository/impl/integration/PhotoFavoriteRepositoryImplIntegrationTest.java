@@ -35,11 +35,11 @@ public class PhotoFavoriteRepositoryImplIntegrationTest {
 	private PhotoFavoriteRepositoryImpl photoFavoriteRepositoryImpl;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoFavoriteRepositoryImplIntegrationTest.sql")
 	class regist {
 		@Test
@@ -86,7 +86,7 @@ public class PhotoFavoriteRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoFavoriteRepositoryImplIntegrationTest.sql")
 	class delete {
 		@Test
@@ -140,7 +140,7 @@ public class PhotoFavoriteRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoFavoriteRepositoryImplIntegrationTest.sql")
 	class clear {
 		@Test

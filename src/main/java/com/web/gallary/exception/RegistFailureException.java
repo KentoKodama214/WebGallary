@@ -17,7 +17,7 @@ public class RegistFailureException extends Exception {
 	private final String errorCode;
 		
 	public RegistFailureException(ErrorValues error) {
-        super(error.getErrorMessage());
-        this.errorCode = error.getErrorCode();
-    }
+		super(error.getErrorMessage());
+		this.errorCode = error.getErrorCode();
+	}
 }

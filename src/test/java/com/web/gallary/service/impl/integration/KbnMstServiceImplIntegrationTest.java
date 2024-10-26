@@ -30,7 +30,7 @@ public class KbnMstServiceImplIntegrationTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getPrefectureList {
 		@Test
 		@Order(1)

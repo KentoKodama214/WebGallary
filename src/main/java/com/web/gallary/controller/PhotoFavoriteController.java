@@ -47,8 +47,8 @@ public class PhotoFavoriteController {
 			BindingResult result) throws BadRequestException, RegistFailureException {
 		
 		if(result.hasErrors()) {
-    		throw new BadRequestException(ErrorValues.EC0000);
-    	}
+			throw new BadRequestException(ErrorValues.EC0000);
+		}
 		
 		PhotoFavoriteModel photoFavoriteModel = PhotoFavoriteModel.builder()
 				.accountNo(sessionHelper.getAccountNo())
@@ -77,8 +77,8 @@ public class PhotoFavoriteController {
 			BindingResult result) throws BadRequestException, UpdateFailureException {
 
 		if(result.hasErrors()) {
-    		throw new BadRequestException(ErrorValues.EC0000);
-    	}
+			throw new BadRequestException(ErrorValues.EC0000);
+		}
 		
 		PhotoFavoriteModel photoFavoriteModel = PhotoFavoriteModel.builder()
 				.accountNo(sessionHelper.getAccountNo())

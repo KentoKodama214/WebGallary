@@ -22,9 +22,9 @@ public class AccountModel {
 	private String accountName;
 
 	/** パスワード */
-    private String password;
-    
-    /** 生年月日 */
+	private String password;
+	
+	/** 生年月日 */
 	private LocalDate birthdate;
 
 	/** 性別区分コード<br>

@@ -72,7 +72,7 @@ public class PhotoRestControllerTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getPhotoList {
 		private List<PhotoModel> createPhotoModelList() {
 			List<PhotoModel> photoList = new ArrayList<PhotoModel>();
@@ -335,7 +335,7 @@ public class PhotoRestControllerTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class savePhoto {
 		@Test
 		@Order(1)
@@ -794,7 +794,7 @@ public class PhotoRestControllerTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class deletePhoto {
 		@Test
 		@Order(1)
@@ -914,7 +914,7 @@ public class PhotoRestControllerTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class createPhotoListGetResponse {
 		private List<PhotoModel> createPhotoList() {
 			List<PhotoModel> photoList = new ArrayList<PhotoModel>();

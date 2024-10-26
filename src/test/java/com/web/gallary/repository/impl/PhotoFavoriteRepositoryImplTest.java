@@ -36,7 +36,7 @@ public class PhotoFavoriteRepositoryImplTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class regist {
 		@Test
 		@Order(1)
@@ -89,7 +89,7 @@ public class PhotoFavoriteRepositoryImplTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class delete {
 		@Test
 		@Order(1)
@@ -142,7 +142,7 @@ public class PhotoFavoriteRepositoryImplTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class clear {
 		@Test
 		@Order(1)

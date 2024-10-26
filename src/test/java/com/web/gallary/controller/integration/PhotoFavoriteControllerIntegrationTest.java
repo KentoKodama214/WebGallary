@@ -43,14 +43,14 @@ import com.web.gallary.enumuration.ErrorValues;
 @Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoFavoriteControllerIntegrationTest {
 	@Autowired
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/PhotoFavoriteControllerIntegrationTest.sql")
 	class addFavorite {
 		@Test
@@ -156,7 +156,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
-	        Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
+			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
 					post("/photo/favorite/add")
@@ -176,7 +176,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/PhotoFavoriteControllerIntegrationTest.sql")
 	class deleteFavorite {
 		@Test

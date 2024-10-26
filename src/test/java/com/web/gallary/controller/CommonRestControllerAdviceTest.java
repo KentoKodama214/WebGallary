@@ -42,7 +42,7 @@ public class CommonRestControllerAdviceTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handleBadRequestException {
 		@Test
 		@Order(1)
@@ -62,7 +62,7 @@ public class CommonRestControllerAdviceTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handleFileForbiddenAccountException {
 		@Test
 		@Order(1)
@@ -100,7 +100,7 @@ public class CommonRestControllerAdviceTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handleFileDuplicateException {
 		@Test
 		@Order(1)
@@ -138,7 +138,7 @@ public class CommonRestControllerAdviceTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handlePhotoNotAdditableException {
 		@Test
 		@Order(1)
@@ -176,7 +176,7 @@ public class CommonRestControllerAdviceTest {
 	
 	@Nested
 	@Order(5)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handleInsertFailedException {
 		@Test
 		@Order(1)
@@ -214,7 +214,7 @@ public class CommonRestControllerAdviceTest {
 	
 	@Nested
 	@Order(6)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handleUpdateFailureException {
 		@Test
 		@Order(1)
@@ -252,7 +252,7 @@ public class CommonRestControllerAdviceTest {
 	
 	@Nested
 	@Order(7)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getGoBackPageUrl {
 		@Test
 		@Order(1)

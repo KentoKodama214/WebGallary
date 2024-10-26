@@ -22,11 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 public class BaseControllerIntegrationTest {
 	@Autowired
-    private MockMvc mockMvc;
+	private MockMvc mockMvc;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class footer {
 		@Test
 		@Order(1)
@@ -40,7 +40,7 @@ public class BaseControllerIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class error {
 		@Test
 		@Order(1)
@@ -53,7 +53,7 @@ public class BaseControllerIntegrationTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class error_page {
 		@Test
 		@Order(1)

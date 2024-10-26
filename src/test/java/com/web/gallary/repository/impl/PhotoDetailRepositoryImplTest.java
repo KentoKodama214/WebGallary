@@ -50,7 +50,7 @@ public class PhotoDetailRepositoryImplTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getPhotoList {
 		@Test
 		@Order(1)
@@ -246,7 +246,7 @@ public class PhotoDetailRepositoryImplTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getPhotoDetail {
 		@Test
 		@Order(1)

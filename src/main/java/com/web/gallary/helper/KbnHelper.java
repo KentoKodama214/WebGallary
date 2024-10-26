@@ -22,33 +22,33 @@ public class KbnHelper {
 	 */
 	public Map<String, List<KbnMstModel>> convertToLinkedHashMap(List<KbnMstModel> kbnMstModelList){
 		LinkedHashMap<String, List<KbnMstModel>> kbnMstLinkedHashMap = new LinkedHashMap<String, List<KbnMstModel>>();
-        
+		
 		kbnMstModelList = kbnMstModelList.stream().sorted(Comparator.comparing(KbnMstModel::getSortOrder)).toList();
 		KbnMstModel firstKbnMstModel = kbnMstModelList.getFirst();
 		KbnMstModel lastKbnMstModel = kbnMstModelList.getLast();
-        List<KbnMstModel> tempKbnMstModelList = new ArrayList<KbnMstModel>();
-        String kbnGroupJapaneseName = null;
-        
-        for(KbnMstModel kbnMstModel : kbnMstModelList) {
-        	if(kbnMstModel.equals(firstKbnMstModel)) {
-        		kbnGroupJapaneseName = kbnMstModel.getKbnGroupJapaneseName();
-        		tempKbnMstModelList.add(kbnMstModel);
-        	}
-        	else if(kbnMstModel.equals(lastKbnMstModel)) {
-        		tempKbnMstModelList.add(kbnMstModel);
-        		kbnMstLinkedHashMap.put(kbnGroupJapaneseName, tempKbnMstModelList);
-        	}
-        	else if(!kbnGroupJapaneseName.equals(kbnMstModel.getKbnGroupJapaneseName())) {
-        		kbnMstLinkedHashMap.put(kbnGroupJapaneseName, tempKbnMstModelList);
-        		tempKbnMstModelList = new ArrayList<KbnMstModel>();
-        		kbnGroupJapaneseName = kbnMstModel.getKbnGroupJapaneseName();
-        		tempKbnMstModelList.add(kbnMstModel);
-        	}
-        	else {
-        		tempKbnMstModelList.add(kbnMstModel);
-        	}
-        };
-        
-        return kbnMstLinkedHashMap;
+		List<KbnMstModel> tempKbnMstModelList = new ArrayList<KbnMstModel>();
+		String kbnGroupJapaneseName = null;
+		
+		for(KbnMstModel kbnMstModel : kbnMstModelList) {
+			if(kbnMstModel.equals(firstKbnMstModel)) {
+				kbnGroupJapaneseName = kbnMstModel.getKbnGroupJapaneseName();
+				tempKbnMstModelList.add(kbnMstModel);
+			}
+			else if(kbnMstModel.equals(lastKbnMstModel)) {
+				tempKbnMstModelList.add(kbnMstModel);
+				kbnMstLinkedHashMap.put(kbnGroupJapaneseName, tempKbnMstModelList);
+			}
+			else if(!kbnGroupJapaneseName.equals(kbnMstModel.getKbnGroupJapaneseName())) {
+				kbnMstLinkedHashMap.put(kbnGroupJapaneseName, tempKbnMstModelList);
+				tempKbnMstModelList = new ArrayList<KbnMstModel>();
+				kbnGroupJapaneseName = kbnMstModel.getKbnGroupJapaneseName();
+				tempKbnMstModelList.add(kbnMstModel);
+			}
+			else {
+				tempKbnMstModelList.add(kbnMstModel);
+			}
+		};
+		
+		return kbnMstLinkedHashMap;
 	}
 }

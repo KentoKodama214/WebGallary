@@ -34,11 +34,11 @@ public class PhotoTagMstRepositoryImplIntegrationTest {
 	private PhotoTagMstRepositoryImpl photoTagMstRepositoryImpl;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoTagMstRepositoryImplIntegrationTest.sql")
 	class regist {
 		@Test
@@ -93,7 +93,7 @@ public class PhotoTagMstRepositoryImplIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/repository/PhotoTagMstRepositoryImplIntegrationTest.sql")
 	class clear {
 		@Test

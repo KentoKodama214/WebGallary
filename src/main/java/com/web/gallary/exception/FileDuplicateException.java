@@ -17,7 +17,7 @@ public class FileDuplicateException extends Exception {
 	private final String errorCode;
 	
 	public FileDuplicateException(ErrorValues error) {
-        super(error.getErrorMessage());
-        this.errorCode = error.getErrorCode();
-    }
+		super(error.getErrorMessage());
+		this.errorCode = error.getErrorCode();
+	}
 }

@@ -42,7 +42,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class regist {
 		@Test
 		@Order(1)
@@ -174,7 +174,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class update {
 		@Test
 		@Order(1)
@@ -372,7 +372,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class delete {
 		@Test
 		@Order(1)
@@ -499,7 +499,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getNewPhotoNo {
 		@Test
 		@Order(1)
@@ -520,7 +520,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(5)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class isExistPhoto {
 		@Test
 		@Order(1)
@@ -576,7 +576,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(6)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class count {
 		@Test
 		@Order(1)

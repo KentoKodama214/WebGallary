@@ -34,11 +34,11 @@ public class AccountControllerIntegrationTest {
 	private AccountController accountController;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/AccountControllerIntegrationTest.sql")
 	class register {
 		private List<KbnMstModel> createPrefectureList() {
@@ -148,7 +148,7 @@ public class AccountControllerIntegrationTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/AccountControllerIntegrationTest.sql")
 	class account_setting {
 		private List<KbnMstModel> createPrefectureList() {
@@ -271,7 +271,7 @@ public class AccountControllerIntegrationTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/controller/AccountControllerIntegrationTest.sql")
 	class account_list {
 		@Test

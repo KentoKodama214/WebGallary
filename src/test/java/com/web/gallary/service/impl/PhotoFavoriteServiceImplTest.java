@@ -33,7 +33,7 @@ public class PhotoFavoriteServiceImplTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class addFavorite {
 		@Test
 		@Order(1)
@@ -64,7 +64,7 @@ public class PhotoFavoriteServiceImplTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class deleteFavorite {
 		@Test
 		@Order(1)

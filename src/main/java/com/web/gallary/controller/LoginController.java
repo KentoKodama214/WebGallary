@@ -27,23 +27,23 @@ public class LoginController {
 	 * @return	ModelAndView	ログインページ
 	 */
 	@GetMapping("/login")
-    public ModelAndView login() {
+	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("login");
 		
-        return mv;
-    }
-    
+		return mv;
+	}
+	
 	/**
 	 * ベースURLからのリダイレクトページ<br>
 	 * 未ログインの場合はログインページ、ログイン中の場合は写真一覧へリダイレクトする
 	 * @return	String	リダイレクト先のURL
 	 */
-    @GetMapping("/")
-    public String success() {
-    	String accountId = sessionHelper.getAccountId();
-    	
-    	if(Objects.isNull(accountId)) return "redirect:/login";
-    	else return "redirect:/photo/" + accountId + "/photo_list";
-    }
+	@GetMapping("/")
+	public String success() {
+		String accountId = sessionHelper.getAccountId();
+		
+		if(Objects.isNull(accountId)) return "redirect:/login";
+		else return "redirect:/photo/" + accountId + "/photo_list";
+	}
 }

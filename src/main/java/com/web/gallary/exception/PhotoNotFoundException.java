@@ -17,7 +17,7 @@ public class PhotoNotFoundException extends Exception {
 	private final String errorCode;
 	
 	public PhotoNotFoundException(ErrorValues error) {
-        super(error.getErrorMessage());
-        this.errorCode = error.getErrorCode();
-    }
+		super(error.getErrorMessage());
+		this.errorCode = error.getErrorCode();
+	}
 }

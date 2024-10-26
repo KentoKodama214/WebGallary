@@ -37,7 +37,7 @@ public class CommonControllerAdviceTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handleFileForbiddenAccountException {
 		@Test
 		@Order(1)
@@ -77,7 +77,7 @@ public class CommonControllerAdviceTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handlePhotoNotFoundException {
 		@Test
 		@Order(1)
@@ -117,7 +117,7 @@ public class CommonControllerAdviceTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getGoBackPageUrl {
 		@Test
 		@Order(1)
