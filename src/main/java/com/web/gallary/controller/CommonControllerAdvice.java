@@ -40,6 +40,7 @@ public class CommonControllerAdvice {
 	public ModelAndView handleFileForbiddenAccountException(ForbiddenAccountException exception) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("error_page");
+		mv.setStatus(HttpStatus.FORBIDDEN);
 		mv.addObject("httpStatus", HttpStatus.FORBIDDEN.value());
 		mv.addObject("errorCode", exception.getErrorCode());
 		mv.addObject("errorMessage", exception.getMessage());
@@ -61,6 +62,7 @@ public class CommonControllerAdvice {
 	public ModelAndView handlePhotoNotFoundException(PhotoNotFoundException exception) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("error_page");
+		mv.setStatus(HttpStatus.BAD_REQUEST);
 		mv.addObject("httpStatus", HttpStatus.BAD_REQUEST.value());
 		mv.addObject("errorCode", exception.getErrorCode());
 		mv.addObject("errorMessage", exception.getMessage());

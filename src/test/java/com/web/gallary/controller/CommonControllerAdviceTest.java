@@ -48,6 +48,7 @@ public class CommonControllerAdviceTest {
 			
 			ModelAndView actual = commonControllerAdvice.handleFileForbiddenAccountException(exception);
 			assertEquals("error_page", actual.getViewName());
+			assertEquals(HttpStatus.FORBIDDEN, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.FORBIDDEN.value(), (int)models.get("httpStatus"));
 			assertEquals(ErrorValues.EC0000.getErrorCode(), models.get("errorCode").toString());
@@ -65,6 +66,7 @@ public class CommonControllerAdviceTest {
 			
 			ModelAndView actual = commonControllerAdvice.handleFileForbiddenAccountException(exception);
 			assertEquals("error_page", actual.getViewName());
+			assertEquals(HttpStatus.FORBIDDEN, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.FORBIDDEN.value(), (int)models.get("httpStatus"));
 			assertEquals(ErrorValues.EC0000.getErrorCode(), models.get("errorCode").toString());
@@ -86,6 +88,7 @@ public class CommonControllerAdviceTest {
 			
 			ModelAndView actual = commonControllerAdvice.handlePhotoNotFoundException(exception);
 			assertEquals("error_page", actual.getViewName());
+			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.BAD_REQUEST.value(), (int)models.get("httpStatus"));
 			assertEquals(ErrorValues.EP0001.getErrorCode(), models.get("errorCode").toString());
@@ -103,6 +106,7 @@ public class CommonControllerAdviceTest {
 			
 			ModelAndView actual = commonControllerAdvice.handlePhotoNotFoundException(exception);
 			assertEquals("error_page", actual.getViewName());
+			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.BAD_REQUEST.value(), (int)models.get("httpStatus"));
 			assertEquals(ErrorValues.EP0001.getErrorCode(), models.get("errorCode").toString());
