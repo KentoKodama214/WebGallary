@@ -72,7 +72,7 @@ public class CommonRestControllerAdviceTest {
 			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValues.EC0000);
 			
 			ResponseEntity<ErrorRequest> actual
-				= commonRestControllerAdvice.handleFileForbiddenAccountException(exception);
+				= commonRestControllerAdvice.handleForbiddenAccountException(exception);
 			
 			assertEquals(HttpStatus.FORBIDDEN, actual.getStatusCode());
 			assertEquals(HttpStatus.FORBIDDEN.value(), actual.getBody().getHttpStatus());
@@ -89,7 +89,7 @@ public class CommonRestControllerAdviceTest {
 			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValues.EC0000);
 			
 			ResponseEntity<ErrorRequest> actual
-				= commonRestControllerAdvice.handleFileForbiddenAccountException(exception);
+				= commonRestControllerAdvice.handleForbiddenAccountException(exception);
 			
 			assertEquals(HttpStatus.FORBIDDEN, actual.getStatusCode());
 			assertEquals(HttpStatus.FORBIDDEN.value(), actual.getBody().getHttpStatus());

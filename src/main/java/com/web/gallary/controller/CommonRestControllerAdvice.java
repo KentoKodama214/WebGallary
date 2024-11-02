@@ -55,7 +55,7 @@ public class CommonRestControllerAdvice {
 	 * @return				{@link ErrorRequest}
 	 */
 	@ExceptionHandler(ForbiddenAccountException.class)
-	public ResponseEntity<ErrorRequest> handleFileForbiddenAccountException(ForbiddenAccountException exception) {
+	public ResponseEntity<ErrorRequest> handleForbiddenAccountException(ForbiddenAccountException exception) {
 		ErrorRequest errorResponse = ErrorRequest.builder()
 				.httpStatus(HttpStatus.FORBIDDEN.value())
 				.errorCode(exception.getErrorCode())
