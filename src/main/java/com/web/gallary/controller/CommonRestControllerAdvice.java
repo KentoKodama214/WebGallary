@@ -26,7 +26,11 @@ import lombok.RequiredArgsConstructor;
  * @version	1.0.0
  * @since	1.0.0
 */
-@RestControllerAdvice
+@RestControllerAdvice(assignableTypes = {
+		AccountRestController.class,
+		PhotoFavoriteController.class,
+		PhotoRestController.class
+})
 @Component
 @RequiredArgsConstructor
 public class CommonRestControllerAdvice {

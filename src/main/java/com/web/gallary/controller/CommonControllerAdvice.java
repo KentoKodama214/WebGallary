@@ -20,7 +20,12 @@ import lombok.RequiredArgsConstructor;
  * @version	1.0.0
  * @since	1.0.0
 */
-@ControllerAdvice
+@ControllerAdvice(assignableTypes = {
+		AccountController.class,
+		BaseController.class,
+		LoginController.class,
+		PhotoController.class
+})
 @Component
 @RequiredArgsConstructor
 public class CommonControllerAdvice {
