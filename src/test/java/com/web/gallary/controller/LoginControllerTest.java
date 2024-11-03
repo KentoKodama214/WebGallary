@@ -31,7 +31,7 @@ public class LoginControllerTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class login {
 		@Test
 		@Order(1)
@@ -45,7 +45,7 @@ public class LoginControllerTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class success {
 		@Test
 		@Order(1)

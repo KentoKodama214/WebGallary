@@ -26,7 +26,11 @@ import lombok.RequiredArgsConstructor;
  * @version	1.0.0
  * @since	1.0.0
 */
-@RestControllerAdvice
+@RestControllerAdvice(assignableTypes = {
+		AccountRestController.class,
+		PhotoFavoriteController.class,
+		PhotoRestController.class
+})
 @Component
 @RequiredArgsConstructor
 public class CommonRestControllerAdvice {
@@ -39,7 +43,7 @@ public class CommonRestControllerAdvice {
 	 * @return				{@link BadRequestResponse}
 	 */
 	@ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<BadRequestResponse> handleBadRequestException(BadRequestException exception) {
+	public ResponseEntity<BadRequestResponse> handleBadRequestException(BadRequestException exception) {
 		BadRequestResponse response = BadRequestResponse.builder()
 				.httpStatus(HttpStatus.BAD_REQUEST.value())
 				.isSuccess(false)
@@ -47,7 +51,7 @@ public class CommonRestControllerAdvice {
 				.build();
 		
 		return new ResponseEntity<BadRequestResponse>(response, HttpStatus.BAD_REQUEST);
-    }
+	}
 	
 	/**
 	 * 権限のないアカウントからの不正アクセスがあったときに制御するExceptionHandler
@@ -55,12 +59,12 @@ public class CommonRestControllerAdvice {
 	 * @return				{@link ErrorRequest}
 	 */
 	@ExceptionHandler(ForbiddenAccountException.class)
-	public ResponseEntity<ErrorRequest> handleFileForbiddenAccountException(ForbiddenAccountException exception) {
+	public ResponseEntity<ErrorRequest> handleForbiddenAccountException(ForbiddenAccountException exception) {
 		ErrorRequest errorResponse = ErrorRequest.builder()
-    			.httpStatus(HttpStatus.FORBIDDEN.value())
-    			.errorCode(exception.getErrorCode())
-    			.errorMessage(exception.getMessage())
-    			.goBackPageUrl(getGoBackPageUrl()).build();
+				.httpStatus(HttpStatus.FORBIDDEN.value())
+				.errorCode(exception.getErrorCode())
+				.errorMessage(exception.getMessage())
+				.goBackPageUrl(getGoBackPageUrl()).build();
 		
 		return new ResponseEntity<ErrorRequest>(errorResponse, HttpStatus.FORBIDDEN);
 	}
@@ -73,10 +77,10 @@ public class CommonRestControllerAdvice {
 	@ExceptionHandler(FileDuplicateException.class)
 	public ResponseEntity<ErrorRequest> handleFileDuplicateException(FileDuplicateException exception) {
 		ErrorRequest errorResponse = ErrorRequest.builder()
-    			.httpStatus(HttpStatus.CONFLICT.value())
-    			.errorCode(exception.getErrorCode())
-    			.errorMessage(exception.getMessage())
-    			.goBackPageUrl(getGoBackPageUrl()).build();
+				.httpStatus(HttpStatus.CONFLICT.value())
+				.errorCode(exception.getErrorCode())
+				.errorMessage(exception.getMessage())
+				.goBackPageUrl(getGoBackPageUrl()).build();
 		
 		return new ResponseEntity<ErrorRequest>(errorResponse, HttpStatus.CONFLICT);
 	}
@@ -89,10 +93,10 @@ public class CommonRestControllerAdvice {
 	@ExceptionHandler(PhotoNotAdditableException.class)
 	public ResponseEntity<ErrorRequest> handlePhotoNotAdditableException(PhotoNotAdditableException exception) {
 		ErrorRequest errorResponse = ErrorRequest.builder()
-    			.httpStatus(HttpStatus.BAD_REQUEST.value())
-    			.errorCode(exception.getErrorCode())
-    			.errorMessage(exception.getMessage())
-    			.goBackPageUrl(getGoBackPageUrl()).build();
+				.httpStatus(HttpStatus.BAD_REQUEST.value())
+				.errorCode(exception.getErrorCode())
+				.errorMessage(exception.getMessage())
+				.goBackPageUrl(getGoBackPageUrl()).build();
 		
 		return new ResponseEntity<ErrorRequest>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
@@ -103,7 +107,7 @@ public class CommonRestControllerAdvice {
 	 * @return				{@link ErrorRequest}
 	 */
 	@ExceptionHandler(RegistFailureException.class)
-    public ResponseEntity<ErrorRequest> handleInsertFailedException(RegistFailureException exception) {
+	public ResponseEntity<ErrorRequest> handleInsertFailedException(RegistFailureException exception) {
 		ErrorRequest errorResponse = ErrorRequest.builder()
 				.httpStatus(HttpStatus.CONFLICT.value())
 				.errorCode(exception.getErrorCode())
@@ -111,7 +115,7 @@ public class CommonRestControllerAdvice {
 				.goBackPageUrl(getGoBackPageUrl()).build();
 		
 		return new ResponseEntity<ErrorRequest>(errorResponse, HttpStatus.CONFLICT);
-    }
+	}
 	
 	/**
 	 * データの更新に失敗したときに制御するExceptionHandler
@@ -120,12 +124,12 @@ public class CommonRestControllerAdvice {
 	 */
 	@ExceptionHandler(UpdateFailureException.class)
 	public ResponseEntity<ErrorRequest> handleUpdateFailureException(UpdateFailureException exception) {
-    	ErrorRequest errorResponse = ErrorRequest.builder()
-    			.httpStatus(HttpStatus.CONFLICT.value())
-    			.errorCode(exception.getErrorCode())
-    			.errorMessage(exception.getMessage())
-    			.goBackPageUrl(getGoBackPageUrl()).build();
-    	
+		ErrorRequest errorResponse = ErrorRequest.builder()
+				.httpStatus(HttpStatus.CONFLICT.value())
+				.errorCode(exception.getErrorCode())
+				.errorMessage(exception.getMessage())
+				.goBackPageUrl(getGoBackPageUrl()).build();
+		
 		return new ResponseEntity<ErrorRequest>(errorResponse, HttpStatus.CONFLICT);
 	}
 	

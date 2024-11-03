@@ -153,6 +153,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 		Account cndAccount = Account.builder().accountNo(accountModel.getAccountNo()).build();
 		
 		Account targetAccount = Account.builder()
+				.lastLoginDatetime(accountModel.getLastLoginDatetime())
 				.loginFailureCount(Optional.ofNullable(accountModel.getLoginFailureCount()).orElse(0))
 				.build();
 		
@@ -164,6 +165,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 	
 	/**
 	 * アカウントIDに該当するアカウントの存在有無をチェックする
+	 * @param	accountNo	検索対象外のアカウント番号
 	 * @param	accountId	アカウントID
 	 * @return				true：存在する
 	 */
@@ -179,7 +181,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 	 */
 	@Override
 	public List<AccountModel> getAccountList() {
-		Account account = Account.builder().build();
+		Account account = Account.builder().isDeleted(false).build();
 		
 		List<Account> accountList = accountMapper.select(account);
 		

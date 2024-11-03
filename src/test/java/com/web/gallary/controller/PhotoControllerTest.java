@@ -57,7 +57,7 @@ public class PhotoControllerTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class photoList {
 		@Test
 		@Order(1)
@@ -181,7 +181,7 @@ public class PhotoControllerTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class photoDetail {
 		@Test
 		@Order(1)
@@ -358,7 +358,7 @@ public class PhotoControllerTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class photoSetting {
 		private List<PhotoTagRequest> createPhotoTagRequestList() {
 			List<PhotoTagRequest> photoTagRequestList = new ArrayList<PhotoTagRequest>();
@@ -486,7 +486,7 @@ public class PhotoControllerTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getModelAndView {
 		@Test
 		@Order(1)

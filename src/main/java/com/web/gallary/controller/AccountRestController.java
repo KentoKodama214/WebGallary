@@ -35,109 +35,108 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class AccountRestController {
+	private final AccountServiceImpl accountServiceImpl;
+	private final SessionHelper sessionHelper;
 	
-    private final AccountServiceImpl accountServiceImpl;
-    private final SessionHelper sessionHelper;
-    
-    /**
-     * アカウント登録
-     * @param	accuontRegistRequest	{@link AccountRegistRequest}
-     * @param	result					AccountRegistRequestのバインディング結果
-     * @return							{@link AccountRegistResponse}
-     * @throws	BadRequestException 	リクエストパラメータが不正の場合
-     * @throws	RegistFailureException 	一意制約違反でアカウントの登録に失敗した場合
-     */
-    @PostMapping("/register")
-    public ResponseEntity<AccountRegistResponse> register(
-    		@RequestBody @Validated AccountRegistRequest accuontRegistRequest, 
-    		BindingResult result) throws BadRequestException, RegistFailureException {
-    	
-    	if(result.hasErrors()) {
-    		throw new BadRequestException(ErrorValues.EC0000);
-    	}
-    	
-        AccountModel accountModel = AccountModel.builder()
-        		.accountId(accuontRegistRequest.getAccountId())
-        		.accountName(accuontRegistRequest.getAccountName())
-        		.password(accuontRegistRequest.getPassword())
-        		.birthdate(accuontRegistRequest.getBirthdate())
-        		.sexKbnCode(accuontRegistRequest.getSexKbnCode())
-        		.birthplacePrefectureKbnCode(accuontRegistRequest.getBirthplacePrefectureKbnCode())
-        		.residentPrefectureKbnCode(accuontRegistRequest.getResidentPrefectureKbnCode())
-        		.freeMemo(accuontRegistRequest.getFreeMemo())
-        		.loginFailureCount(0)
-        		.build();
-        
-        Boolean isSuccess = accountServiceImpl.registAccount(accountModel);
-        return ResponseEntity.ok(AccountRegistResponse.builder()
-        			.httpStatus(HttpStatus.OK.value())
-        			.isSuccess(isSuccess)
-        			.message("")
-        			.build());
-    }
-    
-    /**
-     * アカウント更新
-     * @param	accountUpdateRequest	{@link AccountUpdateRequest}
-     * @param	result					AccountUpdateRequestのバインディング結果
-     * @return							{@link AccountUpdateResponse}
-     * @throws	BadRequestException		リクエストパラメータが不正の場合
-     * @throws	UpdateFailureException	更新に失敗した場合
-     */
-    @PostMapping("/update")
-    public ResponseEntity<AccountUpdateResponse> update(
-    		@RequestBody @Validated AccountUpdateRequest accountUpdateRequest, 
-    		BindingResult result) throws BadRequestException, UpdateFailureException {
-    	
-    	if(result.hasErrors()) {
-    		List<String> fieldList
-    			= result.getFieldErrors().stream().map(error -> error.getField()).distinct().toList();
-    		
-    		if(!(fieldList.size() == 1 && 
-    			fieldList.getFirst().equals("newPassword") && 
-    			accountUpdateRequest.getNewPassword().isEmpty())) {
-    				// 新しいパスワードが空欄で他にパラメータ不正がない場合は、スキップ
-    				// 新しいパスワード以外や新しいパスワードの入力に不正がある場合は、例外
-    				throw new BadRequestException(ErrorValues.EC0000);
-    		}
-    	}
-    	
-    	AccountModel accountModel = AccountModel.builder()
-    			.accountNo(sessionHelper.getAccountNo())
-        		.accountId(accountUpdateRequest.getAccountId())
-        		.accountName(accountUpdateRequest.getAccountName())
-        		.password(accountUpdateRequest.getNewPassword().isEmpty() ? null : accountUpdateRequest.getNewPassword())
-        		.birthdate(accountUpdateRequest.getBirthdate())
-        		.sexKbnCode(accountUpdateRequest.getSexKbnCode())
-        		.birthplacePrefectureKbnCode(accountUpdateRequest.getBirthplacePrefectureKbnCode())
-        		.residentPrefectureKbnCode(accountUpdateRequest.getResidentPrefectureKbnCode())
-        		.freeMemo(accountUpdateRequest.getFreeMemo())
-        		.build();
-    	
-    	Boolean isDuplicateAccountId = accountServiceImpl.updateAccount(accountModel);
-    	
-    	return ResponseEntity.ok(AccountUpdateResponse.builder()
-    				.httpStatus(HttpStatus.OK.value())
-    				.isDuplicateAccountId(isDuplicateAccountId)
-    				.isAccountIdChanged(!accountUpdateRequest.getAccountId().equals(sessionHelper.getAccountId()))
-    				.isPasswordChanged(!accountUpdateRequest.getNewPassword().isEmpty())
-    				.message("")
-    				.build());
-    }
-    
-    /**
-     * アカウント登録に失敗した時のExceptionHandler
-     * @param	exception	{@link RegistFailureException}
-     * @return				{@link ErrorRequest}
-     */
-    @ExceptionHandler(RegistFailureException.class)
-    public ResponseEntity<ErrorRequest> handleInsertFailedException(RegistFailureException exception) {
-    	ErrorRequest errorResponse = ErrorRequest.builder()
-    			.httpStatus(HttpStatus.CONFLICT.value())
-    			.errorCode(exception.getErrorCode())
-    			.errorMessage(exception.getMessage())
-    			.goBackPageUrl("/register").build();
-    	
-    	return new ResponseEntity<ErrorRequest>(errorResponse, HttpStatus.CONFLICT);
-    }
+	/**
+	 * アカウント登録
+	 * @param	accuontRegistRequest	{@link AccountRegistRequest}
+	 * @param	result					AccountRegistRequestのバインディング結果
+	 * @return							{@link AccountRegistResponse}
+	 * @throws	BadRequestException 	リクエストパラメータが不正の場合
+	 * @throws	RegistFailureException 	一意制約違反でアカウントの登録に失敗した場合
+	 */
+	@PostMapping("/register")
+	public ResponseEntity<AccountRegistResponse> register(
+			@RequestBody @Validated AccountRegistRequest accuontRegistRequest, 
+			BindingResult result) throws BadRequestException, RegistFailureException {
+		
+		if(result.hasErrors()) {
+			throw new BadRequestException(ErrorValues.EC0000);
+		}
+		
+		AccountModel accountModel = AccountModel.builder()
+				.accountId(accuontRegistRequest.getAccountId())
+				.accountName(accuontRegistRequest.getAccountName())
+				.password(accuontRegistRequest.getPassword())
+				.birthdate(accuontRegistRequest.getBirthdate())
+				.sexKbnCode(accuontRegistRequest.getSexKbnCode())
+				.birthplacePrefectureKbnCode(accuontRegistRequest.getBirthplacePrefectureKbnCode())
+				.residentPrefectureKbnCode(accuontRegistRequest.getResidentPrefectureKbnCode())
+				.freeMemo(accuontRegistRequest.getFreeMemo())
+				.loginFailureCount(0)
+				.build();
+		
+		Boolean isSuccess = accountServiceImpl.registAccount(accountModel);
+		return ResponseEntity.ok(AccountRegistResponse.builder()
+					.httpStatus(HttpStatus.OK.value())
+					.isSuccess(isSuccess)
+					.message("")
+					.build());
+	}
+	
+	/**
+	 * アカウント更新
+	 * @param	accountUpdateRequest	{@link AccountUpdateRequest}
+	 * @param	result					AccountUpdateRequestのバインディング結果
+	 * @return							{@link AccountUpdateResponse}
+	 * @throws	BadRequestException		リクエストパラメータが不正の場合
+	 * @throws	UpdateFailureException	更新に失敗した場合
+	 */
+	@PostMapping("/update")
+	public ResponseEntity<AccountUpdateResponse> update(
+			@RequestBody @Validated AccountUpdateRequest accountUpdateRequest, 
+			BindingResult result) throws BadRequestException, UpdateFailureException {
+		
+		if(result.hasErrors()) {
+			List<String> fieldList
+				= result.getFieldErrors().stream().map(error -> error.getField()).distinct().toList();
+			
+			if(!(fieldList.size() == 1 && 
+				fieldList.getFirst().equals("newPassword") && 
+				accountUpdateRequest.getNewPassword().isEmpty())) {
+					// 新しいパスワードが空欄で他にパラメータ不正がない場合は、スキップ
+					// 新しいパスワード以外や新しいパスワードの入力に不正がある場合は、例外
+					throw new BadRequestException(ErrorValues.EC0000);
+			}
+		}
+		
+		AccountModel accountModel = AccountModel.builder()
+				.accountNo(sessionHelper.getAccountNo())
+				.accountId(accountUpdateRequest.getAccountId())
+				.accountName(accountUpdateRequest.getAccountName())
+				.password(accountUpdateRequest.getNewPassword().isEmpty() ? null : accountUpdateRequest.getNewPassword())
+				.birthdate(accountUpdateRequest.getBirthdate())
+				.sexKbnCode(accountUpdateRequest.getSexKbnCode())
+				.birthplacePrefectureKbnCode(accountUpdateRequest.getBirthplacePrefectureKbnCode())
+				.residentPrefectureKbnCode(accountUpdateRequest.getResidentPrefectureKbnCode())
+				.freeMemo(accountUpdateRequest.getFreeMemo())
+				.build();
+		
+		Boolean isDuplicateAccountId = accountServiceImpl.updateAccount(accountModel);
+		
+		return ResponseEntity.ok(AccountUpdateResponse.builder()
+					.httpStatus(HttpStatus.OK.value())
+					.isDuplicateAccountId(isDuplicateAccountId)
+					.isAccountIdChanged(!accountUpdateRequest.getAccountId().equals(sessionHelper.getAccountId()))
+					.isPasswordChanged(!accountUpdateRequest.getNewPassword().isEmpty())
+					.message("")
+					.build());
+	}
+	
+	/**
+	 * アカウント登録に失敗した時のExceptionHandler
+	 * @param	exception	{@link RegistFailureException}
+	 * @return				{@link ErrorRequest}
+	 */
+	@ExceptionHandler(RegistFailureException.class)
+	public ResponseEntity<ErrorRequest> handleInsertFailedException(RegistFailureException exception) {
+		ErrorRequest errorResponse = ErrorRequest.builder()
+				.httpStatus(HttpStatus.CONFLICT.value())
+				.errorCode(exception.getErrorCode())
+				.errorMessage(exception.getMessage())
+				.goBackPageUrl("/register").build();
+		
+		return new ResponseEntity<ErrorRequest>(errorResponse, HttpStatus.CONFLICT);
+	}
 }

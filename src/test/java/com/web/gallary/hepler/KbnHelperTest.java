@@ -27,7 +27,7 @@ public class KbnHelperTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class convertToLinkedHashMap {
 		@Test
 		@Order(1)

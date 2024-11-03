@@ -56,7 +56,7 @@ public class PhotoServiceImpl implements PhotoService {
 	private final PhotoFavoriteRepository photoFavoriteRepository;
 	private final AccountRepository accountRepository;
 	private final FileRepository fileRepository;
-	private final PhotoConfig fileConfig;
+	private final PhotoConfig photoConfig;
 	
 	/**
 	 * 写真一覧を取得する
@@ -108,12 +108,12 @@ public class PhotoServiceImpl implements PhotoService {
 		if(photoDetailModelList.isEmpty()) return;
 		
 		Integer photoNo = photoMstRepository.getNewPhotoNo(photoDetailModelList.getFirst().getAccountNo());
-		String filePath = fileConfig.getOutputPath() + accountId + "/";
+		String filePath = photoConfig.getOutputPath() + accountId + "/";
 		
 		for(PhotoDetailModel photoDetailModel : photoDetailModelList){
 			if(Objects.isNull(photoDetailModel.getPhotoNo())) {
 				String filename = photoDetailModel.getImageFile().getOriginalFilename();
-				if(photoMstRepository.isExistPhoto(filename)) {
+				if(photoMstRepository.isExistPhoto(photoDetailModel)) {
 					log.error("Save Photo: Duplicate File (File: "  + filename + ")");
 					throw new FileDuplicateException(ErrorValues.EP0008);
 				}
@@ -137,7 +137,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 */
 	@Override
 	public void deletePhotos(String accountId, List<PhotoDeleteModel> photoDeleteModelList) throws UpdateFailureException {
-		String filePath = fileConfig.getOutputPath() + accountId + "/";
+		String filePath = photoConfig.getOutputPath() + accountId + "/";
 		
 		for(PhotoDeleteModel photoDeleteModel : photoDeleteModelList) {
 			photoFavoriteRepository.clear(
@@ -169,9 +169,9 @@ public class PhotoServiceImpl implements PhotoService {
 		
 		switch(account.getAuthorityKbnCode()) {
 			case "mini-user":
-				return count > 9;
+				return count > (photoConfig.getMiniUserUpperLimit() - 1);
 			case "normal-user":
-				return count > 999;
+				return count > (photoConfig.getNormalUserUpperLimit() - 1);
 			case "special-user":
 			case "administrator":
 				return false;

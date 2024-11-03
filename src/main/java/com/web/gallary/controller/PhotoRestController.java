@@ -145,8 +145,8 @@ public class PhotoRestController {
 						.accountNo(photoTag.getAccountNo())
 						.photoNo(photoTag.getPhotoNo())
 						.tagNo(photoTag.getTagNo())
-						.tagJapaneseName(photoTag.getTagJapaneseName())
-						.tagEnglishName(photoTag.getTagEnglishName())
+						.tagJapaneseName(Optional.ofNullable(photoTag.getTagJapaneseName()).orElse(""))
+						.tagEnglishName(Optional.ofNullable(photoTag.getTagEnglishName()).orElse(""))
 						.build()
 				);
 			});
@@ -202,7 +202,7 @@ public class PhotoRestController {
 	@PostMapping(value = "photo/{photoAccountId}/delete")
 	public ResponseEntity<PhotoEditResponse> deletePhoto(
 			@PathVariable String photoAccountId, 
-			@ModelAttribute @Validated PhotoDeleteRequest photoDeleteRequest, 
+			@RequestBody @Validated PhotoDeleteRequest photoDeleteRequest, 
 			BindingResult result) throws BadRequestException, ForbiddenAccountException, UpdateFailureException {
 		
 		if(!photoAccountId.equals(sessionHelper.getAccountId())) {
@@ -256,7 +256,7 @@ public class PhotoRestController {
 		
 		return PhotoListGetResponse.builder()
 				.isLast(pageNo * photoCountPerPage >= photoList.size())
-				.photolList(photoListResponseList)
+				.photoList(photoListResponseList)
 				.build();
 	}
 }

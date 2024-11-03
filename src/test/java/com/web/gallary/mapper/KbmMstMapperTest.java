@@ -31,7 +31,7 @@ public class KbmMstMapperTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/KbnMstMapperTest.sql")
 	class select {
 		@Test

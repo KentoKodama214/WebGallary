@@ -15,5 +15,5 @@ public class PhotoListGetResponse {
 	private Boolean isLast;
 	
 	/** 写真リスト */
-	private List<PhotoListResponse> photolList;
+	private List<PhotoListResponse> photoList;
 }

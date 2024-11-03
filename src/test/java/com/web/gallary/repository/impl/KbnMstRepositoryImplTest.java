@@ -34,7 +34,7 @@ public class KbnMstRepositoryImplTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class get {
 		@Test
 		@Order(1)

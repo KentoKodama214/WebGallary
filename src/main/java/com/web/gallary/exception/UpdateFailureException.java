@@ -17,7 +17,7 @@ public class UpdateFailureException extends Exception {
 	private final String errorCode;
 	
 	public UpdateFailureException(ErrorValues error) {
-        super(error.getErrorMessage());
-        this.errorCode = error.getErrorCode();
-    }
+		super(error.getErrorMessage());
+		this.errorCode = error.getErrorCode();
+	}
 }

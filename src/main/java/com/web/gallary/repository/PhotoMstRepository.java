@@ -41,10 +41,10 @@ public interface PhotoMstRepository {
 	
 	/**
 	 * 同じファイル名の写真が存在するかチェックする
-	 * @param	fileName	ファイル名
-	 * @return				写真が存在する場合、true
+	 * @param	photoDetailModel	{@link PhotoDetailModel}
+	 * @return						写真が存在する場合、true
 	 */
-	Boolean isExistPhoto(String fileName);
+	Boolean isExistPhoto(PhotoDetailModel photoDetailModel);
 	
 	/**
 	 * アカウントに登録されている写真の件数を取得する

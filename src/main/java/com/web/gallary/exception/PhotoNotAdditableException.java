@@ -17,7 +17,7 @@ public class PhotoNotAdditableException extends Exception {
 	private final String errorCode;
 	
 	public PhotoNotAdditableException(ErrorValues error) {
-        super(error.getErrorMessage());
-        this.errorCode = error.getErrorCode();
-    }
+		super(error.getErrorMessage());
+		this.errorCode = error.getErrorCode();
+	}
 }

@@ -58,7 +58,7 @@ function filtering() {
 	const photos = document.getElementById('photos');
 	let photoList = document.getElementsByClassName('photo');
 	for(let i = photoList.length; i > 0 ; i--){
-    	photos.removeChild(photoList[i-1]);
+		photos.removeChild(photoList[i-1]);
 	}
 	updateFiltering();
 	
@@ -134,7 +134,7 @@ async function getPhotoList() {
 		.then(response => response.json())
 		.catch(err => (console.log(`Fetch problem: ${err.message}`)));
 		
-	for(photo of response.photolList){
+	for(photo of response.photoList){
 		createPhoto(photo);
 	}
 	

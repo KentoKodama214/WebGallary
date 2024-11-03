@@ -29,14 +29,13 @@ import com.web.gallary.dto.PhotoListGetDto;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoDetailMapperTest {
 	@Autowired
 	private PhotoDetailMapper photoDetailMapper;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/PhotoDetailMapperTest.sql")
 	class getPhotoList {
 		@Test
@@ -85,7 +84,7 @@ public class PhotoDetailMapperTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/PhotoDetailMapperTest.sql")
 	class getPhotoDetail {
 		@Test

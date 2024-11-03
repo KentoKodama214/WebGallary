@@ -21,6 +21,12 @@ public class PhotoConfig {
 	/** 最大ファイルサイズ（MB） */
 	private final Integer maxFileSizeMb;
 	
+	/** mini-userの写真登録上限枚数 */
+	private final Integer miniUserUpperLimit;
+	
+	/** normal-userの写真登録上限枚数 */
+	private final Integer normalUserUpperLimit;
+	
 	/** 出力パス */
 	private final String outputPath;
 }

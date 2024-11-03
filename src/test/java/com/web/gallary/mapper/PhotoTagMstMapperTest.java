@@ -26,18 +26,17 @@ import com.web.gallary.entity.PhotoTagMst;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoTagMstMapperTest {
 	@Autowired
 	private PhotoTagMstMapper photoTagMstMapper;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
 	@Sql("/sql/mapper/PhotoTagMstMapperTest.sql")
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class select {
 		@Test
 		@Order(1)
@@ -282,7 +281,7 @@ public class PhotoTagMstMapperTest {
 	@Nested
 	@Order(2)
 	@Sql("/sql/mapper/PhotoTagMstMapperTest.sql")
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class insert {
 		@Test
 		@Order(1)
@@ -324,7 +323,7 @@ public class PhotoTagMstMapperTest {
 	@Nested
 	@Order(3)
 	@Sql("/sql/mapper/PhotoTagMstMapperTest.sql")
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class delete {
 		private List<PhotoTagMst> getPhotoTagMstList(String condition) {
 			return jdbcTemplate.query(

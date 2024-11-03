@@ -5,7 +5,6 @@ insert into common.account values(3,  3,  '2000-01-03 09:00:00 Asia/Tokyo', 3,  
 insert into common.account values(4,  4,  '2000-01-04 09:00:00 Asia/Tokyo', 4,  '2001-01-04 09:00:00 Asia/Tokyo', false, 'dddddddd', 'DDDDDDDD', '$2a$10$password4',  '1900-01-01', '',      '',         'Okinawa', '',         'administrator', '2002-01-01 09:00:00 Asia/Tokyo', 0);
 insert into common.account values(5,  5,  '2000-01-05 09:00:00 Asia/Tokyo', 5,  '2001-01-05 09:00:00 Asia/Tokyo', false, 'eeeeeeee', 'EEEEEEEE', '$2a$10$password5',  '1900-01-01', '',      '',         '',        'フリーメモ', 'administrator', '2002-01-01 09:00:00 Asia/Tokyo', 0);
 
-
 -- common.location_mst
 insert into common.location_mst values(1, 1, 1, '2000-01-05 09:00:00 Asia/Tokyo', 1, '2000-01-05 09:00:00 Asia/Tokyo', false, 'ロケーション1', '住所1', 38.100, 115.100);
 insert into common.location_mst values(1, 2, 1, '2000-01-05 09:00:00 Asia/Tokyo', 1, '2000-01-05 09:00:00 Asia/Tokyo', false, 'ロケーション2', '住所2', 38.200, 115.200);
@@ -22,7 +21,6 @@ insert into photo.photo_mst values(2, 2, 1, '2000-01-01 09:00:00 Asia/Tokyo', 1,
 
 -- photo.photo_favorite
 insert into photo.photo_favorite values(1, 1, 1, 1, now());
---insert into photo.photo_favorite values(1, 1, 2, 1, now());
 insert into photo.photo_favorite values(2, 1, 1, 1, now());
 insert into photo.photo_favorite values(2, 1, 2, 1, now());
 insert into photo.photo_favorite values(2, 2, 1, 1, now());

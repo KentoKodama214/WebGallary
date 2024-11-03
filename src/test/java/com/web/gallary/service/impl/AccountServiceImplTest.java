@@ -47,14 +47,14 @@ public class AccountServiceImplTest {
 	private AccountRepositoryImpl accountRepositoryImpl;
 	
 	@Mock
-    private AccountPrincipal accountPrincipal;
+	private AccountPrincipal accountPrincipal;
 	
 	@Mock
 	private LoginConfig loginConfig;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class loadUserByUsername {
 		@Test
 		@Order(1)
@@ -88,7 +88,7 @@ public class AccountServiceImplTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class registAccount {
 		@Test
 		@Order(1)
@@ -123,7 +123,7 @@ public class AccountServiceImplTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class updateAccount {
 		@Test
 		@Order(1)
@@ -158,7 +158,7 @@ public class AccountServiceImplTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getAccountById {
 		@Test
 		@Order(1)
@@ -180,7 +180,7 @@ public class AccountServiceImplTest {
 	
 	@Nested
 	@Order(5)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getAccountList {
 		@Test
 		@Order(1)
@@ -215,7 +215,7 @@ public class AccountServiceImplTest {
 	
 	@Nested
 	@Order(6)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handleAuthenticationSuccess {
 		@Test
 		@Order(1)
@@ -249,7 +249,7 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
 			assertNull(accountModel.getAuthorityKbnCode());
-			assertNull(accountModel.getLastLoginDatetime());
+			assertNotNull(accountModel.getLastLoginDatetime());
 			assertEquals(0, accountModel.getLoginFailureCount());
 		}
 		
@@ -285,14 +285,14 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
 			assertNull(accountModel.getAuthorityKbnCode());
-			assertNull(accountModel.getLastLoginDatetime());
+			assertNotNull(accountModel.getLastLoginDatetime());
 			assertEquals(0, accountModel.getLoginFailureCount());
 		}
 	}
 	
 	@Nested
 	@Order(7)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handleAuthenticationFailureBadCredentials {
 		@Test
 		@Order(1)

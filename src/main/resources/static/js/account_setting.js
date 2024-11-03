@@ -1,37 +1,3 @@
-function blurAccountId(obj) {
-	validateAccountId(obj);
-}
-
-function validateAccountId(obj) {
-	const account_id = obj.value;
-	const error = obj.parentNode.getElementsByClassName('account_id_error')[0];
-	
-	if(account_id.length == 0) {
-		obj.style.borderColor = 'red';
-		error.style.visibility = 'visible';
-		error.innerText="アカウントIDを入力してください";
-		return false;
-	}
-	if(!account_id.match('^([a-zA-Z0-9]{1,})$')){
-		obj.style.borderColor = 'red';
-		error.style.visibility = 'visible';
-		error.innerText="半角英数字で入力してください";
-		return false;
-	}
-	if(account_id.length < 8 || account_id.length > 16) {
-		obj.style.borderColor = 'red';
-		error.style.visibility = 'visible';
-		error.innerText="8〜16文字で入力してください";
-		return false;
-	}
-	
-	obj.style.borderColor = '#ddd';
-	error.style.visibility = 'hidden';
-	error.innerText="";
-	
-	return true;
-}
-
 function blurAccountName(obj) {
 	validateAccountName(obj);
 }
@@ -126,8 +92,7 @@ async function regist(obj) {
 	const NewPassword = document.getElementById('new_password');
 	const Birthdate = document.getElementById('birthdate');
 	
-	if(!(validateAccountId(AccountId) & validateAccountName(AccountName) 
-			& validateNewPassword(NewPassword) & validateBirthdate(Birthdate))) {
+	if(!(validateAccountName(AccountName) & validateNewPassword(NewPassword) & validateBirthdate(Birthdate))) {
 		obj.disabled = null;
 		return;
 	}

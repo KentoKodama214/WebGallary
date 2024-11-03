@@ -20,7 +20,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.gallary.entity.PhotoMst;
 import com.web.gallary.exception.RegistFailureException;
@@ -40,7 +42,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class regist {
 		@Test
 		@Order(1)
@@ -172,7 +174,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class update {
 		@Test
 		@Order(1)
@@ -370,7 +372,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class delete {
 		@Test
 		@Order(1)
@@ -497,7 +499,7 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getNewPhotoNo {
 		@Test
 		@Order(1)
@@ -518,30 +520,63 @@ public class PhotoMstRepositoryImplTest {
 	
 	@Nested
 	@Order(5)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class isExistPhoto {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：画像ファイルパスに該当する写真がない場合")
-		void isExistPhoto_found() {
-			String filename = "DSC111.jpg";
-			doReturn(false).when(photoMstMapper).isExistPhoto(filename);
-			assertFalse(photoMstRepositoryImpl.isExistPhoto(filename));
+		void isExistPhoto_not_found() {
+			MultipartFile multipartFile = new MockMultipartFile(
+					"file",
+					"DSC111.jpg",
+					"multipart/form-data",
+					"sample image".getBytes()
+			);
+			
+			PhotoDetailModel photoDetailModel = PhotoDetailModel.builder()
+					.accountNo(1)
+					.imageFile(multipartFile)
+					.imageFilePath("")
+					.build();
+					
+			ArgumentCaptor<PhotoMst> photoMstCaptor = ArgumentCaptor.forClass(PhotoMst.class);
+			doReturn(false).when(photoMstMapper).isExistPhoto(photoMstCaptor.capture());
+			assertFalse(photoMstRepositoryImpl.isExistPhoto(photoDetailModel));
+			
+			PhotoMst photoMst = photoMstCaptor.getValue();
+			assertEquals(1, photoMst.getAccountNo());
+			assertEquals("DSC111.jpg", photoMst.getImageFilePath());
 		}
 		
 		@Test
 		@Order(2)
-		@DisplayName("正常系：画像ファイルパスに該当する写真がない場合")
-		void isExistPhoto_not_found() {
-			String filename = "DSC111.jpg";
-			doReturn(true).when(photoMstMapper).isExistPhoto(filename);
-			assertTrue(photoMstRepositoryImpl.isExistPhoto(filename));
+		@DisplayName("正常系：画像ファイルパスに該当する写真がある場合")
+		void isExistPhoto_found() {
+			MultipartFile multipartFile = new MockMultipartFile(
+					"file",
+					"DSC111.jpg",
+					"multipart/form-data",
+					"sample image".getBytes()
+			);
+			
+			PhotoDetailModel photoDetailModel = PhotoDetailModel.builder()
+					.accountNo(1)
+					.imageFile(multipartFile)
+					.imageFilePath("")
+					.build();
+					
+			ArgumentCaptor<PhotoMst> photoMstCaptor = ArgumentCaptor.forClass(PhotoMst.class);
+			doReturn(true).when(photoMstMapper).isExistPhoto(photoMstCaptor.capture());
+			assertTrue(photoMstRepositoryImpl.isExistPhoto(photoDetailModel));
+			
+			PhotoMst photoMst = photoMstCaptor.getValue();
+			assertEquals(1, photoMst.getAccountNo());
 		}
 	}
 	
 	@Nested
 	@Order(6)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class count {
 		@Test
 		@Order(1)

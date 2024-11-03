@@ -17,7 +17,7 @@ public class ForbiddenAccountException extends Exception {
 	private final String errorCode;
 	
 	public ForbiddenAccountException(ErrorValues error) {
-        super(error.getErrorMessage());
-        this.errorCode = error.getErrorCode();
-    }
+		super(error.getErrorMessage());
+		this.errorCode = error.getErrorCode();
+	}
 }

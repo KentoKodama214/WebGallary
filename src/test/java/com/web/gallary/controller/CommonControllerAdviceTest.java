@@ -37,7 +37,7 @@ public class CommonControllerAdviceTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handleFileForbiddenAccountException {
 		@Test
 		@Order(1)
@@ -48,6 +48,7 @@ public class CommonControllerAdviceTest {
 			
 			ModelAndView actual = commonControllerAdvice.handleFileForbiddenAccountException(exception);
 			assertEquals("error_page", actual.getViewName());
+			assertEquals(HttpStatus.FORBIDDEN, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.FORBIDDEN.value(), (int)models.get("httpStatus"));
 			assertEquals(ErrorValues.EC0000.getErrorCode(), models.get("errorCode").toString());
@@ -65,6 +66,7 @@ public class CommonControllerAdviceTest {
 			
 			ModelAndView actual = commonControllerAdvice.handleFileForbiddenAccountException(exception);
 			assertEquals("error_page", actual.getViewName());
+			assertEquals(HttpStatus.FORBIDDEN, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.FORBIDDEN.value(), (int)models.get("httpStatus"));
 			assertEquals(ErrorValues.EC0000.getErrorCode(), models.get("errorCode").toString());
@@ -75,7 +77,7 @@ public class CommonControllerAdviceTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class handlePhotoNotFoundException {
 		@Test
 		@Order(1)
@@ -86,6 +88,7 @@ public class CommonControllerAdviceTest {
 			
 			ModelAndView actual = commonControllerAdvice.handlePhotoNotFoundException(exception);
 			assertEquals("error_page", actual.getViewName());
+			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.BAD_REQUEST.value(), (int)models.get("httpStatus"));
 			assertEquals(ErrorValues.EP0001.getErrorCode(), models.get("errorCode").toString());
@@ -103,6 +106,7 @@ public class CommonControllerAdviceTest {
 			
 			ModelAndView actual = commonControllerAdvice.handlePhotoNotFoundException(exception);
 			assertEquals("error_page", actual.getViewName());
+			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.BAD_REQUEST.value(), (int)models.get("httpStatus"));
 			assertEquals(ErrorValues.EP0001.getErrorCode(), models.get("errorCode").toString());
@@ -113,7 +117,7 @@ public class CommonControllerAdviceTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getGoBackPageUrl {
 		@Test
 		@Order(1)

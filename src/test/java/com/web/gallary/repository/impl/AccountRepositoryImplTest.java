@@ -46,7 +46,7 @@ public class AccountRepositoryImplTest {
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getByAccountNo {
 		@Test
 		@Order(1)
@@ -107,7 +107,7 @@ public class AccountRepositoryImplTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getByAccountId {
 		@Test
 		@Order(1)
@@ -168,7 +168,7 @@ public class AccountRepositoryImplTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class regist {
 		@Test
 		@Order(1)
@@ -289,7 +289,7 @@ public class AccountRepositoryImplTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class update {
 		@Test
 		@Order(1)
@@ -465,6 +465,7 @@ public class AccountRepositoryImplTest {
 		void updateLoginFailureCount_not_contain_null_parameter() throws UpdateFailureException {
 			AccountModel accountModel = AccountModel.builder()
 					.accountNo(1)
+					.lastLoginDatetime(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)))
 					.loginFailureCount(2)
 					.build();
 			
@@ -493,7 +494,7 @@ public class AccountRepositoryImplTest {
 			assertEquals(null, targetAccountCapture.getResidentPrefectureKbnCode());
 			assertEquals(null, targetAccountCapture.getFreeMemo());
 			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
-			assertEquals(null, targetAccountCapture.getLastLoginDatetime());
+			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), targetAccountCapture.getLastLoginDatetime());
 			assertEquals(2, targetAccountCapture.getLoginFailureCount());
 		}
 		
@@ -537,7 +538,7 @@ public class AccountRepositoryImplTest {
 	
 	@Nested
 	@Order(6)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class isExistAccount {
 		@Test
 		@Order(1)
@@ -572,7 +573,7 @@ public class AccountRepositoryImplTest {
 	
 	@Nested
 	@Order(7)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getAccountList {
 		@Test
 		@Order(1)
@@ -621,9 +622,13 @@ public class AccountRepositoryImplTest {
 			accountList.add(account1);
 			accountList.add(account2);
 			
-			doReturn(accountList).when(accountMapper).select(any(Account.class));
+			ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
+			doReturn(accountList).when(accountMapper).select(accountCaptor.capture());
 
 			List<AccountModel> actual = accountRepositoryImpl.getAccountList();
+			
+			Account account = accountCaptor.getValue();
+			assertFalse(account.getIsDeleted());
 			
 			AccountModel actualAccountModel1 = actual.stream().sorted(Comparator.comparing(AccountModel::getAccountNo)).toList().getFirst();
 			assertEquals(1, actualAccountModel1.getAccountNo());
@@ -660,10 +665,14 @@ public class AccountRepositoryImplTest {
 		void getAccountList_not_found() {
 			List<Account> expected = new ArrayList<Account>();
 			
-			doReturn(expected).when(accountMapper).select(any(Account.class));
+			ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
+			doReturn(expected).when(accountMapper).select(accountCaptor.capture());
 
 			List<AccountModel> actual = accountRepositoryImpl.getAccountList();
 			assertEquals(expected, actual);
+			
+			Account account = accountCaptor.getValue();
+			assertFalse(account.getIsDeleted());
 		}
 	}
 }

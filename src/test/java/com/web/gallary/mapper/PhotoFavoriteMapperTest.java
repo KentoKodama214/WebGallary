@@ -23,18 +23,17 @@ import com.web.gallary.entity.PhotoFavorite;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class PhotoFavoriteMapperTest {
 	@Autowired
 	private PhotoFavoriteMapper photoFavoriteMapper;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
 	@Sql("/sql/mapper/PhotoFavoriteMapperTest.sql")
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class insert {
 		@Test
 		@Order(1)
@@ -69,7 +68,7 @@ public class PhotoFavoriteMapperTest {
 	
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/PhotoFavoriteMapperTest.sql")
 	class delete {
 		private List<PhotoFavorite> getPhotoFavoriteList(String condition) {

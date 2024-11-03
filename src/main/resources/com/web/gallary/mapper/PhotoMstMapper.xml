@@ -116,12 +116,14 @@
 			account_no = #{accountNo}
 	</select>
 	
-	<select id="isExistPhoto" parameterType="String" resultType="Boolean">
+	<select id="isExistPhoto" parameterType="com.web.gallary.entity.PhotoMst" resultType="Boolean">
 		SELECT
 			CASE WHEN COUNT(*)>0 THEN true ELSE false END
 		FROM
 			photo.photo_mst
 		WHERE
-			image_file_path LIKE CONCAT('%', #{filename})
+			account_no = #{accountNo}
+		AND image_file_path LIKE CONCAT('%', #{imageFilePath})
+		AND is_deleted = false
 	</select>
 </mapper>

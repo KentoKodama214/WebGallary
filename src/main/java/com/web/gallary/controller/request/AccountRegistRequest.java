@@ -37,10 +37,10 @@ public class AccountRegistRequest {
 	@Size(min = 8, message = "{validation.common.min_length}")
 	@Pattern(regexp = "[a-zA-Z0-9]{8,}", message = "{validation.common.pattern}")
 	private String password;
-    
-    /** 生年月日 <br>
-     * 	yyyy-mm-ddで、過去日付
-     */
+	
+	/** 生年月日 <br>
+	 * 	yyyy-mm-ddで、過去日付
+	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past(message = "{validation.common.pastDate}")
 	private LocalDate birthdate;

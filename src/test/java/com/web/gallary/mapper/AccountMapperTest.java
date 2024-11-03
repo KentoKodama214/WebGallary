@@ -26,17 +26,16 @@ import com.web.gallary.entity.Account;
 @MybatisTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Sql("/sql/common/ResetAccountNoSeq.sql")
 public class AccountMapperTest {
 	@Autowired
 	private AccountMapper accountMapper;
 	
 	@Autowired
-    private JdbcTemplate jdbcTemplate;
+	private JdbcTemplate jdbcTemplate;
 	
 	@Nested
 	@Order(1)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class select {
 		@Test
@@ -591,7 +590,7 @@ public class AccountMapperTest {
 
 	@Nested
 	@Order(2)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class count {
 		@Test
@@ -749,7 +748,8 @@ public class AccountMapperTest {
 	
 	@Nested
 	@Order(3)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/ResetAccountNoSeq.sql")
 	class insert {
 		@Test
 		@Order(1)
@@ -821,7 +821,7 @@ public class AccountMapperTest {
 	
 	@Nested
 	@Order(4)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class update {
 		private List<Account> getAccountList(String condition) {
@@ -1324,7 +1324,7 @@ public class AccountMapperTest {
 	
 	@Nested
 	@Order(5)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class delete {
 		private List<Account> getAccountList(String condition) {
@@ -1612,7 +1612,7 @@ public class AccountMapperTest {
 	
 	@Nested
 	@Order(6)
-    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	@Sql("/sql/mapper/AccountMapperTest.sql")
 	class isExistAccount {
 		@Test
