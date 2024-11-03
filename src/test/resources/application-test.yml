@@ -15,7 +15,7 @@ auth:
 
 app:
   photo:
-    photoCountPerPage: 20
+    photoCountPerPage: 5
     maxFileSizeMb: 5
     miniUserUpperLimit: 10
     normalUserUpperLimit: 20

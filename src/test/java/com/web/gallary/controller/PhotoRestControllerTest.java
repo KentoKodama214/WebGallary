@@ -178,25 +178,25 @@ public class PhotoRestControllerTest {
 			assertEquals(HttpStatus.OK, actual.getStatusCode());
 			assertEquals(false, actual.getBody().getIsLast());
 			
-			assertEquals(3, actual.getBody().getPhotolList().size());
-			assertEquals(1, actual.getBody().getPhotolList().get(0).getAccountNo());
-			assertEquals(1, actual.getBody().getPhotolList().get(0).getPhotoNo());
-			assertFalse(actual.getBody().getPhotolList().get(0).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.getBody().getPhotolList().get(0).getImageFilePath());
-			assertEquals("キャプション1", actual.getBody().getPhotolList().get(0).getCaption());
-			assertEquals("vertical", actual.getBody().getPhotolList().get(0).getDirectionKbnCode());
-			assertEquals(1, actual.getBody().getPhotolList().get(1).getAccountNo());
-			assertEquals(2, actual.getBody().getPhotolList().get(1).getPhotoNo());
-			assertTrue(actual.getBody().getPhotolList().get(1).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC222.jpg", actual.getBody().getPhotolList().get(1).getImageFilePath());
-			assertEquals("キャプション2", actual.getBody().getPhotolList().get(1).getCaption());
-			assertEquals("horizontal", actual.getBody().getPhotolList().get(1).getDirectionKbnCode());
-			assertEquals(1, actual.getBody().getPhotolList().get(2).getAccountNo());
-			assertEquals(3, actual.getBody().getPhotolList().get(2).getPhotoNo());
-			assertTrue(actual.getBody().getPhotolList().get(2).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC333.jpg", actual.getBody().getPhotolList().get(2).getImageFilePath());
-			assertEquals("キャプション3", actual.getBody().getPhotolList().get(2).getCaption());
-			assertEquals("horizontal", actual.getBody().getPhotolList().get(2).getDirectionKbnCode());
+			assertEquals(3, actual.getBody().getPhotoList().size());
+			assertEquals(1, actual.getBody().getPhotoList().get(0).getAccountNo());
+			assertEquals(1, actual.getBody().getPhotoList().get(0).getPhotoNo());
+			assertFalse(actual.getBody().getPhotoList().get(0).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.getBody().getPhotoList().get(0).getImageFilePath());
+			assertEquals("キャプション1", actual.getBody().getPhotoList().get(0).getCaption());
+			assertEquals("vertical", actual.getBody().getPhotoList().get(0).getDirectionKbnCode());
+			assertEquals(1, actual.getBody().getPhotoList().get(1).getAccountNo());
+			assertEquals(2, actual.getBody().getPhotoList().get(1).getPhotoNo());
+			assertTrue(actual.getBody().getPhotoList().get(1).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC222.jpg", actual.getBody().getPhotoList().get(1).getImageFilePath());
+			assertEquals("キャプション2", actual.getBody().getPhotoList().get(1).getCaption());
+			assertEquals("horizontal", actual.getBody().getPhotoList().get(1).getDirectionKbnCode());
+			assertEquals(1, actual.getBody().getPhotoList().get(2).getAccountNo());
+			assertEquals(3, actual.getBody().getPhotoList().get(2).getPhotoNo());
+			assertTrue(actual.getBody().getPhotoList().get(2).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC333.jpg", actual.getBody().getPhotoList().get(2).getImageFilePath());
+			assertEquals("キャプション3", actual.getBody().getPhotoList().get(2).getCaption());
+			assertEquals("horizontal", actual.getBody().getPhotoList().get(2).getDirectionKbnCode());
 			
 			PhotoListGetModel photoListGetModel = photoListGetModelCaptor.getValue();
 			assertEquals(1, photoListGetModel.getAccountNo());
@@ -236,13 +236,13 @@ public class PhotoRestControllerTest {
 			assertEquals(HttpStatus.OK, actual.getStatusCode());
 			assertEquals(true, actual.getBody().getIsLast());
 			
-			assertEquals(1, actual.getBody().getPhotolList().size());
-			assertEquals(1, actual.getBody().getPhotolList().get(0).getAccountNo());
-			assertEquals(4, actual.getBody().getPhotolList().get(0).getPhotoNo());
-			assertTrue(actual.getBody().getPhotolList().get(0).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getBody().getPhotolList().get(0).getImageFilePath());
-			assertEquals("キャプション4", actual.getBody().getPhotolList().get(0).getCaption());
-			assertEquals("horizontal", actual.getBody().getPhotolList().get(0).getDirectionKbnCode());
+			assertEquals(1, actual.getBody().getPhotoList().size());
+			assertEquals(1, actual.getBody().getPhotoList().get(0).getAccountNo());
+			assertEquals(4, actual.getBody().getPhotoList().get(0).getPhotoNo());
+			assertTrue(actual.getBody().getPhotoList().get(0).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getBody().getPhotoList().get(0).getImageFilePath());
+			assertEquals("キャプション4", actual.getBody().getPhotoList().get(0).getCaption());
+			assertEquals("horizontal", actual.getBody().getPhotoList().get(0).getDirectionKbnCode());
 			
 			PhotoListGetModel photoListGetModel = photoListGetModelCaptor.getValue();
 			assertEquals(1, photoListGetModel.getAccountNo());
@@ -283,13 +283,13 @@ public class PhotoRestControllerTest {
 			assertEquals(HttpStatus.OK, actual.getStatusCode());
 			assertEquals(true, actual.getBody().getIsLast());
 			
-			assertEquals(1, actual.getBody().getPhotolList().size());
-			assertEquals(1, actual.getBody().getPhotolList().get(0).getAccountNo());
-			assertEquals(4, actual.getBody().getPhotolList().get(0).getPhotoNo());
-			assertTrue(actual.getBody().getPhotolList().get(0).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getBody().getPhotolList().get(0).getImageFilePath());
-			assertEquals("キャプション4", actual.getBody().getPhotolList().get(0).getCaption());
-			assertEquals("horizontal", actual.getBody().getPhotolList().get(0).getDirectionKbnCode());
+			assertEquals(1, actual.getBody().getPhotoList().size());
+			assertEquals(1, actual.getBody().getPhotoList().get(0).getAccountNo());
+			assertEquals(4, actual.getBody().getPhotoList().get(0).getPhotoNo());
+			assertTrue(actual.getBody().getPhotoList().get(0).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getBody().getPhotoList().get(0).getImageFilePath());
+			assertEquals("キャプション4", actual.getBody().getPhotoList().get(0).getCaption());
+			assertEquals("horizontal", actual.getBody().getPhotoList().get(0).getDirectionKbnCode());
 			
 			PhotoListGetModel photoListGetModel = photoListGetModelCaptor.getValue();
 			assertEquals(1, photoListGetModel.getAccountNo());
@@ -321,7 +321,7 @@ public class PhotoRestControllerTest {
 			
 			assertEquals(HttpStatus.OK, actual.getStatusCode());
 			assertTrue(actual.getBody().getIsLast());
-			assertEquals(0, actual.getBody().getPhotolList().size());
+			assertEquals(0, actual.getBody().getPhotoList().size());
 			
 			PhotoListGetModel photoListGetModel = photoListGetModelCaptor.getValue();
 			assertEquals(1, photoListGetModel.getAccountNo());
@@ -1012,13 +1012,13 @@ public class PhotoRestControllerTest {
 			createPhotoListGetResponse.setAccessible(true);
 			
 			PhotoListGetResponse actual = (PhotoListGetResponse) createPhotoListGetResponse.invoke(photoRestController, photoList, pageNo);
-			assertEquals(1, actual.getPhotolList().size());
-			assertEquals(1, actual.getPhotolList().getFirst().getAccountNo());
-			assertEquals(1, actual.getPhotolList().getFirst().getPhotoNo());
-			assertFalse(actual.getPhotolList().getFirst().getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.getPhotolList().getFirst().getImageFilePath());
-			assertEquals("キャプション1", actual.getPhotolList().getFirst().getCaption());
-			assertEquals("vertical", actual.getPhotolList().getFirst().getDirectionKbnCode());
+			assertEquals(1, actual.getPhotoList().size());
+			assertEquals(1, actual.getPhotoList().getFirst().getAccountNo());
+			assertEquals(1, actual.getPhotoList().getFirst().getPhotoNo());
+			assertFalse(actual.getPhotoList().getFirst().getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.getPhotoList().getFirst().getImageFilePath());
+			assertEquals("キャプション1", actual.getPhotoList().getFirst().getCaption());
+			assertEquals("vertical", actual.getPhotoList().getFirst().getDirectionKbnCode());
 			assertTrue(actual.getIsLast());
 		}
 		
@@ -1035,25 +1035,25 @@ public class PhotoRestControllerTest {
 			createPhotoListGetResponse.setAccessible(true);
 			
 			PhotoListGetResponse actual = (PhotoListGetResponse) createPhotoListGetResponse.invoke(photoRestController, photoList, pageNo);
-			assertEquals(3, actual.getPhotolList().size());
-			assertEquals(1, actual.getPhotolList().get(0).getAccountNo());
-			assertEquals(1, actual.getPhotolList().get(0).getPhotoNo());
-			assertFalse(actual.getPhotolList().get(0).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.getPhotolList().get(0).getImageFilePath());
-			assertEquals("キャプション1", actual.getPhotolList().get(0).getCaption());
-			assertEquals("vertical", actual.getPhotolList().get(0).getDirectionKbnCode());
-			assertEquals(1, actual.getPhotolList().get(1).getAccountNo());
-			assertEquals(2, actual.getPhotolList().get(1).getPhotoNo());
-			assertTrue(actual.getPhotolList().get(1).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC222.jpg", actual.getPhotolList().get(1).getImageFilePath());
-			assertEquals("キャプション2", actual.getPhotolList().get(1).getCaption());
-			assertEquals("horizontal", actual.getPhotolList().get(1).getDirectionKbnCode());
-			assertEquals(1, actual.getPhotolList().get(2).getAccountNo());
-			assertEquals(3, actual.getPhotolList().get(2).getPhotoNo());
-			assertTrue(actual.getPhotolList().get(2).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC333.jpg", actual.getPhotolList().get(2).getImageFilePath());
-			assertEquals("キャプション3", actual.getPhotolList().get(2).getCaption());
-			assertEquals("horizontal", actual.getPhotolList().get(2).getDirectionKbnCode());
+			assertEquals(3, actual.getPhotoList().size());
+			assertEquals(1, actual.getPhotoList().get(0).getAccountNo());
+			assertEquals(1, actual.getPhotoList().get(0).getPhotoNo());
+			assertFalse(actual.getPhotoList().get(0).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.getPhotoList().get(0).getImageFilePath());
+			assertEquals("キャプション1", actual.getPhotoList().get(0).getCaption());
+			assertEquals("vertical", actual.getPhotoList().get(0).getDirectionKbnCode());
+			assertEquals(1, actual.getPhotoList().get(1).getAccountNo());
+			assertEquals(2, actual.getPhotoList().get(1).getPhotoNo());
+			assertTrue(actual.getPhotoList().get(1).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC222.jpg", actual.getPhotoList().get(1).getImageFilePath());
+			assertEquals("キャプション2", actual.getPhotoList().get(1).getCaption());
+			assertEquals("horizontal", actual.getPhotoList().get(1).getDirectionKbnCode());
+			assertEquals(1, actual.getPhotoList().get(2).getAccountNo());
+			assertEquals(3, actual.getPhotoList().get(2).getPhotoNo());
+			assertTrue(actual.getPhotoList().get(2).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC333.jpg", actual.getPhotoList().get(2).getImageFilePath());
+			assertEquals("キャプション3", actual.getPhotoList().get(2).getCaption());
+			assertEquals("horizontal", actual.getPhotoList().get(2).getDirectionKbnCode());
 			assertFalse(actual.getIsLast());
 		}
 		
@@ -1070,13 +1070,13 @@ public class PhotoRestControllerTest {
 			createPhotoListGetResponse.setAccessible(true);
 			
 			PhotoListGetResponse actual = (PhotoListGetResponse) createPhotoListGetResponse.invoke(photoRestController, photoList, pageNo);
-			assertEquals(1, actual.getPhotolList().size());
-			assertEquals(1, actual.getPhotolList().get(0).getAccountNo());
-			assertEquals(4, actual.getPhotolList().get(0).getPhotoNo());
-			assertTrue(actual.getPhotolList().get(0).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getPhotolList().get(0).getImageFilePath());
-			assertEquals("キャプション4", actual.getPhotolList().get(0).getCaption());
-			assertEquals("horizontal", actual.getPhotolList().get(0).getDirectionKbnCode());
+			assertEquals(1, actual.getPhotoList().size());
+			assertEquals(1, actual.getPhotoList().get(0).getAccountNo());
+			assertEquals(4, actual.getPhotoList().get(0).getPhotoNo());
+			assertTrue(actual.getPhotoList().get(0).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getPhotoList().get(0).getImageFilePath());
+			assertEquals("キャプション4", actual.getPhotoList().get(0).getCaption());
+			assertEquals("horizontal", actual.getPhotoList().get(0).getDirectionKbnCode());
 			assertTrue(actual.getIsLast());
 		}
 		
@@ -1093,25 +1093,25 @@ public class PhotoRestControllerTest {
 			createPhotoListGetResponse.setAccessible(true);
 			
 			PhotoListGetResponse actual = (PhotoListGetResponse) createPhotoListGetResponse.invoke(photoRestController, photoList, pageNo);
-			assertEquals(3, actual.getPhotolList().size());
-			assertEquals(1, actual.getPhotolList().get(0).getAccountNo());
-			assertEquals(4, actual.getPhotolList().get(0).getPhotoNo());
-			assertTrue(actual.getPhotolList().get(0).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getPhotolList().get(0).getImageFilePath());
-			assertEquals("キャプション4", actual.getPhotolList().get(0).getCaption());
-			assertEquals("horizontal", actual.getPhotolList().get(0).getDirectionKbnCode());
-			assertEquals(1, actual.getPhotolList().get(1).getAccountNo());
-			assertEquals(5, actual.getPhotolList().get(1).getPhotoNo());
-			assertTrue(actual.getPhotolList().get(1).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC555.jpg", actual.getPhotolList().get(1).getImageFilePath());
-			assertEquals("キャプション5", actual.getPhotolList().get(1).getCaption());
-			assertEquals("horizontal", actual.getPhotolList().get(1).getDirectionKbnCode());
-			assertEquals(1, actual.getPhotolList().get(2).getAccountNo());
-			assertEquals(6, actual.getPhotolList().get(2).getPhotoNo());
-			assertTrue(actual.getPhotolList().get(2).getIsFavorite());
-			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC666.jpg", actual.getPhotolList().get(2).getImageFilePath());
-			assertEquals("キャプション6", actual.getPhotolList().get(2).getCaption());
-			assertEquals("horizontal", actual.getPhotolList().get(2).getDirectionKbnCode());
+			assertEquals(3, actual.getPhotoList().size());
+			assertEquals(1, actual.getPhotoList().get(0).getAccountNo());
+			assertEquals(4, actual.getPhotoList().get(0).getPhotoNo());
+			assertTrue(actual.getPhotoList().get(0).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getPhotoList().get(0).getImageFilePath());
+			assertEquals("キャプション4", actual.getPhotoList().get(0).getCaption());
+			assertEquals("horizontal", actual.getPhotoList().get(0).getDirectionKbnCode());
+			assertEquals(1, actual.getPhotoList().get(1).getAccountNo());
+			assertEquals(5, actual.getPhotoList().get(1).getPhotoNo());
+			assertTrue(actual.getPhotoList().get(1).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC555.jpg", actual.getPhotoList().get(1).getImageFilePath());
+			assertEquals("キャプション5", actual.getPhotoList().get(1).getCaption());
+			assertEquals("horizontal", actual.getPhotoList().get(1).getDirectionKbnCode());
+			assertEquals(1, actual.getPhotoList().get(2).getAccountNo());
+			assertEquals(6, actual.getPhotoList().get(2).getPhotoNo());
+			assertTrue(actual.getPhotoList().get(2).getIsFavorite());
+			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC666.jpg", actual.getPhotoList().get(2).getImageFilePath());
+			assertEquals("キャプション6", actual.getPhotoList().get(2).getCaption());
+			assertEquals("horizontal", actual.getPhotoList().get(2).getDirectionKbnCode());
 			assertFalse(actual.getIsLast());
 		}
 	}

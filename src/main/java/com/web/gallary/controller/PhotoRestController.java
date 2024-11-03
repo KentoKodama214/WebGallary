@@ -256,7 +256,7 @@ public class PhotoRestController {
 		
 		return PhotoListGetResponse.builder()
 				.isLast(pageNo * photoCountPerPage >= photoList.size())
-				.photolList(photoListResponseList)
+				.photoList(photoListResponseList)
 				.build();
 	}
 }

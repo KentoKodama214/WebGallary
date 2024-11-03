@@ -134,7 +134,7 @@ async function getPhotoList() {
 		.then(response => response.json())
 		.catch(err => (console.log(`Fetch problem: ${err.message}`)));
 		
-	for(photo of response.photolList){
+	for(photo of response.photoList){
 		createPhoto(photo);
 	}
 	
