@@ -1,7 +1,7 @@
 ---
 name: テストIssue
 about: テスト用のテンプレート
-title: ''
+title: "【テスト】"
 labels: ''
 assignees: ''
 
