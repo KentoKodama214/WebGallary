@@ -1,7 +1,7 @@
 ---
 name: 開発Issue
 about: 開発用のテンプレート
-title: ''
+title: "【開発】"
 labels: ''
 assignees: ''
 
