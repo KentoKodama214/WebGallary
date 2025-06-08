@@ -1,0 +1,2 @@
+# 最新バージョンのPostgreSQL公式イメージを使用
+FROM postgres:latest
