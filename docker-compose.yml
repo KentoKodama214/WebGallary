@@ -11,4 +11,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - 3000:3000
+      - 5432:5432
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d/init
+      - ./db/common:/docker-entrypoint-initdb.d/common
+      - ./db/photo:/docker-entrypoint-initdb.d/photo
+      - ./db/init/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
