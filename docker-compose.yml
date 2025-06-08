@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    build:
+      context: docker/db
+      dockerfile: Dockerfile
+    container_name: web-gallary-db
+    environment:
+      POSTGRES_DB: web_gallary
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 3000:3000
