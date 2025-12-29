@@ -39,10 +39,10 @@
 | photo_no | 写真番号 | int | NOT NULL | - |  |
 | resident_prefecture_kbn_code | 在住都道府県区分コード | varchar(20) | NOT NULL | none | none: 未設定<br>分類コード：prefecture |
 | sex_kbn_code | 性別区分コード | varchar(20) | NOT NULL | none | none: 未設定<br>man: 男<br>woman: 女 |
-| sort_order | 並び順 | int | NOT NULL | - | |
 | shutter_speed | シャッタースピード | decimal(10,5) | NOT NULL | - | 単位: 秒 |
-| tag_no | タグ番号 | int | NOT NULL | - |  |
-| tag_japanese_name | タグ日本語名 | varchar(20) | NOT NULL | - | 空文字不可 |
+| sort_order | 並び順 | int | NOT NULL | - | |
 | tag_english_name | タグ英語名 | varchar(20) | NOT NULL | "" |  |
-| updated_by | 更新者 | int | NOT NULL | - |  |
+| tag_japanese_name | タグ日本語名 | varchar(20) | NOT NULL | - | 空文字不可 |
+| tag_no | タグ番号 | int | NOT NULL | - |  |
 | updated_at | 更新日時 | timestamp with time zone | NOT NULL | - |  |
+| updated_by | 更新者 | int | NOT NULL | - |  |
