@@ -624,8 +624,8 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(status().isBadRequest())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.BAD_REQUEST.value()))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.EP0011.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.EP0011.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.REACHED_REGISTRATION_LIMIT.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.REACHED_REGISTRATION_LIMIT.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/aaaaaaaa/photo_list"));
 		}
 		
