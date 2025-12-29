@@ -10,7 +10,8 @@ public class PhotoListRequest {
 	/** 
 	 * 向き区分コード
 	 * <p>
-	 * vertical: 縦<p>horizontal: 横
+	 * vertical: 縦<p>
+	 * horizontal: 横
 	 */
 	private String directionKbnCode;
 	
