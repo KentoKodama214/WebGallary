@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.gallary.config.PhotoConfig;
+import com.web.gallary.constant.MessageConst;
 import com.web.gallary.controller.request.PhotoDeleteRequest;
 import com.web.gallary.controller.request.PhotoListRequest;
 import com.web.gallary.controller.request.PhotoSaveRequest;
@@ -122,7 +123,7 @@ public class PhotoRestController {
 		}
 		
 		if(Objects.isNull(photoSaveRequest.getPhotoNo()) && photoService.isReachedUpperLimit(sessionHelper.getAccountNo())) {
-			throw new PhotoNotAdditableException(ErrorValueEnum.EP0011);
+			throw new PhotoNotAdditableException(ErrorValueEnum.REACHED_REGISTRATION_LIMIT);
 		}
 		
 		if(Objects.isNull(photoSaveRequest.getImageFile()) && 
@@ -185,7 +186,7 @@ public class PhotoRestController {
 		return ResponseEntity.ok(PhotoEditResponse.builder()
 				.httpStatus(HttpStatus.OK.value())
 				.isSuccess(true)
-				.message("写真登録が完了しました。")
+				.message(MessageConst.REGIST_PHOTO)
 				.build());
 	}
 	
@@ -227,7 +228,7 @@ public class PhotoRestController {
 		return ResponseEntity.ok(PhotoEditResponse.builder()
 				.httpStatus(HttpStatus.OK.value())
 				.isSuccess(true)
-				.message("写真削除が完了しました。")
+				.message(MessageConst.DELETE_PHOTO)
 				.build());
 	}
 	
