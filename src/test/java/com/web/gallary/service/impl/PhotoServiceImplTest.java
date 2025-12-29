@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.entity.Account;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.exception.RegistFailureException;
@@ -1691,7 +1691,7 @@ public class PhotoServiceImplTest {
 			Method registPhotoTags = PhotoServiceImpl.class.getDeclaredMethod("registPhotoTags", List.class, Integer.class);
 			registPhotoTags.setAccessible(true);
 			
-			doThrow(new RegistFailureException(ErrorValues.EP0004)).when(photoTagMstRepositoryImpl).regist(any(PhotoTagModel.class));
+			doThrow(new RegistFailureException(ErrorValueEnum.FAIL_TO_REGIST_PHOTO_TAG)).when(photoTagMstRepositoryImpl).regist(any(PhotoTagModel.class));
 			
 			List<PhotoTagModel> photoTagModelList = new ArrayList<PhotoTagModel>();
 			photoTagModelList.add(PhotoTagModel.builder()
@@ -1716,7 +1716,7 @@ public class PhotoServiceImplTest {
 			catch(InvocationTargetException e) {
 				Throwable targetException = e.getTargetException();
 				assertEquals(RegistFailureException.class, targetException.getClass());
-				assertEquals(ErrorValues.EP0004.getErrorMessage(), targetException.getMessage());
+				assertEquals(ErrorValueEnum.FAIL_TO_REGIST_PHOTO_TAG.getErrorMessage(), targetException.getMessage());
 				verify(photoTagMstRepositoryImpl, times(1)).regist(any(PhotoTagModel.class));
 			}
 		}

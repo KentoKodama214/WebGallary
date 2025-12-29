@@ -4,7 +4,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
 import com.web.gallary.entity.PhotoTagMst;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.mapper.PhotoTagMstMapper;
 import com.web.gallary.model.PhotoTagDeleteModel;
@@ -47,7 +47,7 @@ public class PhotoTagMstRepositoryImpl implements PhotoTagMstRepository {
 			log.error("PhotoTagMst: Duplicate Key (AccountNo: " + photoTagModel.getAccountNo()
 											  + ", PhototNo: "  + photoTagModel.getPhotoNo()
 											  + ", TagNo: " 	+ photoTagModel.getTagNo() + ")");
-			throw new RegistFailureException(ErrorValues.EP0004);
+			throw new RegistFailureException(ErrorValueEnum.FAIL_TO_REGIST_PHOTO_TAG);
 		}
 	}
 	

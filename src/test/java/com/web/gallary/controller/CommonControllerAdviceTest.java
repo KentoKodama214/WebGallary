@@ -21,7 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.exception.ForbiddenAccountException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.helper.SessionHelper;
@@ -44,15 +44,15 @@ public class CommonControllerAdviceTest {
 		@DisplayName("正常系：非ログインユーザーの場合")
 		void handleFileForbiddenAccountException_not_login_user() {
 			doReturn(null).when(sessionHelper).getAccountId();
-			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValues.EC0000);
+			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValueEnum.INVALID_INPUT);
 			
 			ModelAndView actual = commonControllerAdvice.handleFileForbiddenAccountException(exception);
 			assertEquals("error_page", actual.getViewName());
 			assertEquals(HttpStatus.FORBIDDEN, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.FORBIDDEN.value(), (int)models.get("httpStatus"));
-			assertEquals(ErrorValues.EC0000.getErrorCode(), models.get("errorCode").toString());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), models.get("errorMessage").toString());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorCode(), models.get("errorCode").toString());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), models.get("errorMessage").toString());
 			assertEquals("/login", models.get("goBackPageUrl").toString());
 		}
 		
@@ -62,15 +62,15 @@ public class CommonControllerAdviceTest {
 		void handleFileForbiddenAccountException_login_user() {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValues.EC0000);
+			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValueEnum.INVALID_INPUT);
 			
 			ModelAndView actual = commonControllerAdvice.handleFileForbiddenAccountException(exception);
 			assertEquals("error_page", actual.getViewName());
 			assertEquals(HttpStatus.FORBIDDEN, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.FORBIDDEN.value(), (int)models.get("httpStatus"));
-			assertEquals(ErrorValues.EC0000.getErrorCode(), models.get("errorCode").toString());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), models.get("errorMessage").toString());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorCode(), models.get("errorCode").toString());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), models.get("errorMessage").toString());
 			assertEquals("/photo/" + accountId + "/photo_list", models.get("goBackPageUrl").toString());
 		}
 	}
@@ -84,15 +84,15 @@ public class CommonControllerAdviceTest {
 		@DisplayName("正常系：非ログインユーザーの場合")
 		void handlePhotoNotFoundException_not_login_user() {
 			doReturn(null).when(sessionHelper).getAccountId();
-			PhotoNotFoundException exception = new PhotoNotFoundException(ErrorValues.EP0001);
+			PhotoNotFoundException exception = new PhotoNotFoundException(ErrorValueEnum.FAIL_TO_REGIST_PHOTO);
 			
 			ModelAndView actual = commonControllerAdvice.handlePhotoNotFoundException(exception);
 			assertEquals("error_page", actual.getViewName());
 			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.BAD_REQUEST.value(), (int)models.get("httpStatus"));
-			assertEquals(ErrorValues.EP0001.getErrorCode(), models.get("errorCode").toString());
-			assertEquals(ErrorValues.EP0001.getErrorMessage(), models.get("errorMessage").toString());
+			assertEquals(ErrorValueEnum.FAIL_TO_REGIST_PHOTO.getErrorCode(), models.get("errorCode").toString());
+			assertEquals(ErrorValueEnum.FAIL_TO_REGIST_PHOTO.getErrorMessage(), models.get("errorMessage").toString());
 			assertEquals("/login", models.get("goBackPageUrl").toString());
 		}
 		
@@ -102,15 +102,15 @@ public class CommonControllerAdviceTest {
 		void handlePhotoNotFoundException_login_user() {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			PhotoNotFoundException exception = new PhotoNotFoundException(ErrorValues.EP0001);
+			PhotoNotFoundException exception = new PhotoNotFoundException(ErrorValueEnum.FAIL_TO_REGIST_PHOTO);
 			
 			ModelAndView actual = commonControllerAdvice.handlePhotoNotFoundException(exception);
 			assertEquals("error_page", actual.getViewName());
 			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatus());
 			Map<String, Object> models = actual.getModel();
 			assertEquals(HttpStatus.BAD_REQUEST.value(), (int)models.get("httpStatus"));
-			assertEquals(ErrorValues.EP0001.getErrorCode(), models.get("errorCode").toString());
-			assertEquals(ErrorValues.EP0001.getErrorMessage(), models.get("errorMessage").toString());
+			assertEquals(ErrorValueEnum.FAIL_TO_REGIST_PHOTO.getErrorCode(), models.get("errorCode").toString());
+			assertEquals(ErrorValueEnum.FAIL_TO_REGIST_PHOTO.getErrorMessage(), models.get("errorMessage").toString());
 			assertEquals("/photo/" + accountId + "/photo_list", models.get("goBackPageUrl").toString());
 		}
 	}

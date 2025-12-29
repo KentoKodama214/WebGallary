@@ -34,7 +34,7 @@ import com.web.gallary.controller.request.PhotoFavoriteDeleteRequest;
 import com.web.gallary.controller.request.PhotoFavoriteRegistRequest;
 import com.web.gallary.entity.Account;
 import com.web.gallary.entity.PhotoFavorite;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -133,7 +133,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(400))
 				.andExpect(jsonPath("$.isSuccess").value(false))
-				.andExpect(jsonPath("$.message").value(ErrorValues.EC0000.getErrorMessage()));
+				.andExpect(jsonPath("$.message").value(ErrorValueEnum.INVALID_INPUT.getErrorMessage()));
 		}
 		
 		@Test
@@ -167,8 +167,8 @@ public class PhotoFavoriteControllerIntegrationTest {
 				.andExpect(status().isConflict())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(409))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValues.EP0005.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValues.EP0005.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.FAIL_TO_REGIST_FAVORITE.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.FAIL_TO_REGIST_FAVORITE.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/aaaaaaaa/photo_list"));
 		}
 	}
@@ -276,7 +276,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(400))
 				.andExpect(jsonPath("$.isSuccess").value(false))
-				.andExpect(jsonPath("$.message").value(ErrorValues.EC0000.getErrorMessage()));
+				.andExpect(jsonPath("$.message").value(ErrorValueEnum.INVALID_INPUT.getErrorMessage()));
 		}
 		
 		@Test
@@ -310,8 +310,8 @@ public class PhotoFavoriteControllerIntegrationTest {
 				.andExpect(status().isConflict())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(409))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValues.EP0006.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValues.EP0006.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.FAIL_TO_CANCEL_FAVORITE.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.FAIL_TO_CANCEL_FAVORITE.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/aaaaaaaa/photo_list"));
 		}
 	}

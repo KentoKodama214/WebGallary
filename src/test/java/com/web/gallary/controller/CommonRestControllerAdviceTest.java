@@ -22,7 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.web.gallary.controller.request.ErrorRequest;
 import com.web.gallary.controller.response.BadRequestResponse;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.exception.BadRequestException;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.ForbiddenAccountException;
@@ -48,7 +48,7 @@ public class CommonRestControllerAdviceTest {
 		@Order(1)
 		@DisplayName("正常系")
 		void handleBadRequestException_not_login_user() {
-			BadRequestException exception = new BadRequestException(ErrorValues.EC0000);
+			BadRequestException exception = new BadRequestException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<BadRequestResponse> actual
 				= commonRestControllerAdvice.handleBadRequestException(exception);
@@ -56,7 +56,7 @@ public class CommonRestControllerAdviceTest {
 			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatusCode());
 			assertEquals(HttpStatus.BAD_REQUEST.value(), actual.getBody().getHttpStatus());
 			assertEquals(false, actual.getBody().getIsSuccess());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getMessage());
 		}
 	}
 	
@@ -69,14 +69,14 @@ public class CommonRestControllerAdviceTest {
 		@DisplayName("正常系：非ログインユーザーの場合")
 		void handleFileForbiddenAccountException_not_login_user() {
 			doReturn(null).when(sessionHelper).getAccountId();
-			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValues.EC0000);
+			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handleForbiddenAccountException(exception);
 			
 			assertEquals(HttpStatus.FORBIDDEN, actual.getStatusCode());
 			assertEquals(HttpStatus.FORBIDDEN.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/login", actual.getBody().getGoBackPageUrl());
 		}
 		
@@ -86,14 +86,14 @@ public class CommonRestControllerAdviceTest {
 		void handleFileForbiddenAccountException_login_user() {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValues.EC0000);
+			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handleForbiddenAccountException(exception);
 			
 			assertEquals(HttpStatus.FORBIDDEN, actual.getStatusCode());
 			assertEquals(HttpStatus.FORBIDDEN.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/photo/" + accountId + "/photo_list", actual.getBody().getGoBackPageUrl());
 		}
 	}
@@ -107,14 +107,14 @@ public class CommonRestControllerAdviceTest {
 		@DisplayName("正常系：非ログインユーザーの場合")
 		void handleFileDuplicateException_not_login_user() {
 			doReturn(null).when(sessionHelper).getAccountId();
-			FileDuplicateException exception = new FileDuplicateException(ErrorValues.EC0000);
+			FileDuplicateException exception = new FileDuplicateException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handleFileDuplicateException(exception);
 			
 			assertEquals(HttpStatus.CONFLICT, actual.getStatusCode());
 			assertEquals(HttpStatus.CONFLICT.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/login", actual.getBody().getGoBackPageUrl());
 		}
 		
@@ -124,14 +124,14 @@ public class CommonRestControllerAdviceTest {
 		void handleFileDuplicateException_login_user() {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			FileDuplicateException exception = new FileDuplicateException(ErrorValues.EC0000);
+			FileDuplicateException exception = new FileDuplicateException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handleFileDuplicateException(exception);
 			
 			assertEquals(HttpStatus.CONFLICT, actual.getStatusCode());
 			assertEquals(HttpStatus.CONFLICT.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/photo/" + accountId + "/photo_list", actual.getBody().getGoBackPageUrl());
 		}
 	}
@@ -145,14 +145,14 @@ public class CommonRestControllerAdviceTest {
 		@DisplayName("正常系：非ログインユーザーの場合")
 		void handlePhotoNotAdditableException_not_login_user() {
 			doReturn(null).when(sessionHelper).getAccountId();
-			PhotoNotAdditableException exception = new PhotoNotAdditableException(ErrorValues.EC0000);
+			PhotoNotAdditableException exception = new PhotoNotAdditableException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handlePhotoNotAdditableException(exception);
 			
 			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatusCode());
 			assertEquals(HttpStatus.BAD_REQUEST.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/login", actual.getBody().getGoBackPageUrl());
 		}
 		
@@ -162,14 +162,14 @@ public class CommonRestControllerAdviceTest {
 		void handlePhotoNotAdditableException_login_user() {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			PhotoNotAdditableException exception = new PhotoNotAdditableException(ErrorValues.EC0000);
+			PhotoNotAdditableException exception = new PhotoNotAdditableException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handlePhotoNotAdditableException(exception);
 			
 			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatusCode());
 			assertEquals(HttpStatus.BAD_REQUEST.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/photo/" + accountId + "/photo_list", actual.getBody().getGoBackPageUrl());
 		}
 	}
@@ -183,14 +183,14 @@ public class CommonRestControllerAdviceTest {
 		@DisplayName("正常系：非ログインユーザーの場合")
 		void handleInsertFailedException_not_login_user() {
 			doReturn(null).when(sessionHelper).getAccountId();
-			RegistFailureException exception = new RegistFailureException(ErrorValues.EC0000);
+			RegistFailureException exception = new RegistFailureException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handleInsertFailedException(exception);
 			
 			assertEquals(HttpStatus.CONFLICT, actual.getStatusCode());
 			assertEquals(HttpStatus.CONFLICT.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/login", actual.getBody().getGoBackPageUrl());
 		}
 		
@@ -200,14 +200,14 @@ public class CommonRestControllerAdviceTest {
 		void handleInsertFailedException_login_user() {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			RegistFailureException exception = new RegistFailureException(ErrorValues.EC0000);
+			RegistFailureException exception = new RegistFailureException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handleInsertFailedException(exception);
 			
 			assertEquals(HttpStatus.CONFLICT, actual.getStatusCode());
 			assertEquals(HttpStatus.CONFLICT.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/photo/" + accountId + "/photo_list", actual.getBody().getGoBackPageUrl());
 		}
 	}
@@ -221,14 +221,14 @@ public class CommonRestControllerAdviceTest {
 		@DisplayName("正常系：非ログインユーザーの場合")
 		void handleUpdateFailureException_not_login_user() {
 			doReturn(null).when(sessionHelper).getAccountId();
-			UpdateFailureException exception = new UpdateFailureException(ErrorValues.EC0000);
+			UpdateFailureException exception = new UpdateFailureException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handleUpdateFailureException(exception);
 			
 			assertEquals(HttpStatus.CONFLICT, actual.getStatusCode());
 			assertEquals(HttpStatus.CONFLICT.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/login", actual.getBody().getGoBackPageUrl());
 		}
 		
@@ -238,14 +238,14 @@ public class CommonRestControllerAdviceTest {
 		void handleUpdateFailureException_login_user() {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			UpdateFailureException exception = new UpdateFailureException(ErrorValues.EC0000);
+			UpdateFailureException exception = new UpdateFailureException(ErrorValueEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= commonRestControllerAdvice.handleUpdateFailureException(exception);
 			
 			assertEquals(HttpStatus.CONFLICT, actual.getStatusCode());
 			assertEquals(HttpStatus.CONFLICT.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValues.EC0000.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/photo/" + accountId + "/photo_list", actual.getBody().getGoBackPageUrl());
 		}
 	}

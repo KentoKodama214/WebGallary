@@ -35,7 +35,7 @@ import com.web.gallary.AccountPrincipal;
 import com.web.gallary.controller.request.PhotoSettingRequest;
 import com.web.gallary.controller.request.PhotoTagRequest;
 import com.web.gallary.entity.Account;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.model.PhotoDetailModel;
 import com.web.gallary.model.PhotoTagModel;
 
@@ -452,8 +452,8 @@ public class PhotoControllerIntegrationTest {
 				)
 				.andExpect(status().isBadRequest())
 				.andExpect(model().attribute("httpStatus", HttpStatus.BAD_REQUEST.value()))
-				.andExpect(model().attribute("errorCode", ErrorValues.EP0010.getErrorCode()))
-				.andExpect(model().attribute("errorMessage", ErrorValues.EP0010.getErrorMessage()))
+				.andExpect(model().attribute("errorCode", ErrorValueEnum.PHOTO_NOT_FOUND.getErrorCode()))
+				.andExpect(model().attribute("errorMessage", ErrorValueEnum.PHOTO_NOT_FOUND.getErrorMessage()))
 				.andExpect(model().attribute("goBackPageUrl", "/photo/" + loginAccountId + "/photo_list"))
 				.andExpect(view().name("error_page"));
 		}
@@ -472,8 +472,8 @@ public class PhotoControllerIntegrationTest {
 				)
 				.andExpect(status().isBadRequest())
 				.andExpect(model().attribute("httpStatus", HttpStatus.BAD_REQUEST.value()))
-				.andExpect(model().attribute("errorCode", ErrorValues.EP0010.getErrorCode()))
-				.andExpect(model().attribute("errorMessage", ErrorValues.EP0010.getErrorMessage()))
+				.andExpect(model().attribute("errorCode", ErrorValueEnum.PHOTO_NOT_FOUND.getErrorCode()))
+				.andExpect(model().attribute("errorMessage", ErrorValueEnum.PHOTO_NOT_FOUND.getErrorMessage()))
 				.andExpect(model().attribute("goBackPageUrl", "/login"))
 				.andExpect(view().name("error_page"));
 		}
@@ -687,8 +687,8 @@ public class PhotoControllerIntegrationTest {
 				)
 				.andExpect(status().isForbidden())
 				.andExpect(model().attribute("httpStatus", HttpStatus.FORBIDDEN.value()))
-				.andExpect(model().attribute("errorCode", ErrorValues.EP0009.getErrorCode()))
-				.andExpect(model().attribute("errorMessage", ErrorValues.EP0009.getErrorMessage()))
+				.andExpect(model().attribute("errorCode", ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorCode()))
+				.andExpect(model().attribute("errorMessage", ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorMessage()))
 				.andExpect(model().attribute("goBackPageUrl", "/photo/" + loginAccountId + "/photo_list"))
 				.andExpect(view().name("error_page"));
 		}
@@ -729,8 +729,8 @@ public class PhotoControllerIntegrationTest {
 				)
 				.andExpect(status().isForbidden())
 				.andExpect(model().attribute("httpStatus", HttpStatus.FORBIDDEN.value()))
-				.andExpect(model().attribute("errorCode", ErrorValues.EP0009.getErrorCode()))
-				.andExpect(model().attribute("errorMessage", ErrorValues.EP0009.getErrorMessage()))
+				.andExpect(model().attribute("errorCode", ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorCode()))
+				.andExpect(model().attribute("errorMessage", ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorMessage()))
 				.andExpect(model().attribute("goBackPageUrl", "/login"))
 				.andExpect(view().name("error_page"));
 		}

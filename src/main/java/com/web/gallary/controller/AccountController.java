@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.gallary.entity.Account;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.exception.ForbiddenAccountException;
 import com.web.gallary.helper.KbnHelper;
 import com.web.gallary.helper.SessionHelper;
@@ -59,7 +59,7 @@ public class AccountController {
 	@GetMapping("/{accountId}/account_setting")
 	public ModelAndView account_setting(@PathVariable String accountId) throws ForbiddenAccountException {
 		if (!accountId.equals(sessionHelper.getAccountId())) {
-			throw new ForbiddenAccountException(ErrorValues.EC0003);
+			throw new ForbiddenAccountException(ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_ACCOUNT);
 		}
 		
 		ModelAndView mv = new ModelAndView();

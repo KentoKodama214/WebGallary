@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.web.gallary.controller.request.PhotoFavoriteDeleteRequest;
 import com.web.gallary.controller.request.PhotoFavoriteRegistRequest;
 import com.web.gallary.controller.response.PhotoFavoriteResponse;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.exception.BadRequestException;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
@@ -47,7 +47,7 @@ public class PhotoFavoriteController {
 			BindingResult result) throws BadRequestException, RegistFailureException {
 		
 		if(result.hasErrors()) {
-			throw new BadRequestException(ErrorValues.EC0000);
+			throw new BadRequestException(ErrorValueEnum.INVALID_INPUT);
 		}
 		
 		PhotoFavoriteModel photoFavoriteModel = PhotoFavoriteModel.builder()
@@ -77,7 +77,7 @@ public class PhotoFavoriteController {
 			BindingResult result) throws BadRequestException, UpdateFailureException {
 
 		if(result.hasErrors()) {
-			throw new BadRequestException(ErrorValues.EC0000);
+			throw new BadRequestException(ErrorValueEnum.INVALID_INPUT);
 		}
 		
 		PhotoFavoriteModel photoFavoriteModel = PhotoFavoriteModel.builder()

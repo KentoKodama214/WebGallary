@@ -16,7 +16,7 @@ import com.web.gallary.controller.request.AccountUpdateRequest;
 import com.web.gallary.controller.request.ErrorRequest;
 import com.web.gallary.controller.response.AccountRegistResponse;
 import com.web.gallary.controller.response.AccountUpdateResponse;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.exception.BadRequestException;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
@@ -52,7 +52,7 @@ public class AccountRestController {
 			BindingResult result) throws BadRequestException, RegistFailureException {
 		
 		if(result.hasErrors()) {
-			throw new BadRequestException(ErrorValues.EC0000);
+			throw new BadRequestException(ErrorValueEnum.INVALID_INPUT);
 		}
 		
 		AccountModel accountModel = AccountModel.builder()
@@ -97,7 +97,7 @@ public class AccountRestController {
 				accountUpdateRequest.getNewPassword().isEmpty())) {
 					// 新しいパスワードが空欄で他にパラメータ不正がない場合は、スキップ
 					// 新しいパスワード以外や新しいパスワードの入力に不正がある場合は、例外
-					throw new BadRequestException(ErrorValues.EC0000);
+					throw new BadRequestException(ErrorValueEnum.INVALID_INPUT);
 			}
 		}
 		
