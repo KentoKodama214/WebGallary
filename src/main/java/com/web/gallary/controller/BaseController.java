@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.gallary.constant.MessageConst;
 import com.web.gallary.controller.request.ErrorRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -52,7 +53,7 @@ public class BaseController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("error_page");
 		mv.addObject("goBackPageUrl", Optional.ofNullable(errorRequest.getGoBackPageUrl()).orElse("/"));
-		mv.addObject("errorMessage", Optional.ofNullable(errorRequest.getErrorMessage()).orElse("エラーが発生しました。システム管理者に問い合わせてください。"));
+		mv.addObject("errorMessage", Optional.ofNullable(errorRequest.getErrorMessage()).orElse(MessageConst.ERR_EXCEPTION));
 		mv.addObject("errorCode", errorRequest.getErrorCode());
 		mv.addObject("httpStatus", errorRequest.getHttpStatus());
 		

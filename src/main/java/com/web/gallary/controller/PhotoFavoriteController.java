@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.web.gallary.constant.MessageConst;
 import com.web.gallary.controller.request.PhotoFavoriteDeleteRequest;
 import com.web.gallary.controller.request.PhotoFavoriteRegistRequest;
 import com.web.gallary.controller.response.PhotoFavoriteResponse;
@@ -60,7 +61,7 @@ public class PhotoFavoriteController {
 		return ResponseEntity.ok(PhotoFavoriteResponse.builder()
 				.httpStatus(HttpStatus.OK.value())
 				.isSuccess(true)
-				.message("お気に入りに追加しました。")
+				.message(MessageConst.REGIST_FAVORITE)
 				.build());
 	}
 	
@@ -90,7 +91,7 @@ public class PhotoFavoriteController {
 		return ResponseEntity.ok(PhotoFavoriteResponse.builder()
 				.httpStatus(HttpStatus.OK.value())
 				.isSuccess(true)
-				.message("お気に入りを解除しました。")
+				.message(MessageConst.CANCEL_FAVORITE)
 				.build());
 	}
 }

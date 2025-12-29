@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.web.gallary.AccountPrincipal;
 import com.web.gallary.config.LoginConfig;
+import com.web.gallary.constant.MessageConst;
 import com.web.gallary.entity.Account;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
@@ -47,7 +48,7 @@ public class AccountServiceImpl implements UserDetailsService {
 		Account account = accountRepository.getByAccountId(username);
 		
 		if (Objects.isNull(account)) {
-			throw new UsernameNotFoundException("User not found");
+			throw new UsernameNotFoundException(MessageConst.USER_NOT_FOUND);
 		}
 		return new AccountPrincipal(account, loginConfig.getFailCount());
 	}
