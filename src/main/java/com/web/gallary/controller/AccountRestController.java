@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.web.gallary.constant.ApiRoutes;
 import com.web.gallary.controller.request.AccountRegistRequest;
 import com.web.gallary.controller.request.AccountUpdateRequest;
 import com.web.gallary.controller.request.ErrorRequest;
@@ -47,7 +48,7 @@ public class AccountRestController {
 	 * @throws	BadRequestException 	リクエストパラメータが不正の場合
 	 * @throws	RegistFailureException 	一意制約違反でアカウントの登録に失敗した場合
 	 */
-	@PostMapping("/register")
+	@PostMapping(ApiRoutes.REGISTER)
 	public ResponseEntity<AccountRegistResponse> register(
 			@RequestBody @Validated AccountRegistRequest accuontRegistRequest, 
 			BindingResult result) throws BadRequestException, RegistFailureException {
@@ -85,7 +86,7 @@ public class AccountRestController {
 	 * @throws	BadRequestException		リクエストパラメータが不正の場合
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
-	@PostMapping("/update")
+	@PostMapping(ApiRoutes.UPDATE)
 	public ResponseEntity<AccountUpdateResponse> update(
 			@RequestBody @Validated AccountUpdateRequest accountUpdateRequest, 
 			BindingResult result) throws BadRequestException, UpdateFailureException {
@@ -138,7 +139,7 @@ public class AccountRestController {
 				.httpStatus(HttpStatus.CONFLICT.value())
 				.errorCode(exception.getErrorCode())
 				.errorMessage(exception.getMessage())
-				.goBackPageUrl("/register").build();
+				.goBackPageUrl(ApiRoutes.REGISTER).build();
 		
 		return new ResponseEntity<ErrorRequest>(errorResponse, HttpStatus.CONFLICT);
 	}

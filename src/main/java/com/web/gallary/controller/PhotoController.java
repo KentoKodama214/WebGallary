@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.gallary.config.PhotoConfig;
+import com.web.gallary.constant.ApiRoutes;
 import com.web.gallary.controller.request.PhotoDetailRequest;
 import com.web.gallary.controller.request.PhotoSettingRequest;
 import com.web.gallary.controller.request.PhotoTagRequest;
@@ -22,6 +23,8 @@ import com.web.gallary.model.PhotoDetailGetModel;
 import com.web.gallary.model.PhotoDetailModel;
 import com.web.gallary.service.PhotoService;
 import com.web.gallary.service.impl.AccountServiceImpl;
+import com.web.gallary.util.AccountUrlUtil;
+import com.web.gallary.util.PhotoUrlUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,7 +52,7 @@ public class PhotoController {
 	 * 								isOwner:			ページの所有者である場合はtrue<p>
 	 * 								isAbleToAddPhoto:	写真の登録枚数の上限に達していない場合はtrue
 	 */
-	@GetMapping(value = "photo/{photoAccountId}/photo_list")
+	@GetMapping(ApiRoutes.PHOTO_LIST)
 	public ModelAndView photoList(@PathVariable String photoAccountId) {
 		// 登録枚数の上限に達している場合に写真一覧ページの追加ボタンを非表示にするため
 		// アカウント番号をもとに、アカウントの権限から写真の登録枚数の上限に達しているかどうかを判定する(未ログインの場合、true)
@@ -74,7 +77,7 @@ public class PhotoController {
 	 * 									isOwner:				ページの所有者である場合はtrue
 	 * @throws	PhotoNotFoundException	削除済みで写真が存在しない場合
 	 */
-	@GetMapping(value = "photo/{photoAccountId}/photo_detail")
+	@GetMapping(ApiRoutes.PHOTO_DETAIL)
 	public ModelAndView photoDetail(@PathVariable String photoAccountId, @ModelAttribute PhotoDetailRequest photoDetailRequest) throws PhotoNotFoundException {
 		ModelAndView mv = getModelAndView("photo_detail", photoAccountId);
 		
@@ -103,7 +106,7 @@ public class PhotoController {
 	 * 										maxTagNo:				タグ番号の最大値。タグが存在する場合のみ返す
 	 * @throws ForbiddenAccountException	写真の所有者以外がリクエストした場合
 	 */
-	@GetMapping(value = "photo/{photoAccountId}/photo_setting")
+	@GetMapping(ApiRoutes.PHOTO_SETTING)
 	public ModelAndView photoSetting(@PathVariable String photoAccountId, @ModelAttribute PhotoSettingRequest photoSettingRequest) throws ForbiddenAccountException {
 		if (!photoAccountId.equals(sessionHelper.getAccountId())) {
 			throw new ForbiddenAccountException(ErrorEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO);
@@ -140,18 +143,18 @@ public class PhotoController {
 		mv.setViewName(viewName);
 		mv.addObject("accountName", accountServiceImpl.getAccountById(photoAccountId).getAccountName());
 
-		mv.addObject("account_list_url", "/account_list");
-		mv.addObject("photo_list_url",   "/photo/" + photoAccountId + "/photo_list");
-		mv.addObject("photo_detail_url", "/photo/" + photoAccountId + "/photo_detail");
+		mv.addObject("account_list_url", ApiRoutes.ACCOUNT_LIST);
+		mv.addObject("photo_list_url",   PhotoUrlUtil.getPhotoListUrl(photoAccountId));
+		mv.addObject("photo_detail_url", PhotoUrlUtil.getPhotoDetailUrl(photoAccountId));
 
 		String accountId = sessionHelper.getAccountId();
 
 		if (!Objects.isNull(accountId)) {
-			mv.addObject("account_setting_url", "/" + accountId + "/account_setting");
-			mv.addObject("my_photo_list_url", "/photo/" + accountId + "/photo_list");
-			mv.addObject("photo_setting_url", "/photo/" + accountId + "/photo_setting");
-			mv.addObject("photo_delete_url",  "/photo/" + accountId + "/delete");
-			mv.addObject("photo_save_url",    "/photo/" + accountId + "/save");
+			mv.addObject("account_setting_url", AccountUrlUtil.getAccountSettingUrl(accountId));
+			mv.addObject("my_photo_list_url", PhotoUrlUtil.getPhotoListUrl(accountId));
+			mv.addObject("photo_setting_url", PhotoUrlUtil.getPhotoSettingUrl(accountId));
+			mv.addObject("photo_delete_url",  PhotoUrlUtil.getPhotoDeleteUrl(accountId));
+			mv.addObject("photo_save_url",    PhotoUrlUtil.getPhotoSaveUrl(accountId));
 		}
 
 		return mv;

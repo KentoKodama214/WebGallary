@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.gallary.constant.ApiRoutes;
 import com.web.gallary.constant.MessageConst;
 import com.web.gallary.controller.request.ErrorRequest;
 
@@ -26,7 +27,7 @@ public class BaseController {
 	 * 
 	 * @return	String	"footer"
 	 */
-	@GetMapping("footer")
+	@GetMapping(ApiRoutes.FOOTER)
 	public String footer() {
 		return "footer";
 	}
@@ -36,7 +37,7 @@ public class BaseController {
 	 * 
 	 * @return	String	"error"
 	 */
-	@GetMapping("error")
+	@GetMapping(ApiRoutes.ERROR)
 	public String error() {
 		return "error";
 	}
@@ -51,7 +52,7 @@ public class BaseController {
 	 * 							errorCode:		エラーコード<p>
 	 * 							httpStatus:		HTTPステータス
 	 */
-	@GetMapping("error_page")
+	@GetMapping(ApiRoutes.ERROR_PAGE)
 	public ModelAndView error_page(@ModelAttribute ErrorRequest errorRequest) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("error_page");

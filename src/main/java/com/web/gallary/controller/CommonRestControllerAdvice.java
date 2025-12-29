@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.web.gallary.constant.ApiRoutes;
 import com.web.gallary.controller.request.ErrorRequest;
 import com.web.gallary.controller.response.BadRequestResponse;
 import com.web.gallary.exception.BadRequestException;
@@ -17,6 +18,7 @@ import com.web.gallary.exception.PhotoNotAdditableException;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.helper.SessionHelper;
+import com.web.gallary.util.PhotoUrlUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -146,6 +148,6 @@ public class CommonRestControllerAdvice {
 	 * @return	遷移先ページのURL
 	 */
 	private String getGoBackPageUrl() {
-		return Objects.isNull(sessionHelper.getAccountId()) ? "/login" : "/photo/" + sessionHelper.getAccountId() + "/photo_list";
+		return Objects.isNull(sessionHelper.getAccountId()) ? ApiRoutes.LOGIN : PhotoUrlUtil.getPhotoListUrl(sessionHelper.getAccountId());
 	}
 }
