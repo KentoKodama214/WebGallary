@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.gallary.constant.ApiRoutes;
 import com.web.gallary.exception.ForbiddenAccountException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.helper.SessionHelper;
+import com.web.gallary.util.PhotoUrlUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -85,6 +87,6 @@ public class CommonControllerAdvice {
 	 * @return	遷移先ページのURL
 	 */
 	private String getGoBackPageUrl() {
-		return Objects.isNull(sessionHelper.getAccountId()) ? "/login" : "/photo/" + sessionHelper.getAccountId() + "/photo_list";
+		return Objects.isNull(sessionHelper.getAccountId()) ? ApiRoutes.LOGIN : PhotoUrlUtil.getPhotoListUrl(sessionHelper.getAccountId());
 	}
 }

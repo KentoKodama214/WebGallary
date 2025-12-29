@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.gallary.config.PhotoConfig;
+import com.web.gallary.constant.ApiRoutes;
 import com.web.gallary.constant.MessageConst;
 import com.web.gallary.controller.request.PhotoDeleteRequest;
 import com.web.gallary.controller.request.PhotoListRequest;
@@ -65,7 +66,7 @@ public class PhotoRestController {
 	 * @param	photoListRequest	{@link PhotoListRequest}
 	 * @return						{@link PhotoListGetResponse}
 	 */
-	@PostMapping(value = "photo/{photoAccountId}/photo_list/get")
+	@PostMapping(ApiRoutes.GET_PHOTO_LIST)
 	public ResponseEntity<PhotoListGetResponse> getPhotoList(
 			@PathVariable String photoAccountId, 
 			@RequestBody @Validated PhotoListRequest photoListRequest) {
@@ -114,7 +115,7 @@ public class PhotoRestController {
 	 * @throws	RegistFailureException 		写真の登録に失敗した場合
 	 * @throws	UpdateFailureException 		写真の更新に失敗した場合
 	 */
-	@PostMapping(value = "photo/{photoAccountId}/save")
+	@PostMapping(ApiRoutes.SAVE_PHOTO)
 	public ResponseEntity<PhotoEditResponse> savePhoto(
 			@PathVariable String photoAccountId, 
 			@ModelAttribute @Validated PhotoSaveRequest photoSaveRequest, 
@@ -203,7 +204,7 @@ public class PhotoRestController {
 	 * @throws ForbiddenAccountException 	写真の所有者以外がリクエストした場合
 	 * @throws UpdateFailureException 		写真の削除に失敗した場合
 	 */
-	@PostMapping(value = "photo/{photoAccountId}/delete")
+	@PostMapping(ApiRoutes.DELETE_PHOTO)
 	public ResponseEntity<PhotoEditResponse> deletePhoto(
 			@PathVariable String photoAccountId, 
 			@RequestBody @Validated PhotoDeleteRequest photoDeleteRequest, 
