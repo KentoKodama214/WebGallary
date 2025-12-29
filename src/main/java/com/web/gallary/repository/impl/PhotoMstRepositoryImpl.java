@@ -9,7 +9,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
 import com.web.gallary.entity.PhotoMst;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.mapper.PhotoMstMapper;
@@ -74,7 +74,7 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 		catch (DuplicateKeyException e) {
 			log.error("PhotoMst: Duplicate Key (AccountNo: " + photoDetailModel.getAccountNo()
 											 + ", PhotoNo: " + newPhotoNo + ")");
-			throw new RegistFailureException(ErrorValues.EP0001);
+			throw new RegistFailureException(ErrorValueEnum.FAIL_TO_REGIST_PHOTO);
 		}
 	}
 	
@@ -120,7 +120,7 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 		if (photoMstMapper.update(cndPhotoMst, targetPhotoMst) < 1) {
 			log.error("PhotoMst: Update Failed(AccountNo: " + cndPhotoMst.getAccountNo() 
 										  + ", PhotoNo: "   + cndPhotoMst.getPhotoNo() + ")");
-			throw new UpdateFailureException(ErrorValues.EP0002);
+			throw new UpdateFailureException(ErrorValueEnum.FAIL_TO_UPDATE_PHOTO);
 		}
 	}
 	
@@ -144,7 +144,7 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 		if (photoMstMapper.update(cndPhotoMst, targetPhotoMst) < 1) {
 			log.error("PhotoMst: Delete Failed(AccountNo: " + cndPhotoMst.getAccountNo() 
 										  + ", PhotoNo: "   + cndPhotoMst.getPhotoNo() + ")");
-			throw new UpdateFailureException(ErrorValues.EP0003);
+			throw new UpdateFailureException(ErrorValueEnum.FAIL_TO_DELETE_PHOTO);
 		}
 	}
 	
