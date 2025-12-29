@@ -16,6 +16,7 @@ import com.web.gallary.dto.PhotoListGetDto;
 public interface PhotoDetailMapper {
 	/**
 	 * 写真の一覧を取得する
+	 * 
 	 * @param	photoSelectDto	{@link PhotoListGetDto}
 	 * @return					{@link PhotoDto}
 	 */
@@ -23,6 +24,7 @@ public interface PhotoDetailMapper {
 	
 	/**
 	 * 1枚の写真のメタデータを含めた詳細情報を取得する
+	 * 
 	 * @param	photoGetDto	{@link PhotoDetailGetDto}
 	 * @return				{@link PhotoDetailDto}
 	 */

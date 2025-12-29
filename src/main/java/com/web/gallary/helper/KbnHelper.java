@@ -17,6 +17,7 @@ import com.web.gallary.model.KbnMstModel;
 public class KbnHelper {
 	/**
 	 * データベースから取得した区分マスタの一覧を、グループ単位に分けてLinkedHashMapに変換する
+	 * 
 	 * @param kbnMstModelList	{@link KbnMstModel}
 	 * @return					区分マスタのLinkedHashMap
 	 */

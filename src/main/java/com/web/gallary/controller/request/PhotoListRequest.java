@@ -7,8 +7,10 @@ import lombok.Data;
  */
 @Data
 public class PhotoListRequest {
-	/** 向き区分コード<br>
-	 * 	vertical: 縦　　horizontal: 横
+	/** 
+	 * 向き区分コード
+	 * <p>
+	 * vertical: 縦<p>horizontal: 横
 	 */
 	private String directionKbnCode;
 	
@@ -18,8 +20,12 @@ public class PhotoListRequest {
 	/** タグリスト */
 	private String tagList;
 	
-	/** 並び順<br>
-	 *	photoAt: 撮影日順　　favorite: お気に入り数順　　season: 季節順
+	/** 
+	 * 並び順
+	 * <p>
+	 * photoAt: 撮影日順<p>
+	 * favorite: お気に入り数順<p>
+	 * season: 季節順
 	 */
 	private String sortBy;
 	

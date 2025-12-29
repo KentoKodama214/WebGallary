@@ -10,6 +10,7 @@ import com.web.gallary.model.PhotoFavoriteModel;
 public interface PhotoFavoriteService {
 	/**
 	 * お気に入りを追加する
+	 * 
 	 * @param	photoFavoriteModel		{@link PhotoFavoriteModel}
 	 * @throws	RegistFailureException	登録に失敗した場合
 	 */
@@ -17,6 +18,7 @@ public interface PhotoFavoriteService {
 	
 	/**
 	 * お気に入りを解除する
+	 * 
 	 * @param	photoFavoriteModel		{@link PhotoFavoriteModel}
 	 * @throws	UpdateFailureException	解除に失敗した場合
 	 */
