@@ -13,7 +13,7 @@ public final class PhotoUrlUtil {
 	 * アカウントIDがnullや空文字の場合は、ログインページのURLを返す
 	 * 
 	 * @param accountId	アカウントID
-	 * @return
+	 * @return	写真一覧ページのパス
 	 */
 	public static String getPhotoListUrl(String accountId) {
 		if(Objects.isNull(accountId) || accountId.trim().isEmpty()) {
@@ -28,7 +28,7 @@ public final class PhotoUrlUtil {
 	 * アカウントIDがnullや空文字の場合は、ログインページのURLを返す
 	 * 
 	 * @param accountId	アカウントID
-	 * @return
+	 * @return	写真詳細ページのパス
 	 */
 	public static String getPhotoDetailUrl(String accountId) {
 		if(Objects.isNull(accountId) || accountId.trim().isEmpty()) {
@@ -43,7 +43,7 @@ public final class PhotoUrlUtil {
 	 * アカウントIDがnullや空文字の場合は、ログインページのURLを返す
 	 * 
 	 * @param accountId	アカウントID
-	 * @return
+	 * @return	写真登録・編集ページのパス
 	 */
 	public static String getPhotoSettingUrl(String accountId) {
 		if(Objects.isNull(accountId) || accountId.trim().isEmpty()) {
@@ -58,7 +58,7 @@ public final class PhotoUrlUtil {
 	 * アカウントIDがnullや空文字の場合は、ログインページのURLを返す
 	 * 
 	 * @param accountId	アカウントID
-	 * @return
+	 * @return	写真保存APIのパス
 	 */
 	public static String getPhotoSaveUrl(String accountId) {
 		if(Objects.isNull(accountId) || accountId.trim().isEmpty()) {
@@ -73,7 +73,7 @@ public final class PhotoUrlUtil {
 	 * アカウントIDがnullや空文字の場合は、ログインページのURLを返す
 	 * 
 	 * @param accountId	アカウントID
-	 * @return
+	 * @return	写真削除APIのパス
 	 */
 	public static String getPhotoDeleteUrl(String accountId) {
 		if(Objects.isNull(accountId) || accountId.trim().isEmpty()) {
