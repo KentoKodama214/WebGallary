@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.web.gallary.entity.Account;
-import com.web.gallary.enumuration.ErrorValues;
+import com.web.gallary.enumuration.ErrorValueEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.mapper.AccountMapper;
@@ -100,7 +100,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 		}
 		catch (DuplicateKeyException e) {
 			log.error("Account: Duplicate Key (AccountId: "  + accountModel.getAccountId() + ")");
-			throw new RegistFailureException(ErrorValues.EC0001);
+			throw new RegistFailureException(ErrorValueEnum.FAIL_TO_REGIST_ACCOUNT);
 		}
 	}
 
@@ -139,7 +139,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 		
 		if (accountMapper.update(cndAccount, targetAccount) < 1) {
 			log.error("Account: Update Failed(AccountNo: "  + accountModel.getAccountNo() + ")");
-			throw new UpdateFailureException(ErrorValues.EC0002);
+			throw new UpdateFailureException(ErrorValueEnum.FAIL_TO_UPDATE_ACCOUNT);
 		}
 	}
 	
@@ -159,7 +159,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 		
 		if (accountMapper.update(cndAccount, targetAccount) < 1) {
 			log.error("Account: Update Failed(AccountNo: "  + accountModel.getAccountNo() + ")");
-			throw new UpdateFailureException(ErrorValues.EC0002);
+			throw new UpdateFailureException(ErrorValueEnum.FAIL_TO_UPDATE_ACCOUNT);
 		}
 	}
 	
