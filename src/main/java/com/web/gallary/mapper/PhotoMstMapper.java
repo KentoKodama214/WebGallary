@@ -12,6 +12,7 @@ import com.web.gallary.entity.PhotoMst;
 public interface PhotoMstMapper {
 	/**
 	 * 条件に該当する写真マスタの件数を取得する
+	 * 
 	 * @param	photoMst	カウント条件
 	 * @return				抽出件数
 	 */
@@ -19,6 +20,7 @@ public interface PhotoMstMapper {
 	
 	/**
 	 * 写真マスタを登録する
+	 * 
 	 * @param	photoMst	{@link PhotoMst}
 	 * @return				登録件数
 	 */
@@ -26,6 +28,7 @@ public interface PhotoMstMapper {
 	
 	/**
 	 * 写真マスタを更新する
+	 * 
 	 * @param	conditionPhotoMst	更新対象の抽出条件
 	 * @param	targetPhotoMst		更新内容
 	 * @return						更新件数
@@ -34,6 +37,7 @@ public interface PhotoMstMapper {
 	
 	/**
 	 * アカウントが登録済みの最大の写真番号を取得する
+	 * 
 	 * @param	accountNo	アカウント番号
 	 * @return				最大の写真番号
 	 */
@@ -41,9 +45,9 @@ public interface PhotoMstMapper {
 	
 	/**
 	 * ファイル名から登録済みの写真家判定する
+	 * 
 	 * @param	filename	ファイル名
 	 * @return				登録有無
 	 */
-//	public Boolean isExistPhoto(String filename);
 	public Boolean isExistPhoto(PhotoMst photoMst);
 }

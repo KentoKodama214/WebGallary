@@ -13,6 +13,7 @@ import com.web.gallary.AccountPrincipal;
 public class SessionHelper {
 	/**
 	 * セッション情報からアカウント番号を取得する
+	 * 
 	 * @return	アカウント番号
 	 */
 	public Integer getAccountNo() {
@@ -31,6 +32,7 @@ public class SessionHelper {
 	
 	/**
 	 * セッション情報からアカウントIDを取得する
+	 * 
 	 * @return	アカウントID
 	 */
 	public String getAccountId() {
@@ -50,6 +52,7 @@ public class SessionHelper {
 	
 	/**
 	 * セッション情報からパスワードを取得する
+	 * 
 	 * @return	パスワード
 	 */
 	public String getPassword() {

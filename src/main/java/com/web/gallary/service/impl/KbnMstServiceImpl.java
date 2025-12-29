@@ -21,6 +21,7 @@ public class KbnMstServiceImpl implements KbnMstService {
 	
 	/**
 	 * 都道府県の区分マスタを取得する
+	 * 
 	 * @return	{@link KbnMstModel}
 	 */
 	@Override

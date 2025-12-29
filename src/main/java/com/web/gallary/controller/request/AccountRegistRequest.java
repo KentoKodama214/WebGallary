@@ -15,38 +15,49 @@ import lombok.Data;
  */
 @Data
 public class AccountRegistRequest {
-	/** アカウントID	<br>
-	 *	半角英数8〜16桁、ブランクなし
+	/** 
+	 * アカウントID
+	 * <p>
+	 * 半角英数8〜16桁、ブランクなし
 	 */
 	@NotBlank(message = "{validation.common.notBlank}")
 	@Size(min = 8, max = 16, message = "{validation.common.min_max_length}")
 	@Pattern(regexp = "[a-zA-Z0-9]{8,16}", message = "{validation.common.pattern}")
 	private String accountId;
 	
-	/** アカウント名<br>
-	 *	ブランクなし
+	/** 
+	 * アカウント名
+	 * <p>
+	 * ブランクなし
 	 */
 	@NotBlank(message = "{validation.common.notBlank}")
 	@Pattern(regexp = "[^　]+", message = "{validation.common.all_space}")
 	private String accountName;
 
-	/** パスワード<br>
-	 *	半角英数8桁以上、ブランクなし
+	/** 
+	 * パスワード
+	 * <p>
+	 * 半角英数8桁以上、ブランクなし
 	 */
 	@NotBlank(message = "{validation.common.notBlank}")
 	@Size(min = 8, message = "{validation.common.min_length}")
 	@Pattern(regexp = "[a-zA-Z0-9]{8,}", message = "{validation.common.pattern}")
 	private String password;
 	
-	/** 生年月日 <br>
-	 * 	yyyy-mm-ddで、過去日付
+	/** 
+	 * 生年月日
+	 * <p>
+	 * yyyy-mm-ddで、過去日付
 	 */
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past(message = "{validation.common.pastDate}")
 	private LocalDate birthdate;
 
-	/** 性別区分コード<br>
-	 * 	man: 男性　　woman: 女性
+	/** 
+	 * 性別区分コード
+	 * <p>
+	 * man: 男性<p>
+	 * woman: 女性
 	 */
 	private String sexKbnCode;
 

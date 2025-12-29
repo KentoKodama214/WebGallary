@@ -42,10 +42,11 @@ public class PhotoController {
 	
 	/**
 	 * 写真一覧ページ
+	 * 
 	 * @param	photoAccountId		ページ所有者のアカウントID
-	 * @return	ModelAndView		写真一覧ページ。Modelとして以下を返す<br>
-	 * 								ownerId:			ページの所有者のアカウントId<br>
-	 * 								isOwner:			ページの所有者である場合はtrue<br>
+	 * @return	ModelAndView		写真一覧ページ。Modelとして以下を返す<p>
+	 * 								ownerId:			ページの所有者のアカウントId<p>
+	 * 								isOwner:			ページの所有者である場合はtrue<p>
 	 * 								isAbleToAddPhoto:	写真の登録枚数の上限に達していない場合はtrue
 	 */
 	@GetMapping(value = "photo/{photoAccountId}/photo_list")
@@ -65,10 +66,11 @@ public class PhotoController {
 
 	/**
 	 * 写真詳細ページ
+	 * 
 	 * @param	photoAccountId			ページ所有者のアカウントID
 	 * @param	photoDetailRequest		{@link PhotoDetailRequest}
-	 * @return	ModelAndView			写真詳細ページ。Modelとして以下を返す<br>
-	 * 									PhotoSettingRequest:	写真のメタ情報<br>
+	 * @return	ModelAndView			写真詳細ページ。Modelとして以下を返す<p>
+	 * 									PhotoSettingRequest:	写真のメタ情報<p>
 	 * 									isOwner:				ページの所有者である場合はtrue
 	 * @throws	PhotoNotFoundException	削除済みで写真が存在しない場合
 	 */
@@ -91,12 +93,13 @@ public class PhotoController {
 
 	/**
 	 * 写真登録・編集ページ
+	 * 
 	 * @param photoAccountId				ページ所有者のアカウントID
 	 * @param photoSettingRequest			{@link PhotoSettingRequest}
-	 * @return ModelAndView					写真登録・編集ページ。Modelとして以下を返す<br>
-	 * 										PhotoSettingRequest:	写真のメタ情報<br>
-	 * 										maxFileSizeMb:			最大ファイルサイズ（MB）<br>
-	 * 										isAddMode:				新規登録の場合はtrue<br>
+	 * @return ModelAndView					写真登録・編集ページ。Modelとして以下を返す<p>
+	 * 										PhotoSettingRequest:	写真のメタ情報<p>
+	 * 										maxFileSizeMb:			最大ファイルサイズ（MB）<p>
+	 * 										isAddMode:				新規登録の場合はtrue<p>
 	 * 										maxTagNo:				タグ番号の最大値。タグが存在する場合のみ返す
 	 * @throws ForbiddenAccountException	写真の所有者以外がリクエストした場合
 	 */
@@ -127,6 +130,7 @@ public class PhotoController {
 
 	/**
 	 * 各画面で共通のObjectを生成し、ModelAndViewを返却する
+	 * 
 	 * @param	viewName		ビューの名称
 	 * @param	photoAccountId	ページ所有者のアカウントID
 	 * @return	ModelAndView	各種ページのリンクをModelとして返すオブジェクト

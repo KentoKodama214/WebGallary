@@ -58,8 +58,9 @@ public class PhotoRestController {
 	private final PhotoConfig photoConfig;
 	
 	/**
-	 * 写真一覧の写真取得<br>
+	 * 写真一覧の写真取得<p>
 	 * リクエストの抽出条件に該当する写真を、指定の並び順で取得する
+	 * 
 	 * @param	photoAccountId		ページ所有者のアカウントID
 	 * @param	photoListRequest	{@link PhotoListRequest}
 	 * @return						{@link PhotoListGetResponse}
@@ -101,6 +102,7 @@ public class PhotoRestController {
 	
 	/**
 	 * 写真保存
+	 * 
 	 * @param	photoAccountId				ページ所有者のアカウントID
 	 * @param	photoSaveRequest			{@link PhotoSaveRequest}
 	 * @param	result						PhotoSaveRequestのバインディング結果
@@ -192,6 +194,7 @@ public class PhotoRestController {
 	
 	/**
 	 * 写真削除
+	 * 
 	 * @param photoAccountId				ページ所有者のアカウントID
 	 * @param photoDeleteRequest			{@link PhotoDeleteRequest}
 	 * @param result						PhotoDeleteRequestのバインディング結果
@@ -234,6 +237,7 @@ public class PhotoRestController {
 	
 	/**
 	 * ページ番号から写真のリストを絞り込み、写真一覧のレスポンスのクラスへ詰め替えをする
+	 * 
 	 * @param	photoList	{@link PhotoModel}
 	 * @param	pageNo		ページ番号
 	 * @return				{@link PhotoListGetResponse}

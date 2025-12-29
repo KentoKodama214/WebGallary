@@ -19,8 +19,11 @@ public class PhotoListGetModel {
 	@NonNull
 	private String photoAccountId;
 	
-	/** 写真の向き<br>
-	 * 	vertical: 縦　　horizontal: 横
+	/** 
+	 * 写真の向き
+	 * <p>
+	 * vertical: 縦<p>
+	 * horizontal: 横
 	 */
 	@NonNull
 	private String directionKbnCode;
@@ -33,8 +36,12 @@ public class PhotoListGetModel {
 	@NonNull
 	private List<String> tagList;
 	
-	/** 並び順<br>
-	 *	photoAt: 撮影日順　　favorite: お気に入り数順　　season: 季節順
+	/** 
+	 * 並び順
+	 * <p>
+	 * photoAt: 撮影日順<p>
+	 * favorite: お気に入り数順<p>
+	 * season: 季節順
 	 */
 	@NonNull
 	private String sortBy;

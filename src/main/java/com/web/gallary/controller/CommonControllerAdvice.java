@@ -34,11 +34,12 @@ public class CommonControllerAdvice {
 
 	/**
 	 * 権限のないアカウントからの不正アクセスがあったときに制御するExceptionHandler
+	 * 
 	 * @param	exception	{@link ForbiddenAccountException}
-	 * @return				エラーページ。Modelとして以下を返す<br>
-	 * 						goBackPageUrl:	遷移先URL<br>
-	 * 						errorMessage:	メッセージ<br>
-	 * 						errorCode:		エラーコード<br>
+	 * @return				エラーページ。Modelとして以下を返す<p>
+	 * 						goBackPageUrl:	遷移先URL<p>
+	 * 						errorMessage:	メッセージ<p>
+	 * 						errorCode:		エラーコード<p>
 	 * 						httpStatus:		ステータス:403
 	 */
 	@ExceptionHandler(ForbiddenAccountException.class)
@@ -56,11 +57,12 @@ public class CommonControllerAdvice {
 	
 	/**
 	 * 削除済みで写真が存在しないときに制御するExceptionHandler
+	 * 
 	 * @param	exception	{@link PhotoNotFoundException}
-	 * @return				エラーページ。Modelとして以下を返す<br>
-	 * 						goBackPageUrl:	遷移先URL<br>
-	 * 						errorMessage:	メッセージ<br>
-	 * 						errorCode:		エラーコード<br>
+	 * @return				エラーページ。Modelとして以下を返す<p>
+	 * 						goBackPageUrl:	遷移先URL<p>
+	 * 						errorMessage:	メッセージ<p>
+	 * 						errorCode:		エラーコード<p>
 	 * 						httpStatus:		ステータス:400
 	 */
 	@ExceptionHandler(PhotoNotFoundException.class)
@@ -77,8 +79,9 @@ public class CommonControllerAdvice {
 	}
 	
 	/**
-	 * エラーページから戻るページのURLを生成する<br>
+	 * エラーページから戻るページのURLを生成する<p>
 	 * 未ログイン者の場合はログインページ、ログイン者は自身の写真一覧ページへ戻る
+	 * 
 	 * @return	遷移先ページのURL
 	 */
 	private String getGoBackPageUrl() {
