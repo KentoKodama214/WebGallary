@@ -26,7 +26,7 @@ import com.web.gallary.controller.request.PhotoSaveRequest;
 import com.web.gallary.controller.response.PhotoEditResponse;
 import com.web.gallary.controller.response.PhotoListGetResponse;
 import com.web.gallary.controller.response.PhotoListResponse;
-import com.web.gallary.enumuration.ErrorValueEnum;
+import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.BadRequestException;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.ForbiddenAccountException;
@@ -119,21 +119,21 @@ public class PhotoRestController {
 			BindingResult result) throws FileDuplicateException, ForbiddenAccountException, RegistFailureException, UpdateFailureException, BadRequestException, PhotoNotAdditableException {
 		
 		if(!photoAccountId.equals(sessionHelper.getAccountId())) {
-			throw new ForbiddenAccountException(ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO);
+			throw new ForbiddenAccountException(ErrorEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO);
 		}
 		
 		if(Objects.isNull(photoSaveRequest.getPhotoNo()) && photoService.isReachedUpperLimit(sessionHelper.getAccountNo())) {
-			throw new PhotoNotAdditableException(ErrorValueEnum.REACHED_REGISTRATION_LIMIT);
+			throw new PhotoNotAdditableException(ErrorEnum.REACHED_REGISTRATION_LIMIT);
 		}
 		
 		if(Objects.isNull(photoSaveRequest.getImageFile()) && 
 				(Objects.isNull(photoSaveRequest.getImageFilePath()) || "".equals(photoSaveRequest.getImageFilePath()))) {
-			throw new BadRequestException(ErrorValueEnum.INVALID_INPUT);
+			throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 		}
 		
 		for(FieldError error : result.getFieldErrors()) {
 			if(!error.isBindingFailure()) {
-				throw new BadRequestException(ErrorValueEnum.INVALID_INPUT);
+				throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 			}
 		};
 		
@@ -207,11 +207,11 @@ public class PhotoRestController {
 			BindingResult result) throws BadRequestException, ForbiddenAccountException, UpdateFailureException {
 		
 		if(!photoAccountId.equals(sessionHelper.getAccountId())) {
-			throw new ForbiddenAccountException(ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO);
+			throw new ForbiddenAccountException(ErrorEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO);
 		}
 		
 		if(result.hasErrors()) {
-			throw new BadRequestException(ErrorValueEnum.INVALID_INPUT);
+			throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 		}
 		
 		List<PhotoDeleteModel> photoDeleteModelList = new ArrayList<PhotoDeleteModel>();

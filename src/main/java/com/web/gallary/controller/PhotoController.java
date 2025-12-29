@@ -14,7 +14,7 @@ import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.controller.request.PhotoDetailRequest;
 import com.web.gallary.controller.request.PhotoSettingRequest;
 import com.web.gallary.controller.request.PhotoTagRequest;
-import com.web.gallary.enumuration.ErrorValueEnum;
+import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.ForbiddenAccountException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.helper.SessionHelper;
@@ -103,7 +103,7 @@ public class PhotoController {
 	@GetMapping(value = "photo/{photoAccountId}/photo_setting")
 	public ModelAndView photoSetting(@PathVariable String photoAccountId, @ModelAttribute PhotoSettingRequest photoSettingRequest) throws ForbiddenAccountException {
 		if (!photoAccountId.equals(sessionHelper.getAccountId())) {
-			throw new ForbiddenAccountException(ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO);
+			throw new ForbiddenAccountException(ErrorEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO);
 		}
 		photoSettingRequest.setAccountNo(sessionHelper.getAccountNo());
 

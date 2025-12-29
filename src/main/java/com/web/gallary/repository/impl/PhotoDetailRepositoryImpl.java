@@ -15,7 +15,7 @@ import com.web.gallary.dto.PhotoDetailGetDto;
 import com.web.gallary.dto.PhotoDto;
 import com.web.gallary.dto.PhotoListGetDto;
 import com.web.gallary.entity.PhotoTagMst;
-import com.web.gallary.enumuration.ErrorValueEnum;
+import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.mapper.PhotoDetailMapper;
 import com.web.gallary.mapper.PhotoTagMstMapper;
@@ -100,7 +100,7 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 		PhotoDetailDto photoDetailDto = photoDetailMapper.getPhotoDetail(photoGetDto);
 		
 		if(Objects.isNull(photoDetailDto)) {
-			throw new PhotoNotFoundException(ErrorValueEnum.PHOTO_NOT_FOUND);
+			throw new PhotoNotFoundException(ErrorEnum.PHOTO_NOT_FOUND);
 		}
 		
 		PhotoTagMst photoTagMst = PhotoTagMst.builder()
