@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.gallary.constant.ApiRoutes;
 import com.web.gallary.helper.SessionHelper;
+import com.web.gallary.util.PhotoUrlUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +29,7 @@ public class LoginController {
 	 * 
 	 * @return	ModelAndView	ログインページ
 	 */
-	@GetMapping("/login")
+	@GetMapping(ApiRoutes.LOGIN)
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("login");
@@ -45,7 +47,7 @@ public class LoginController {
 	public String success() {
 		String accountId = sessionHelper.getAccountId();
 		
-		if(Objects.isNull(accountId)) return "redirect:/login";
-		else return "redirect:/photo/" + accountId + "/photo_list";
+		if(Objects.isNull(accountId)) return "redirect:" + ApiRoutes.LOGIN;
+		else return "redirect:" + PhotoUrlUtil.getPhotoListUrl(accountId);
 	}
 }

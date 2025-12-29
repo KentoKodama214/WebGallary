@@ -10,6 +10,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.web.gallary.constant.ApiRoutes;
+import com.web.gallary.util.AccountUrlUtil;
+
 /**
  * Spring Securityで必要なオブジェクトを生成するConfigクラス
  * @author	Kento Kodama
@@ -42,28 +45,28 @@ public class SecurityConfig {
 				.requestMatchers("/js/**").permitAll()
 				.requestMatchers("/image/**").permitAll()
 				.requestMatchers("/").permitAll()
-				.requestMatchers("/header").permitAll()
-				.requestMatchers("/footer").permitAll()
-				.requestMatchers("/error_page").permitAll()
-				.requestMatchers("/login").permitAll()
-				.requestMatchers("/register").permitAll()
-				.requestMatchers("/update").permitAll()
-				.requestMatchers("/account_list").permitAll()
-				.requestMatchers("/photo/**").permitAll()
-				.requestMatchers("/{name}/account_setting")
+				.requestMatchers(ApiRoutes.HEADER).permitAll()
+				.requestMatchers(ApiRoutes.FOOTER).permitAll()
+				.requestMatchers(ApiRoutes.ERROR_PAGE).permitAll()
+				.requestMatchers(ApiRoutes.LOGIN).permitAll()
+				.requestMatchers(ApiRoutes.REGISTER).permitAll()
+				.requestMatchers(ApiRoutes.UPDATE).permitAll()
+				.requestMatchers(ApiRoutes.ACCOUNT_LIST).permitAll()
+				.requestMatchers(ApiRoutes.PHOTO + "/**").permitAll()
+				.requestMatchers(AccountUrlUtil.getAccountSettingUrl("{name}"))
 					.access(new WebExpressionAuthorizationManager("#name == authentication.name"))
 				.anyRequest().authenticated())
 			.formLogin(formLogin -> formLogin
-				.loginPage("/login")
+				.loginPage(ApiRoutes.LOGIN)
 				.defaultSuccessUrl("/")
-				.failureUrl("/login")
+				.failureUrl(ApiRoutes.LOGIN)
 				.permitAll())
 			.sessionManagement(session -> session
-				.invalidSessionUrl("/login")
+				.invalidSessionUrl(ApiRoutes.LOGIN)
 				.maximumSessions(1))
 			.logout(logout -> logout
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/login"))
+				.logoutRequestMatcher(new AntPathRequestMatcher(ApiRoutes.LOGOUT))
+				.logoutSuccessUrl(ApiRoutes.LOGIN))
 			.headers(headers -> headers
 				.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
