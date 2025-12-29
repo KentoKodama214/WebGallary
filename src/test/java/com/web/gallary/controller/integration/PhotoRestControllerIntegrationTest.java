@@ -44,7 +44,7 @@ import com.web.gallary.entity.Account;
 import com.web.gallary.entity.PhotoFavorite;
 import com.web.gallary.entity.PhotoMst;
 import com.web.gallary.entity.PhotoTagMst;
-import com.web.gallary.enumuration.ErrorValueEnum;
+import com.web.gallary.enumuration.ErrorEnum;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -585,8 +585,8 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(status().isForbidden())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.FORBIDDEN.value()))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/aaaaaaaa/photo_list"));
 		}
 		
@@ -624,8 +624,8 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(status().isBadRequest())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.BAD_REQUEST.value()))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.REACHED_REGISTRATION_LIMIT.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.REACHED_REGISTRATION_LIMIT.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorEnum.REACHED_REGISTRATION_LIMIT.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorEnum.REACHED_REGISTRATION_LIMIT.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/aaaaaaaa/photo_list"));
 		}
 		
@@ -657,7 +657,7 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.BAD_REQUEST.value()))
 				.andExpect(jsonPath("$.isSuccess").value(false))
-				.andExpect(jsonPath("$.message").value(ErrorValueEnum.INVALID_INPUT.getErrorMessage()));
+				.andExpect(jsonPath("$.message").value(ErrorEnum.INVALID_INPUT.getErrorMessage()));
 		}
 		
 		@Test
@@ -689,7 +689,7 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.BAD_REQUEST.value()))
 				.andExpect(jsonPath("$.isSuccess").value(false))
-				.andExpect(jsonPath("$.message").value(ErrorValueEnum.INVALID_INPUT.getErrorMessage()));
+				.andExpect(jsonPath("$.message").value(ErrorEnum.INVALID_INPUT.getErrorMessage()));
 		}
 		
 		@Test
@@ -727,7 +727,7 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.BAD_REQUEST.value()))
 				.andExpect(jsonPath("$.isSuccess").value(false))
-				.andExpect(jsonPath("$.message").value(ErrorValueEnum.INVALID_INPUT.getErrorMessage()));
+				.andExpect(jsonPath("$.message").value(ErrorEnum.INVALID_INPUT.getErrorMessage()));
 		}
 		
 		@Test
@@ -768,8 +768,8 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(status().isConflict())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.CONFLICT.value()))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.DUPLICATE_PHOTO_FILE.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.DUPLICATE_PHOTO_FILE.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorEnum.DUPLICATE_PHOTO_FILE.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorEnum.DUPLICATE_PHOTO_FILE.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/bbbbbbbb/photo_list"));
 		}
 		
@@ -806,8 +806,8 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(status().isConflict())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.CONFLICT.value()))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.FAIL_TO_UPDATE_PHOTO.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.FAIL_TO_UPDATE_PHOTO.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorEnum.FAIL_TO_UPDATE_PHOTO.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorEnum.FAIL_TO_UPDATE_PHOTO.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/bbbbbbbb/photo_list"));
 		}
 	}
@@ -944,8 +944,8 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(status().isForbidden())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.FORBIDDEN.value()))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorEnum.NOT_AUTHORIZED_TO_EDIT_PHOTO.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/" + loginAccountId + "/photo_list"));
 			
 		}
@@ -986,7 +986,7 @@ public class PhotoRestControllerIntegrationTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.BAD_REQUEST.value()))
 				.andExpect(jsonPath("$.isSuccess").value(false))
-				.andExpect(jsonPath("$.message").value(ErrorValueEnum.INVALID_INPUT.getErrorMessage()));
+				.andExpect(jsonPath("$.message").value(ErrorEnum.INVALID_INPUT.getErrorMessage()));
 		}
 		
 		@Test
@@ -1024,8 +1024,8 @@ public class PhotoRestControllerIntegrationTest {
 				)
 				.andExpect(status().isConflict())
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.CONFLICT.value()))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.FAIL_TO_DELETE_PHOTO.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.FAIL_TO_DELETE_PHOTO.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorEnum.FAIL_TO_DELETE_PHOTO.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorEnum.FAIL_TO_DELETE_PHOTO.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/" + loginAccountId + "/photo_list"));
 		}
 	}

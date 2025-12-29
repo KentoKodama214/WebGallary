@@ -4,7 +4,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
 import com.web.gallary.entity.PhotoFavorite;
-import com.web.gallary.enumuration.ErrorValueEnum;
+import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.mapper.PhotoFavoriteMapper;
@@ -46,7 +46,7 @@ public class PhotoFavoriteRepositoryImpl implements PhotoFavoriteRepository{
 			log.error("PhotoFavorite: Duplicate Key (AccountNo: "  + favoriteModel.getAccountNo()
 									+ ", FavoritePhotoAccountNo: " + favoriteModel.getFavoritePhotoAccountNo()
 									+ ", FavoritePhotoNo: " 	   + favoriteModel.getFavoritePhotoNo() + ")");
-			throw new RegistFailureException(ErrorValueEnum.FAIL_TO_REGIST_FAVORITE);
+			throw new RegistFailureException(ErrorEnum.FAIL_TO_REGIST_FAVORITE);
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class PhotoFavoriteRepositoryImpl implements PhotoFavoriteRepository{
 			log.error("PhotoFavorite: Delete Failed(AccountNo: "  + favoriteDeleteModel.getAccountNo() 
 									+ ", FavoritePhotoAccountNo:" + favoriteDeleteModel.getFavoritePhotoAccountNo()
 									+ ", FavoritePhotoNo: "       + favoriteDeleteModel.getFavoritePhotoNo() + ")");
-			throw new UpdateFailureException(ErrorValueEnum.FAIL_TO_CANCEL_FAVORITE);
+			throw new UpdateFailureException(ErrorEnum.FAIL_TO_CANCEL_FAVORITE);
 		}
 	}
 	

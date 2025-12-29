@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.entity.Account;
-import com.web.gallary.enumuration.ErrorValueEnum;
+import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.exception.RegistFailureException;
@@ -115,7 +115,7 @@ public class PhotoServiceImpl implements PhotoService {
 				String filename = photoDetailModel.getImageFile().getOriginalFilename();
 				if(photoMstRepository.isExistPhoto(photoDetailModel)) {
 					log.error("Save Photo: Duplicate File (File: "  + filename + ")");
-					throw new FileDuplicateException(ErrorValueEnum.DUPLICATE_PHOTO_FILE);
+					throw new FileDuplicateException(ErrorEnum.DUPLICATE_PHOTO_FILE);
 				}
 				
 				photoMstRepository.regist(photoDetailModel, filePath + filename, photoNo);

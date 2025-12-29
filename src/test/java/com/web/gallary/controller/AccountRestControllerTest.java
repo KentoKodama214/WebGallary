@@ -30,7 +30,7 @@ import com.web.gallary.controller.request.AccountUpdateRequest;
 import com.web.gallary.controller.request.ErrorRequest;
 import com.web.gallary.controller.response.AccountRegistResponse;
 import com.web.gallary.controller.response.AccountUpdateResponse;
-import com.web.gallary.enumuration.ErrorValueEnum;
+import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.BadRequestException;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
@@ -679,14 +679,14 @@ public class AccountRestControllerTest {
 		@Order(1)
 		@DisplayName("正常系")
 		void handleInsertFailedException_success() {
-			RegistFailureException exception = new RegistFailureException(ErrorValueEnum.INVALID_INPUT);
+			RegistFailureException exception = new RegistFailureException(ErrorEnum.INVALID_INPUT);
 			
 			ResponseEntity<ErrorRequest> actual
 				= accountRestController.handleInsertFailedException(exception);
 			
 			assertEquals(HttpStatus.CONFLICT, actual.getStatusCode());
 			assertEquals(HttpStatus.CONFLICT.value(), actual.getBody().getHttpStatus());
-			assertEquals(ErrorValueEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
+			assertEquals(ErrorEnum.INVALID_INPUT.getErrorMessage(), actual.getBody().getErrorMessage());
 			assertEquals("/register", actual.getBody().getGoBackPageUrl());
 		}
 	}
