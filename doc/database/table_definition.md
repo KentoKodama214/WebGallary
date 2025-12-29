@@ -34,8 +34,8 @@
 | password | パスワード | text | NOT NULL | - |  |
 | birthdate | 生年月日 | date | NOT NULL | 1900-01-01 | 個人情報管理の観点で、必須入力なし、かつ年月まで。データ登録時にすべて1日に変換する |
 | sex_kbn_code | 性別区分コード | varchar(20) | NOT NULL | none | none: 未設定<br>man: 男<br>woman: 女 |
-| birthplace_prefecture_kbn_code | 出身都道府県区分コード | varchar(20) | NOT NULL | none | none: 未設定 |
-| resident_prefecture_kbn_code | 在住都道府県区分コード | varchar(20) | NOT NULL | none | none: 未設定 |
+| birthplace_prefecture_kbn_code | 出身都道府県区分コード | varchar(20) | NOT NULL | none | none: 未設定<br>分類コード：prefecture |
+| resident_prefecture_kbn_code | 在住都道府県区分コード | varchar(20) | NOT NULL | none | none: 未設定<br>分類コード：prefecture |
 | free_memo | フリーメモ | text | NOT NULL | "" |  |
 | authority_kbn_code | 権限区分コード | varchar(20) | NOT NULL | - | mini-user: 簡易ユーザー<br>normal-user: 一般ユーザー<br>special-user: 特別ユーザー<br>administrator: 管理者 |
 | last_login_datetime | 最終ログイン日時 | timestamp with time zone | NOT NULL | - |  |
