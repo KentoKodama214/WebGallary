@@ -23,6 +23,7 @@ public class KbnMstRepositoryImpl implements KbnMstRepository {
 	
 	/**
 	 * 区分クラスコードに該当する区分マスタの一覧を取得する
+	 * 
 	 * @param	kbnClassCode	区分クラスコード
 	 * @return					{@link KbnMstModel}
 	 */

@@ -38,6 +38,7 @@ public class AccountController {
 	
 	/**
 	 * アカウントの登録を行うページ
+	 * 
 	 * @return	ModelAndView	アカウント登録ページ。Modelとして都道府県一覧（prefectureGroupList）を返す
 	 */
 	@GetMapping("/register")
@@ -53,8 +54,9 @@ public class AccountController {
 	
 	/**
 	 * アカウント設定を行うページ
+	 * 
 	 * @return	ModelAndView	アカウント編集ページ。
-	 * @throws ForbiddenAccountException 
+	 * @throws ForbiddenAccountException	アカウントを編集する権限がない場合
 	 */
 	@GetMapping("/{accountId}/account_setting")
 	public ModelAndView account_setting(@PathVariable String accountId) throws ForbiddenAccountException {
@@ -80,6 +82,7 @@ public class AccountController {
 	
 	/**
 	 * アカウントの一覧を参照するページ
+	 * 
 	 * @return	ModelAndView	アカウント一覧ページ。Modelとしてアカウント一覧（AccountList）と写真一覧のURL（my_photo_list_url）を返す
 	 */
 	@GetMapping("/account_list")

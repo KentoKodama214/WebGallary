@@ -26,6 +26,7 @@ public class PhotoTagMstRepositoryImpl implements PhotoTagMstRepository {
 	
 	/**
 	 * 写真タグマスタを登録する
+	 * 
 	 * @param	photoTagModel			{@link PhotoTagModel}
 	 * @throws	RegistFailureException	登録に失敗した場合
 	 */
@@ -53,6 +54,7 @@ public class PhotoTagMstRepositoryImpl implements PhotoTagMstRepository {
 	
 	/**
 	 * 該当写真の写真タグを全件削除する
+	 * 
 	 * @param	photoTagDeleteModel	{@link PhotoTagDeleteModel}
 	 */
 	@Override

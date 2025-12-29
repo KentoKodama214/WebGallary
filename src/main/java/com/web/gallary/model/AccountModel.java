@@ -27,8 +27,11 @@ public class AccountModel {
 	/** 生年月日 */
 	private LocalDate birthdate;
 
-	/** 性別区分コード<br>
-	 *	man:男性　　woman:女性 
+	/** 
+	 * 性別区分コード
+	 * <p>
+	 * man:男性<p>
+	 * woman:女性 
 	 */
 	private String sexKbnCode;
 

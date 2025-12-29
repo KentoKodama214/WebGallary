@@ -39,6 +39,7 @@ public class AccountPrincipal implements UserDetails {
 	
 	/**
 	 * アカウント番号を取得する
+	 * 
 	 * @return	アカウント番号
 	 */
 	public Integer getAccountNo() {
@@ -47,6 +48,7 @@ public class AccountPrincipal implements UserDetails {
 	
 	/**
 	 * アカウント名を取得する
+	 * 
 	 * @return	アカウント名
 	 */
 	public String getAccountName() {
@@ -55,6 +57,7 @@ public class AccountPrincipal implements UserDetails {
 	
 	/**
 	 * パスワードを取得する
+	 * 
 	 * @return	パスワード
 	 */
 	@Override
@@ -64,6 +67,7 @@ public class AccountPrincipal implements UserDetails {
 	
 	/**
 	 * アカウントIDを取得する
+	 * 
 	 * @return	アカウントID
 	 */
 	@Override
@@ -73,6 +77,7 @@ public class AccountPrincipal implements UserDetails {
 
 	/***
 	 * アカウントが有効期限切れかどうかを返す
+	 * 
 	 * @return 有効期限は設定しないため、常にtrueを返す
 	 */
 	@Override
@@ -82,6 +87,7 @@ public class AccountPrincipal implements UserDetails {
 
 	/***
 	 * アカウントがロックされていないかどうかを返す
+	 * 
 	 * @return ログイン失敗回数が一定数を超えていなければtrueを返す
 	 */
 	@Override
@@ -91,6 +97,7 @@ public class AccountPrincipal implements UserDetails {
 
 	/***
 	 * 資格情報（ここではパスワード）が有効期限切れかどうかを返す
+	 * 
 	 * @return 有効期限は設定しないため、常にtrueを返す
 	 */
 	@Override
@@ -100,6 +107,7 @@ public class AccountPrincipal implements UserDetails {
 
 	/***
 	 * アカウントの有効／無効を返す
+	 * 
 	 * @return 有効な場合、trueを返す
 	 */
 	@Override

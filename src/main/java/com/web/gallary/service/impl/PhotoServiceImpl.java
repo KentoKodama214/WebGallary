@@ -60,6 +60,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * 写真一覧を取得する
+	 * 
 	 * @param	photoListGetModel	{@link PhotoListGetModel}
 	 * @return						{@link PhotoModel}
 	 */
@@ -86,6 +87,7 @@ public class PhotoServiceImpl implements PhotoService {
 
 	/**
 	 * 写真のメタデータを含めた詳細情報を取得する
+	 * 
 	 * @param	photoDetailGetModel		{@link PhotoDetailGetModel}
 	 * @return							{@link PhotoDetailModel}
 	 * @throws	PhotoNotFoundException	写真が存在しなかった場合
@@ -97,6 +99,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * 写真を登録・更新する
+	 * 
 	 * @param	photoDetailModelList	{@link PhotoDetailModel}
 	 * @throws	FileDuplicateException 	同じファイル名のファイルが既に保存済みの場合
 	 * @throws	RegistFailureException	登録に失敗した場合
@@ -131,6 +134,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * 写真を削除する
+	 * 
 	 * @param	accountId				アカウントID
 	 * @param	photoDeleteModelList	{@link PhotoDeleteModel}
 	 * @throws	UpdateFailureException	削除に失敗した場合
@@ -157,6 +161,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * 該当アカウントが写真の登録枚数の上限に達しているかチェックする
+	 * 
 	 * @param	accountNo	アカウント番号
 	 * @return				上限に達している場合、true
 	 */
@@ -182,9 +187,10 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * 写真一覧の並び順のComparatorを取得する
-	 * @param	sortBy	並び順<br>
-	 * 					photoAt: 撮影日順<br>
-	 * 					favorite: お気に入り数順<br>
+	 * 
+	 * @param	sortBy	並び順<p>
+	 * 					photoAt: 撮影日順<p>
+	 * 					favorite: お気に入り数順<p>
 	 * 					season: 季節・時期順
 	 * @return			{@link PhotoModel}のComparator
 	 */
@@ -214,6 +220,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * 写真の向きでフィルタリングする
+	 * 
 	 * @param	targetDirectionKbnCode		フィルター対象の向き区分コード
 	 * @param	conditionDirectionKbnCode	フィルター条件の向き区分コード
 	 * @return	フィルタリングして除外する場合はfalse
@@ -225,6 +232,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * お気に入りでフィルタリングする
+	 * 
 	 * @param	isFavorite		写真がお気に入りならtrue
 	 * @param	isFavoriteOnly	お気に入りに絞るならtrue
 	 * @return					フィルタリングして除外する場合はfalse
@@ -235,8 +243,9 @@ public class PhotoServiceImpl implements PhotoService {
 	}
 	
 	/**
-	 * タグでフィルタリングする<br>
+	 * タグでフィルタリングする<p>
 	 * タグが複数ある場合、すべてのタグを持つ写真にフィルタリングする
+	 * 
 	 * @param	photoTagModelList	{@link PhotoTagModel}
 	 * @param	tags				フィルター条件のタグのリスト
 	 * @return						フィルタリングして除外する場合はfalse
@@ -253,6 +262,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * 写真タグを登録する
+	 * 
 	 * @param	photoTagModelList		{@link PhotoTagModel}
 	 * @param	newPhotoNo				新規採番された写真番号
 	 * @throws	RegistFailureException	登録に失敗した場合
@@ -276,6 +286,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * ファイルをアップロードする
+	 * 
 	 * @param	filePath	アップロードのファイルパス
 	 * @param	imageFile	アップロードするファイル
 	 */
@@ -290,6 +301,7 @@ public class PhotoServiceImpl implements PhotoService {
 	
 	/**
 	 * 写真タグを一括削除する
+	 * 
 	 * @param	accountNo	削除する写真のアカウント番号
 	 * @param	photoNo		削除する写真の写真番号
 	 */

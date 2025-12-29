@@ -41,8 +41,11 @@ public class PhotoModel {
 	@NonNull
 	private String caption;
 
-	/** 向き区分コード<br>
-	 * 	vertical: 縦　　horizontal: 横
+	/** 
+	 * 向き区分コード
+	 * <p>
+	 * vertical: 縦<p>
+	 * horizontal: 横
 	 */
 	@NonNull
 	private String directionKbnCode;

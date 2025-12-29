@@ -39,6 +39,7 @@ public class CommonRestControllerAdvice {
 	
 	/**
 	 * リクエストパラメータが不正のときに制御するExceptionHandler
+	 * 
 	 * @param	exception	{@link BadRequestException}
 	 * @return				{@link BadRequestResponse}
 	 */
@@ -55,6 +56,7 @@ public class CommonRestControllerAdvice {
 	
 	/**
 	 * 権限のないアカウントからの不正アクセスがあったときに制御するExceptionHandler
+	 * 
 	 * @param	exception	{@link ForbiddenAccountException}
 	 * @return				{@link ErrorRequest}
 	 */
@@ -71,6 +73,7 @@ public class CommonRestControllerAdvice {
 	
 	/**
 	 * 保存するファイルが重複した時に制御するExceptionHandler
+	 * 
 	 * @param	exception	{@link FileDuplicateException}
 	 * @return				{@link ErrorRequest}
 	 */
@@ -87,6 +90,7 @@ public class CommonRestControllerAdvice {
 	
 	/**
 	 * 写真の登録枚数の上限に達した状態での登録を制御するExceptionHandler
+	 * 
 	 * @param	exception	{@link PhotoNotAdditableException}
 	 * @return				{@link ErrorRequest}
 	 */
@@ -103,6 +107,7 @@ public class CommonRestControllerAdvice {
 	
 	/**
 	 * データの登録に失敗したときに制御するExceptionHandler
+	 * 
 	 * @param	exception	{@link RegistFailureException}
 	 * @return				{@link ErrorRequest}
 	 */
@@ -119,6 +124,7 @@ public class CommonRestControllerAdvice {
 	
 	/**
 	 * データの更新に失敗したときに制御するExceptionHandler
+	 * 
 	 * @param	exception	{@link UpdateFailureException}
 	 * @return				{@link ErrorRequest}
 	 */
@@ -134,8 +140,9 @@ public class CommonRestControllerAdvice {
 	}
 	
 	/**
-	 * エラーページから戻るページのURLを生成する<br>
+	 * エラーページから戻るページのURLを生成する<p>
 	 * 未ログイン者の場合はログインページ、ログイン者は自身の写真一覧ページへ戻る
+	 * 
 	 * @return	遷移先ページのURL
 	 */
 	private String getGoBackPageUrl() {

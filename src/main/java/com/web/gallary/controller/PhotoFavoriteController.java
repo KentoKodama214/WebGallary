@@ -37,6 +37,7 @@ public class PhotoFavoriteController {
 
 	/**
 	 * お気に入り登録
+	 * 
 	 * @param	photoFavoriteRegistRequest	{@link PhotoFavoriteRegistRequest}
 	 * @return	PhotoFavoriteResponse		{@link PhotoFavoriteResponse}
 	 * @throws	BadRequestException 		リクエストパラメータが不正の場合
@@ -67,6 +68,7 @@ public class PhotoFavoriteController {
 	
 	/**
 	 * お気に入り解除
+	 * 
 	 * @param	photoFavoriteDeleteRequest	{@link PhotoFavoriteDeleteRequest}
 	 * @return	PhotoFavoriteResponse		{@link PhotoFavoriteResponse}
 	 * @throws	BadRequestException 		リクエストパラメータが不正の場合

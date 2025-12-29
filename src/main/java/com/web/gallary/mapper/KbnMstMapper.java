@@ -13,6 +13,7 @@ import com.web.gallary.entity.KbnMst;
 public interface KbnMstMapper {
 	/**
 	 * 条件に該当する区分マスタの一覧を取得する
+	 * 
 	 * @param	kbnMst	抽出条件
 	 * @return			{@link KbnMst}
 	 */

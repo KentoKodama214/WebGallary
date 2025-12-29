@@ -40,6 +40,7 @@ public class AccountRestController {
 	
 	/**
 	 * アカウント登録
+	 * 
 	 * @param	accuontRegistRequest	{@link AccountRegistRequest}
 	 * @param	result					AccountRegistRequestのバインディング結果
 	 * @return							{@link AccountRegistResponse}
@@ -77,6 +78,7 @@ public class AccountRestController {
 	
 	/**
 	 * アカウント更新
+	 * 
 	 * @param	accountUpdateRequest	{@link AccountUpdateRequest}
 	 * @param	result					AccountUpdateRequestのバインディング結果
 	 * @return							{@link AccountUpdateResponse}
@@ -126,6 +128,7 @@ public class AccountRestController {
 	
 	/**
 	 * アカウント登録に失敗した時のExceptionHandler
+	 * 
 	 * @param	exception	{@link RegistFailureException}
 	 * @return				{@link ErrorRequest}
 	 */

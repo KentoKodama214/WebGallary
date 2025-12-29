@@ -11,6 +11,7 @@ import com.web.gallary.model.PhotoDetailModel;
 public interface PhotoMstRepository {
 	/**
 	 * 写真マスタを登録する
+	 * 
 	 * @param	photoDetailModel		{@link PhotoDetailModel}
 	 * @param	filePath				写真の保存ファイルパス
 	 * @param	newPhotoNo				新規採番した写真番号
@@ -20,6 +21,7 @@ public interface PhotoMstRepository {
 	
 	/**
 	 * 写真マスタを更新する
+	 * 
 	 * @param	photoDetailModel		{@link PhotoDetailModel}
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
@@ -27,6 +29,7 @@ public interface PhotoMstRepository {
 	
 	/**
 	 * 写真マスタを削除する
+	 * 
 	 * @param	photoDeleteModel		{@link PhotoDeleteModel}
 	 * @throws	UpdateFailureException	削除に失敗した場合
 	 */
@@ -34,6 +37,7 @@ public interface PhotoMstRepository {
 	
 	/**
 	 * アカウント番号から新しい写真番号を発番する
+	 * 
 	 * @param	accountNo	アカウント番号
 	 * @return				新規採番した写真番号
 	 */
@@ -41,6 +45,7 @@ public interface PhotoMstRepository {
 	
 	/**
 	 * 同じファイル名の写真が存在するかチェックする
+	 * 
 	 * @param	photoDetailModel	{@link PhotoDetailModel}
 	 * @return						写真が存在する場合、true
 	 */
@@ -48,6 +53,7 @@ public interface PhotoMstRepository {
 	
 	/**
 	 * アカウントに登録されている写真の件数を取得する
+	 * 
 	 * @param	accountNo	アカウント番号
 	 * @return				登録件数
 	 */

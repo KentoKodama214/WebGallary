@@ -24,6 +24,7 @@ public class LoginController {
 	
 	/**
 	 * ログインページ
+	 * 
 	 * @return	ModelAndView	ログインページ
 	 */
 	@GetMapping("/login")
@@ -35,8 +36,9 @@ public class LoginController {
 	}
 	
 	/**
-	 * ベースURLからのリダイレクトページ<br>
+	 * ベースURLからのリダイレクトページ<p>
 	 * 未ログインの場合はログインページ、ログイン中の場合は写真一覧へリダイレクトする
+	 * 
 	 * @return	String	リダイレクト先のURL
 	 */
 	@GetMapping("/")

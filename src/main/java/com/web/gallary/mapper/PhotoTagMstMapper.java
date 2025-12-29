@@ -13,6 +13,7 @@ import com.web.gallary.entity.PhotoTagMst;
 public interface PhotoTagMstMapper {
 	/**
 	 * 条件に該当する写真タグマスタの一覧を取得する
+	 * 
 	 * @param	photoTagMst	抽出条件
 	 * @return				@{link PhotoTagMst}
 	 */
@@ -20,6 +21,7 @@ public interface PhotoTagMstMapper {
 	
 	/**
 	 * 写真タグマスタを登録する
+	 * 
 	 * @param	photoTagMst	{@link PhotoTagMst}
 	 * @return				登録件数
 	 */
@@ -27,6 +29,7 @@ public interface PhotoTagMstMapper {
 	
 	/**
 	 * 写真タグマスタを削除する
+	 * 
 	 * @param	photoTagMst	削除対象の抽出条件
 	 * @return				削除件数
 	 */

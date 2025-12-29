@@ -10,6 +10,7 @@ import com.web.gallary.model.KbnMstModel;
 public interface KbnMstService {
 	/**
 	 * 都道府県の区分マスタを取得する
+	 * 
 	 * @return	{@link KbnMstModel}
 	 */
 	List<KbnMstModel> getPrefectureList();

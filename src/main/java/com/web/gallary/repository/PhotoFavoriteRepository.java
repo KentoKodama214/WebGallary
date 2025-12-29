@@ -11,6 +11,7 @@ import com.web.gallary.model.PhotoFavoriteModel;
 public interface PhotoFavoriteRepository {
 	/**
 	 * 写真お気に入りを登録する
+	 * 
 	 * @param	favoriteModel			{@link PhotoFavoriteModel}
 	 * @throws	RegistFailureException	登録に失敗した場合
 	 */
@@ -18,6 +19,7 @@ public interface PhotoFavoriteRepository {
 	
 	/**
 	 * 写真お気に入りを削除する
+	 * 
 	 * @param	favoriteDeleteModel		{@link PhotoFavoriteDeleteModel}
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
@@ -25,6 +27,7 @@ public interface PhotoFavoriteRepository {
 	
 	/**
 	 * 該当写真の写真お気に入りを全件削除する
+	 * 
 	 * @param	favoriteDeleteModel	{@link PhotoFavoriteDeleteModel}
 	 */
 	void clear(PhotoFavoriteDeleteModel favoriteDeleteModel);

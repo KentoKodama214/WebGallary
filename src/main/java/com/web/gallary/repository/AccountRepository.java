@@ -13,22 +13,25 @@ import com.web.gallary.model.AccountModel;
 public interface AccountRepository {
 	/**
 	 * Accountテーブルで該当するレコードを取得する
+	 * 
 	 * @param	accountNo	アカウント番号
-	 * @return	Account		{@link Account}<br>
+	 * @return	Account		{@link Account}<p>
 	 * 						取得できない場合はnullを返す
 	 */
 	Account getByAccountNo(Integer accountNo);
 	
 	/**
 	 * Accountテーブルで該当するレコードを取得する
+	 * 
 	 * @param	accountId	アカウントId
-	 * @return	Account		{@link Account}<br>
+	 * @return	Account		{@link Account}<p>
 	 * 						取得できない場合はnullを返す
 	 */
 	Account getByAccountId(String accountId);
 	
 	/**
 	 * Accountテーブルへ登録する
+	 * 
 	 * @param	accountModel			{@link AccountModel}
 	 * @throws	RegistFailureException	登録に失敗した場合
 	 */
@@ -36,6 +39,7 @@ public interface AccountRepository {
 	
 	/**
 	 * Accountテーブルで該当するレコードを更新する
+	 * 
 	 * @param	accountModel			{@link AccountModel}
 	 * @throws	UpdateFailureException	更新に失敗した場合 
 	 */
@@ -43,6 +47,7 @@ public interface AccountRepository {
 	
 	/**
 	 * Accountテーブルのログイン失敗回数を更新する
+	 * 
 	 * @param	accountModel			{@link AccountModel}
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
@@ -50,6 +55,7 @@ public interface AccountRepository {
 	
 	/**
 	 * アカウントIDに該当するアカウントの存在有無をチェックする
+	 * 
 	 * @param	accountId	アカウントID
 	 * @return				true：存在する
 	 */
@@ -57,6 +63,7 @@ public interface AccountRepository {
 	
 	/**
 	 * アカウントの一覧を取得する
+	 * 
 	 * @return	{@link AccountModel}
 	 */
 	List<AccountModel> getAccountList();

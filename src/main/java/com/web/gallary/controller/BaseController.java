@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class BaseController {
 	/**
 	 * フッターページ
+	 * 
 	 * @return	String	"footer"
 	 */
 	@GetMapping("footer")
@@ -32,6 +33,7 @@ public class BaseController {
 	
 	/**
 	 * デフォルトのエラーページ
+	 * 
 	 * @return	String	"error"
 	 */
 	@GetMapping("error")
@@ -41,11 +43,12 @@ public class BaseController {
 	
 	/**
 	 * 独自のエラーページ
+	 * 
 	 * @param	errorRequest	{@link ErrorRequest}
-	 * @return	ModelAndView	エラーページ。Modelとして以下を返す<br>
-	 * 							goBackPageUrl:	遷移先URL<br>
-	 * 							errorMessage:	メッセージ<br>
-	 * 							errorCode:		エラーコード<br>
+	 * @return	ModelAndView	エラーページ。Modelとして以下を返す<p>
+	 * 							goBackPageUrl:	遷移先URL<p>
+	 * 							errorMessage:	メッセージ<p>
+	 * 							errorCode:		エラーコード<p>
 	 * 							httpStatus:		HTTPステータス
 	 */
 	@GetMapping("error_page")
