@@ -37,7 +37,7 @@ import com.web.gallary.AccountPrincipal;
 import com.web.gallary.controller.request.AccountRegistRequest;
 import com.web.gallary.controller.request.AccountUpdateRequest;
 import com.web.gallary.entity.Account;
-import com.web.gallary.enumuration.ErrorValueEnum;
+import com.web.gallary.enumuration.ErrorEnum;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -194,7 +194,7 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.BAD_REQUEST.value()))
 				.andExpect(jsonPath("$.isSuccess").value(false))
-				.andExpect(jsonPath("$.message").value(ErrorValueEnum.INVALID_INPUT.getErrorMessage()));
+				.andExpect(jsonPath("$.message").value(ErrorEnum.INVALID_INPUT.getErrorMessage()));
 		}
 	}
 	
@@ -657,8 +657,8 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(status().isConflict())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.httpStatus").value(HttpStatus.CONFLICT.value()))
-				.andExpect(jsonPath("$.errorCode").value(ErrorValueEnum.FAIL_TO_UPDATE_ACCOUNT.getErrorCode()))
-				.andExpect(jsonPath("$.errorMessage").value(ErrorValueEnum.FAIL_TO_UPDATE_ACCOUNT.getErrorMessage()))
+				.andExpect(jsonPath("$.errorCode").value(ErrorEnum.FAIL_TO_UPDATE_ACCOUNT.getErrorCode()))
+				.andExpect(jsonPath("$.errorMessage").value(ErrorEnum.FAIL_TO_UPDATE_ACCOUNT.getErrorMessage()))
 				.andExpect(jsonPath("$.goBackPageUrl").value("/photo/zzzzzzzz/photo_list"));
 		}
 	}
