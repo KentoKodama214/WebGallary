@@ -29,12 +29,12 @@ public enum SexEnum {
 	 * 名称からEnumを取得する<p>
 	 * 該当するEnumがなければ、デフォルトでNONEを返す
 	 * 
-	 * @param name
-	 * @return
+	 * @param value 値
+	 * @return {@link SexEnum}
 	 */
-	public static SexEnum getOrDefault(String name) {
-		String upperName = name.toUpperCase();
+	public static SexEnum getOrDefault(String value) {
         try {
+            String upperName = value.toUpperCase();
             return SexEnum.valueOf(upperName);
         } catch (IllegalArgumentException | NullPointerException e) {
             return SexEnum.NONE;
