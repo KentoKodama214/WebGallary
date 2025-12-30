@@ -91,7 +91,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 					Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.freeMemo(
 					Optional.ofNullable(accountModel.getFreeMemo()).orElse(Consts.STRING_EMPTY))
-			.authorityKbnCode(Consts.AUTHORITY_KBN_CODE)
+			.authorityKbnCode(Consts.AUTHORITY_MINI)
 			.lastLoginDatetime(Consts.MIN_OFFSET_DATE_TIME)
 			.loginFailureCount(0)
 			.build();

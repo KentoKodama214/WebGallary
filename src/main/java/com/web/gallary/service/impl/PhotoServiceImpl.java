@@ -17,6 +17,7 @@ import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
 import com.web.gallary.enumuration.ErrorEnum;
+import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.exception.RegistFailureException;
@@ -189,19 +190,16 @@ public class PhotoServiceImpl implements PhotoService {
 	/**
 	 * 写真一覧の並び順のComparatorを取得する
 	 * 
-	 * @param	sortBy	並び順<p>
-	 * 					photoAt: 撮影日順<p>
-	 * 					favorite: お気に入り数順<p>
-	 * 					season: 季節・時期順
+	 * @param	sortBy	{@link SortPhotoEnum}
 	 * @return			{@link PhotoModel}のComparator
 	 */
-	private Comparator<PhotoModel> getComparator(String sortBy) {
+	private Comparator<PhotoModel> getComparator(SortPhotoEnum sortBy) {
 		switch(sortBy) {
-			case "photoAt":
+			case PHOTO_AT:
 				return Comparator.comparing(PhotoModel::getPhotoAt).reversed();
-			case "favorite":
+			case FAVORITE:
 				return Comparator.comparing(PhotoModel::getFavoriteCount).reversed();
-			case "season":
+			case SEASON:
 				return new Comparator<PhotoModel>() {
 					@Override
 					public int compare(PhotoModel photoModelA, PhotoModel photoModelB) {

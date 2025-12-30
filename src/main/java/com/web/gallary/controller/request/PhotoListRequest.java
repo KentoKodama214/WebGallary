@@ -1,5 +1,10 @@
 package com.web.gallary.controller.request;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
+import com.web.gallary.constant.Consts;
+import com.web.gallary.enumuration.SortPhotoEnum;
+
 import lombok.Data;
 
 /**
@@ -13,10 +18,12 @@ public class PhotoListRequest {
 	 * vertical: 縦<p>
 	 * horizontal: 横
 	 */
-	private String directionKbnCode;
+	@JsonSetter(nulls = Nulls.SKIP)
+	private String directionKbnCode = Consts.STRING_EMPTY;
 	
 	/** お気に入り写真のみ */
-	private Boolean isFavorite;
+	@JsonSetter(nulls = Nulls.SKIP)
+	private Boolean isFavorite = Boolean.FALSE;
 	
 	/** タグリスト */
 	private String tagList;
@@ -24,12 +31,12 @@ public class PhotoListRequest {
 	/** 
 	 * 並び順
 	 * <p>
-	 * photoAt: 撮影日順<p>
-	 * favorite: お気に入り数順<p>
-	 * season: 季節順
+	 * {@link SortPhotoEnum}
 	 */
-	private String sortBy;
+	@JsonSetter(nulls = Nulls.SKIP)
+	private SortPhotoEnum sortBy = SortPhotoEnum.PHOTO_AT;
 	
 	/** ページ番号 */
-	private Integer pageNo;
+	@JsonSetter(nulls = Nulls.SKIP)
+	private Integer pageNo = 1;
 }

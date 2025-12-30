@@ -70,18 +70,6 @@ public class PhotoRestController {
 	public ResponseEntity<PhotoListGetResponse> getPhotoList(
 			@PathVariable String photoAccountId, 
 			@RequestBody @Validated PhotoListRequest photoListRequest) {
-		photoListRequest.setDirectionKbnCode(
-				Optional.ofNullable(photoListRequest.getDirectionKbnCode()).orElse(Consts.STRING_EMPTY));
-		
-		photoListRequest.setIsFavorite(
-				Optional.ofNullable(photoListRequest.getIsFavorite()).orElse(false));
-		
-		photoListRequest.setSortBy(
-				Optional.ofNullable(photoListRequest.getSortBy()).orElse("photoAt"));
-		
-		photoListRequest.setPageNo(
-				Optional.ofNullable(photoListRequest.getPageNo()).orElse(1));
-		
 		Optional<String> tagsOpt = Optional.ofNullable(photoListRequest.getTagList());
 		photoListRequest.setTagList(tagsOpt.map(tag -> tag.replace(Consts.HALF_SPACE, Consts.FULL_SPACE)).orElse(Consts.STRING_EMPTY));
 		List<String> tagList = tagsOpt.map(tag -> 

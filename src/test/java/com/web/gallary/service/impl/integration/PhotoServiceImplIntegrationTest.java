@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.gallary.entity.PhotoFavorite;
 import com.web.gallary.entity.PhotoMst;
 import com.web.gallary.entity.PhotoTagMst;
+import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.exception.RegistFailureException;
@@ -66,7 +67,7 @@ public class PhotoServiceImplIntegrationTest {
 					.directionKbnCode("")
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy("photoAt")
+					.sortBy(SortPhotoEnum.PHOTO_AT)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -85,7 +86,7 @@ public class PhotoServiceImplIntegrationTest {
 					.directionKbnCode("")
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy("photoAt")
+					.sortBy(SortPhotoEnum.PHOTO_AT)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -128,7 +129,7 @@ public class PhotoServiceImplIntegrationTest {
 					.directionKbnCode("")
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy("favorite")
+					.sortBy(SortPhotoEnum.FAVORITE)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -179,7 +180,7 @@ public class PhotoServiceImplIntegrationTest {
 					.directionKbnCode("")
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy("season")
+					.sortBy(SortPhotoEnum.SEASON)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -222,7 +223,7 @@ public class PhotoServiceImplIntegrationTest {
 					.directionKbnCode("vertical")
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy("photoAt")
+					.sortBy(SortPhotoEnum.PHOTO_AT)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -258,7 +259,7 @@ public class PhotoServiceImplIntegrationTest {
 					.directionKbnCode("")
 					.isFavoriteOnly(true)
 					.tagList(tags)
-					.sortBy("photoAt")
+					.sortBy(SortPhotoEnum.PHOTO_AT)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -303,7 +304,7 @@ public class PhotoServiceImplIntegrationTest {
 					.directionKbnCode("")
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy("photoAt")
+					.sortBy(SortPhotoEnum.PHOTO_AT)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);

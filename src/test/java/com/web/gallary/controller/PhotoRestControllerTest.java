@@ -41,6 +41,7 @@ import com.web.gallary.controller.request.PhotoSaveRequest;
 import com.web.gallary.controller.request.PhotoTagSaveRequest;
 import com.web.gallary.controller.response.PhotoEditResponse;
 import com.web.gallary.controller.response.PhotoListGetResponse;
+import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.BadRequestException;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.ForbiddenAccountException;
@@ -204,7 +205,7 @@ public class PhotoRestControllerTest {
 			assertEquals("", photoListGetModel.getDirectionKbnCode());
 			assertFalse(photoListGetModel.getIsFavoriteOnly());
 			assertEquals(new ArrayList<String>(), photoListGetModel.getTagList());
-			assertEquals("photoAt", photoListGetModel.getSortBy());
+			assertEquals(SortPhotoEnum.PHOTO_AT, photoListGetModel.getSortBy());
 		}
 		
 		@Test
@@ -213,12 +214,11 @@ public class PhotoRestControllerTest {
 		void getPhotoList_with_halfspace_tag() {
 			String photoAccountId = "aaaaaaaa";
 			String directionKbnCode = "vertical";
-			String sortBy = "season";
 			
 			PhotoListRequest photoListRequest = new PhotoListRequest();
 			photoListRequest.setDirectionKbnCode(directionKbnCode);
 			photoListRequest.setIsFavorite(true);
-			photoListRequest.setSortBy(sortBy);
+			photoListRequest.setSortBy(SortPhotoEnum.SEASON);
 			photoListRequest.setTagList("太陽 海");
 			photoListRequest.setPageNo(2);
 			
@@ -251,7 +251,7 @@ public class PhotoRestControllerTest {
 			assertTrue(photoListGetModel.getIsFavoriteOnly());
 			assertEquals("太陽", photoListGetModel.getTagList().get(0));
 			assertEquals("海", photoListGetModel.getTagList().get(1));
-			assertEquals(sortBy, photoListGetModel.getSortBy());
+			assertEquals(SortPhotoEnum.SEASON, photoListGetModel.getSortBy());
 		}
 		
 		@Test
@@ -260,12 +260,11 @@ public class PhotoRestControllerTest {
 		void getPhotoList_with_fullspace_tag() {
 			String photoAccountId = "aaaaaaaa";
 			String directionKbnCode = "vertical";
-			String sortBy = "season";
 			
 			PhotoListRequest photoListRequest = new PhotoListRequest();
 			photoListRequest.setDirectionKbnCode(directionKbnCode);
 			photoListRequest.setIsFavorite(true);
-			photoListRequest.setSortBy(sortBy);
+			photoListRequest.setSortBy(SortPhotoEnum.SEASON);
 			photoListRequest.setTagList("太陽　海");
 			photoListRequest.setPageNo(2);
 			
@@ -298,7 +297,7 @@ public class PhotoRestControllerTest {
 			assertTrue(photoListGetModel.getIsFavoriteOnly());
 			assertEquals("太陽", photoListGetModel.getTagList().get(0));
 			assertEquals("海", photoListGetModel.getTagList().get(1));
-			assertEquals(sortBy, photoListGetModel.getSortBy());
+			assertEquals(SortPhotoEnum.SEASON, photoListGetModel.getSortBy());
 		}
 		
 		@Test
@@ -329,7 +328,7 @@ public class PhotoRestControllerTest {
 			assertEquals("", photoListGetModel.getDirectionKbnCode());
 			assertFalse(photoListGetModel.getIsFavoriteOnly());
 			assertEquals(new ArrayList<String>(), photoListGetModel.getTagList());
-			assertEquals("photoAt", photoListGetModel.getSortBy());
+			assertEquals(SortPhotoEnum.PHOTO_AT, photoListGetModel.getSortBy());
 		}
 	}
 	

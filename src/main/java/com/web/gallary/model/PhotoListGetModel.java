@@ -2,6 +2,8 @@ package com.web.gallary.model;
 
 import java.util.List;
 
+import com.web.gallary.enumuration.SortPhotoEnum;
+
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
@@ -39,10 +41,8 @@ public class PhotoListGetModel {
 	/** 
 	 * 並び順
 	 * <p>
-	 * photoAt: 撮影日順<p>
-	 * favorite: お気に入り数順<p>
-	 * season: 季節順
+	 * {@link SortPhotoEnum}
 	 */
 	@NonNull
-	private String sortBy;
+	private SortPhotoEnum sortBy;
 }

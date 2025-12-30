@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.entity.Account;
 import com.web.gallary.enumuration.ErrorEnum;
+import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.exception.RegistFailureException;
@@ -236,7 +237,6 @@ public class PhotoServiceImplTest {
 		void getPhotoList_not_found() {
 			String accountId = "aaaaaaaa";
 			String directionKbnCode = "";
-			String sortBy = "photoAt";
 			List<String> tags = new ArrayList<String>();
 			
 			Account account = Account.builder().accountNo(1).build();
@@ -251,7 +251,7 @@ public class PhotoServiceImplTest {
 					.directionKbnCode(directionKbnCode)
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy(sortBy)
+					.sortBy(SortPhotoEnum.PHOTO_AT)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -270,7 +270,6 @@ public class PhotoServiceImplTest {
 		void getPhotoList_sortBy_photoAt() {
 			String accountId = "aaaaaaaa";
 			String directionKbnCode = "vertical";
-			String sortBy = "photoAt";
 			List<String> tags = Arrays.asList("太陽", "海");
 			
 			Account account = Account.builder().accountNo(1).build();
@@ -285,7 +284,7 @@ public class PhotoServiceImplTest {
 					.directionKbnCode(directionKbnCode)
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy(sortBy)
+					.sortBy(SortPhotoEnum.PHOTO_AT)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -308,7 +307,6 @@ public class PhotoServiceImplTest {
 		void getPhotoList_sortBy_Favorite() {
 			String accountId = "aaaaaaaa";
 			String directionKbnCode = "vertical";
-			String sortBy = "favorite";
 			List<String> tags = Arrays.asList("太陽", "海");
 			
 			Account account = Account.builder().accountNo(1).build();
@@ -323,7 +321,7 @@ public class PhotoServiceImplTest {
 					.directionKbnCode(directionKbnCode)
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy(sortBy)
+					.sortBy(SortPhotoEnum.FAVORITE)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -346,7 +344,6 @@ public class PhotoServiceImplTest {
 		void getPhotoList_sortBy_season() {
 			String accountId = "aaaaaaaa";
 			String directionKbnCode = "vertical";
-			String sortBy = "season";
 			List<String> tags = Arrays.asList("太陽", "海");
 			
 			Account account = Account.builder().accountNo(1).build();
@@ -361,7 +358,7 @@ public class PhotoServiceImplTest {
 					.directionKbnCode(directionKbnCode)
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy(sortBy)
+					.sortBy(SortPhotoEnum.SEASON)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -1108,10 +1105,10 @@ public class PhotoServiceImplTest {
 		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：photoAtの場合")
 		void getComparator_photoAt() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", String.class);
+			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", SortPhotoEnum.class);
 			getComparator.setAccessible(true);
 			
-			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, "photoAt");
+			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, SortPhotoEnum.PHOTO_AT);
 			
 			List<PhotoModel> photoModelList = new ArrayList<PhotoModel>();
 			photoModelList.add(PhotoModel.builder()
@@ -1183,10 +1180,10 @@ public class PhotoServiceImplTest {
 		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：favoriteの場合")
 		void getComparator_favorite() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", String.class);
+			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", SortPhotoEnum.class);
 			getComparator.setAccessible(true);
 			
-			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, "favorite");
+			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, SortPhotoEnum.FAVORITE);
 			
 			List<PhotoModel> photoModelList = new ArrayList<PhotoModel>();
 			photoModelList.add(PhotoModel.builder()
@@ -1258,10 +1255,10 @@ public class PhotoServiceImplTest {
 		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：seasonの場合")
 		void getComparator_season() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", String.class);
+			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", SortPhotoEnum.class);
 			getComparator.setAccessible(true);
 			
-			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, "season");
+			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, SortPhotoEnum.SEASON);
 			
 			List<PhotoModel> photoModelList = new ArrayList<PhotoModel>();
 			photoModelList.add(PhotoModel.builder()
@@ -1333,10 +1330,10 @@ public class PhotoServiceImplTest {
 		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：それ以外の場合")
 		void getComparator_others() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", String.class);
+			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", SortPhotoEnum.class);
 			getComparator.setAccessible(true);
 			
-			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, "photoAt");
+			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, SortPhotoEnum.PHOTO_AT);
 			
 			List<PhotoModel> photoModelList = new ArrayList<PhotoModel>();
 			photoModelList.add(PhotoModel.builder()
