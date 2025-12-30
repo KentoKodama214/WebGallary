@@ -1,8 +1,5 @@
 package com.web.gallary.repository.impl;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -11,6 +8,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.RegistFailureException;
@@ -84,17 +82,17 @@ public class AccountRepositoryImpl implements AccountRepository {
 			.accountName(accountModel.getAccountName())
 			.password(passwordEncoder.encode(accountModel.getPassword()))
 			.birthdate(
-					Optional.ofNullable(accountModel.getBirthdate()).orElse(LocalDate.of(1900, 1, 1)))
+					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
 			.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbnCode()).orElse("none"))
+					Optional.ofNullable(accountModel.getSexKbnCode()).orElse(Consts.STRING_NONE))
 			.birthplacePrefectureKbnCode(
-					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse("none"))
+					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.residentPrefectureKbnCode(
-					Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse("none"))
+					Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.freeMemo(
-					Optional.ofNullable(accountModel.getFreeMemo()).orElse(""))
-			.authorityKbnCode("mini-user")
-			.lastLoginDatetime(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)))
+					Optional.ofNullable(accountModel.getFreeMemo()).orElse(Consts.STRING_EMPTY))
+			.authorityKbnCode(Consts.AUTHORITY_KBN_CODE)
+			.lastLoginDatetime(Consts.MIN_OFFSET_DATE_TIME)
 			.loginFailureCount(0)
 			.build();
 		
@@ -121,18 +119,17 @@ public class AccountRepositoryImpl implements AccountRepository {
 				.accountId(accountModel.getAccountId())
 				.accountName(accountModel.getAccountName())
 				.birthdate(
-					Optional.ofNullable(accountModel.getBirthdate()).orElse(LocalDate.of(1900, 1, 1)))
+					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
 				.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbnCode()).orElse("none"))
+					Optional.ofNullable(accountModel.getSexKbnCode()).orElse(Consts.STRING_NONE))
 				.birthplacePrefectureKbnCode(
-					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse("none"))
+					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 				.residentPrefectureKbnCode(
-					Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse("none"))
+					Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse(Consts.STRING_NONE))
 				.freeMemo(
-					Optional.ofNullable(accountModel.getFreeMemo()).orElse(""))
+					Optional.ofNullable(accountModel.getFreeMemo()).orElse(Consts.STRING_EMPTY))
 				.lastLoginDatetime(
-					Optional.ofNullable(accountModel.getLastLoginDatetime())
-						.orElse(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9))))
+					Optional.ofNullable(accountModel.getLastLoginDatetime()).orElse(Consts.MIN_OFFSET_DATE_TIME))
 				.loginFailureCount(
 						Optional.ofNullable(accountModel.getLoginFailureCount()).orElse(0))
 				.build();

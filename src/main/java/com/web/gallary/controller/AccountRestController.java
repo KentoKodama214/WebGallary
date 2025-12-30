@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.gallary.constant.ApiRoutes;
+import com.web.gallary.constant.Consts;
 import com.web.gallary.controller.request.AccountRegistRequest;
 import com.web.gallary.controller.request.AccountUpdateRequest;
 import com.web.gallary.controller.request.ErrorRequest;
@@ -73,7 +74,7 @@ public class AccountRestController {
 		return ResponseEntity.ok(AccountRegistResponse.builder()
 					.httpStatus(HttpStatus.OK.value())
 					.isSuccess(isSuccess)
-					.message("")
+					.message(Consts.STRING_EMPTY)
 					.build());
 	}
 	
@@ -96,7 +97,7 @@ public class AccountRestController {
 				= result.getFieldErrors().stream().map(error -> error.getField()).distinct().toList();
 			
 			if(!(fieldList.size() == 1 && 
-				fieldList.getFirst().equals("newPassword") && 
+					"newPassword".equals(fieldList.getFirst()) && 
 				accountUpdateRequest.getNewPassword().isEmpty())) {
 					// 新しいパスワードが空欄で他にパラメータ不正がない場合は、スキップ
 					// 新しいパスワード以外や新しいパスワードの入力に不正がある場合は、例外
@@ -123,7 +124,7 @@ public class AccountRestController {
 					.isDuplicateAccountId(isDuplicateAccountId)
 					.isAccountIdChanged(!accountUpdateRequest.getAccountId().equals(sessionHelper.getAccountId()))
 					.isPasswordChanged(!accountUpdateRequest.getNewPassword().isEmpty())
-					.message("")
+					.message(Consts.STRING_EMPTY)
 					.build());
 	}
 	

@@ -1,7 +1,6 @@
 package com.web.gallary.service.impl;
 
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.web.gallary.AccountPrincipal;
 import com.web.gallary.config.LoginConfig;
+import com.web.gallary.constant.Consts;
 import com.web.gallary.constant.MessageConst;
 import com.web.gallary.entity.Account;
 import com.web.gallary.exception.RegistFailureException;
@@ -112,7 +112,7 @@ public class AccountServiceImpl implements UserDetailsService {
 		
 		AccountModel accountModel = AccountModel.builder()
 				.accountNo(account.getAccountNo())
-				.lastLoginDatetime(OffsetDateTime.now(ZoneOffset.ofHours(9)))
+				.lastLoginDatetime(OffsetDateTime.now(Consts.JST))
 				.loginFailureCount(0)
 				.build();
 		accountRepository.updateLoginFailureCount(accountModel);
