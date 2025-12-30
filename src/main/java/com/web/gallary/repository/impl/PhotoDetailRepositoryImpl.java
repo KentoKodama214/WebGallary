@@ -1,8 +1,6 @@
 package com.web.gallary.repository.impl;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,6 +8,7 @@ import java.util.Objects;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Repository;
 
+import com.web.gallary.constant.Consts;
 import com.web.gallary.dto.PhotoDetailDto;
 import com.web.gallary.dto.PhotoDetailGetDto;
 import com.web.gallary.dto.PhotoDto;
@@ -38,7 +37,6 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 	private final PhotoTagMstMapper photoTagMstMapper;
 	private final PhotoDetailMapper photoDetailMapper;
 	private ModelMapper modelMapper = new ModelMapper();
-	private OffsetDateTime defaultOffsetDateTime = OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9));
 	
 	/**
 	 * 該当アカウントの写真の一覧を取得する
@@ -127,7 +125,7 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 				.isFavorite(photoDetailDto.getIsFavorite())
 				.photoAt(
 					photoDetailDto.getPhotoAt()
-						.isEqual(defaultOffsetDateTime) ? null : photoDetailDto.getPhotoAt().plusHours(9))
+						.isEqual(Consts.MIN_OFFSET_DATE_TIME) ? null : photoDetailDto.getPhotoAt().plusHours(9))
 				.locationNo(photoDetailDto.getLocationNo())
 				.address(photoDetailDto.getAddress())
 				.latitude(photoDetailDto.getLatitude())

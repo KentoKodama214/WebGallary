@@ -1,13 +1,12 @@
 package com.web.gallary.repository.impl;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.Optional;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
+import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.PhotoMst;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.RegistFailureException;
@@ -46,19 +45,18 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 				.createdBy(photoDetailModel.getAccountNo())
 				.updatedBy(photoDetailModel.getAccountNo())
 				.photoAt(
-					Optional.ofNullable(photoDetailModel.getPhotoAt())
-						.orElse(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9))))
+					Optional.ofNullable(photoDetailModel.getPhotoAt()).orElse(Consts.MIN_OFFSET_DATE_TIME))
 				.locationNo(
 					Optional.ofNullable(photoDetailModel.getLocationNo()).orElse(0))
 				.imageFilePath(filePath)
 				.photoJapaneseTitle(
-					Optional.ofNullable(photoDetailModel.getPhotoJapaneseTitle()).orElse(""))
+					Optional.ofNullable(photoDetailModel.getPhotoJapaneseTitle()).orElse(Consts.STRING_EMPTY))
 				.photoEnglishTitle(
-					Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(""))
+					Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(Consts.STRING_EMPTY))
 				.caption(
-					Optional.ofNullable(photoDetailModel.getCaption()).orElse(""))
+					Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
 				.directionKbnCode(
-					Optional.ofNullable(photoDetailModel.getDirectionKbnCode()).orElse("none"))
+					Optional.ofNullable(photoDetailModel.getDirectionKbnCode()).orElse(Consts.STRING_NONE))
 				.focalLength(
 					Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
 				.fValue(
@@ -96,19 +94,18 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 				.updatedBy(photoDetailModel.getAccountNo())
 				.isDeleted(false)
 				.photoAt(
-						Optional.ofNullable(photoDetailModel.getPhotoAt())
-							.orElse(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9))))
+						Optional.ofNullable(photoDetailModel.getPhotoAt()).orElse(Consts.MIN_OFFSET_DATE_TIME))
 				.locationNo(
 						Optional.ofNullable(photoDetailModel.getLocationNo()).orElse(0))
 				.imageFilePath(photoDetailModel.getImageFilePath())
 				.photoJapaneseTitle(
-						Optional.ofNullable(photoDetailModel.getPhotoJapaneseTitle()).orElse(""))
+						Optional.ofNullable(photoDetailModel.getPhotoJapaneseTitle()).orElse(Consts.STRING_EMPTY))
 					.photoEnglishTitle(
-						Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(""))
+						Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(Consts.STRING_EMPTY))
 					.caption(
-						Optional.ofNullable(photoDetailModel.getCaption()).orElse(""))
+						Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
 					.directionKbnCode(
-						Optional.ofNullable(photoDetailModel.getDirectionKbnCode()).orElse("none"))
+						Optional.ofNullable(photoDetailModel.getDirectionKbnCode()).orElse(Consts.STRING_NONE))
 					.focalLength(
 						Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
 					.fValue(

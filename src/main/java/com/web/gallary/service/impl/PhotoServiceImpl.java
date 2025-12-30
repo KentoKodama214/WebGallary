@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.gallary.config.PhotoConfig;
+import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.FileDuplicateException;
@@ -226,7 +227,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @return	フィルタリングして除外する場合はfalse
 	 */
 	private Boolean filteringByDirectionKbnCode(String targetDirectionKbnCode, String conditionDirectionKbnCode) {
-		if("".equals(conditionDirectionKbnCode)) return true;
+		if(Consts.STRING_EMPTY.equals(conditionDirectionKbnCode)) return true;
 		else return targetDirectionKbnCode.equals(conditionDirectionKbnCode);
 	}
 	
@@ -251,7 +252,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @return						フィルタリングして除外する場合はfalse
 	 */
 	private Boolean filteringByTag(List<PhotoTagModel> photoTagModelList, List<String> tags) {
-		if(tags.size() == 0 || tags.getFirst().equals("")) return true;
+		if(tags.size() == 0 || Consts.STRING_EMPTY.equals(tags.getFirst())) return true;
 		
 		List<String> photoTags = new ArrayList<String>();
 		photoTags.addAll(photoTagModelList.stream().map(photoTagModel -> photoTagModel.getTagJapaneseName()).toList());

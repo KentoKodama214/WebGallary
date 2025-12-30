@@ -14,7 +14,9 @@ import com.web.gallary.entity.Account;
  */
 public class AccountPrincipal implements UserDetails {
 
-	private final String ADMIN = "administrator";
+	private static final String ADMIN = "administrator";
+	private static final String ROLE_ADMIN = "ROLE_ADMIN";
+	private static final String ROLE_USER = "ROLE_USER";
 
 	private Account account;
 	private int maxFailCount;
@@ -31,9 +33,9 @@ public class AccountPrincipal implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		switch(account.getAuthorityKbnCode()) {
 			case ADMIN:
-				return Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"));
+				return Collections.singleton(new SimpleGrantedAuthority(ROLE_ADMIN));
 			default:
-				return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+				return Collections.singleton(new SimpleGrantedAuthority(ROLE_USER));
 		}
 	}
 	
