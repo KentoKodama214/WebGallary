@@ -34,8 +34,8 @@ public enum SexEnum {
 	 */
 	public static SexEnum getOrDefault(String value) {
         try {
-            String upperName = value.toUpperCase();
-            return SexEnum.valueOf(upperName);
+            String upperValue = value.toUpperCase();
+            return SexEnum.valueOf(upperValue);
         } catch (IllegalArgumentException | NullPointerException e) {
             return SexEnum.NONE;
         }
