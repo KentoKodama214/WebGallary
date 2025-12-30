@@ -248,7 +248,7 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getBirthplacePrefectureKbnCode());
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNotNull(accountModel.getLastLoginDatetime());
 			assertEquals(0, accountModel.getLoginFailureCount());
 		}
@@ -284,7 +284,7 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getBirthplacePrefectureKbnCode());
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNotNull(accountModel.getLastLoginDatetime());
 			assertEquals(0, accountModel.getLoginFailureCount());
 		}
@@ -328,7 +328,7 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getBirthplacePrefectureKbnCode());
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertEquals(2, accountModel.getLoginFailureCount());
 		}
@@ -389,7 +389,7 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getBirthplacePrefectureKbnCode());
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertEquals(2, accountModel.getLoginFailureCount());
 		}

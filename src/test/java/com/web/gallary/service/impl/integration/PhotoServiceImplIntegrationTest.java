@@ -1031,13 +1031,5 @@ public class PhotoServiceImplIntegrationTest {
 			Integer accountNo = 6;
 			assertFalse(photoServiceImpl.isReachedUpperLimit(accountNo));
 		}
-		
-		@Test
-		@Order(8)
-		@DisplayName("正常系：それ以外の場合")
-		void isReachedUpperLimit_others() {
-			Integer accountNo = 7;
-			assertTrue(photoServiceImpl.isReachedUpperLimit(accountNo));
-		}
 	}
 }

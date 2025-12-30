@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.web.gallary.AccountPrincipal;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.model.AccountModel;
 import com.web.gallary.model.KbnMstModel;
@@ -347,7 +348,7 @@ public class AccountControllerIntegrationTest {
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -361,7 +362,7 @@ public class AccountControllerIntegrationTest {
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -375,7 +376,7 @@ public class AccountControllerIntegrationTest {
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -418,7 +419,7 @@ public class AccountControllerIntegrationTest {
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -432,7 +433,7 @@ public class AccountControllerIntegrationTest {
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -446,7 +447,7 @@ public class AccountControllerIntegrationTest {
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());

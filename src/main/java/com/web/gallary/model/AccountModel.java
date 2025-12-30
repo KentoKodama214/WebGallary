@@ -3,6 +3,7 @@ package com.web.gallary.model;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.SexEnum;
 
 import lombok.Builder;
@@ -45,8 +46,12 @@ public class AccountModel {
 	/** フリーメモ */
 	private String freeMemo;
 	
-	/** 権限区分コード */
-	private String authorityKbnCode;
+	/**
+	 * 権限区分コード
+	 * <p>
+	 * {@link AuthorityEnum}
+	 */
+	private AuthorityEnum authorityKbn;
 	
 	/** 最終ログイン日時 */
 	private OffsetDateTime lastLoginDatetime;

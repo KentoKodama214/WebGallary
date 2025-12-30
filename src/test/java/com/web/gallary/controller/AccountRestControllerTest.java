@@ -100,7 +100,7 @@ public class AccountRestControllerTest {
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertEquals(0, accountModel.getLoginFailureCount());
 		}
@@ -150,7 +150,7 @@ public class AccountRestControllerTest {
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertEquals(0, accountModel.getLoginFailureCount());
 		}
@@ -224,7 +224,7 @@ public class AccountRestControllerTest {
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertEquals(0, accountModel.getLoginFailureCount());
 		}
@@ -286,7 +286,7 @@ public class AccountRestControllerTest {
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertNull(accountModel.getLoginFailureCount());
 		}
@@ -343,7 +343,7 @@ public class AccountRestControllerTest {
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertNull(accountModel.getLoginFailureCount());
 		}
@@ -398,7 +398,7 @@ public class AccountRestControllerTest {
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertNull(accountModel.getLoginFailureCount());
 		}
@@ -453,7 +453,7 @@ public class AccountRestControllerTest {
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertNull(accountModel.getLoginFailureCount());
 		}
@@ -508,7 +508,7 @@ public class AccountRestControllerTest {
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertNull(accountModel.getLoginFailureCount());
 		}
@@ -653,7 +653,7 @@ public class AccountRestControllerTest {
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
-			assertNull(accountModel.getAuthorityKbnCode());
+			assertNull(accountModel.getAuthorityKbn());
 			assertNull(accountModel.getLastLoginDatetime());
 			assertNull(accountModel.getLoginFailureCount());
 		}

@@ -1083,17 +1083,6 @@ public class PhotoServiceImplTest {
 			doReturn(1000).when(photoMstRepositoryImpl).count(accountNo);
 			assertFalse(photoServiceImpl.isReachedUpperLimit(accountNo));
 		}
-		
-		@Test
-		@Order(8)
-		@DisplayName("正常系：それ以外の場合")
-		void isReachedUpperLimit_others() {
-			Integer accountNo = 1;
-			Account account = Account.builder().authorityKbnCode("human").build();
-			doReturn(account).when(accountRepositoryImpl).getByAccountNo(accountNo);
-			doReturn(1000).when(photoMstRepositoryImpl).count(accountNo);
-			assertTrue(photoServiceImpl.isReachedUpperLimit(accountNo));
-		}
 	}
 	
 	@Nested

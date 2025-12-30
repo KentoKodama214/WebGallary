@@ -27,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
@@ -641,7 +642,7 @@ public class AccountRepositoryImplTest {
 			assertEquals("Hokkaido", actualAccountModel1.getBirthplacePrefectureKbnCode());
 			assertEquals("Aomori", actualAccountModel1.getResidentPrefectureKbnCode());
 			assertEquals("よろしく", actualAccountModel1.getFreeMemo());
-			assertEquals("mini-user", actualAccountModel1.getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.MINI, actualAccountModel1.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2001, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualAccountModel1.getLastLoginDatetime());
 			assertEquals(0, actualAccountModel1.getLoginFailureCount());
 			
@@ -655,7 +656,7 @@ public class AccountRepositoryImplTest {
 			assertEquals("Iwate", actualAccountModel2.getBirthplacePrefectureKbnCode());
 			assertEquals("Okinawa", actualAccountModel2.getResidentPrefectureKbnCode());
 			assertEquals("お願いします", actualAccountModel2.getFreeMemo());
-			assertEquals("administrator", actualAccountModel2.getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualAccountModel2.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualAccountModel2.getLastLoginDatetime());
 			assertEquals(1, actualAccountModel2.getLoginFailureCount());
 		}

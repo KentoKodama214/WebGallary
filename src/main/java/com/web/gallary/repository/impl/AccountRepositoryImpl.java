@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.exception.RegistFailureException;
@@ -92,7 +93,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 					Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.freeMemo(
 					Optional.ofNullable(accountModel.getFreeMemo()).orElse(Consts.STRING_EMPTY))
-			.authorityKbnCode(Consts.AUTHORITY_MINI)
+			.authorityKbnCode(AuthorityEnum.MINI.getCode())
 			.lastLoginDatetime(Consts.MIN_OFFSET_DATE_TIME)
 			.loginFailureCount(0)
 			.build();
@@ -201,7 +202,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 					.birthplacePrefectureKbnCode(accountData.getBirthplacePrefectureKbnCode())
 					.residentPrefectureKbnCode(accountData.getResidentPrefectureKbnCode())
 					.freeMemo(accountData.getFreeMemo())
-					.authorityKbnCode(accountData.getAuthorityKbnCode())
+					.authorityKbn(AuthorityEnum.getOrDefault(accountData.getAuthorityKbnCode()))
 					.lastLoginDatetime(accountData.getLastLoginDatetime())
 					.loginFailureCount(accountData.getLoginFailureCount())
 					.build()).toList();
