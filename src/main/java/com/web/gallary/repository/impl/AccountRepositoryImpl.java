@@ -85,7 +85,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 			.birthdate(
 					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
 			.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbn().getCode()).orElse(Consts.STRING_NONE))
+					Optional.ofNullable(accountModel.getSexKbn()).orElse(SexEnum.NONE).getCode())
 			.birthplacePrefectureKbnCode(
 					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.residentPrefectureKbnCode(
@@ -122,7 +122,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 				.birthdate(
 					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
 				.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbn().getCode()).orElse(Consts.STRING_NONE))
+					Optional.ofNullable(accountModel.getSexKbn()).orElse(SexEnum.NONE).getCode())
 				.birthplacePrefectureKbnCode(
 					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 				.residentPrefectureKbnCode(

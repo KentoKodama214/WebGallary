@@ -22,6 +22,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.model.AccountModel;
@@ -181,7 +182,7 @@ public class AccountRepositoryImplIntegrationTest {
 					.accountName("ZZZZZZZZ")
 					.password("zzzzzzzz")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("Okinawa")
 					.freeMemo("フリーメモ")
@@ -310,7 +311,7 @@ public class AccountRepositoryImplIntegrationTest {
 					.accountName("AAAAAAAA")
 					.password("aaaaaaaa")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("Okinawa")
 					.freeMemo("フリーメモ")

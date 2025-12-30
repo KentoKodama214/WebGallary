@@ -27,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.mapper.AccountMapper;
@@ -216,7 +217,7 @@ public class AccountRepositoryImplTest {
 					.accountName("AAAAAAAA")
 					.password("aaaaaaaa")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("Okinawa")
 					.freeMemo("フリーメモ")
@@ -340,7 +341,7 @@ public class AccountRepositoryImplTest {
 					.accountName("AAAAAAAA")
 					.password("aaaaaaaa")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("Okinawa")
 					.freeMemo("フリーメモ")
@@ -636,7 +637,7 @@ public class AccountRepositoryImplTest {
 			assertEquals("AAAAAAAA", actualAccountModel1.getAccountName());
 			assertEquals("$2a$10$password1", actualAccountModel1.getPassword());
 			assertEquals(LocalDate.of(1991, 1, 1), actualAccountModel1.getBirthdate());
-			assertEquals("man", actualAccountModel1.getSexKbnCode());
+			assertEquals(SexEnum.MAN, actualAccountModel1.getSexKbn());
 			assertEquals("Hokkaido", actualAccountModel1.getBirthplacePrefectureKbnCode());
 			assertEquals("Aomori", actualAccountModel1.getResidentPrefectureKbnCode());
 			assertEquals("よろしく", actualAccountModel1.getFreeMemo());
@@ -650,7 +651,7 @@ public class AccountRepositoryImplTest {
 			assertEquals("BBBBBBBB", actualAccountModel2.getAccountName());
 			assertEquals("$2a$10$password2", actualAccountModel2.getPassword());
 			assertEquals(LocalDate.of(1991, 2, 1), actualAccountModel2.getBirthdate());
-			assertEquals("woman", actualAccountModel2.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, actualAccountModel2.getSexKbn());
 			assertEquals("Iwate", actualAccountModel2.getBirthplacePrefectureKbnCode());
 			assertEquals("Okinawa", actualAccountModel2.getResidentPrefectureKbnCode());
 			assertEquals("お願いします", actualAccountModel2.getFreeMemo());

@@ -38,6 +38,7 @@ import com.web.gallary.controller.request.AccountRegistRequest;
 import com.web.gallary.controller.request.AccountUpdateRequest;
 import com.web.gallary.entity.Account;
 import com.web.gallary.enumuration.ErrorEnum;
+import com.web.gallary.enumuration.SexEnum;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -100,7 +101,7 @@ public class AccountRestControllerIntegrationTest {
 			request.setAccountName(accountName);
 			request.setPassword(password);
 			request.setBirthdate(birthDate);
-			request.setSexKbnCode(sexKbnCode);
+			request.setSexKbn(SexEnum.WOMAN);
 			request.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			request.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			request.setFreeMemo(freeMemo);

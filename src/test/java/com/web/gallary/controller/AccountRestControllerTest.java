@@ -31,6 +31,7 @@ import com.web.gallary.controller.request.ErrorRequest;
 import com.web.gallary.controller.response.AccountRegistResponse;
 import com.web.gallary.controller.response.AccountUpdateResponse;
 import com.web.gallary.enumuration.ErrorEnum;
+import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.exception.BadRequestException;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
@@ -62,7 +63,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "password01";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -72,7 +72,7 @@ public class AccountRestControllerTest {
 			accuontRegistRequest.setAccountName(accountName);
 			accuontRegistRequest.setPassword(password);
 			accuontRegistRequest.setBirthdate(birthDate);
-			accuontRegistRequest.setSexKbnCode(sexKbnCode);
+			accuontRegistRequest.setSexKbn(SexEnum.WOMAN);
 			accuontRegistRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accuontRegistRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accuontRegistRequest.setFreeMemo(freeMemo);
@@ -96,7 +96,7 @@ public class AccountRestControllerTest {
 			assertEquals(accountName, accountModel.getAccountName());
 			assertEquals(password, accountModel.getPassword());
 			assertEquals(birthDate, accountModel.getBirthdate());
-			assertEquals(sexKbnCode, accountModel.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountModel.getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
@@ -113,7 +113,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "password01";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -123,7 +122,7 @@ public class AccountRestControllerTest {
 			accuontRegistRequest.setAccountName(accountName);
 			accuontRegistRequest.setPassword(password);
 			accuontRegistRequest.setBirthdate(birthDate);
-			accuontRegistRequest.setSexKbnCode(sexKbnCode);
+			accuontRegistRequest.setSexKbn(SexEnum.WOMAN);
 			accuontRegistRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accuontRegistRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accuontRegistRequest.setFreeMemo(freeMemo);
@@ -147,7 +146,7 @@ public class AccountRestControllerTest {
 			assertEquals(accountName, accountModel.getAccountName());
 			assertEquals(password, accountModel.getPassword());
 			assertEquals(birthDate, accountModel.getBirthdate());
-			assertEquals(sexKbnCode, accountModel.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountModel.getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
@@ -164,7 +163,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "password01";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -174,7 +172,7 @@ public class AccountRestControllerTest {
 			accuontRegistRequest.setAccountName(accountName);
 			accuontRegistRequest.setPassword(password);
 			accuontRegistRequest.setBirthdate(birthDate);
-			accuontRegistRequest.setSexKbnCode(sexKbnCode);
+			accuontRegistRequest.setSexKbn(SexEnum.WOMAN);
 			accuontRegistRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accuontRegistRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accuontRegistRequest.setFreeMemo(freeMemo);
@@ -195,7 +193,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "password01";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -205,7 +202,7 @@ public class AccountRestControllerTest {
 			accuontRegistRequest.setAccountName(accountName);
 			accuontRegistRequest.setPassword(password);
 			accuontRegistRequest.setBirthdate(birthDate);
-			accuontRegistRequest.setSexKbnCode(sexKbnCode);
+			accuontRegistRequest.setSexKbn(SexEnum.WOMAN);
 			accuontRegistRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accuontRegistRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accuontRegistRequest.setFreeMemo(freeMemo);
@@ -223,7 +220,7 @@ public class AccountRestControllerTest {
 			assertEquals(accountName, accountModel.getAccountName());
 			assertEquals(password, accountModel.getPassword());
 			assertEquals(birthDate, accountModel.getBirthdate());
-			assertEquals(sexKbnCode, accountModel.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountModel.getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
@@ -245,7 +242,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -255,7 +251,7 @@ public class AccountRestControllerTest {
 			accountUpdateRequest.setAccountName(accountName);
 			accountUpdateRequest.setNewPassword(password);
 			accountUpdateRequest.setBirthdate(birthDate);
-			accountUpdateRequest.setSexKbnCode(sexKbnCode);
+			accountUpdateRequest.setSexKbn(SexEnum.WOMAN);
 			accountUpdateRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accountUpdateRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accountUpdateRequest.setFreeMemo(freeMemo);
@@ -286,7 +282,7 @@ public class AccountRestControllerTest {
 			assertEquals(accountName, accountModel.getAccountName());
 			assertNull(accountModel.getPassword());
 			assertEquals(birthDate, accountModel.getBirthdate());
-			assertEquals(sexKbnCode, accountModel.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountModel.getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
@@ -303,7 +299,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -313,7 +308,7 @@ public class AccountRestControllerTest {
 			accountUpdateRequest.setAccountName(accountName);
 			accountUpdateRequest.setNewPassword(password);
 			accountUpdateRequest.setBirthdate(birthDate);
-			accountUpdateRequest.setSexKbnCode(sexKbnCode);
+			accountUpdateRequest.setSexKbn(SexEnum.WOMAN);
 			accountUpdateRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accountUpdateRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accountUpdateRequest.setFreeMemo(freeMemo);
@@ -344,7 +339,7 @@ public class AccountRestControllerTest {
 			assertEquals(accountName, accountModel.getAccountName());
 			assertNull(accountModel.getPassword());
 			assertEquals(birthDate, accountModel.getBirthdate());
-			assertEquals(sexKbnCode, accountModel.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountModel.getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
@@ -361,7 +356,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "password01";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -371,7 +365,7 @@ public class AccountRestControllerTest {
 			accountUpdateRequest.setAccountName(accountName);
 			accountUpdateRequest.setNewPassword(password);
 			accountUpdateRequest.setBirthdate(birthDate);
-			accountUpdateRequest.setSexKbnCode(sexKbnCode);
+			accountUpdateRequest.setSexKbn(SexEnum.WOMAN);
 			accountUpdateRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accountUpdateRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accountUpdateRequest.setFreeMemo(freeMemo);
@@ -400,7 +394,7 @@ public class AccountRestControllerTest {
 			assertEquals(accountName, accountModel.getAccountName());
 			assertEquals(password, accountModel.getPassword());
 			assertEquals(birthDate, accountModel.getBirthdate());
-			assertEquals(sexKbnCode, accountModel.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountModel.getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
@@ -417,7 +411,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "password01";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -427,7 +420,7 @@ public class AccountRestControllerTest {
 			accountUpdateRequest.setAccountName(accountName);
 			accountUpdateRequest.setNewPassword(password);
 			accountUpdateRequest.setBirthdate(birthDate);
-			accountUpdateRequest.setSexKbnCode(sexKbnCode);
+			accountUpdateRequest.setSexKbn(SexEnum.WOMAN);
 			accountUpdateRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accountUpdateRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accountUpdateRequest.setFreeMemo(freeMemo);
@@ -456,7 +449,7 @@ public class AccountRestControllerTest {
 			assertEquals(accountName, accountModel.getAccountName());
 			assertEquals(password, accountModel.getPassword());
 			assertEquals(birthDate, accountModel.getBirthdate());
-			assertEquals(sexKbnCode, accountModel.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountModel.getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
@@ -473,7 +466,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -483,7 +475,7 @@ public class AccountRestControllerTest {
 			accountUpdateRequest.setAccountName(accountName);
 			accountUpdateRequest.setNewPassword(password);
 			accountUpdateRequest.setBirthdate(birthDate);
-			accountUpdateRequest.setSexKbnCode(sexKbnCode);
+			accountUpdateRequest.setSexKbn(SexEnum.WOMAN);
 			accountUpdateRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accountUpdateRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accountUpdateRequest.setFreeMemo(freeMemo);
@@ -512,7 +504,7 @@ public class AccountRestControllerTest {
 			assertEquals(accountName, accountModel.getAccountName());
 			assertNull(accountModel.getPassword());
 			assertEquals(birthDate, accountModel.getBirthdate());
-			assertEquals(sexKbnCode, accountModel.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountModel.getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());
@@ -529,7 +521,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -539,7 +530,7 @@ public class AccountRestControllerTest {
 			accountUpdateRequest.setAccountName(accountName);
 			accountUpdateRequest.setNewPassword(password);
 			accountUpdateRequest.setBirthdate(birthDate);
-			accountUpdateRequest.setSexKbnCode(sexKbnCode);
+			accountUpdateRequest.setSexKbn(SexEnum.WOMAN);
 			accountUpdateRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accountUpdateRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accountUpdateRequest.setFreeMemo(freeMemo);
@@ -564,7 +555,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "password01";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -574,7 +564,7 @@ public class AccountRestControllerTest {
 			accountUpdateRequest.setAccountName(accountName);
 			accountUpdateRequest.setNewPassword(password);
 			accountUpdateRequest.setBirthdate(birthDate);
-			accountUpdateRequest.setSexKbnCode(sexKbnCode);
+			accountUpdateRequest.setSexKbn(SexEnum.WOMAN);
 			accountUpdateRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accountUpdateRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accountUpdateRequest.setFreeMemo(freeMemo);
@@ -597,7 +587,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "pass";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -607,7 +596,7 @@ public class AccountRestControllerTest {
 			accountUpdateRequest.setAccountName(accountName);
 			accountUpdateRequest.setNewPassword(password);
 			accountUpdateRequest.setBirthdate(birthDate);
-			accountUpdateRequest.setSexKbnCode(sexKbnCode);
+			accountUpdateRequest.setSexKbn(SexEnum.WOMAN);
 			accountUpdateRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accountUpdateRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accountUpdateRequest.setFreeMemo(freeMemo);
@@ -630,7 +619,6 @@ public class AccountRestControllerTest {
 			String accountName = "AAAAAAAA";
 			String password = "password01";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
@@ -640,7 +628,7 @@ public class AccountRestControllerTest {
 			accountUpdateRequest.setAccountName(accountName);
 			accountUpdateRequest.setNewPassword(password);
 			accountUpdateRequest.setBirthdate(birthDate);
-			accountUpdateRequest.setSexKbnCode(sexKbnCode);
+			accountUpdateRequest.setSexKbn(SexEnum.WOMAN);
 			accountUpdateRequest.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
 			accountUpdateRequest.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
 			accountUpdateRequest.setFreeMemo(freeMemo);
@@ -661,7 +649,7 @@ public class AccountRestControllerTest {
 			assertEquals(accountName, accountModel.getAccountName());
 			assertEquals(password, accountModel.getPassword());
 			assertEquals(birthDate, accountModel.getBirthdate());
-			assertEquals(sexKbnCode, accountModel.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountModel.getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, accountModel.getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, accountModel.getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, accountModel.getFreeMemo());

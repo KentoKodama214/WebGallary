@@ -244,7 +244,7 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getAccountName());
 			assertNull(accountModel.getPassword());
 			assertNull(accountModel.getBirthdate());
-			assertNull(accountModel.getSexKbnCode());
+			assertNull(accountModel.getSexKbn());
 			assertNull(accountModel.getBirthplacePrefectureKbnCode());
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
@@ -280,7 +280,7 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getAccountName());
 			assertNull(accountModel.getPassword());
 			assertNull(accountModel.getBirthdate());
-			assertNull(accountModel.getSexKbnCode());
+			assertNull(accountModel.getSexKbn());
 			assertNull(accountModel.getBirthplacePrefectureKbnCode());
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
@@ -324,7 +324,7 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getAccountName());
 			assertNull(accountModel.getPassword());
 			assertNull(accountModel.getBirthdate());
-			assertNull(accountModel.getSexKbnCode());
+			assertNull(accountModel.getSexKbn());
 			assertNull(accountModel.getBirthplacePrefectureKbnCode());
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
@@ -385,7 +385,7 @@ public class AccountServiceImplTest {
 			assertNull(accountModel.getAccountName());
 			assertNull(accountModel.getPassword());
 			assertNull(accountModel.getBirthdate());
-			assertNull(accountModel.getSexKbnCode());
+			assertNull(accountModel.getSexKbn());
 			assertNull(accountModel.getBirthplacePrefectureKbnCode());
 			assertNull(accountModel.getResidentPrefectureKbnCode());
 			assertNull(accountModel.getFreeMemo());
