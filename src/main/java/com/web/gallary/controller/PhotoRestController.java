@@ -1,6 +1,5 @@
 package com.web.gallary.controller;
 
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.constant.ApiRoutes;
+import com.web.gallary.constant.Consts;
 import com.web.gallary.constant.MessageConst;
 import com.web.gallary.controller.request.PhotoDeleteRequest;
 import com.web.gallary.controller.request.PhotoListRequest;
@@ -71,7 +71,7 @@ public class PhotoRestController {
 			@PathVariable String photoAccountId, 
 			@RequestBody @Validated PhotoListRequest photoListRequest) {
 		photoListRequest.setDirectionKbnCode(
-				Optional.ofNullable(photoListRequest.getDirectionKbnCode()).orElse(""));
+				Optional.ofNullable(photoListRequest.getDirectionKbnCode()).orElse(Consts.STRING_EMPTY));
 		
 		photoListRequest.setIsFavorite(
 				Optional.ofNullable(photoListRequest.getIsFavorite()).orElse(false));
@@ -83,9 +83,9 @@ public class PhotoRestController {
 				Optional.ofNullable(photoListRequest.getPageNo()).orElse(1));
 		
 		Optional<String> tagsOpt = Optional.ofNullable(photoListRequest.getTagList());
-		photoListRequest.setTagList(tagsOpt.map(tag -> tag.replace(" ", "　")).orElse(""));
+		photoListRequest.setTagList(tagsOpt.map(tag -> tag.replace(Consts.HALF_SPACE, Consts.FULL_SPACE)).orElse(Consts.STRING_EMPTY));
 		List<String> tagList = tagsOpt.map(tag -> 
-			new ArrayList<String>(Arrays.asList(tag.replace("　", " ").split(" ")))).orElse(new ArrayList<String>());
+			new ArrayList<String>(Arrays.asList(tag.replace(Consts.FULL_SPACE, Consts.HALF_SPACE).split(Consts.HALF_SPACE)))).orElse(new ArrayList<String>());
 		
 		// 抽出条件に該当する写真の一覧を、指定の並び順で取得する
 		List<PhotoModel> photoList = photoService.getPhotoList(
@@ -130,7 +130,7 @@ public class PhotoRestController {
 		}
 		
 		if(Objects.isNull(photoSaveRequest.getImageFile()) && 
-				(Objects.isNull(photoSaveRequest.getImageFilePath()) || "".equals(photoSaveRequest.getImageFilePath()))) {
+				(Objects.isNull(photoSaveRequest.getImageFilePath()) || Consts.STRING_EMPTY.equals(photoSaveRequest.getImageFilePath()))) {
 			throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 		}
 		
@@ -149,8 +149,8 @@ public class PhotoRestController {
 						.accountNo(photoTag.getAccountNo())
 						.photoNo(photoTag.getPhotoNo())
 						.tagNo(photoTag.getTagNo())
-						.tagJapaneseName(Optional.ofNullable(photoTag.getTagJapaneseName()).orElse(""))
-						.tagEnglishName(Optional.ofNullable(photoTag.getTagEnglishName()).orElse(""))
+						.tagJapaneseName(Optional.ofNullable(photoTag.getTagJapaneseName()).orElse(Consts.STRING_EMPTY))
+						.tagEnglishName(Optional.ofNullable(photoTag.getTagEnglishName()).orElse(Consts.STRING_EMPTY))
 						.build()
 				);
 			});
@@ -164,7 +164,7 @@ public class PhotoRestController {
 				.isFavorite(photoSaveRequest.getIsFavorite())
 				.photoAt(
 					Optional.ofNullable(photoSaveRequest.getPhotoAt())
-						.map(photoAt -> photoAt.atOffset(ZoneOffset.of("+09:00"))).orElse(null))
+						.map(photoAt -> photoAt.atOffset(Consts.JST)).orElse(null))
 				.locationNo(photoSaveRequest.getLocationNo())
 				.address(photoSaveRequest.getAddress())
 				.latitude(photoSaveRequest.getLatitude())
