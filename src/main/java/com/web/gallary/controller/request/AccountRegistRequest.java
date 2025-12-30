@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.web.gallary.enumuration.SexEnum;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
@@ -54,12 +56,11 @@ public class AccountRegistRequest {
 	private LocalDate birthdate;
 
 	/** 
-	 * 性別区分コード
+	 * 性別区分
 	 * <p>
-	 * man: 男性<p>
-	 * woman: 女性
+	 * {@link SexEnum}
 	 */
-	private String sexKbnCode;
+	private SexEnum sexKbn;
 
 	/** 出身都道府県区分コード */
 	private String birthplacePrefectureKbnCode;

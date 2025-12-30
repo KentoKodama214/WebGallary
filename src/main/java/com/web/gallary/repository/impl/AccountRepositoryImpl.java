@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
 import com.web.gallary.enumuration.ErrorEnum;
+import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.mapper.AccountMapper;
@@ -84,7 +85,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 			.birthdate(
 					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
 			.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbnCode()).orElse(Consts.STRING_NONE))
+					Optional.ofNullable(accountModel.getSexKbn().getCode()).orElse(Consts.STRING_NONE))
 			.birthplacePrefectureKbnCode(
 					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.residentPrefectureKbnCode(
@@ -121,7 +122,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 				.birthdate(
 					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
 				.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbnCode()).orElse(Consts.STRING_NONE))
+					Optional.ofNullable(accountModel.getSexKbn().getCode()).orElse(Consts.STRING_NONE))
 				.birthplacePrefectureKbnCode(
 					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 				.residentPrefectureKbnCode(
@@ -196,7 +197,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 					.accountName(accountData.getAccountName())
 					.password(accountData.getPassword())
 					.birthdate(accountData.getBirthdate())
-					.sexKbnCode(accountData.getSexKbnCode())
+					.sexKbn(SexEnum.getOrDefault(accountData.getSexKbnCode()))
 					.birthplacePrefectureKbnCode(accountData.getBirthplacePrefectureKbnCode())
 					.residentPrefectureKbnCode(accountData.getResidentPrefectureKbnCode())
 					.freeMemo(accountData.getFreeMemo())
