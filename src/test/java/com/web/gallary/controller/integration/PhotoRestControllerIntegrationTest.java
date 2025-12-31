@@ -92,35 +92,35 @@ public class PhotoRestControllerIntegrationTest {
 			assertFalse(photoList.get(0).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC19.jpg", photoList.get(0).get("imageFilePath").asText());
 			assertEquals("caption19", photoList.get(0).get("caption").asText());
-			assertEquals(DirectionEnum.HORIZONTAL.name(), photoList.get(0).get("directionKbn").asText());
+			assertEquals(DirectionEnum.HORIZONTAL.getCode(), photoList.get(0).get("directionKbn").asText());
 			
 			assertEquals(1, photoList.get(1).get("accountNo").asInt());
 			assertEquals(8, photoList.get(1).get("photoNo").asInt());
 			assertFalse(photoList.get(1).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC18.jpg", photoList.get(1).get("imageFilePath").asText());
 			assertEquals("caption18", photoList.get(1).get("caption").asText());
-			assertEquals(DirectionEnum.VERTICAL.name(), photoList.get(1).get("directionKbn").asText());
+			assertEquals(DirectionEnum.VERTICAL.getCode(), photoList.get(1).get("directionKbn").asText());
 			
 			assertEquals(1, photoList.get(2).get("accountNo").asInt());
 			assertEquals(7, photoList.get(2).get("photoNo").asInt());
 			assertFalse(photoList.get(2).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC17.jpg", photoList.get(2).get("imageFilePath").asText());
 			assertEquals("caption17", photoList.get(2).get("caption").asText());
-			assertEquals(DirectionEnum.VERTICAL.name(), photoList.get(2).get("directionKbn").asText());
+			assertEquals(DirectionEnum.VERTICAL.getCode(), photoList.get(2).get("directionKbn").asText());
 			
 			assertEquals(1, photoList.get(3).get("accountNo").asInt());
 			assertEquals(6, photoList.get(3).get("photoNo").asInt());
 			assertFalse(photoList.get(3).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC16.jpg", photoList.get(3).get("imageFilePath").asText());
 			assertEquals("caption16", photoList.get(3).get("caption").asText());
-			assertEquals(DirectionEnum.HORIZONTAL.name(), photoList.get(3).get("directionKbn").asText());
+			assertEquals(DirectionEnum.HORIZONTAL.getCode(), photoList.get(3).get("directionKbn").asText());
 			
 			assertEquals(1, photoList.get(4).get("accountNo").asInt());
 			assertEquals(5, photoList.get(4).get("photoNo").asInt());
 			assertFalse(photoList.get(4).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC15.jpg", photoList.get(4).get("imageFilePath").asText());
 			assertEquals("caption15", photoList.get(4).get("caption").asText());
-			assertEquals(DirectionEnum.VERTICAL.name(), photoList.get(4).get("directionKbn").asText());
+			assertEquals(DirectionEnum.VERTICAL.getCode(), photoList.get(4).get("directionKbn").asText());
 		}
 		
 		@Test
@@ -153,7 +153,7 @@ public class PhotoRestControllerIntegrationTest {
 			assertFalse(photoList.get(0).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC11.jpg", photoList.get(0).get("imageFilePath").asText());
 			assertEquals("caption11", photoList.get(0).get("caption").asText());
-			assertEquals(DirectionEnum.HORIZONTAL.name(), photoList.get(0).get("directionKbn").asText());
+			assertEquals(DirectionEnum.HORIZONTAL.getCode(), photoList.get(0).get("directionKbn").asText());
 		}
 		
 		@Test
@@ -187,7 +187,7 @@ public class PhotoRestControllerIntegrationTest {
 			assertFalse(photoList.get(0).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC11.jpg", photoList.get(0).get("imageFilePath").asText());
 			assertEquals("caption11", photoList.get(0).get("caption").asText());
-			assertEquals(DirectionEnum.HORIZONTAL.name(), photoList.get(0).get("directionKbn").asText());
+			assertEquals(DirectionEnum.HORIZONTAL.getCode(), photoList.get(0).get("directionKbn").asText());
 		}
 		
 		@Test
