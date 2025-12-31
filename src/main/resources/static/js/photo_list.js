@@ -155,7 +155,7 @@ function createPhoto(photo) {
 	formTag.className = 'photo_detail';
 	formTag.method = 'get';
 	formTag.action = '/photo/' + photoAccountId + '/photo_detail';
-	if(photo.directionKbn == 'HORIZONTAL') {
+	if(photo.directionKbn == 'horizontal') {
 		formTag.style.width = '100%';
 	} else {
 		formTag.style.width = '100px';
@@ -169,7 +169,7 @@ function createPhoto(photo) {
 	imageTag.name = 'imageFilePath';
 	imageTag.src = photo.imageFilePath;
 	imageTag.setAttribute('onclick', 'clickPhoto(this)');
-	if(photo.directionKbn == 'HORIZONTAL') {
+	if(photo.directionKbn == 'horizontal') {
 		imageTag.style.top = '45px';
 		imageTag.style.width = '100%';
 	} else {

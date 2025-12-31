@@ -3,6 +3,7 @@ package com.web.gallary.enumuration;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,12 +15,16 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DirectionEnum {
 	/** 未選択 */
+	@JsonProperty("")
 	NONE(""),
 	/** 縦 */
+	@JsonProperty("vertical")
 	VERTICAL("vertical"),
 	/** 横 */
+	@JsonProperty("horizontal")
 	HORIZONTAL("horizontal"),
 	/** 正方形 */
+	@JsonProperty("square")
 	SQUARE("square");
 	
 	/** コード */

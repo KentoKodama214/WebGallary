@@ -47,7 +47,7 @@ public class AccountModel {
 	private String freeMemo;
 	
 	/**
-	 * 権限区分コード
+	 * 権限区分
 	 * <p>
 	 * {@link AuthorityEnum}
 	 */
