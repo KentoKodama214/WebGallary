@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import com.web.gallary.model.AccountModel;
 import com.web.gallary.service.impl.AccountServiceImpl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * アカウントに関するAPI通信を扱うRestControllerクラス
@@ -34,6 +36,7 @@ import lombok.RequiredArgsConstructor;
  * @version	1.0.0
  * @since	1.0.0
 */
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class AccountRestController {
@@ -55,6 +58,10 @@ public class AccountRestController {
 			BindingResult result) throws BadRequestException, RegistFailureException {
 		
 		if(result.hasErrors()) {
+			for(FieldError error : result.getFieldErrors()) {
+				log.info("Invalid input. (Field: {}, Value: {}, Message: {})",
+						error.getField(), error.getRejectedValue(), error.getDefaultMessage());
+			}
 			throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 		}
 		
@@ -93,8 +100,13 @@ public class AccountRestController {
 			BindingResult result) throws BadRequestException, UpdateFailureException {
 		
 		if(result.hasErrors()) {
+			for(FieldError error : result.getFieldErrors()) {
+				log.info("Invalid input. (Field: {}, Value: {}, Message: {})",
+						error.getField(), error.getRejectedValue(), error.getDefaultMessage());
+			}
+			
 			List<String> fieldList
-				= result.getFieldErrors().stream().map(error -> error.getField()).distinct().toList();
+				= result.getFieldErrors().stream().map(FieldError::getField).distinct().toList();
 			
 			if(!(fieldList.size() == 1 && 
 					"newPassword".equals(fieldList.getFirst()) && 

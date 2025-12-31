@@ -102,7 +102,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 			accountMapper.insert(account);
 		}
 		catch (DuplicateKeyException e) {
-			log.error("Account: Duplicate Key (AccountId: "  + accountModel.getAccountId() + ")");
+			log.warn("Account: Duplicate Key (AccountId: {})", accountModel.getAccountId(), e);
 			throw new RegistFailureException(ErrorEnum.FAIL_TO_REGIST_ACCOUNT);
 		}
 	}
@@ -141,7 +141,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 		}
 		
 		if (accountMapper.update(cndAccount, targetAccount) < 1) {
-			log.error("Account: Update Failed(AccountNo: "  + accountModel.getAccountNo() + ")");
+			log.warn("Account: Update Failed (AccountNo: {})", accountModel.getAccountNo());
 			throw new UpdateFailureException(ErrorEnum.FAIL_TO_UPDATE_ACCOUNT);
 		}
 	}
@@ -162,7 +162,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 				.build();
 		
 		if (accountMapper.update(cndAccount, targetAccount) < 1) {
-			log.error("Account: Update Failed(AccountNo: "  + accountModel.getAccountNo() + ")");
+			log.warn("Account: Update Failed (AccountNo: {})", accountModel.getAccountNo());
 			throw new UpdateFailureException(ErrorEnum.FAIL_TO_UPDATE_ACCOUNT);
 		}
 	}

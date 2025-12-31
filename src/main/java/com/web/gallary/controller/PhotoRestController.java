@@ -43,6 +43,7 @@ import com.web.gallary.model.PhotoTagModel;
 import com.web.gallary.service.PhotoService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 写真に関するAPI通信を扱うRestControllerクラス
@@ -50,6 +51,7 @@ import lombok.RequiredArgsConstructor;
  * @version	1.0.0
  * @since	1.0.0
 */
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class PhotoRestController {
@@ -124,6 +126,8 @@ public class PhotoRestController {
 		
 		for(FieldError error : result.getFieldErrors()) {
 			if(!error.isBindingFailure()) {
+				log.info("Invalid input. (Field: {}, Value: {}, Message: {})",
+						error.getField(), error.getRejectedValue(), error.getDefaultMessage());
 				throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 			}
 		};
@@ -203,6 +207,8 @@ public class PhotoRestController {
 		}
 		
 		if(result.hasErrors()) {
+			log.info("Invalid input. (AccountNo: {}, PhotoNo: {}, ImageFilePath: {})",
+					photoDeleteRequest.getAccountNo(), photoDeleteRequest.getPhotoNo(), photoDeleteRequest.getImageFilePath());
 			throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 		}
 		

@@ -72,8 +72,7 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 			photoMstMapper.insert(photoMst);
 		}
 		catch (DuplicateKeyException e) {
-			log.error("PhotoMst: Duplicate Key (AccountNo: " + photoDetailModel.getAccountNo()
-											 + ", PhotoNo: " + newPhotoNo + ")");
+			log.warn("PhotoMst: Duplicate Key (AccountNo: {}, PhotoNo: {})", photoDetailModel.getAccountNo(), newPhotoNo, e);
 			throw new RegistFailureException(ErrorEnum.FAIL_TO_REGIST_PHOTO);
 		}
 	}
@@ -118,8 +117,7 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 				.build();
 		
 		if (photoMstMapper.update(cndPhotoMst, targetPhotoMst) < 1) {
-			log.error("PhotoMst: Update Failed(AccountNo: " + cndPhotoMst.getAccountNo() 
-										  + ", PhotoNo: "   + cndPhotoMst.getPhotoNo() + ")");
+			log.warn("PhotoMst: Update Failed (AccountNo: {}, PhotoNo: {})", cndPhotoMst.getAccountNo(), cndPhotoMst.getPhotoNo());
 			throw new UpdateFailureException(ErrorEnum.FAIL_TO_UPDATE_PHOTO);
 		}
 	}
@@ -143,8 +141,7 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 				.build();
 		
 		if (photoMstMapper.update(cndPhotoMst, targetPhotoMst) < 1) {
-			log.error("PhotoMst: Delete Failed(AccountNo: " + cndPhotoMst.getAccountNo() 
-										  + ", PhotoNo: "   + cndPhotoMst.getPhotoNo() + ")");
+			log.warn("PhotoMst: Delete Failed (AccountNo: {}, PhotoNo: {})", cndPhotoMst.getAccountNo(), cndPhotoMst.getPhotoNo());
 			throw new UpdateFailureException(ErrorEnum.FAIL_TO_DELETE_PHOTO);
 		}
 	}

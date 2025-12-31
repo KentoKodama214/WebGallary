@@ -7,10 +7,12 @@ import com.web.gallary.constant.Consts;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 性別を管理するEnumクラス
  */
+@Slf4j
 @Getter
 @AllArgsConstructor
 public enum SexEnum {
@@ -43,6 +45,7 @@ public enum SexEnum {
 			String upperValue = value.toUpperCase();
 			return SexEnum.valueOf(upperValue);
 		} catch (IllegalArgumentException | NullPointerException e) {
+			log.info("SexEnum: Invalid value. (value: {})", value);
 			return SexEnum.NONE;
 		}
 	}
