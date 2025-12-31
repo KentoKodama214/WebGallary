@@ -28,6 +28,7 @@ import com.web.gallary.dto.PhotoDetailGetDto;
 import com.web.gallary.dto.PhotoDto;
 import com.web.gallary.dto.PhotoListGetDto;
 import com.web.gallary.entity.PhotoTagMst;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.mapper.PhotoDetailMapper;
 import com.web.gallary.mapper.PhotoTagMstMapper;
@@ -134,7 +135,7 @@ public class PhotoDetailRepositoryImplTest {
 			assertEquals(OffsetDateTime.of(2000, 1, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(0).getPhotoAt());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.get(0).getImageFilePath());
 			assertEquals("キャプション1", actual.get(0).getCaption());
-			assertEquals("vertical", actual.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.get(0).getDirectionKbn());
 			
 			assertEquals(1, actual.get(1).getAccountNo());
 			assertEquals(2, actual.get(1).getPhotoNo());
@@ -143,7 +144,7 @@ public class PhotoDetailRepositoryImplTest {
 			assertEquals(OffsetDateTime.of(2000, 2, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(1).getPhotoAt());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC222.jpg", actual.get(1).getImageFilePath());
 			assertEquals("キャプション2", actual.get(1).getCaption());
-			assertEquals("horizontal", actual.get(1).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.get(1).getDirectionKbn());
 			
 			PhotoListGetDto photoListGetDtoCapture = photoListGetDtoCaptor.getValue();
 			assertEquals(1, photoListGetDtoCapture.getAccountNo());
@@ -216,7 +217,7 @@ public class PhotoDetailRepositoryImplTest {
 			assertEquals(OffsetDateTime.of(2000, 1, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(0).getPhotoAt());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.get(0).getImageFilePath());
 			assertEquals("キャプション1", actual.get(0).getCaption());
-			assertEquals("vertical", actual.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.get(0).getDirectionKbn());
 			assertEquals(1, actual.get(0).getPhotoTagModelList().size());
 			assertEquals(1, actual.get(0).getPhotoTagModelList().get(0).getTagNo());
 			assertEquals("太陽", actual.get(0).getPhotoTagModelList().get(0).getTagJapaneseName());
@@ -229,7 +230,7 @@ public class PhotoDetailRepositoryImplTest {
 			assertEquals(OffsetDateTime.of(2000, 2, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(1).getPhotoAt());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC222.jpg", actual.get(1).getImageFilePath());
 			assertEquals("キャプション2", actual.get(1).getCaption());
-			assertEquals("horizontal", actual.get(1).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.get(1).getDirectionKbn());
 			assertEquals(1, actual.get(1).getPhotoTagModelList().size());
 			assertEquals(1, actual.get(1).getPhotoTagModelList().get(0).getTagNo());
 			assertEquals("海", actual.get(1).getPhotoTagModelList().get(0).getTagJapaneseName());
@@ -301,7 +302,7 @@ public class PhotoDetailRepositoryImplTest {
 			assertEquals("", actual.getPhotoJapaneseTitle());
 			assertEquals("", actual.getPhotoEnglishTitle());
 			assertEquals("", actual.getCaption());
-			assertEquals("vertical", actual.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.getDirectionKbn());
 			assertNull(actual.getFocalLength());
 			assertNull(actual.getFValue());
 			assertNull(actual.getShutterSpeed());
@@ -388,7 +389,7 @@ public class PhotoDetailRepositoryImplTest {
 			assertEquals("タイトル", actual.getPhotoJapaneseTitle());
 			assertEquals("title", actual.getPhotoEnglishTitle());
 			assertEquals("キャプション", actual.getCaption());
-			assertEquals("vertical", actual.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.getDirectionKbn());
 			assertEquals(2, actual.getPhotoTagModelList().size());
 			assertEquals(1, actual.getPhotoTagModelList().get(0).getTagNo());
 			assertEquals("太陽", actual.getPhotoTagModelList().get(0).getTagJapaneseName());

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.ErrorEnum;
+import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.mapper.AccountMapper;
@@ -84,14 +86,14 @@ public class AccountRepositoryImpl implements AccountRepository {
 			.birthdate(
 					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
 			.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbnCode()).orElse(Consts.STRING_NONE))
+					Optional.ofNullable(accountModel.getSexKbn()).orElse(SexEnum.NONE).getCode())
 			.birthplacePrefectureKbnCode(
 					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.residentPrefectureKbnCode(
 					Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.freeMemo(
 					Optional.ofNullable(accountModel.getFreeMemo()).orElse(Consts.STRING_EMPTY))
-			.authorityKbnCode(Consts.AUTHORITY_KBN_CODE)
+			.authorityKbnCode(AuthorityEnum.MINI.getCode())
 			.lastLoginDatetime(Consts.MIN_OFFSET_DATE_TIME)
 			.loginFailureCount(0)
 			.build();
@@ -121,7 +123,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 				.birthdate(
 					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
 				.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbnCode()).orElse(Consts.STRING_NONE))
+					Optional.ofNullable(accountModel.getSexKbn()).orElse(SexEnum.NONE).getCode())
 				.birthplacePrefectureKbnCode(
 					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 				.residentPrefectureKbnCode(
@@ -196,11 +198,11 @@ public class AccountRepositoryImpl implements AccountRepository {
 					.accountName(accountData.getAccountName())
 					.password(accountData.getPassword())
 					.birthdate(accountData.getBirthdate())
-					.sexKbnCode(accountData.getSexKbnCode())
+					.sexKbn(SexEnum.getOrDefault(accountData.getSexKbnCode()))
 					.birthplacePrefectureKbnCode(accountData.getBirthplacePrefectureKbnCode())
 					.residentPrefectureKbnCode(accountData.getResidentPrefectureKbnCode())
 					.freeMemo(accountData.getFreeMemo())
-					.authorityKbnCode(accountData.getAuthorityKbnCode())
+					.authorityKbn(AuthorityEnum.getOrDefault(accountData.getAuthorityKbnCode()))
 					.lastLoginDatetime(accountData.getLastLoginDatetime())
 					.loginFailureCount(accountData.getLoginFailureCount())
 					.build()).toList();

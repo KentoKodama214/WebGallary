@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.gallary.entity.PhotoMst;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.model.PhotoDeleteModel;
@@ -94,7 +95,7 @@ public class PhotoMstRepositoryImplIntegrationTest {
 			assertEquals("", actualData.getFirst().getPhotoJapaneseTitle());
 			assertEquals("", actualData.getFirst().getPhotoEnglishTitle());
 			assertEquals("", actualData.getFirst().getCaption());
-			assertEquals("none", actualData.getFirst().getDirectionKbnCode());
+			assertEquals("", actualData.getFirst().getDirectionKbnCode());
 			assertEquals(0, actualData.getFirst().getFocalLength());
 			assertEquals(0, BigDecimal.ZERO.compareTo(actualData.getFirst().getFValue()));
 			assertEquals(0, BigDecimal.ZERO.compareTo(actualData.getFirst().getShutterSpeed()));
@@ -116,7 +117,7 @@ public class PhotoMstRepositoryImplIntegrationTest {
 					.photoJapaneseTitle("タイトル14")
 					.photoEnglishTitle("title14")
 					.caption("キャプション14")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.focalLength(24)
 					.fValue(BigDecimal.valueOf(2.8))
 					.shutterSpeed(BigDecimal.valueOf(0.01))
@@ -237,7 +238,7 @@ public class PhotoMstRepositoryImplIntegrationTest {
 			assertEquals("", actualData.getFirst().getPhotoJapaneseTitle());
 			assertEquals("", actualData.getFirst().getPhotoEnglishTitle());
 			assertEquals("", actualData.getFirst().getCaption());
-			assertEquals("none", actualData.getFirst().getDirectionKbnCode());
+			assertEquals("", actualData.getFirst().getDirectionKbnCode());
 			assertEquals(0, actualData.getFirst().getFocalLength());
 			assertEquals(0, BigDecimal.ZERO.compareTo(actualData.getFirst().getFValue()));
 			assertEquals(0, BigDecimal.ZERO.compareTo(actualData.getFirst().getShutterSpeed()));
@@ -259,7 +260,7 @@ public class PhotoMstRepositoryImplIntegrationTest {
 					.photoJapaneseTitle("タイトル111")
 					.photoEnglishTitle("title111")
 					.caption("キャプション111")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.focalLength(50)
 					.fValue(BigDecimal.valueOf(8.0))
 					.shutterSpeed(BigDecimal.valueOf(1))

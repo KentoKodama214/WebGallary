@@ -16,7 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
+import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.exception.RegistFailureException;
@@ -77,7 +80,7 @@ public class PhotoServiceImpl implements PhotoService {
 		
 		return photoModelList.stream()
 					.filter(photoModel -> 
-						filteringByDirectionKbnCode(photoModel.getDirectionKbnCode(), photoListGetModel.getDirectionKbnCode()))
+						filteringByDirectionKbn(photoModel.getDirectionKbn(), photoListGetModel.getDirectionKbn()))
 					.filter(photoModel -> 
 						filteringByIsFavorite(photoModel.getIsFavorite(), photoListGetModel.getIsFavoriteOnly()))
 					.filter(photoModel -> 
@@ -173,13 +176,13 @@ public class PhotoServiceImpl implements PhotoService {
 		Account account = accountRepository.getByAccountNo(accountNo);
 		Integer count = photoMstRepository.count(accountNo);
 		
-		switch(account.getAuthorityKbnCode()) {
-			case "mini-user":
+		switch(AuthorityEnum.getOrDefault(account.getAuthorityKbnCode())) {
+			case MINI:
 				return count > (photoConfig.getMiniUserUpperLimit() - 1);
-			case "normal-user":
+			case NORMAL:
 				return count > (photoConfig.getNormalUserUpperLimit() - 1);
-			case "special-user":
-			case "administrator":
+			case SPECIAL:
+			case ADMINISTRATOR:
 				return false;
 			default:
 				return true;
@@ -189,19 +192,16 @@ public class PhotoServiceImpl implements PhotoService {
 	/**
 	 * 写真一覧の並び順のComparatorを取得する
 	 * 
-	 * @param	sortBy	並び順<p>
-	 * 					photoAt: 撮影日順<p>
-	 * 					favorite: お気に入り数順<p>
-	 * 					season: 季節・時期順
+	 * @param	sortBy	{@link SortPhotoEnum}
 	 * @return			{@link PhotoModel}のComparator
 	 */
-	private Comparator<PhotoModel> getComparator(String sortBy) {
+	private Comparator<PhotoModel> getComparator(SortPhotoEnum sortBy) {
 		switch(sortBy) {
-			case "photoAt":
+			case PHOTO_AT:
 				return Comparator.comparing(PhotoModel::getPhotoAt).reversed();
-			case "favorite":
+			case FAVORITE:
 				return Comparator.comparing(PhotoModel::getFavoriteCount).reversed();
-			case "season":
+			case SEASON:
 				return new Comparator<PhotoModel>() {
 					@Override
 					public int compare(PhotoModel photoModelA, PhotoModel photoModelB) {
@@ -222,13 +222,13 @@ public class PhotoServiceImpl implements PhotoService {
 	/**
 	 * 写真の向きでフィルタリングする
 	 * 
-	 * @param	targetDirectionKbnCode		フィルター対象の向き区分コード
-	 * @param	conditionDirectionKbnCode	フィルター条件の向き区分コード
+	 * @param	targetDirectionKbn	フィルター対象の向き区分
+	 * @param	conditionDirectionKbn	フィルター条件の向き区分
 	 * @return	フィルタリングして除外する場合はfalse
 	 */
-	private Boolean filteringByDirectionKbnCode(String targetDirectionKbnCode, String conditionDirectionKbnCode) {
-		if(Consts.STRING_EMPTY.equals(conditionDirectionKbnCode)) return true;
-		else return targetDirectionKbnCode.equals(conditionDirectionKbnCode);
+	private Boolean filteringByDirectionKbn(DirectionEnum targetDirectionKbn, DirectionEnum conditionDirectionKbn) {
+		if(DirectionEnum.NONE.equals(conditionDirectionKbn)) return true;
+		else return targetDirectionKbn.equals(conditionDirectionKbn);
 	}
 	
 	/**

@@ -1,5 +1,7 @@
 package com.web.gallary.controller.response;
 
+import com.web.gallary.enumuration.DirectionEnum;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,10 +27,9 @@ public class PhotoListResponse {
 	private String caption;
 	
 	/** 
-	 * 向き区分コード
+	 * 向き区分
 	 * <p>
-	 * vertical: 縦<p>
-	 * horizontal: 横
+	 * {@link DirectionEnum}
 	 */
-	private String directionKbnCode;
+	private DirectionEnum directionKbn;
 }

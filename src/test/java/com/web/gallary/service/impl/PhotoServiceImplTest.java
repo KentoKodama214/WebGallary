@@ -31,7 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
+import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.exception.RegistFailureException;
@@ -85,7 +87,6 @@ public class PhotoServiceImplTest {
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class getPhotoList {
 		List<PhotoModel> createPhotoModelList() {
-			String directionKbnCode = "vertical";
 			List<PhotoModel> photoModelList = new ArrayList<PhotoModel>();
 			
 			List<PhotoTagModel> photoTagModelList1 = new ArrayList<PhotoTagModel>();
@@ -111,7 +112,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2000, 12, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("DSC111.jpg")
 					.caption("キャプション1")
-					.directionKbnCode(directionKbnCode)
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(photoTagModelList1)
 					.build();
 			photoModelList.add(photoModel1);
@@ -139,7 +140,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2001, 6, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("DSC222.jpg")
 					.caption("キャプション2")
-					.directionKbnCode(directionKbnCode)
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(photoTagModelList2)
 					.build();
 			photoModelList.add(photoModel2);
@@ -167,7 +168,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 3, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("DSC333.jpg")
 					.caption("キャプション3")
-					.directionKbnCode(directionKbnCode)
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(photoTagModelList3)
 					.build();
 			photoModelList.add(photoModel3);
@@ -188,7 +189,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2001, 4, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("DSC444.jpg")
 					.caption("キャプション4")
-					.directionKbnCode(directionKbnCode)
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(photoTagModelList4)
 					.build();
 			photoModelList.add(photoModel4);
@@ -209,7 +210,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2001, 5, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("DSC444.jpg")
 					.caption("キャプション4")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(photoTagModelList5)
 					.build();
 			photoModelList.add(photoModel5);
@@ -222,7 +223,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2001, 6, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("DSC666.jpg")
 					.caption("キャプション6")
-					.directionKbnCode(directionKbnCode)
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build();
 			photoModelList.add(photoModel6);
@@ -235,8 +236,6 @@ public class PhotoServiceImplTest {
 		@DisplayName("正常系：写真が存在しなかった場合")
 		void getPhotoList_not_found() {
 			String accountId = "aaaaaaaa";
-			String directionKbnCode = "";
-			String sortBy = "photoAt";
 			List<String> tags = new ArrayList<String>();
 			
 			Account account = Account.builder().accountNo(1).build();
@@ -248,10 +247,10 @@ public class PhotoServiceImplTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(2)
 					.photoAccountId(accountId)
-					.directionKbnCode(directionKbnCode)
+					.directionKbn(DirectionEnum.NONE)
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy(sortBy)
+					.sortBy(SortPhotoEnum.PHOTO_AT)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -269,8 +268,6 @@ public class PhotoServiceImplTest {
 		@DisplayName("正常系：写真が存在した場合で、撮影日順に並び替え")
 		void getPhotoList_sortBy_photoAt() {
 			String accountId = "aaaaaaaa";
-			String directionKbnCode = "vertical";
-			String sortBy = "photoAt";
 			List<String> tags = Arrays.asList("太陽", "海");
 			
 			Account account = Account.builder().accountNo(1).build();
@@ -282,10 +279,10 @@ public class PhotoServiceImplTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(2)
 					.photoAccountId(accountId)
-					.directionKbnCode(directionKbnCode)
+					.directionKbn(DirectionEnum.VERTICAL)
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy(sortBy)
+					.sortBy(SortPhotoEnum.PHOTO_AT)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -307,8 +304,6 @@ public class PhotoServiceImplTest {
 		@DisplayName("正常系：写真が存在した場合で、お気に入り数順に並び替え")
 		void getPhotoList_sortBy_Favorite() {
 			String accountId = "aaaaaaaa";
-			String directionKbnCode = "vertical";
-			String sortBy = "favorite";
 			List<String> tags = Arrays.asList("太陽", "海");
 			
 			Account account = Account.builder().accountNo(1).build();
@@ -320,10 +315,10 @@ public class PhotoServiceImplTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(2)
 					.photoAccountId(accountId)
-					.directionKbnCode(directionKbnCode)
+					.directionKbn(DirectionEnum.VERTICAL)
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy(sortBy)
+					.sortBy(SortPhotoEnum.FAVORITE)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -345,8 +340,6 @@ public class PhotoServiceImplTest {
 		@DisplayName("正常系：写真が存在した場合で、季節・時期順に並び替え")
 		void getPhotoList_sortBy_season() {
 			String accountId = "aaaaaaaa";
-			String directionKbnCode = "vertical";
-			String sortBy = "season";
 			List<String> tags = Arrays.asList("太陽", "海");
 			
 			Account account = Account.builder().accountNo(1).build();
@@ -358,10 +351,10 @@ public class PhotoServiceImplTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(2)
 					.photoAccountId(accountId)
-					.directionKbnCode(directionKbnCode)
+					.directionKbn(DirectionEnum.VERTICAL)
 					.isFavoriteOnly(false)
 					.tagList(tags)
-					.sortBy(sortBy)
+					.sortBy(SortPhotoEnum.SEASON)
 					.build();
 			
 			List<PhotoModel> actual = photoServiceImpl.getPhotoList(photoListGetModel);
@@ -1086,17 +1079,6 @@ public class PhotoServiceImplTest {
 			doReturn(1000).when(photoMstRepositoryImpl).count(accountNo);
 			assertFalse(photoServiceImpl.isReachedUpperLimit(accountNo));
 		}
-		
-		@Test
-		@Order(8)
-		@DisplayName("正常系：それ以外の場合")
-		void isReachedUpperLimit_others() {
-			Integer accountNo = 1;
-			Account account = Account.builder().authorityKbnCode("human").build();
-			doReturn(account).when(accountRepositoryImpl).getByAccountNo(accountNo);
-			doReturn(1000).when(photoMstRepositoryImpl).count(accountNo);
-			assertTrue(photoServiceImpl.isReachedUpperLimit(accountNo));
-		}
 	}
 	
 	@Nested
@@ -1108,10 +1090,10 @@ public class PhotoServiceImplTest {
 		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：photoAtの場合")
 		void getComparator_photoAt() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", String.class);
+			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", SortPhotoEnum.class);
 			getComparator.setAccessible(true);
 			
-			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, "photoAt");
+			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, SortPhotoEnum.PHOTO_AT);
 			
 			List<PhotoModel> photoModelList = new ArrayList<PhotoModel>();
 			photoModelList.add(PhotoModel.builder()
@@ -1122,7 +1104,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC111.jpg")
 					.caption("キャプション1")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1133,7 +1115,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 2, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC222.jpg")
 					.caption("キャプション2")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1144,7 +1126,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 3, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC333.jpg")
 					.caption("キャプション3")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1155,7 +1137,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2001, 3, 31, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC444.jpg")
 					.caption("キャプション4")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1166,7 +1148,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2003, 3, 31, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC555.jpg")
 					.caption("キャプション5")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			
@@ -1183,10 +1165,10 @@ public class PhotoServiceImplTest {
 		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：favoriteの場合")
 		void getComparator_favorite() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", String.class);
+			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", SortPhotoEnum.class);
 			getComparator.setAccessible(true);
 			
-			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, "favorite");
+			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, SortPhotoEnum.FAVORITE);
 			
 			List<PhotoModel> photoModelList = new ArrayList<PhotoModel>();
 			photoModelList.add(PhotoModel.builder()
@@ -1197,7 +1179,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC111.jpg")
 					.caption("キャプション1")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1208,7 +1190,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 2, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC222.jpg")
 					.caption("キャプション2")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1219,7 +1201,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 3, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC333.jpg")
 					.caption("キャプション3")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1230,7 +1212,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2001, 3, 31, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC444.jpg")
 					.caption("キャプション4")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1241,7 +1223,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2003, 3, 31, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC555.jpg")
 					.caption("キャプション5")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			
@@ -1258,10 +1240,10 @@ public class PhotoServiceImplTest {
 		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：seasonの場合")
 		void getComparator_season() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", String.class);
+			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", SortPhotoEnum.class);
 			getComparator.setAccessible(true);
 			
-			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, "season");
+			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, SortPhotoEnum.SEASON);
 			
 			List<PhotoModel> photoModelList = new ArrayList<PhotoModel>();
 			photoModelList.add(PhotoModel.builder()
@@ -1272,7 +1254,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC111.jpg")
 					.caption("キャプション1")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1283,7 +1265,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 2, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC222.jpg")
 					.caption("キャプション2")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1294,7 +1276,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 3, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC333.jpg")
 					.caption("キャプション3")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1305,7 +1287,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2001, 3, 31, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC444.jpg")
 					.caption("キャプション4")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1316,7 +1298,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2003, 3, 31, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC555.jpg")
 					.caption("キャプション5")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			
@@ -1333,10 +1315,10 @@ public class PhotoServiceImplTest {
 		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：それ以外の場合")
 		void getComparator_others() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", String.class);
+			Method getComparator = PhotoServiceImpl.class.getDeclaredMethod("getComparator", SortPhotoEnum.class);
 			getComparator.setAccessible(true);
 			
-			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, "photoAt");
+			Comparator<PhotoModel> actual = (Comparator<PhotoModel>) getComparator.invoke(photoServiceImpl, SortPhotoEnum.PHOTO_AT);
 			
 			List<PhotoModel> photoModelList = new ArrayList<PhotoModel>();
 			photoModelList.add(PhotoModel.builder()
@@ -1347,7 +1329,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC111.jpg")
 					.caption("キャプション1")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1358,7 +1340,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 2, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC222.jpg")
 					.caption("キャプション2")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1369,7 +1351,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2002, 3, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC333.jpg")
 					.caption("キャプション3")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1380,7 +1362,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2001, 3, 31, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC444.jpg")
 					.caption("キャプション4")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoModelList.add(PhotoModel.builder()
@@ -1391,7 +1373,7 @@ public class PhotoServiceImplTest {
 					.photoAt(OffsetDateTime.of(2003, 3, 31, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://www.xxx.com/DSC555.jpg")
 					.caption("キャプション5")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			
@@ -1407,32 +1389,32 @@ public class PhotoServiceImplTest {
 	@Nested
 	@Order(7)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class filteringByDirectionKbnCode {
+	class filteringByDirectionKbn {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：抽出条件が未指定の場合")
-		void filteringByDirectionKbnCode_not_condition() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method filteringByDirectionKbnCode = PhotoServiceImpl.class.getDeclaredMethod("filteringByDirectionKbnCode", String.class, String.class);
-			filteringByDirectionKbnCode.setAccessible(true);
-			assertTrue((Boolean) filteringByDirectionKbnCode.invoke(photoServiceImpl, "", ""));
+		void filteringByDirectionKbn_not_condition() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
+			Method filteringByDirectionKbn = PhotoServiceImpl.class.getDeclaredMethod("filteringByDirectionKbn", DirectionEnum.class, DirectionEnum.class);
+			filteringByDirectionKbn.setAccessible(true);
+			assertTrue((Boolean) filteringByDirectionKbn.invoke(photoServiceImpl, DirectionEnum.NONE, DirectionEnum.NONE));
 		}
 		
 		@Test
 		@Order(2)
 		@DisplayName("正常系：抽出条件が指定されていて、条件と一致の場合")
-		void filteringByDirectionKbnCode_match_condition() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method filteringByDirectionKbnCode = PhotoServiceImpl.class.getDeclaredMethod("filteringByDirectionKbnCode", String.class, String.class);
-			filteringByDirectionKbnCode.setAccessible(true);
-			assertTrue((Boolean) filteringByDirectionKbnCode.invoke(photoServiceImpl, "vertical", "vertical"));
+		void filteringByDirectionKbn_match_condition() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
+			Method filteringByDirectionKbn = PhotoServiceImpl.class.getDeclaredMethod("filteringByDirectionKbn", DirectionEnum.class, DirectionEnum.class);
+			filteringByDirectionKbn.setAccessible(true);
+			assertTrue((Boolean) filteringByDirectionKbn.invoke(photoServiceImpl, DirectionEnum.VERTICAL, DirectionEnum.VERTICAL));
 		}
 		
 		@Test
 		@Order(3)
 		@DisplayName("正常系：抽出条件が指定されていて、条件と不一致の場合")
-		void filteringByDirectionKbnCode_mismatch_condition() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-			Method filteringByDirectionKbnCode = PhotoServiceImpl.class.getDeclaredMethod("filteringByDirectionKbnCode", String.class, String.class);
-			filteringByDirectionKbnCode.setAccessible(true);
-			assertFalse((Boolean) filteringByDirectionKbnCode.invoke(photoServiceImpl, "vertical", "horizontal"));
+		void filteringByDirectionKbn_mismatch_condition() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
+			Method filteringByDirectionKbn = PhotoServiceImpl.class.getDeclaredMethod("filteringByDirectionKbn", DirectionEnum.class, DirectionEnum.class);
+			filteringByDirectionKbn.setAccessible(true);
+			assertFalse((Boolean) filteringByDirectionKbn.invoke(photoServiceImpl, DirectionEnum.VERTICAL, DirectionEnum.HORIZONTAL));
 		}
 	}
 	

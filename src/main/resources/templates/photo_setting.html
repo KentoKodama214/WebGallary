@@ -51,7 +51,7 @@
 			<img id="preview" th:src="*{imageFilePath}" name="imageFilePath" width="100%"/>
 			<input type="file" id="image_file" name="imageFile" accept="image/png, image/jpeg" th:value="${imageFile}" onchange="previewFile()" />
 			<input type="hidden" name="imageFilePath" th:value="*{imageFilePath}"/>
-			<input type="hidden" id="direction_kbn_code" name="directionKbnCode" th:value="*{directionKbnCode}"/>
+			<input type="hidden" id="direction_kbn_code" name="directionKbn" th:value="*{directionKbn}"/>
 			<input type="hidden" id="max_file_size_mb" name="maxFileSizeMb" th:value="${maxFileSizeMb}"/>
 			<p class="image_file_error"></p>
 			

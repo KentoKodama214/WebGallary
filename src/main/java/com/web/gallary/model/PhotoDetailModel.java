@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.gallary.enumuration.DirectionEnum;
+
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
@@ -61,12 +63,11 @@ public class PhotoDetailModel {
 	private String caption;
 
 	/** 
-	 * 向き区分コード
+	 * 向き区分
 	 * <p>
-	 * vertical: 縦<p>
-	 * horizontal: 横
+	 * {@link DirectionEnum}
 	 */
-	private String directionKbnCode;
+	private DirectionEnum directionKbn;
 
 	/** 焦点距離 */
 	private Integer focalLength;

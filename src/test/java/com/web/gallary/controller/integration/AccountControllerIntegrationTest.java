@@ -32,6 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.web.gallary.AccountPrincipal;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
+import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.model.AccountModel;
 import com.web.gallary.model.KbnMstModel;
 
@@ -342,11 +344,11 @@ public class AccountControllerIntegrationTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
+					.sexKbn(SexEnum.NONE)
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -356,11 +358,11 @@ public class AccountControllerIntegrationTest {
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("man")
+					.sexKbn(SexEnum.MAN)
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -370,11 +372,11 @@ public class AccountControllerIntegrationTest {
 					.accountName("CCCCCCCC")
 					.password("$2a$10$password3")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
+					.sexKbn(SexEnum.NONE)
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -413,11 +415,11 @@ public class AccountControllerIntegrationTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
+					.sexKbn(SexEnum.NONE)
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -427,11 +429,11 @@ public class AccountControllerIntegrationTest {
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("man")
+					.sexKbn(SexEnum.MAN)
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());
@@ -441,11 +443,11 @@ public class AccountControllerIntegrationTest {
 					.accountName("CCCCCCCC")
 					.password("$2a$10$password3")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
+					.sexKbn(SexEnum.NONE)
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build());

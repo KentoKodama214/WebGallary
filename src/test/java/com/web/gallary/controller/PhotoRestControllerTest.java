@@ -41,6 +41,8 @@ import com.web.gallary.controller.request.PhotoSaveRequest;
 import com.web.gallary.controller.request.PhotoTagSaveRequest;
 import com.web.gallary.controller.response.PhotoEditResponse;
 import com.web.gallary.controller.response.PhotoListGetResponse;
+import com.web.gallary.enumuration.DirectionEnum;
+import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.BadRequestException;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.ForbiddenAccountException;
@@ -84,7 +86,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC111.jpg")
 					.caption("キャプション1")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -95,7 +97,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC222.jpg")
 					.caption("キャプション2")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -106,7 +108,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC333.jpg")
 					.caption("キャプション3")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -117,7 +119,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC444.jpg")
 					.caption("キャプション4")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -128,7 +130,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC555.jpg")
 					.caption("キャプション5")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -139,7 +141,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC666.jpg")
 					.caption("キャプション6")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -150,7 +152,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC777.jpg")
 					.caption("キャプション7")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			
@@ -184,27 +186,27 @@ public class PhotoRestControllerTest {
 			assertFalse(actual.getBody().getPhotoList().get(0).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.getBody().getPhotoList().get(0).getImageFilePath());
 			assertEquals("キャプション1", actual.getBody().getPhotoList().get(0).getCaption());
-			assertEquals("vertical", actual.getBody().getPhotoList().get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.getBody().getPhotoList().get(0).getDirectionKbn());
 			assertEquals(1, actual.getBody().getPhotoList().get(1).getAccountNo());
 			assertEquals(2, actual.getBody().getPhotoList().get(1).getPhotoNo());
 			assertTrue(actual.getBody().getPhotoList().get(1).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC222.jpg", actual.getBody().getPhotoList().get(1).getImageFilePath());
 			assertEquals("キャプション2", actual.getBody().getPhotoList().get(1).getCaption());
-			assertEquals("horizontal", actual.getBody().getPhotoList().get(1).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getBody().getPhotoList().get(1).getDirectionKbn());
 			assertEquals(1, actual.getBody().getPhotoList().get(2).getAccountNo());
 			assertEquals(3, actual.getBody().getPhotoList().get(2).getPhotoNo());
 			assertTrue(actual.getBody().getPhotoList().get(2).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC333.jpg", actual.getBody().getPhotoList().get(2).getImageFilePath());
 			assertEquals("キャプション3", actual.getBody().getPhotoList().get(2).getCaption());
-			assertEquals("horizontal", actual.getBody().getPhotoList().get(2).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getBody().getPhotoList().get(2).getDirectionKbn());
 			
 			PhotoListGetModel photoListGetModel = photoListGetModelCaptor.getValue();
 			assertEquals(1, photoListGetModel.getAccountNo());
 			assertEquals(photoAccountId, photoListGetModel.getPhotoAccountId());
-			assertEquals("", photoListGetModel.getDirectionKbnCode());
+			assertEquals(DirectionEnum.NONE, photoListGetModel.getDirectionKbn());
 			assertFalse(photoListGetModel.getIsFavoriteOnly());
 			assertEquals(new ArrayList<String>(), photoListGetModel.getTagList());
-			assertEquals("photoAt", photoListGetModel.getSortBy());
+			assertEquals(SortPhotoEnum.PHOTO_AT, photoListGetModel.getSortBy());
 		}
 		
 		@Test
@@ -212,13 +214,11 @@ public class PhotoRestControllerTest {
 		@DisplayName("正常系：タグに半角スペースが含まれている場合")
 		void getPhotoList_with_halfspace_tag() {
 			String photoAccountId = "aaaaaaaa";
-			String directionKbnCode = "vertical";
-			String sortBy = "season";
 			
 			PhotoListRequest photoListRequest = new PhotoListRequest();
-			photoListRequest.setDirectionKbnCode(directionKbnCode);
+			photoListRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			photoListRequest.setIsFavorite(true);
-			photoListRequest.setSortBy(sortBy);
+			photoListRequest.setSortBy(SortPhotoEnum.SEASON);
 			photoListRequest.setTagList("太陽 海");
 			photoListRequest.setPageNo(2);
 			
@@ -242,16 +242,16 @@ public class PhotoRestControllerTest {
 			assertTrue(actual.getBody().getPhotoList().get(0).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getBody().getPhotoList().get(0).getImageFilePath());
 			assertEquals("キャプション4", actual.getBody().getPhotoList().get(0).getCaption());
-			assertEquals("horizontal", actual.getBody().getPhotoList().get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getBody().getPhotoList().get(0).getDirectionKbn());
 			
 			PhotoListGetModel photoListGetModel = photoListGetModelCaptor.getValue();
 			assertEquals(1, photoListGetModel.getAccountNo());
 			assertEquals(photoAccountId, photoListGetModel.getPhotoAccountId());
-			assertEquals(directionKbnCode, photoListGetModel.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoListGetModel.getDirectionKbn());
 			assertTrue(photoListGetModel.getIsFavoriteOnly());
 			assertEquals("太陽", photoListGetModel.getTagList().get(0));
 			assertEquals("海", photoListGetModel.getTagList().get(1));
-			assertEquals(sortBy, photoListGetModel.getSortBy());
+			assertEquals(SortPhotoEnum.SEASON, photoListGetModel.getSortBy());
 		}
 		
 		@Test
@@ -259,13 +259,11 @@ public class PhotoRestControllerTest {
 		@DisplayName("正常系：タグに全角スペースが含まれている場合")
 		void getPhotoList_with_fullspace_tag() {
 			String photoAccountId = "aaaaaaaa";
-			String directionKbnCode = "vertical";
-			String sortBy = "season";
 			
 			PhotoListRequest photoListRequest = new PhotoListRequest();
-			photoListRequest.setDirectionKbnCode(directionKbnCode);
+			photoListRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			photoListRequest.setIsFavorite(true);
-			photoListRequest.setSortBy(sortBy);
+			photoListRequest.setSortBy(SortPhotoEnum.SEASON);
 			photoListRequest.setTagList("太陽　海");
 			photoListRequest.setPageNo(2);
 			
@@ -289,16 +287,16 @@ public class PhotoRestControllerTest {
 			assertTrue(actual.getBody().getPhotoList().get(0).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getBody().getPhotoList().get(0).getImageFilePath());
 			assertEquals("キャプション4", actual.getBody().getPhotoList().get(0).getCaption());
-			assertEquals("horizontal", actual.getBody().getPhotoList().get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getBody().getPhotoList().get(0).getDirectionKbn());
 			
 			PhotoListGetModel photoListGetModel = photoListGetModelCaptor.getValue();
 			assertEquals(1, photoListGetModel.getAccountNo());
 			assertEquals(photoAccountId, photoListGetModel.getPhotoAccountId());
-			assertEquals(directionKbnCode, photoListGetModel.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoListGetModel.getDirectionKbn());
 			assertTrue(photoListGetModel.getIsFavoriteOnly());
 			assertEquals("太陽", photoListGetModel.getTagList().get(0));
 			assertEquals("海", photoListGetModel.getTagList().get(1));
-			assertEquals(sortBy, photoListGetModel.getSortBy());
+			assertEquals(SortPhotoEnum.SEASON, photoListGetModel.getSortBy());
 		}
 		
 		@Test
@@ -326,10 +324,10 @@ public class PhotoRestControllerTest {
 			PhotoListGetModel photoListGetModel = photoListGetModelCaptor.getValue();
 			assertEquals(1, photoListGetModel.getAccountNo());
 			assertEquals(photoAccountId, photoListGetModel.getPhotoAccountId());
-			assertEquals("", photoListGetModel.getDirectionKbnCode());
+			assertEquals(DirectionEnum.NONE, photoListGetModel.getDirectionKbn());
 			assertFalse(photoListGetModel.getIsFavoriteOnly());
 			assertEquals(new ArrayList<String>(), photoListGetModel.getTagList());
-			assertEquals("photoAt", photoListGetModel.getSortBy());
+			assertEquals(SortPhotoEnum.PHOTO_AT, photoListGetModel.getSortBy());
 		}
 	}
 	
@@ -355,6 +353,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setAccountNo(1);
 			photoSaveRequest.setImageFile(multipartFile);
 			photoSaveRequest.setImageFilePath(imageFilePath);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			
 			BindingResult result = new DataBinder(photoSaveRequest).getBindingResult();
 			
@@ -390,7 +389,7 @@ public class PhotoRestControllerTest {
 			assertNull(photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertNull(photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertNull(photoDetailModelList.getFirst().getCaption());
-			assertNull(photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertNull(photoDetailModelList.getFirst().getFocalLength());
 			assertNull(photoDetailModelList.getFirst().getFValue());
 			assertNull(photoDetailModelList.getFirst().getShutterSpeed());
@@ -419,7 +418,6 @@ public class PhotoRestControllerTest {
 			String photoJapaneseTitle = "タイトル";
 			String photoEnglishTitle = "title";
 			String caption = "キャプション";
-			String directionKbnCode = "vertical";
 			List<PhotoTagSaveRequest> photoTagRegistRequestList = new ArrayList<PhotoTagSaveRequest>();
 			PhotoTagSaveRequest photoTagSaveRequest1 = new PhotoTagSaveRequest();
 			photoTagSaveRequest1.setAccountNo(1);
@@ -451,7 +449,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setPhotoJapaneseTitle(photoJapaneseTitle);
 			photoSaveRequest.setPhotoEnglishTitle(photoEnglishTitle);
 			photoSaveRequest.setCaption(caption);
-			photoSaveRequest.setDirectionKbnCode(directionKbnCode);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			photoSaveRequest.setFocalLength(50);
 			photoSaveRequest.setFValue(BigDecimal.valueOf(8.0));
 			photoSaveRequest.setShutterSpeed(BigDecimal.valueOf(0.001));
@@ -492,7 +490,7 @@ public class PhotoRestControllerTest {
 			assertEquals(photoJapaneseTitle, photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertEquals(photoEnglishTitle, photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertEquals(caption, photoDetailModelList.getFirst().getCaption());
-			assertEquals(directionKbnCode, photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertEquals(50, photoDetailModelList.getFirst().getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(photoDetailModelList.getFirst().getFValue()));
 			assertEquals(0, BigDecimal.valueOf(0.001).compareTo(photoDetailModelList.getFirst().getShutterSpeed()));
@@ -632,6 +630,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setPhotoAt(null);
 			photoSaveRequest.setImageFile(multipartFile);
 			photoSaveRequest.setImageFilePath(imageFilePath);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			
 			BindingResult result = new DataBinder(photoSaveRequest).getBindingResult();
 			
@@ -662,7 +661,7 @@ public class PhotoRestControllerTest {
 			assertNull(photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertNull(photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertNull(photoDetailModelList.getFirst().getCaption());
-			assertNull(photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertNull(photoDetailModelList.getFirst().getFocalLength());
 			assertNull(photoDetailModelList.getFirst().getFValue());
 			assertNull(photoDetailModelList.getFirst().getShutterSpeed());
@@ -692,6 +691,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setPhotoAt(null);
 			photoSaveRequest.setImageFile(multipartFile);
 			photoSaveRequest.setImageFilePath(imageFilePath);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			
 			BindingResult result = new DataBinder(photoSaveRequest).getBindingResult();
 			
@@ -722,7 +722,7 @@ public class PhotoRestControllerTest {
 			assertNull(photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertNull(photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertNull(photoDetailModelList.getFirst().getCaption());
-			assertNull(photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertNull(photoDetailModelList.getFirst().getFocalLength());
 			assertNull(photoDetailModelList.getFirst().getFValue());
 			assertNull(photoDetailModelList.getFirst().getShutterSpeed());
@@ -751,6 +751,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setPhotoNo(1);
 			photoSaveRequest.setImageFile(multipartFile);
 			photoSaveRequest.setImageFilePath(imageFilePath);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			
 			BindingResult result = new DataBinder(photoSaveRequest).getBindingResult();
 			
@@ -781,7 +782,7 @@ public class PhotoRestControllerTest {
 			assertNull(photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertNull(photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertNull(photoDetailModelList.getFirst().getCaption());
-			assertNull(photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertNull(photoDetailModelList.getFirst().getFocalLength());
 			assertNull(photoDetailModelList.getFirst().getFValue());
 			assertNull(photoDetailModelList.getFirst().getShutterSpeed());
@@ -926,7 +927,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC111.jpg")
 					.caption("キャプション1")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -937,7 +938,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC222.jpg")
 					.caption("キャプション2")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -948,7 +949,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC333.jpg")
 					.caption("キャプション3")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -959,7 +960,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC444.jpg")
 					.caption("キャプション4")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -970,7 +971,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC555.jpg")
 					.caption("キャプション5")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -981,7 +982,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC666.jpg")
 					.caption("キャプション6")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			photoList.add(PhotoModel.builder()
@@ -992,7 +993,7 @@ public class PhotoRestControllerTest {
 					.photoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.imageFilePath("https://localhost:8080/image/aaaaaaaa/DSC777.jpg")
 					.caption("キャプション7")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.photoTagModelList(new ArrayList<PhotoTagModel>())
 					.build());
 			
@@ -1018,7 +1019,7 @@ public class PhotoRestControllerTest {
 			assertFalse(actual.getPhotoList().getFirst().getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.getPhotoList().getFirst().getImageFilePath());
 			assertEquals("キャプション1", actual.getPhotoList().getFirst().getCaption());
-			assertEquals("vertical", actual.getPhotoList().getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.getPhotoList().getFirst().getDirectionKbn());
 			assertTrue(actual.getIsLast());
 		}
 		
@@ -1041,19 +1042,19 @@ public class PhotoRestControllerTest {
 			assertFalse(actual.getPhotoList().get(0).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC111.jpg", actual.getPhotoList().get(0).getImageFilePath());
 			assertEquals("キャプション1", actual.getPhotoList().get(0).getCaption());
-			assertEquals("vertical", actual.getPhotoList().get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.getPhotoList().get(0).getDirectionKbn());
 			assertEquals(1, actual.getPhotoList().get(1).getAccountNo());
 			assertEquals(2, actual.getPhotoList().get(1).getPhotoNo());
 			assertTrue(actual.getPhotoList().get(1).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC222.jpg", actual.getPhotoList().get(1).getImageFilePath());
 			assertEquals("キャプション2", actual.getPhotoList().get(1).getCaption());
-			assertEquals("horizontal", actual.getPhotoList().get(1).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getPhotoList().get(1).getDirectionKbn());
 			assertEquals(1, actual.getPhotoList().get(2).getAccountNo());
 			assertEquals(3, actual.getPhotoList().get(2).getPhotoNo());
 			assertTrue(actual.getPhotoList().get(2).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC333.jpg", actual.getPhotoList().get(2).getImageFilePath());
 			assertEquals("キャプション3", actual.getPhotoList().get(2).getCaption());
-			assertEquals("horizontal", actual.getPhotoList().get(2).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getPhotoList().get(2).getDirectionKbn());
 			assertFalse(actual.getIsLast());
 		}
 		
@@ -1076,7 +1077,7 @@ public class PhotoRestControllerTest {
 			assertTrue(actual.getPhotoList().get(0).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getPhotoList().get(0).getImageFilePath());
 			assertEquals("キャプション4", actual.getPhotoList().get(0).getCaption());
-			assertEquals("horizontal", actual.getPhotoList().get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getPhotoList().get(0).getDirectionKbn());
 			assertTrue(actual.getIsLast());
 		}
 		
@@ -1099,19 +1100,19 @@ public class PhotoRestControllerTest {
 			assertTrue(actual.getPhotoList().get(0).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC444.jpg", actual.getPhotoList().get(0).getImageFilePath());
 			assertEquals("キャプション4", actual.getPhotoList().get(0).getCaption());
-			assertEquals("horizontal", actual.getPhotoList().get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getPhotoList().get(0).getDirectionKbn());
 			assertEquals(1, actual.getPhotoList().get(1).getAccountNo());
 			assertEquals(5, actual.getPhotoList().get(1).getPhotoNo());
 			assertTrue(actual.getPhotoList().get(1).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC555.jpg", actual.getPhotoList().get(1).getImageFilePath());
 			assertEquals("キャプション5", actual.getPhotoList().get(1).getCaption());
-			assertEquals("horizontal", actual.getPhotoList().get(1).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getPhotoList().get(1).getDirectionKbn());
 			assertEquals(1, actual.getPhotoList().get(2).getAccountNo());
 			assertEquals(6, actual.getPhotoList().get(2).getPhotoNo());
 			assertTrue(actual.getPhotoList().get(2).getIsFavorite());
 			assertEquals("https://localhost:8080/image/aaaaaaaa/DSC666.jpg", actual.getPhotoList().get(2).getImageFilePath());
 			assertEquals("キャプション6", actual.getPhotoList().get(2).getCaption());
-			assertEquals("horizontal", actual.getPhotoList().get(2).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getPhotoList().get(2).getDirectionKbn());
 			assertFalse(actual.getIsLast());
 		}
 	}

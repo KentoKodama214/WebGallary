@@ -102,7 +102,7 @@ async function regist(obj) {
 		accountName: AccountName.value,
 		newPassword: NewPassword.value,
 		birthdate: Birthdate.value,
-		sexKbnCode: document.getElementById('sexKbnCode').value,
+		sexKbn: document.getElementById('sexKbn').value,
 		birthplacePrefectureKbnCode: document.getElementById('birthplacePrefectureKbnCode').value,
 		residentPrefectureKbnCode: document.getElementById('residentPrefectureKbnCode').value,
 		freeMemo: document.getElementById('free_memo').value

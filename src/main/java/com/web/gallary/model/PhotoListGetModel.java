@@ -2,6 +2,9 @@ package com.web.gallary.model;
 
 import java.util.List;
 
+import com.web.gallary.enumuration.DirectionEnum;
+import com.web.gallary.enumuration.SortPhotoEnum;
+
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
@@ -20,13 +23,12 @@ public class PhotoListGetModel {
 	private String photoAccountId;
 	
 	/** 
-	 * 写真の向き
+	 * 向き区分
 	 * <p>
-	 * vertical: 縦<p>
-	 * horizontal: 横
+	 * {@link DirectionEnum}
 	 */
 	@NonNull
-	private String directionKbnCode;
+	private DirectionEnum directionKbn;
 	
 	/** お気に入り写真のみ */
 	@NonNull
@@ -39,10 +41,8 @@ public class PhotoListGetModel {
 	/** 
 	 * 並び順
 	 * <p>
-	 * photoAt: 撮影日順<p>
-	 * favorite: お気に入り数順<p>
-	 * season: 季節順
+	 * {@link SortPhotoEnum}
 	 */
 	@NonNull
-	private String sortBy;
+	private SortPhotoEnum sortBy;
 }

@@ -18,7 +18,7 @@ function clickSearch() {
 }
 
 function updateFiltering() {
-	const DirectionKbnCode = document.getElementsByName('directionKbnCode')[0];
+	const DirectionKbnCode = document.getElementsByName('directionKbn')[0];
 	directionKbnCode = DirectionKbnCode.options[DirectionKbnCode.selectedIndex].value;
 	let directionText = ''
 	if(DirectionKbnCode.options[DirectionKbnCode.selectedIndex].label != "") {
@@ -113,7 +113,7 @@ async function getPhotoList() {
 	const photoAccountId = document.getElementById('owner_id').value;
 	
 	const requestData = {
-		directionKbnCode: directionKbnCode,
+		directionKbn: directionKbnCode,
 		isFavorite: isFavorite,
 		tagList: tagList,
 		sortBy: sortBy,
@@ -155,7 +155,7 @@ function createPhoto(photo) {
 	formTag.className = 'photo_detail';
 	formTag.method = 'get';
 	formTag.action = '/photo/' + photoAccountId + '/photo_detail';
-	if(photo.directionKbnCode == 'horizontal') {
+	if(photo.directionKbn == 'horizontal') {
 		formTag.style.width = '100%';
 	} else {
 		formTag.style.width = '100px';
@@ -169,7 +169,7 @@ function createPhoto(photo) {
 	imageTag.name = 'imageFilePath';
 	imageTag.src = photo.imageFilePath;
 	imageTag.setAttribute('onclick', 'clickPhoto(this)');
-	if(photo.directionKbnCode == 'horizontal') {
+	if(photo.directionKbn == 'horizontal') {
 		imageTag.style.top = '45px';
 		imageTag.style.width = '100%';
 	} else {

@@ -44,6 +44,7 @@ import com.web.gallary.entity.Account;
 import com.web.gallary.entity.PhotoFavorite;
 import com.web.gallary.entity.PhotoMst;
 import com.web.gallary.entity.PhotoTagMst;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 
 @ActiveProfiles("test")
@@ -91,35 +92,35 @@ public class PhotoRestControllerIntegrationTest {
 			assertFalse(photoList.get(0).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC19.jpg", photoList.get(0).get("imageFilePath").asText());
 			assertEquals("caption19", photoList.get(0).get("caption").asText());
-			assertEquals("horizontal", photoList.get(0).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.HORIZONTAL.name(), photoList.get(0).get("directionKbn").asText());
 			
 			assertEquals(1, photoList.get(1).get("accountNo").asInt());
 			assertEquals(8, photoList.get(1).get("photoNo").asInt());
 			assertFalse(photoList.get(1).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC18.jpg", photoList.get(1).get("imageFilePath").asText());
 			assertEquals("caption18", photoList.get(1).get("caption").asText());
-			assertEquals("vertical", photoList.get(1).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.VERTICAL.name(), photoList.get(1).get("directionKbn").asText());
 			
 			assertEquals(1, photoList.get(2).get("accountNo").asInt());
 			assertEquals(7, photoList.get(2).get("photoNo").asInt());
 			assertFalse(photoList.get(2).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC17.jpg", photoList.get(2).get("imageFilePath").asText());
 			assertEquals("caption17", photoList.get(2).get("caption").asText());
-			assertEquals("vertical", photoList.get(2).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.VERTICAL.name(), photoList.get(2).get("directionKbn").asText());
 			
 			assertEquals(1, photoList.get(3).get("accountNo").asInt());
 			assertEquals(6, photoList.get(3).get("photoNo").asInt());
 			assertFalse(photoList.get(3).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC16.jpg", photoList.get(3).get("imageFilePath").asText());
 			assertEquals("caption16", photoList.get(3).get("caption").asText());
-			assertEquals("horizontal", photoList.get(3).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.HORIZONTAL.name(), photoList.get(3).get("directionKbn").asText());
 			
 			assertEquals(1, photoList.get(4).get("accountNo").asInt());
 			assertEquals(5, photoList.get(4).get("photoNo").asInt());
 			assertFalse(photoList.get(4).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC15.jpg", photoList.get(4).get("imageFilePath").asText());
 			assertEquals("caption15", photoList.get(4).get("caption").asText());
-			assertEquals("vertical", photoList.get(4).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.VERTICAL.name(), photoList.get(4).get("directionKbn").asText());
 		}
 		
 		@Test
@@ -152,7 +153,7 @@ public class PhotoRestControllerIntegrationTest {
 			assertFalse(photoList.get(0).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC11.jpg", photoList.get(0).get("imageFilePath").asText());
 			assertEquals("caption11", photoList.get(0).get("caption").asText());
-			assertEquals("horizontal", photoList.get(0).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.HORIZONTAL.name(), photoList.get(0).get("directionKbn").asText());
 		}
 		
 		@Test
@@ -186,7 +187,7 @@ public class PhotoRestControllerIntegrationTest {
 			assertFalse(photoList.get(0).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC11.jpg", photoList.get(0).get("imageFilePath").asText());
 			assertEquals("caption11", photoList.get(0).get("caption").asText());
-			assertEquals("horizontal", photoList.get(0).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.HORIZONTAL.name(), photoList.get(0).get("directionKbn").asText());
 		}
 		
 		@Test
@@ -251,7 +252,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("accountNo", "2")
 					.param("caption", "")
 					.param("imageFilePath", "")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "")
 					.param("photoJapaneseTitle", "")
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -347,7 +348,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("accountNo", "2")
 					.param("caption", "caption111")
 					.param("imageFilePath", "")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "title111")
 					.param("photoJapaneseTitle", "タイトル111")
 					.param("photoAt", LocalDateTime.of(2000, 1, 1, 0, 0, 0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
@@ -460,7 +461,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("photoNo", "1")
 					.param("caption", "caption111")
 					.param("imageFilePath", "https://www.xxx.com/bbbbbbbb/DSC21.jpg")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "title111")
 					.param("photoJapaneseTitle", "タイトル111")
 					.param("photoAt", LocalDateTime.of(2000, 1, 1, 0, 0, 0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
@@ -759,7 +760,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("accountNo", "2")
 					.param("caption", "")
 					.param("imageFilePath", "")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "")
 					.param("photoJapaneseTitle", "")
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -797,7 +798,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("photoNo", "99")
 					.param("caption", "caption21")
 					.param("imageFilePath", "https://www.xxx.com/DSC99.jpg")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "")
 					.param("photoJapaneseTitle", "")
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
