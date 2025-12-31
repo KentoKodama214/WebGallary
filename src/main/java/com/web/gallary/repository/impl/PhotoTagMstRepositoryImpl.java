@@ -46,7 +46,7 @@ public class PhotoTagMstRepositoryImpl implements PhotoTagMstRepository {
 		}
 		catch (DuplicateKeyException e) {
 			log.warn("PhotoTagMst: Duplicate Key (AccountNo: {}, PhototNo: {}, TagNo: {})",
-					photoTagModel.getAccountNo(), photoTagModel.getPhotoNo(), photoTagModel.getTagNo());
+					photoTagModel.getAccountNo(), photoTagModel.getPhotoNo(), photoTagModel.getTagNo(), e);
 			throw new RegistFailureException(ErrorEnum.FAIL_TO_REGIST_PHOTO_TAG);
 		}
 	}
