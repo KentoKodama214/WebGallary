@@ -123,7 +123,7 @@ public class PhotoServiceImpl implements PhotoService {
 			if(Objects.isNull(photoDetailModel.getPhotoNo())) {
 				String filename = photoDetailModel.getImageFile().getOriginalFilename();
 				if(photoMstRepository.isExistPhoto(photoDetailModel)) {
-					log.error("Save Photo: Duplicate File (File: "  + filename + ")");
+					log.warn("Duplicate image file (filename: {}}", filename);
 					throw new FileDuplicateException(ErrorEnum.DUPLICATE_PHOTO_FILE);
 				}
 				

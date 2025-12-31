@@ -25,10 +25,12 @@ import com.web.gallary.model.AccountModel;
 import com.web.gallary.repository.AccountRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * アカウントに関するビジネスロジックを行うServiceの実装クラス
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements UserDetailsService {
@@ -49,6 +51,7 @@ public class AccountServiceImpl implements UserDetailsService {
 		Account account = accountRepository.getByAccountId(username);
 		
 		if (Objects.isNull(account)) {
+			log.info("User not found. (username: {})", username);
 			throw new UsernameNotFoundException(MessageConst.USER_NOT_FOUND);
 		}
 		return new AccountPrincipal(account, loginConfig.getFailCount());
@@ -65,7 +68,6 @@ public class AccountServiceImpl implements UserDetailsService {
 	public Boolean registAccount(AccountModel accountModel) throws RegistFailureException {
 		Boolean isExist = accountRepository.isExistAccount(null, accountModel.getAccountId());
 		if(!isExist) accountRepository.regist(accountModel);
-		
 		return !isExist;
 	}
 	
