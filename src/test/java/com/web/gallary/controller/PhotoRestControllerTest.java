@@ -353,6 +353,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setAccountNo(1);
 			photoSaveRequest.setImageFile(multipartFile);
 			photoSaveRequest.setImageFilePath(imageFilePath);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			
 			BindingResult result = new DataBinder(photoSaveRequest).getBindingResult();
 			
@@ -388,7 +389,7 @@ public class PhotoRestControllerTest {
 			assertNull(photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertNull(photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertNull(photoDetailModelList.getFirst().getCaption());
-			assertNull(photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertNull(photoDetailModelList.getFirst().getFocalLength());
 			assertNull(photoDetailModelList.getFirst().getFValue());
 			assertNull(photoDetailModelList.getFirst().getShutterSpeed());
@@ -417,7 +418,6 @@ public class PhotoRestControllerTest {
 			String photoJapaneseTitle = "タイトル";
 			String photoEnglishTitle = "title";
 			String caption = "キャプション";
-			String directionKbnCode = "vertical";
 			List<PhotoTagSaveRequest> photoTagRegistRequestList = new ArrayList<PhotoTagSaveRequest>();
 			PhotoTagSaveRequest photoTagSaveRequest1 = new PhotoTagSaveRequest();
 			photoTagSaveRequest1.setAccountNo(1);
@@ -449,7 +449,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setPhotoJapaneseTitle(photoJapaneseTitle);
 			photoSaveRequest.setPhotoEnglishTitle(photoEnglishTitle);
 			photoSaveRequest.setCaption(caption);
-			photoSaveRequest.setDirectionKbnCode(directionKbnCode);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			photoSaveRequest.setFocalLength(50);
 			photoSaveRequest.setFValue(BigDecimal.valueOf(8.0));
 			photoSaveRequest.setShutterSpeed(BigDecimal.valueOf(0.001));
@@ -490,7 +490,7 @@ public class PhotoRestControllerTest {
 			assertEquals(photoJapaneseTitle, photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertEquals(photoEnglishTitle, photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertEquals(caption, photoDetailModelList.getFirst().getCaption());
-			assertEquals(directionKbnCode, photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertEquals(50, photoDetailModelList.getFirst().getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(photoDetailModelList.getFirst().getFValue()));
 			assertEquals(0, BigDecimal.valueOf(0.001).compareTo(photoDetailModelList.getFirst().getShutterSpeed()));
@@ -630,6 +630,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setPhotoAt(null);
 			photoSaveRequest.setImageFile(multipartFile);
 			photoSaveRequest.setImageFilePath(imageFilePath);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			
 			BindingResult result = new DataBinder(photoSaveRequest).getBindingResult();
 			
@@ -660,7 +661,7 @@ public class PhotoRestControllerTest {
 			assertNull(photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertNull(photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertNull(photoDetailModelList.getFirst().getCaption());
-			assertNull(photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertNull(photoDetailModelList.getFirst().getFocalLength());
 			assertNull(photoDetailModelList.getFirst().getFValue());
 			assertNull(photoDetailModelList.getFirst().getShutterSpeed());
@@ -690,6 +691,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setPhotoAt(null);
 			photoSaveRequest.setImageFile(multipartFile);
 			photoSaveRequest.setImageFilePath(imageFilePath);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			
 			BindingResult result = new DataBinder(photoSaveRequest).getBindingResult();
 			
@@ -720,7 +722,7 @@ public class PhotoRestControllerTest {
 			assertNull(photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertNull(photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertNull(photoDetailModelList.getFirst().getCaption());
-			assertNull(photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertNull(photoDetailModelList.getFirst().getFocalLength());
 			assertNull(photoDetailModelList.getFirst().getFValue());
 			assertNull(photoDetailModelList.getFirst().getShutterSpeed());
@@ -749,6 +751,7 @@ public class PhotoRestControllerTest {
 			photoSaveRequest.setPhotoNo(1);
 			photoSaveRequest.setImageFile(multipartFile);
 			photoSaveRequest.setImageFilePath(imageFilePath);
+			photoSaveRequest.setDirectionKbn(DirectionEnum.VERTICAL);
 			
 			BindingResult result = new DataBinder(photoSaveRequest).getBindingResult();
 			
@@ -779,7 +782,7 @@ public class PhotoRestControllerTest {
 			assertNull(photoDetailModelList.getFirst().getPhotoJapaneseTitle());
 			assertNull(photoDetailModelList.getFirst().getPhotoEnglishTitle());
 			assertNull(photoDetailModelList.getFirst().getCaption());
-			assertNull(photoDetailModelList.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoDetailModelList.getFirst().getDirectionKbn());
 			assertNull(photoDetailModelList.getFirst().getFocalLength());
 			assertNull(photoDetailModelList.getFirst().getFValue());
 			assertNull(photoDetailModelList.getFirst().getShutterSpeed());

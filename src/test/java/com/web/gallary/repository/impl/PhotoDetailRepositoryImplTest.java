@@ -302,7 +302,7 @@ public class PhotoDetailRepositoryImplTest {
 			assertEquals("", actual.getPhotoJapaneseTitle());
 			assertEquals("", actual.getPhotoEnglishTitle());
 			assertEquals("", actual.getCaption());
-			assertEquals("vertical", actual.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.getDirectionKbn());
 			assertNull(actual.getFocalLength());
 			assertNull(actual.getFValue());
 			assertNull(actual.getShutterSpeed());
@@ -389,7 +389,7 @@ public class PhotoDetailRepositoryImplTest {
 			assertEquals("タイトル", actual.getPhotoJapaneseTitle());
 			assertEquals("title", actual.getPhotoEnglishTitle());
 			assertEquals("キャプション", actual.getCaption());
-			assertEquals("vertical", actual.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.getDirectionKbn());
 			assertEquals(2, actual.getPhotoTagModelList().size());
 			assertEquals(1, actual.getPhotoTagModelList().get(0).getTagNo());
 			assertEquals("太陽", actual.getPhotoTagModelList().get(0).getTagJapaneseName());

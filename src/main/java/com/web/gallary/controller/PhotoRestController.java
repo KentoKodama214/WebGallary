@@ -163,7 +163,7 @@ public class PhotoRestController {
 				.photoJapaneseTitle(photoSaveRequest.getPhotoJapaneseTitle())
 				.photoEnglishTitle(photoSaveRequest.getPhotoEnglishTitle())
 				.caption(photoSaveRequest.getCaption())
-				.directionKbnCode(photoSaveRequest.getDirectionKbnCode())
+				.directionKbn(photoSaveRequest.getDirectionKbn())
 				.focalLength(photoSaveRequest.getFocalLength())
 				.fValue(photoSaveRequest.getFValue())
 				.shutterSpeed(photoSaveRequest.getShutterSpeed())

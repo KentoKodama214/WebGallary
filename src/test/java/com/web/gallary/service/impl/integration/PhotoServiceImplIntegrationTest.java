@@ -363,7 +363,7 @@ public class PhotoServiceImplIntegrationTest {
 			assertEquals("タイトル11", actual.getPhotoJapaneseTitle());
 			assertEquals("title11", actual.getPhotoEnglishTitle());
 			assertEquals("キャプション11", actual.getCaption());
-			assertEquals("horizontal", actual.getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getDirectionKbn());
 			assertEquals(24, actual.getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actual.getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actual.getShutterSpeed()));

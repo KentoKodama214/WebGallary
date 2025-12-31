@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
+import com.web.gallary.enumuration.DirectionEnum;
+
 import lombok.Data;
 
 /**
@@ -51,12 +55,12 @@ public class PhotoSettingRequest {
 	private String caption;
 
 	/** 
-	 * 向き区分コード
+	 * 向き区分
 	 * <p>
-	 * vertical: 縦<p>
-	 * horizontal: 横
+	 * {@link DirectionEnum}
 	 */
-	private String directionKbnCode;
+	@JsonSetter(nulls = Nulls.SKIP)
+	private DirectionEnum directionKbn = DirectionEnum.NONE;
 
 	/** 焦点距離 */
 	private Integer focalLength;

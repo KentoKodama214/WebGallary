@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.PhotoMst;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
@@ -56,7 +57,7 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 				.caption(
 					Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
 				.directionKbnCode(
-					Optional.ofNullable(photoDetailModel.getDirectionKbnCode()).orElse(Consts.STRING_NONE))
+					Optional.ofNullable(photoDetailModel.getDirectionKbn()).orElse(DirectionEnum.NONE).getCode())
 				.focalLength(
 					Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
 				.fValue(
@@ -99,21 +100,21 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 						Optional.ofNullable(photoDetailModel.getLocationNo()).orElse(0))
 				.imageFilePath(photoDetailModel.getImageFilePath())
 				.photoJapaneseTitle(
-						Optional.ofNullable(photoDetailModel.getPhotoJapaneseTitle()).orElse(Consts.STRING_EMPTY))
-					.photoEnglishTitle(
-						Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(Consts.STRING_EMPTY))
-					.caption(
-						Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
-					.directionKbnCode(
-						Optional.ofNullable(photoDetailModel.getDirectionKbnCode()).orElse(Consts.STRING_NONE))
-					.focalLength(
-						Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
-					.fValue(
-						Optional.ofNullable(photoDetailModel.getFValue()).orElse(BigDecimal.ZERO))
-					.shutterSpeed(
-						Optional.ofNullable(photoDetailModel.getShutterSpeed()).orElse(BigDecimal.ZERO))
-					.iso(
-						Optional.ofNullable(photoDetailModel.getIso()).orElse(0))
+					Optional.ofNullable(photoDetailModel.getPhotoJapaneseTitle()).orElse(Consts.STRING_EMPTY))
+				.photoEnglishTitle(
+					Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(Consts.STRING_EMPTY))
+				.caption(
+					Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
+				.directionKbnCode(
+					Optional.ofNullable(photoDetailModel.getDirectionKbn()).orElse(DirectionEnum.NONE).getCode())
+				.focalLength(
+					Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
+				.fValue(
+					Optional.ofNullable(photoDetailModel.getFValue()).orElse(BigDecimal.ZERO))
+				.shutterSpeed(
+					Optional.ofNullable(photoDetailModel.getShutterSpeed()).orElse(BigDecimal.ZERO))
+				.iso(
+					Optional.ofNullable(photoDetailModel.getIso()).orElse(0))
 				.build();
 		
 		if (photoMstMapper.update(cndPhotoMst, targetPhotoMst) < 1) {

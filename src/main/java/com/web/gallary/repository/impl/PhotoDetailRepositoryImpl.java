@@ -136,7 +136,7 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 				.photoJapaneseTitle(photoDetailDto.getPhotoJapaneseTitle())
 				.photoEnglishTitle(photoDetailDto.getPhotoEnglishTitle())
 				.caption(photoDetailDto.getCaption())
-				.directionKbnCode(photoDetailDto.getDirectionKbnCode())
+				.directionKbn(DirectionEnum.getOrDefault(photoDetailDto.getDirectionKbnCode()))
 				.focalLength(photoDetailDto.getFocalLength() != 0 ? photoDetailDto.getFocalLength() : null)
 				.fValue(photoDetailDto.getFValue().compareTo(BigDecimal.ZERO) == 1 ? photoDetailDto.getFValue(): null)
 				.shutterSpeed(photoDetailDto.getShutterSpeed().compareTo(BigDecimal.ZERO) == 1 ? photoDetailDto.getShutterSpeed() : null)

@@ -6,8 +6,9 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.gallary.enumuration.DirectionEnum;
+
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Positive;
@@ -68,13 +69,12 @@ public class PhotoSaveRequest {
 	private String caption;
 
 	/** 
-	 * 向き区分コード
+	 * 向き区分
 	 * <p>
-	 * vertical: 縦<p>
-	 * horizontal: 横
+	 * {@link DirectionEnum}
 	 */
-	@NotBlank(message = "{validation.file.notFound}")
-	private String directionKbnCode;
+	@NotNull(message = "{validation.common.notBlank}")
+	private DirectionEnum directionKbn;
 
 	/** 焦点距離 */
 	@Positive(message = "{validation.common.positive}")

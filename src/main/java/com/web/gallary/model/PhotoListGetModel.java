@@ -23,7 +23,7 @@ public class PhotoListGetModel {
 	private String photoAccountId;
 	
 	/** 
-	 * 写真の向き
+	 * 向き区分
 	 * <p>
 	 * {@link DirectionEnum}
 	 */
