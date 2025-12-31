@@ -80,7 +80,7 @@ public class PhotoRestController {
 				PhotoListGetModel.builder()
 					.accountNo(sessionHelper.getAccountNo())
 					.photoAccountId(photoAccountId)
-					.directionKbnCode(photoListRequest.getDirectionKbnCode())
+					.directionKbn(photoListRequest.getDirectionKbn())
 					.isFavoriteOnly(photoListRequest.getIsFavorite())
 					.tagList(tagList)
 					.sortBy(photoListRequest.getSortBy())
@@ -244,7 +244,7 @@ public class PhotoRestController {
 						.isFavorite(photo.getIsFavorite())
 						.imageFilePath(photo.getImageFilePath())
 						.caption(photo.getCaption())
-						.directionKbnCode(photo.getDirectionKbnCode())
+						.directionKbn(photo.getDirectionKbn())
 						.build());
 			});
 		

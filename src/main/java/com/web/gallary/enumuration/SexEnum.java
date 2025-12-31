@@ -1,5 +1,7 @@
 package com.web.gallary.enumuration;
 
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.web.gallary.constant.Consts;
 
@@ -33,11 +35,15 @@ public enum SexEnum {
 	 * @return {@link SexEnum}
 	 */
 	public static SexEnum getOrDefault(String value) {
-        try {
-            String upperValue = value.toUpperCase();
-            return SexEnum.valueOf(upperValue);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            return SexEnum.NONE;
-        }
-    }
+		if(Objects.isNull(value)) {
+			return SexEnum.NONE;
+		}
+		
+		try {
+			String upperValue = value.toUpperCase();
+			return SexEnum.valueOf(upperValue);
+		} catch (IllegalArgumentException | NullPointerException e) {
+			return SexEnum.NONE;
+		}
+	}
 }

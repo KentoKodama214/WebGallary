@@ -53,8 +53,8 @@ public enum AuthorityEnum {
 	 */
 	public static AuthorityEnum getOrDefault(String value) {
 		return Arrays.stream(AuthorityEnum.values())
-	            .filter(e -> e.getCode().equals(value))
-	            .findFirst()
-	            .orElse(AuthorityEnum.MINI);
+				.filter(e -> e.getCode().equals(value))
+				.findFirst()
+				.orElse(AuthorityEnum.MINI);
     }
 }

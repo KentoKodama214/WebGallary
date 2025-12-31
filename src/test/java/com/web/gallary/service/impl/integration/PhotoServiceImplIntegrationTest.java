@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.gallary.entity.PhotoFavorite;
 import com.web.gallary.entity.PhotoMst;
 import com.web.gallary.entity.PhotoTagMst;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.PhotoNotFoundException;
@@ -64,7 +65,7 @@ public class PhotoServiceImplIntegrationTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(1)
 					.photoAccountId("dddddddd")
-					.directionKbnCode("")
+					.directionKbn(DirectionEnum.NONE)
 					.isFavoriteOnly(false)
 					.tagList(tags)
 					.sortBy(SortPhotoEnum.PHOTO_AT)
@@ -83,7 +84,7 @@ public class PhotoServiceImplIntegrationTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(1)
 					.photoAccountId("aaaaaaaa")
-					.directionKbnCode("")
+					.directionKbn(DirectionEnum.NONE)
 					.isFavoriteOnly(false)
 					.tagList(tags)
 					.sortBy(SortPhotoEnum.PHOTO_AT)
@@ -113,7 +114,7 @@ public class PhotoServiceImplIntegrationTest {
 			assertEquals(OffsetDateTime.of(2023, 9, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(0).getPhotoAt());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC19.jpg", actual.get(0).getImageFilePath());
 			assertEquals("キャプション19", actual.get(0).getCaption());
-			assertEquals("horizontal", actual.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.get(0).getDirectionKbn());
 			assertEquals(0, actual.get(0).getPhotoTagModelList().size());
 		}
 		
@@ -126,7 +127,7 @@ public class PhotoServiceImplIntegrationTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(1)
 					.photoAccountId("aaaaaaaa")
-					.directionKbnCode("")
+					.directionKbn(DirectionEnum.NONE)
 					.isFavoriteOnly(false)
 					.tagList(tags)
 					.sortBy(SortPhotoEnum.FAVORITE)
@@ -156,7 +157,7 @@ public class PhotoServiceImplIntegrationTest {
 			assertEquals(OffsetDateTime.of(2021, 2, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(0).getPhotoAt());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC12.jpg", actual.get(0).getImageFilePath());
 			assertEquals("キャプション12", actual.get(0).getCaption());
-			assertEquals("horizontal", actual.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.get(0).getDirectionKbn());
 			assertEquals(3, actual.get(0).getPhotoTagModelList().size());
 			
 			// 抜き取りで、PhotoTagModelのデータチェック
@@ -177,7 +178,7 @@ public class PhotoServiceImplIntegrationTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(1)
 					.photoAccountId("aaaaaaaa")
-					.directionKbnCode("")
+					.directionKbn(DirectionEnum.NONE)
 					.isFavoriteOnly(false)
 					.tagList(tags)
 					.sortBy(SortPhotoEnum.SEASON)
@@ -207,7 +208,7 @@ public class PhotoServiceImplIntegrationTest {
 			assertEquals(OffsetDateTime.of(2021, 10, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(0).getPhotoAt());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC20.jpg", actual.get(0).getImageFilePath());
 			assertEquals("キャプション20", actual.get(0).getCaption());
-			assertEquals("horizontal", actual.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.get(0).getDirectionKbn());
 			assertEquals(0, actual.get(0).getPhotoTagModelList().size());
 		}
 		
@@ -220,7 +221,7 @@ public class PhotoServiceImplIntegrationTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(1)
 					.photoAccountId("aaaaaaaa")
-					.directionKbnCode("vertical")
+					.directionKbn(DirectionEnum.VERTICAL)
 					.isFavoriteOnly(false)
 					.tagList(tags)
 					.sortBy(SortPhotoEnum.PHOTO_AT)
@@ -243,7 +244,7 @@ public class PhotoServiceImplIntegrationTest {
 			assertEquals(OffsetDateTime.of(2023, 8, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(0).getPhotoAt());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC18.jpg", actual.get(0).getImageFilePath());
 			assertEquals("キャプション18", actual.get(0).getCaption());
-			assertEquals("vertical", actual.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.get(0).getDirectionKbn());
 			assertEquals(0, actual.get(0).getPhotoTagModelList().size());
 		}
 		
@@ -256,7 +257,7 @@ public class PhotoServiceImplIntegrationTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(1)
 					.photoAccountId("aaaaaaaa")
-					.directionKbnCode("")
+					.directionKbn(DirectionEnum.NONE)
 					.isFavoriteOnly(true)
 					.tagList(tags)
 					.sortBy(SortPhotoEnum.PHOTO_AT)
@@ -278,7 +279,7 @@ public class PhotoServiceImplIntegrationTest {
 			assertEquals(OffsetDateTime.of(2021, 2, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(0).getPhotoAt());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC12.jpg", actual.get(0).getImageFilePath());
 			assertEquals("キャプション12", actual.get(0).getCaption());
-			assertEquals("horizontal", actual.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.get(0).getDirectionKbn());
 			assertEquals(3, actual.get(0).getPhotoTagModelList().size());
 			
 			// 抜き取りで、PhotoTagModelのデータチェック
@@ -301,7 +302,7 @@ public class PhotoServiceImplIntegrationTest {
 			PhotoListGetModel photoListGetModel = PhotoListGetModel.builder()
 					.accountNo(1)
 					.photoAccountId("aaaaaaaa")
-					.directionKbnCode("")
+					.directionKbn(DirectionEnum.NONE)
 					.isFavoriteOnly(false)
 					.tagList(tags)
 					.sortBy(SortPhotoEnum.PHOTO_AT)
@@ -319,7 +320,7 @@ public class PhotoServiceImplIntegrationTest {
 			assertEquals(OffsetDateTime.of(2021, 1, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actual.get(0).getPhotoAt());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC11.jpg", actual.get(0).getImageFilePath());
 			assertEquals("キャプション11", actual.get(0).getCaption());
-			assertEquals("horizontal", actual.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.get(0).getDirectionKbn());
 			assertEquals(2, actual.get(0).getPhotoTagModelList().size());
 			
 			// 抜き取りで、PhotoTagModelのデータチェック

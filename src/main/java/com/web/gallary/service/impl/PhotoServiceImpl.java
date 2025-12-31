@@ -17,6 +17,7 @@ import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
 import com.web.gallary.enumuration.AuthorityEnum;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.FileDuplicateException;
@@ -79,7 +80,7 @@ public class PhotoServiceImpl implements PhotoService {
 		
 		return photoModelList.stream()
 					.filter(photoModel -> 
-						filteringByDirectionKbnCode(photoModel.getDirectionKbnCode(), photoListGetModel.getDirectionKbnCode()))
+						filteringByDirectionKbn(photoModel.getDirectionKbn(), photoListGetModel.getDirectionKbn()))
 					.filter(photoModel -> 
 						filteringByIsFavorite(photoModel.getIsFavorite(), photoListGetModel.getIsFavoriteOnly()))
 					.filter(photoModel -> 
@@ -221,13 +222,13 @@ public class PhotoServiceImpl implements PhotoService {
 	/**
 	 * 写真の向きでフィルタリングする
 	 * 
-	 * @param	targetDirectionKbnCode		フィルター対象の向き区分コード
-	 * @param	conditionDirectionKbnCode	フィルター条件の向き区分コード
+	 * @param	targetDirectionKbn	フィルター対象の向き区分
+	 * @param	conditionDirectionKbn	フィルター条件の向き区分
 	 * @return	フィルタリングして除外する場合はfalse
 	 */
-	private Boolean filteringByDirectionKbnCode(String targetDirectionKbnCode, String conditionDirectionKbnCode) {
-		if(Consts.STRING_EMPTY.equals(conditionDirectionKbnCode)) return true;
-		else return targetDirectionKbnCode.equals(conditionDirectionKbnCode);
+	private Boolean filteringByDirectionKbn(DirectionEnum targetDirectionKbn, DirectionEnum conditionDirectionKbn) {
+		if(DirectionEnum.NONE.equals(conditionDirectionKbn)) return true;
+		else return targetDirectionKbn.equals(conditionDirectionKbn);
 	}
 	
 	/**

@@ -14,6 +14,7 @@ import com.web.gallary.dto.PhotoDetailGetDto;
 import com.web.gallary.dto.PhotoDto;
 import com.web.gallary.dto.PhotoListGetDto;
 import com.web.gallary.entity.PhotoTagMst;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.mapper.PhotoDetailMapper;
@@ -74,7 +75,7 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 					.photoAt(photoDto.getPhotoAt().plusHours(9))
 					.imageFilePath(photoDto.getImageFilePath())
 					.caption(photoDto.getCaption())
-					.directionKbnCode(photoDto.getDirectionKbnCode())
+					.directionKbn(DirectionEnum.getOrDefault(photoDto.getDirectionKbnCode()))
 					.photoTagModelList(
 							photoTagModelList.stream().filter(photoTagModel -> 
 								photoTagModel.getAccountNo() == photoDto.getAccountNo() &&

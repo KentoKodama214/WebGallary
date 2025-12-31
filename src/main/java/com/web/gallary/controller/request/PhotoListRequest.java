@@ -2,7 +2,7 @@ package com.web.gallary.controller.request;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
-import com.web.gallary.constant.Consts;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.SortPhotoEnum;
 
 import lombok.Data;
@@ -15,11 +15,10 @@ public class PhotoListRequest {
 	/** 
 	 * 向き区分コード
 	 * <p>
-	 * vertical: 縦<p>
-	 * horizontal: 横
+	 * {@link DirectionEnum}
 	 */
 	@JsonSetter(nulls = Nulls.SKIP)
-	private String directionKbnCode = Consts.STRING_EMPTY;
+	private DirectionEnum directionKbn = DirectionEnum.NONE;
 	
 	/** お気に入り写真のみ */
 	@JsonSetter(nulls = Nulls.SKIP)
