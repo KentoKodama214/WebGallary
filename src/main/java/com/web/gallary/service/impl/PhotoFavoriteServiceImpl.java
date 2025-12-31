@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
  * 写真お気に入りに関するビジネスロジックを行うServiceの実装クラス
  */
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class PhotoFavoriteServiceImpl implements PhotoFavoriteService {
 	
@@ -29,6 +28,7 @@ public class PhotoFavoriteServiceImpl implements PhotoFavoriteService {
 	 * @throws	RegistFailureException	登録に失敗した場合
 	 */
 	@Override
+	@Transactional
 	public void addFavorite(PhotoFavoriteModel photoFavoriteModel) throws RegistFailureException {
 		photoFavoriteRepository.regist(photoFavoriteModel);
 	}
@@ -40,6 +40,7 @@ public class PhotoFavoriteServiceImpl implements PhotoFavoriteService {
 	 * @throws	UpdateFailureException	解除に失敗した場合
 	 */
 	@Override
+	@Transactional
 	public void deleteFavorite(PhotoFavoriteModel photoFavoriteModel) throws UpdateFailureException {
 		photoFavoriteRepository.delete(PhotoFavoriteDeleteModel.builder()
 				.accountNo(photoFavoriteModel.getAccountNo())
