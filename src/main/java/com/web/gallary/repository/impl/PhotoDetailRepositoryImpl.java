@@ -27,10 +27,12 @@ import com.web.gallary.model.PhotoTagModel;
 import com.web.gallary.repository.PhotoDetailRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 写真のメタデータを含めた詳細情報を永続化するRepositoryの実装クラス
  */
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
@@ -101,6 +103,8 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 		PhotoDetailDto photoDetailDto = photoDetailMapper.getPhotoDetail(photoGetDto);
 		
 		if(Objects.isNull(photoDetailDto)) {
+			log.warn("Photo not found. (AccountNo: {}, PhotoAccountNo: {}, PhotoNo: {})"
+					, photoGetDto.getAccountNo(), photoGetDto.getPhotoAccountNo(), photoGetDto.getPhotoNo());
 			throw new PhotoNotFoundException(ErrorEnum.PHOTO_NOT_FOUND);
 		}
 		

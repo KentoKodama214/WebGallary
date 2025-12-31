@@ -22,6 +22,8 @@ management:
 logging:
   level:
     ROOT: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36}.%M:%L - %msg%n"
 
 auth:
   login:
