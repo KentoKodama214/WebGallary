@@ -50,7 +50,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class PhotoServiceImpl implements PhotoService {
 
@@ -69,6 +68,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @return						{@link PhotoModel}
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public List<PhotoModel> getPhotoList(PhotoListGetModel photoListGetModel) {
 		Account account = accountRepository.getByAccountId(photoListGetModel.getPhotoAccountId());
 		
@@ -97,6 +97,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @throws	PhotoNotFoundException	写真が存在しなかった場合
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public PhotoDetailModel getPhotoDetail(PhotoDetailGetModel photoDetailGetModel) throws PhotoNotFoundException {
 		return photoDetailRepository.getPhotoDetail(photoDetailGetModel);
 	}
@@ -110,6 +111,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
 	@Override
+	@Transactional
 	public void savePhotos(String accountId, List<PhotoDetailModel> photoDetailModelList) throws FileDuplicateException, RegistFailureException, UpdateFailureException {
 		if(Objects.isNull(photoDetailModelList)) return;
 		if(photoDetailModelList.isEmpty()) return;
@@ -144,6 +146,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @throws	UpdateFailureException	削除に失敗した場合
 	 */
 	@Override
+	@Transactional
 	public void deletePhotos(String accountId, List<PhotoDeleteModel> photoDeleteModelList) throws UpdateFailureException {
 		String filePath = photoConfig.getOutputPath() + accountId + "/";
 		
@@ -170,6 +173,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @return				上限に達している場合、true
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean isReachedUpperLimit(Integer accountNo) {
 		if(Objects.isNull(accountNo)) return true;
 		
