@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.web.gallary.AccountPrincipal;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -68,7 +69,7 @@ public class LoginControllerIntegrationTest {
 					.accountId(accountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);

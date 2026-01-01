@@ -35,6 +35,7 @@ import com.web.gallary.AccountPrincipal;
 import com.web.gallary.controller.request.PhotoSettingRequest;
 import com.web.gallary.controller.request.PhotoTagRequest;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.model.PhotoDetailModel;
@@ -86,7 +87,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("EEEEEEEE")
 					.password("$2a$10$password5")
-					.authorityKbnCode("special-user")
+					.authorityKbn(AuthorityEnum.SPECIAL)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -125,7 +126,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("EEEEEEEE")
 					.password("$2a$10$password5")
-					.authorityKbnCode("special-user")
+					.authorityKbn(AuthorityEnum.SPECIAL)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -164,7 +165,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -271,7 +272,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("EEEEEEEE")
 					.password("$2a$10$password5")
-					.authorityKbnCode("special-user")
+					.authorityKbn(AuthorityEnum.SPECIAL)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -358,7 +359,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -438,7 +439,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -497,7 +498,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -542,7 +543,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -651,7 +652,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);

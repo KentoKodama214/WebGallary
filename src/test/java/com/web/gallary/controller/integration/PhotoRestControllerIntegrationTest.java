@@ -44,6 +44,7 @@ import com.web.gallary.entity.Account;
 import com.web.gallary.entity.PhotoFavorite;
 import com.web.gallary.entity.PhotoMst;
 import com.web.gallary.entity.PhotoTagMst;
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 
@@ -239,7 +240,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -335,7 +336,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -448,7 +449,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -568,7 +569,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -607,7 +608,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -641,7 +642,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -672,7 +673,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -709,7 +710,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -747,7 +748,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -785,7 +786,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -838,7 +839,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -929,7 +930,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("EEEEEEEE")
 					.password("$2a$10$password5")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -970,7 +971,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -1010,7 +1011,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);

@@ -22,6 +22,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
@@ -59,11 +60,11 @@ public class AccountRepositoryImplIntegrationTest {
 			assertEquals("AAAAAAAA", actual.getAccountName());
 			assertEquals("$2a$10$password1", actual.getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actual.getBirthdate());
-			assertEquals("", actual.getSexKbnCode());
-			assertEquals("", actual.getBirthplacePrefectureKbnCode());
-			assertEquals("", actual.getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actual.getSexKbn());
+			assertEquals("none", actual.getBirthplacePrefectureKbnCode());
+			assertEquals("none", actual.getResidentPrefectureKbnCode());
 			assertEquals("", actual.getFreeMemo());
-			assertEquals("administrator", actual.getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actual.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getLastLoginDatetime());
 			assertEquals(0, actual.getLoginFailureCount());
 		}
@@ -98,11 +99,11 @@ public class AccountRepositoryImplIntegrationTest {
 			assertEquals("AAAAAAAA", actual.getAccountName());
 			assertEquals("$2a$10$password1", actual.getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actual.getBirthdate());
-			assertEquals("", actual.getSexKbnCode());
-			assertEquals("", actual.getBirthplacePrefectureKbnCode());
-			assertEquals("", actual.getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actual.getSexKbn());
+			assertEquals("none", actual.getBirthplacePrefectureKbnCode());
+			assertEquals("none", actual.getResidentPrefectureKbnCode());
 			assertEquals("", actual.getFreeMemo());
-			assertEquals("administrator", actual.getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actual.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getLastLoginDatetime());
 			assertEquals(0, actual.getLoginFailureCount());
 		}
@@ -146,11 +147,11 @@ public class AccountRepositoryImplIntegrationTest {
 							.accountName(rs.getString("account_name"))
 							.password(rs.getString("password"))
 							.birthdate(rs.getObject("birthdate", LocalDate.class))
-							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 							.freeMemo(rs.getString("free_memo"))
-							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
@@ -163,11 +164,11 @@ public class AccountRepositoryImplIntegrationTest {
 			assertEquals("zzzzzzzz", actualData.getFirst().getAccountId());
 			assertEquals("ZZZZZZZZ", actualData.getFirst().getAccountName());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("none", actualData.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
 			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("mini-user", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.MINI, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
@@ -203,11 +204,11 @@ public class AccountRepositoryImplIntegrationTest {
 							.accountName(rs.getString("account_name"))
 							.password(rs.getString("password"))
 							.birthdate(rs.getObject("birthdate", LocalDate.class))
-							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 							.freeMemo(rs.getString("free_memo"))
-							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
@@ -220,11 +221,11 @@ public class AccountRepositoryImplIntegrationTest {
 			assertEquals("zzzzzzzz", actualData.getFirst().getAccountId());
 			assertEquals("ZZZZZZZZ", actualData.getFirst().getAccountName());
 			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
-			assertEquals("woman", actualData.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, actualData.getFirst().getSexKbn());
 			assertEquals("Hokkaido", actualData.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("Okinawa", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("フリーメモ", actualData.getFirst().getFreeMemo());
-			assertEquals("mini-user", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.MINI, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
@@ -274,11 +275,11 @@ public class AccountRepositoryImplIntegrationTest {
 							.accountName(rs.getString("account_name"))
 							.password(rs.getString("password"))
 							.birthdate(rs.getObject("birthdate", LocalDate.class))
-							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 							.freeMemo(rs.getString("free_memo"))
-							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
@@ -292,11 +293,11 @@ public class AccountRepositoryImplIntegrationTest {
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("none", actualData.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
 			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
@@ -334,11 +335,11 @@ public class AccountRepositoryImplIntegrationTest {
 							.accountName(rs.getString("account_name"))
 							.password(rs.getString("password"))
 							.birthdate(rs.getObject("birthdate", LocalDate.class))
-							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 							.freeMemo(rs.getString("free_memo"))
-							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
@@ -352,11 +353,11 @@ public class AccountRepositoryImplIntegrationTest {
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 			assertNotEquals("$2a$10$password1", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
-			assertEquals("woman", actualData.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, actualData.getFirst().getSexKbn());
 			assertEquals("Hokkaido", actualData.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("Okinawa", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("フリーメモ", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(2, actualData.getFirst().getLoginFailureCount());
 		}
@@ -403,11 +404,11 @@ public class AccountRepositoryImplIntegrationTest {
 							.accountName(rs.getString("account_name"))
 							.password(rs.getString("password"))
 							.birthdate(rs.getObject("birthdate", LocalDate.class))
-							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 							.freeMemo(rs.getString("free_memo"))
-							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
@@ -421,11 +422,11 @@ public class AccountRepositoryImplIntegrationTest {
 			assertEquals("HHHHHHHH", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password8", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 9, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
@@ -455,11 +456,11 @@ public class AccountRepositoryImplIntegrationTest {
 							.accountName(rs.getString("account_name"))
 							.password(rs.getString("password"))
 							.birthdate(rs.getObject("birthdate", LocalDate.class))
-							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 							.freeMemo(rs.getString("free_memo"))
-							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
@@ -473,11 +474,11 @@ public class AccountRepositoryImplIntegrationTest {
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(2, actualData.getFirst().getLoginFailureCount());
 		}
