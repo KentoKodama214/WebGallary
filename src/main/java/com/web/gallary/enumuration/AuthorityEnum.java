@@ -41,8 +41,8 @@ public enum AuthorityEnum {
 	 */
 	ADMINISTRATOR(Consts.ADMINISTRATOR);
 	
-	/** コード */
-	private final String code;
+	/** DBに保持する値 */
+	private final String dbValue;
 	
 	/**
 	 * 名称からEnumを取得する<p>
@@ -53,7 +53,7 @@ public enum AuthorityEnum {
 	 */
 	public static AuthorityEnum getOrDefault(String value) {
 		return Arrays.stream(AuthorityEnum.values())
-				.filter(e -> e.getCode().equals(value))
+				.filter(e -> e.getDbValue().equals(value))
 				.findFirst()
 				.orElse(AuthorityEnum.MINI);
     }

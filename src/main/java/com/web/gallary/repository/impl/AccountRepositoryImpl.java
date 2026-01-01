@@ -93,7 +93,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 				Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.freeMemo(
 				Optional.ofNullable(accountModel.getFreeMemo()).orElse(Consts.STRING_EMPTY))
-			.authorityKbnCode(AuthorityEnum.MINI.getCode())
+			.authorityKbn(AuthorityEnum.MINI)
 			.lastLoginDatetime(Consts.MIN_OFFSET_DATE_TIME)
 			.loginFailureCount(0)
 			.build();
@@ -202,7 +202,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 					.birthplacePrefectureKbnCode(accountData.getBirthplacePrefectureKbnCode())
 					.residentPrefectureKbnCode(accountData.getResidentPrefectureKbnCode())
 					.freeMemo(accountData.getFreeMemo())
-					.authorityKbn(AuthorityEnum.getOrDefault(accountData.getAuthorityKbnCode()))
+					.authorityKbn(accountData.getAuthorityKbn())
 					.lastLoginDatetime(accountData.getLastLoginDatetime())
 					.loginFailureCount(accountData.getLoginFailureCount())
 					.build()).toList();

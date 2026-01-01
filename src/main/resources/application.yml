@@ -2,7 +2,7 @@ spring:
   application:
     name: WebGallary
   datasource:
-    url: jdbc:postgresql://localhost:5432/web_gallary?stringtype=unspecified
+    url: jdbc:postgresql://localhost:5432/web_gallary
     username: postgres
     password: postgres
   servlet:
