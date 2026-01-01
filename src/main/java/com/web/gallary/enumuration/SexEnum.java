@@ -26,7 +26,7 @@ public enum SexEnum {
 	@JsonProperty("woman")
 	WOMAN("woman");
 	
-	/** コード */
+	/** DBに保持する値 */
 	private final String dbValue;
 	
 	/**
