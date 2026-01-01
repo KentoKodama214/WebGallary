@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.web.gallary.mapper.PhotoMstMapper">
+	<resultMap id="PhotoMstMap" type="com.web.gallary.entity.PhotoMst">
+		<result property="directionKbn" column="direction_kbn" typeHandler="com.web.gallary.type_handler.DirectionEnumTypeHandler"/>
+	</resultMap>
+	
 	<select id="count" parameterType="com.web.gallary.entity.PhotoMst" resultType="Integer">
 		SELECT
 			COUNT(*)
@@ -17,7 +21,7 @@
 			<if test="photoJapaneseTitle != null"> AND photo_japanese_title = #{photoJapaneseTitle}</if>
 			<if test="photoEnglishTitle != null"> AND photo_english_title = #{photoEnglishTitle}</if>
 			<if test="caption != null"> AND caption = #{caption}</if>
-			<if test="directionKbnCode != null"> AND direction_kbn_code = #{directionKbnCode}</if>
+			<if test="directionKbn != null"> AND direction_kbn = #{directionKbn}::photo.direction_enum</if>
 			<if test="focalLength != null"> AND focal_length = #{focalLength}</if>
 			<if test="fValue != null"> AND f_value = #{fValue}</if>
 			<if test="shutterSpeed != null"> AND shutter_speed = #{shutterSpeed}</if>
@@ -41,7 +45,7 @@
 				photo_japanese_title,
 				photo_english_title,
 				caption,
-				direction_kbn_code,
+				direction_kbn,
 				focal_length,
 				f_value,
 				shutter_speed,
@@ -62,7 +66,7 @@
 				#{photoJapaneseTitle},
 				#{photoEnglishTitle},
 				#{caption},
-				#{directionKbnCode},
+				#{directionKbn}::photo.direction_enum,
 				#{focalLength},
 				#{fValue},
 				#{shutterSpeed},
@@ -83,7 +87,7 @@
 			<if test="target.photoJapaneseTitle != null"> , photo_japanese_title = #{target.photoJapaneseTitle}</if>
 			<if test="target.photoEnglishTitle != null"> , photo_english_title = #{target.photoEnglishTitle}</if>
 			<if test="target.caption != null"> , caption = #{target.caption}</if>
-			<if test="target.directionKbnCode != null"> , direction_kbn_code = #{target.directionKbnCode}</if>
+			<if test="target.directionKbn != null"> , direction_kbn = #{target.directionKbn}::photo.direction_enum</if>
 			<if test="target.focalLength != null"> , focal_length = #{target.focalLength}</if>
 			<if test="target.fValue != null"> , f_value = #{target.fValue}</if>
 			<if test="target.shutterSpeed != null"> , shutter_speed = #{target.shutterSpeed}</if>
@@ -99,7 +103,7 @@
 			<if test="condition.photoJapaneseTitle != null"> AND photo_japanese_title = #{condition.photoJapaneseTitle}</if>
 			<if test="condition.photoEnglishTitle != null"> AND photo_english_title = #{condition.photoEnglishTitle}</if>
 			<if test="condition.caption != null"> AND caption = #{condition.caption}</if>
-			<if test="condition.directionKbnCode != null"> AND direction_kbn_code = #{condition.directionKbnCode}</if>
+			<if test="condition.directionKbn != null"> AND direction_kbn = #{condition.directionKbn}::photo.direction_enum</if>
 			<if test="condition.focalLength != null"> AND focal_length = #{condition.focalLength}</if>
 			<if test="condition.fValue != null"> AND f_value = #{condition.fValue}</if>
 			<if test="condition.shutterSpeed != null"> AND shutter_speed = #{condition.shutterSpeed}</if>

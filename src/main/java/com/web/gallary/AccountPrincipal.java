@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
 
 /**
@@ -31,8 +30,8 @@ public class AccountPrincipal implements UserDetails {
 	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		switch(account.getAuthorityKbnCode()) {
-			case Consts.ADMINISTRATOR:
+		switch(account.getAuthorityKbn()) {
+			case ADMINISTRATOR:
 				return Collections.singleton(new SimpleGrantedAuthority(ROLE_ADMIN));
 			default:
 				return Collections.singleton(new SimpleGrantedAuthority(ROLE_USER));

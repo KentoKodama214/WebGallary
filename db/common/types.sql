@@ -1,0 +1,12 @@
+/* Create Type */
+-- 性別
+CREATE TYPE common.sex_enum AS ENUM ('man', 'woman', 'none');
+COMMENT ON TYPE common.sex_enum IS '性別を管理するEnum型: man(男性)、woman(女性)、none(未設定)';
+
+-- 権限
+CREATE TYPE common.authority_enum AS ENUM ('mini-user', 'normal-user', 'special-user', 'administrator');
+COMMENT ON TYPE common.authority_enum IS '権限を管理するEnum型: mini-user(簡易ユーザー)、normal-user(一般ユーザー)、special-user(特別ユーザー)、administrator(管理者)';
+
+-- 向き
+CREATE TYPE photo.direction_enum AS ENUM ('vertical', 'horizontal', 'square', 'none');
+COMMENT ON TYPE photo.direction_enum IS '向きを管理するEnum型: vertical(縦)、horizontal(横)、square(正方形)、none(未設定)';

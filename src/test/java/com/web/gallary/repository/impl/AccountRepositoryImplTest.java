@@ -65,11 +65,11 @@ public class AccountRepositoryImplTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
+					.sexKbn(SexEnum.NONE)
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -126,11 +126,11 @@ public class AccountRepositoryImplTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
+					.sexKbn(SexEnum.NONE)
 					.birthplacePrefectureKbnCode("")
 					.residentPrefectureKbnCode("")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -200,11 +200,11 @@ public class AccountRepositoryImplTest {
 			assertEquals("AAAAAAAA", accountCapture.getAccountName());
 			assertEquals("$2a$10$password1", accountCapture.getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), accountCapture.getBirthdate());
-			assertEquals("none", accountCapture.getSexKbnCode());
+			assertEquals(SexEnum.NONE, accountCapture.getSexKbn());
 			assertEquals("none", accountCapture.getBirthplacePrefectureKbnCode());
 			assertEquals("none", accountCapture.getResidentPrefectureKbnCode());
 			assertEquals("", accountCapture.getFreeMemo());
-			assertEquals("mini-user", accountCapture.getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.MINI, accountCapture.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), accountCapture.getLastLoginDatetime());
 			assertEquals(0, accountCapture.getLoginFailureCount());
 		}
@@ -242,11 +242,11 @@ public class AccountRepositoryImplTest {
 			assertEquals("AAAAAAAA", accountCapture.getAccountName());
 			assertEquals("$2a$10$password1", accountCapture.getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), accountCapture.getBirthdate());
-			assertEquals("woman", accountCapture.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, accountCapture.getSexKbn());
 			assertEquals("Hokkaido", accountCapture.getBirthplacePrefectureKbnCode());
 			assertEquals("Okinawa", accountCapture.getResidentPrefectureKbnCode());
 			assertEquals("フリーメモ", accountCapture.getFreeMemo());
-			assertEquals("mini-user", accountCapture.getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.MINI, accountCapture.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), accountCapture.getLastLoginDatetime());
 			assertEquals(0, accountCapture.getLoginFailureCount());
 		}
@@ -279,11 +279,11 @@ public class AccountRepositoryImplTest {
 			assertEquals("AAAAAAAA", accountCapture.getAccountName());
 			assertEquals("$2a$10$password1", accountCapture.getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), accountCapture.getBirthdate());
-			assertEquals("none", accountCapture.getSexKbnCode());
+			assertEquals(SexEnum.NONE, accountCapture.getSexKbn());
 			assertEquals("none", accountCapture.getBirthplacePrefectureKbnCode());
 			assertEquals("none", accountCapture.getResidentPrefectureKbnCode());
 			assertEquals("", accountCapture.getFreeMemo());
-			assertEquals("mini-user", accountCapture.getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.MINI, accountCapture.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), accountCapture.getLastLoginDatetime());
 			assertEquals(0, accountCapture.getLoginFailureCount());
 		}
@@ -323,11 +323,11 @@ public class AccountRepositoryImplTest {
 			assertEquals("AAAAAAAA", targetAccountCapture.getAccountName());
 			assertEquals(null, targetAccountCapture.getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), targetAccountCapture.getBirthdate());
-			assertEquals("none", targetAccountCapture.getSexKbnCode());
+			assertEquals(SexEnum.NONE, targetAccountCapture.getSexKbn());
 			assertEquals("none", targetAccountCapture.getBirthplacePrefectureKbnCode());
 			assertEquals("none", targetAccountCapture.getResidentPrefectureKbnCode());
 			assertEquals("", targetAccountCapture.getFreeMemo());
-			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(null, targetAccountCapture.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), targetAccountCapture.getLastLoginDatetime());
 			assertEquals(0, targetAccountCapture.getLoginFailureCount());
 		}
@@ -371,11 +371,11 @@ public class AccountRepositoryImplTest {
 			assertEquals("AAAAAAAA", targetAccountCapture.getAccountName());
 			assertEquals("$2a$10$password1", targetAccountCapture.getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), targetAccountCapture.getBirthdate());
-			assertEquals("woman", targetAccountCapture.getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, targetAccountCapture.getSexKbn());
 			assertEquals("Hokkaido", targetAccountCapture.getBirthplacePrefectureKbnCode());
 			assertEquals("Okinawa", targetAccountCapture.getResidentPrefectureKbnCode());
 			assertEquals("フリーメモ", targetAccountCapture.getFreeMemo());
-			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(null, targetAccountCapture.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), targetAccountCapture.getLastLoginDatetime());
 			assertEquals(2, targetAccountCapture.getLoginFailureCount());
 		}
@@ -410,11 +410,11 @@ public class AccountRepositoryImplTest {
 			assertEquals("AAAAAAAA", targetAccountCapture.getAccountName());
 			assertEquals(null, targetAccountCapture.getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), targetAccountCapture.getBirthdate());
-			assertEquals("none", targetAccountCapture.getSexKbnCode());
+			assertEquals(SexEnum.NONE, targetAccountCapture.getSexKbn());
 			assertEquals("none", targetAccountCapture.getBirthplacePrefectureKbnCode());
 			assertEquals("none", targetAccountCapture.getResidentPrefectureKbnCode());
 			assertEquals("", targetAccountCapture.getFreeMemo());
-			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(null, targetAccountCapture.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), targetAccountCapture.getLastLoginDatetime());
 			assertEquals(0, targetAccountCapture.getLoginFailureCount());
 		}
@@ -452,11 +452,11 @@ public class AccountRepositoryImplTest {
 			assertEquals(null, targetAccountCapture.getAccountName());
 			assertEquals(null, targetAccountCapture.getPassword());
 			assertEquals(null, targetAccountCapture.getBirthdate());
-			assertEquals(null, targetAccountCapture.getSexKbnCode());
+			assertEquals(null, targetAccountCapture.getSexKbn());
 			assertEquals(null, targetAccountCapture.getBirthplacePrefectureKbnCode());
 			assertEquals(null, targetAccountCapture.getResidentPrefectureKbnCode());
 			assertEquals(null, targetAccountCapture.getFreeMemo());
-			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(null, targetAccountCapture.getAuthorityKbn());
 			assertEquals(null, targetAccountCapture.getLastLoginDatetime());
 			assertEquals(0, targetAccountCapture.getLoginFailureCount());
 		}
@@ -491,11 +491,11 @@ public class AccountRepositoryImplTest {
 			assertEquals(null, targetAccountCapture.getAccountName());
 			assertEquals(null, targetAccountCapture.getPassword());
 			assertEquals(null, targetAccountCapture.getBirthdate());
-			assertEquals(null, targetAccountCapture.getSexKbnCode());
+			assertEquals(null, targetAccountCapture.getSexKbn());
 			assertEquals(null, targetAccountCapture.getBirthplacePrefectureKbnCode());
 			assertEquals(null, targetAccountCapture.getResidentPrefectureKbnCode());
 			assertEquals(null, targetAccountCapture.getFreeMemo());
-			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(null, targetAccountCapture.getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)), targetAccountCapture.getLastLoginDatetime());
 			assertEquals(2, targetAccountCapture.getLoginFailureCount());
 		}
@@ -528,11 +528,11 @@ public class AccountRepositoryImplTest {
 			assertEquals(null, targetAccountCapture.getAccountName());
 			assertEquals(null, targetAccountCapture.getPassword());
 			assertEquals(null, targetAccountCapture.getBirthdate());
-			assertEquals(null, targetAccountCapture.getSexKbnCode());
+			assertEquals(null, targetAccountCapture.getSexKbn());
 			assertEquals(null, targetAccountCapture.getBirthplacePrefectureKbnCode());
 			assertEquals(null, targetAccountCapture.getResidentPrefectureKbnCode());
 			assertEquals(null, targetAccountCapture.getFreeMemo());
-			assertEquals(null, targetAccountCapture.getAuthorityKbnCode());
+			assertEquals(null, targetAccountCapture.getAuthorityKbn());
 			assertEquals(null, targetAccountCapture.getLastLoginDatetime());
 			assertEquals(0, targetAccountCapture.getLoginFailureCount());
 		}
@@ -592,11 +592,11 @@ public class AccountRepositoryImplTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 1, 1))
-					.sexKbnCode("man")
+					.sexKbn(SexEnum.MAN)
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("Aomori")
 					.freeMemo("よろしく")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.lastLoginDatetime(OffsetDateTime.of(2001, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -611,11 +611,11 @@ public class AccountRepositoryImplTest {
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
 					.birthdate(LocalDate.of(1991, 2, 1))
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Iwate")
 					.residentPrefectureKbnCode("Okinawa")
 					.freeMemo("お願いします")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(1)
 					.build();

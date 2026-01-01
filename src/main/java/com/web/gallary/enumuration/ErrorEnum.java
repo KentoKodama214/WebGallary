@@ -84,37 +84,30 @@ public enum ErrorEnum {
 	/**
 	 * エラーコード：E-P-0007
 	 * <p>
-	 * エラーメッセージ：{@value MessageConst#ERR_FAIL_TO_REGIST_PORTFOLIO}
+	 * エラーメッセージ：{@value MessageConst#ERR_DUPLICATE_PHOTO_FILE}
 	 */
-	FAIL_TO_REGIST_PORTFOLIO("E-P-0007", MessageConst.ERR_FAIL_TO_REGIST_PORTFOLIO),
+	DUPLICATE_PHOTO_FILE("E-P-0007", MessageConst.ERR_DUPLICATE_PHOTO_FILE),
 	
 	/**
 	 * エラーコード：E-P-0008
 	 * <p>
-	 * エラーメッセージ：{@value MessageConst#ERR_DUPLICATE_PHOTO_FILE}
+	 * エラーメッセージ：{@value MessageConst#ERR_NOT_AUTHORIZED_TO_EDIT_PHOTO}
 	 */
-	DUPLICATE_PHOTO_FILE("E-P-0008", MessageConst.ERR_DUPLICATE_PHOTO_FILE),
-	
+	NOT_AUTHORIZED_TO_EDIT_PHOTO("E-P-0008", MessageConst.ERR_NOT_AUTHORIZED_TO_EDIT_PHOTO),
+
 	/**
 	 * エラーコード：E-P-0009
 	 * <p>
-	 * エラーメッセージ：{@value MessageConst#ERR_NOT_AUTHORIZED_TO_EDIT_PHOTO}
+	 * エラーメッセージ：{@value MessageConst#ERR_PHOTO_NOT_FOUND}
 	 */
-	NOT_AUTHORIZED_TO_EDIT_PHOTO("E-P-0009", MessageConst.ERR_NOT_AUTHORIZED_TO_EDIT_PHOTO),
-
+	PHOTO_NOT_FOUND("E-P-0009", MessageConst.ERR_PHOTO_NOT_FOUND),
+	
 	/**
 	 * エラーコード：E-P-0010
 	 * <p>
-	 * エラーメッセージ：{@value MessageConst#ERR_PHOTO_NOT_FOUND}
-	 */
-	PHOTO_NOT_FOUND("E-P-0010", MessageConst.ERR_PHOTO_NOT_FOUND),
-	
-	/**
-	 * エラーコード：E-P-0011
-	 * <p>
 	 * エラーメッセージ：{@value MessageConst#ERR_REACHED_REGISTRATION_LIMIT}
 	 */
-	REACHED_REGISTRATION_LIMIT("E-P-0011", MessageConst.ERR_REACHED_REGISTRATION_LIMIT);
+	REACHED_REGISTRATION_LIMIT("E-P-0010", MessageConst.ERR_REACHED_REGISTRATION_LIMIT);
 	
 	/** エラーコード */
 	private final String errorCode;

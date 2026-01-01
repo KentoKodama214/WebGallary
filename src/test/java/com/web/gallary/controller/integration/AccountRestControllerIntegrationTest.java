@@ -37,6 +37,7 @@ import com.web.gallary.AccountPrincipal;
 import com.web.gallary.controller.request.AccountRegistRequest;
 import com.web.gallary.controller.request.AccountUpdateRequest;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.enumuration.SexEnum;
 
@@ -70,11 +71,11 @@ public class AccountRestControllerIntegrationTest {
 						.accountName(rs.getString("account_name"))
 						.password(rs.getString("password"))
 						.birthdate(rs.getObject("birthdate", LocalDate.class))
-						.sexKbnCode(rs.getString("sex_kbn_code"))
+						.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 						.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 						.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 						.freeMemo(rs.getString("free_memo"))
-						.authorityKbnCode(rs.getString("authority_kbn_code"))
+						.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 						.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 						.loginFailureCount(rs.getInt("login_failure_count"))
 						.build());
@@ -128,11 +129,11 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(accountId, actualData.getFirst().getAccountId());
 			assertEquals(accountName, actualData.getFirst().getAccountName());
 			assertEquals(birthDate, actualData.getFirst().getBirthdate());
-			assertEquals(sexKbnCode, actualData.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, actualData.getFirst().getSexKbn());
 			assertEquals(birthplacePrefectureKbnCode, actualData.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals(residentPrefectureKbnCode, actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals(freeMemo, actualData.getFirst().getFreeMemo());
-			assertEquals("mini-user", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.MINI, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
@@ -218,11 +219,11 @@ public class AccountRestControllerIntegrationTest {
 						.accountName(rs.getString("account_name"))
 						.password(rs.getString("password"))
 						.birthdate(rs.getObject("birthdate", LocalDate.class))
-						.sexKbnCode(rs.getString("sex_kbn_code"))
+						.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 						.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 						.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 						.freeMemo(rs.getString("free_memo"))
-						.authorityKbnCode(rs.getString("authority_kbn_code"))
+						.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 						.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 						.loginFailureCount(rs.getInt("login_failure_count"))
 						.build());
@@ -248,7 +249,7 @@ public class AccountRestControllerIntegrationTest {
 					.accountId(accountId)
 					.accountName(accountName)
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -280,11 +281,11 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(accountName, actual.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actual.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actual.getFirst().getBirthdate());
-			assertEquals("none", actual.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.NONE, actual.getFirst().getSexKbn());
 			assertEquals("none", actual.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("none", actual.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actual.getFirst().getFreeMemo());
-			assertEquals("administrator", actual.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actual.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actual.getFirst().getLoginFailureCount());
 		}
@@ -309,7 +310,7 @@ public class AccountRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName(accountName)
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -341,11 +342,11 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(accountName, actual.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actual.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actual.getFirst().getBirthdate());
-			assertEquals("none", actual.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.NONE, actual.getFirst().getSexKbn());
 			assertEquals("none", actual.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("none", actual.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actual.getFirst().getFreeMemo());
-			assertEquals("administrator", actual.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actual.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actual.getFirst().getLoginFailureCount());
 		}
@@ -370,7 +371,7 @@ public class AccountRestControllerIntegrationTest {
 					.accountId(accountId)
 					.accountName(accountName)
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -402,11 +403,11 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(accountName, actual.getFirst().getAccountName());
 			assertNotEquals("$2a$10$password1", actual.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actual.getFirst().getBirthdate());
-			assertEquals("none", actual.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.NONE, actual.getFirst().getSexKbn());
 			assertEquals("none", actual.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("none", actual.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actual.getFirst().getFreeMemo());
-			assertEquals("administrator", actual.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actual.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actual.getFirst().getLoginFailureCount());
 		}
@@ -431,7 +432,7 @@ public class AccountRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName(accountName)
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -463,11 +464,11 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(accountName, actual.getFirst().getAccountName());
 			assertNotEquals("$2a$10$password1", actual.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actual.getFirst().getBirthdate());
-			assertEquals("none", actual.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.NONE, actual.getFirst().getSexKbn());
 			assertEquals("none", actual.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("none", actual.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actual.getFirst().getFreeMemo());
-			assertEquals("administrator", actual.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actual.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actual.getFirst().getLoginFailureCount());
 		}
@@ -492,7 +493,7 @@ public class AccountRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName(accountName)
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -534,7 +535,7 @@ public class AccountRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName(accountName)
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -570,7 +571,7 @@ public class AccountRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName(accountName)
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -606,7 +607,7 @@ public class AccountRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName(accountName)
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -642,7 +643,7 @@ public class AccountRestControllerIntegrationTest {
 					.accountId(accountId)
 					.accountName(accountName)
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);

@@ -43,8 +43,8 @@
 			<label>性別</label>
 			<select id="sexKbn" name="sexKbn">
 				<option value="none"></option>
-				<option th:value="man"   th:selected="${AccountSettingRequest.sexKbnCode == 'man'}">男性</option>
-				<option th:value="woman" th:selected="${AccountSettingRequest.sexKbnCode == 'woman'}">女性</option>
+				<option th:value="man"   th:selected="${AccountSettingRequest.sexKbn.name() == 'MAN'}">男性</option>
+				<option th:value="woman" th:selected="${AccountSettingRequest.sexKbn.name() == 'WOMAN'}">女性</option>
 			</select>
 			
 			<label>出身地</label>

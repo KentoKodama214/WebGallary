@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
-import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.enumuration.SortPhotoEnum;
@@ -180,7 +179,7 @@ public class PhotoServiceImpl implements PhotoService {
 		Account account = accountRepository.getByAccountNo(accountNo);
 		Integer count = photoMstRepository.count(accountNo);
 		
-		switch(AuthorityEnum.getOrDefault(account.getAuthorityKbnCode())) {
+		switch(account.getAuthorityKbn()) {
 			case MINI:
 				return count > (photoConfig.getMiniUserUpperLimit() - 1);
 			case NORMAL:

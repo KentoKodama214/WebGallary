@@ -104,7 +104,7 @@ public class PhotoDetailRepositoryImplTest {
 			photoDto1.setPhotoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)));
 			photoDto1.setImageFilePath("https://localhost:8080/image/aaaaaaaa/DSC111.jpg");
 			photoDto1.setCaption("キャプション1");
-			photoDto1.setDirectionKbnCode("vertical");
+			photoDto1.setDirectionKbn(DirectionEnum.VERTICAL);
 			photoDtoList.add(photoDto1);
 			
 			PhotoDto photoDto2 = new PhotoDto();
@@ -115,7 +115,7 @@ public class PhotoDetailRepositoryImplTest {
 			photoDto2.setPhotoAt(OffsetDateTime.of(2000, 2, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)));
 			photoDto2.setImageFilePath("https://localhost:8080/image/aaaaaaaa/DSC222.jpg");
 			photoDto2.setCaption("キャプション2");
-			photoDto2.setDirectionKbnCode("horizontal");
+			photoDto2.setDirectionKbn(DirectionEnum.HORIZONTAL);
 			photoDtoList.add(photoDto2);
 			
 			ArgumentCaptor<PhotoListGetDto> photoListGetDtoCaptor = ArgumentCaptor.forClass(PhotoListGetDto.class);
@@ -172,7 +172,7 @@ public class PhotoDetailRepositoryImplTest {
 			photoDto1.setPhotoAt(OffsetDateTime.of(2000, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)));
 			photoDto1.setImageFilePath("https://localhost:8080/image/aaaaaaaa/DSC111.jpg");
 			photoDto1.setCaption("キャプション1");
-			photoDto1.setDirectionKbnCode("vertical");
+			photoDto1.setDirectionKbn(DirectionEnum.VERTICAL);
 			photoDtoList.add(photoDto1);
 			
 			PhotoDto photoDto2 = new PhotoDto();
@@ -183,7 +183,7 @@ public class PhotoDetailRepositoryImplTest {
 			photoDto2.setPhotoAt(OffsetDateTime.of(2000, 2, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)));
 			photoDto2.setImageFilePath("https://localhost:8080/image/aaaaaaaa/DSC222.jpg");
 			photoDto2.setCaption("キャプション2");
-			photoDto2.setDirectionKbnCode("horizontal");
+			photoDto2.setDirectionKbn(DirectionEnum.HORIZONTAL);
 			photoDtoList.add(photoDto2);
 			
 			ArgumentCaptor<PhotoListGetDto> photoListGetDtoCaptor = ArgumentCaptor.forClass(PhotoListGetDto.class);
@@ -273,7 +273,7 @@ public class PhotoDetailRepositoryImplTest {
 			photoDetailDto.setPhotoJapaneseTitle("");
 			photoDetailDto.setPhotoEnglishTitle("");
 			photoDetailDto.setCaption("");
-			photoDetailDto.setDirectionKbnCode("vertical");
+			photoDetailDto.setDirectionKbn(DirectionEnum.VERTICAL);
 			photoDetailDto.setFocalLength(0);
 			photoDetailDto.setFValue(BigDecimal.ZERO);
 			photoDetailDto.setShutterSpeed(BigDecimal.ZERO);
@@ -346,7 +346,7 @@ public class PhotoDetailRepositoryImplTest {
 			photoDetailDto.setPhotoJapaneseTitle("タイトル");
 			photoDetailDto.setPhotoEnglishTitle("title");
 			photoDetailDto.setCaption("キャプション");
-			photoDetailDto.setDirectionKbnCode("vertical");
+			photoDetailDto.setDirectionKbn(DirectionEnum.VERTICAL);
 			photoDetailDto.setFocalLength(24);
 			photoDetailDto.setFValue(BigDecimal.valueOf(2.8));
 			photoDetailDto.setShutterSpeed(BigDecimal.valueOf(0.01));

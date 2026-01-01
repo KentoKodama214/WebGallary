@@ -34,6 +34,7 @@ import com.web.gallary.controller.request.PhotoFavoriteDeleteRequest;
 import com.web.gallary.controller.request.PhotoFavoriteRegistRequest;
 import com.web.gallary.entity.Account;
 import com.web.gallary.entity.PhotoFavorite;
+import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 
 @ActiveProfiles("test")
@@ -67,7 +68,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -116,7 +117,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -151,7 +152,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -193,7 +194,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -259,7 +260,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -294,7 +295,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
