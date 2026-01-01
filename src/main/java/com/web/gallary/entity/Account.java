@@ -46,7 +46,7 @@ public class Account {
 	private LocalDate birthdate;
 
 	/** 
-	 * 性別区分コード
+	 * 性別区分
 	 * <p>
 	 * {@link SexEnum}
 	 */
@@ -62,7 +62,7 @@ public class Account {
 	private String freeMemo;
 
 	/**
-	 * 権限区分コード
+	 * 権限区分
 	 * <p>
 	 * {@link AuthorityEnum}
 	 */
