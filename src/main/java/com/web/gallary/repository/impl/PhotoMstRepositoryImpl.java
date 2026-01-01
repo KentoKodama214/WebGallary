@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.PhotoMst;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
@@ -55,8 +56,8 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 					Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(Consts.STRING_EMPTY))
 				.caption(
 					Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
-				.directionKbnCode(
-					Optional.ofNullable(photoDetailModel.getDirectionKbnCode()).orElse(Consts.STRING_NONE))
+				.directionKbn(
+					Optional.ofNullable(photoDetailModel.getDirectionKbn()).orElse(DirectionEnum.NONE))
 				.focalLength(
 					Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
 				.fValue(
@@ -71,8 +72,7 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 			photoMstMapper.insert(photoMst);
 		}
 		catch (DuplicateKeyException e) {
-			log.error("PhotoMst: Duplicate Key (AccountNo: " + photoDetailModel.getAccountNo()
-											 + ", PhotoNo: " + newPhotoNo + ")");
+			log.warn("PhotoMst: Duplicate Key (AccountNo: {}, PhotoNo: {})", photoDetailModel.getAccountNo(), newPhotoNo, e);
 			throw new RegistFailureException(ErrorEnum.FAIL_TO_REGIST_PHOTO);
 		}
 	}
@@ -94,31 +94,30 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 				.updatedBy(photoDetailModel.getAccountNo())
 				.isDeleted(false)
 				.photoAt(
-						Optional.ofNullable(photoDetailModel.getPhotoAt()).orElse(Consts.MIN_OFFSET_DATE_TIME))
+					Optional.ofNullable(photoDetailModel.getPhotoAt()).orElse(Consts.MIN_OFFSET_DATE_TIME))
 				.locationNo(
-						Optional.ofNullable(photoDetailModel.getLocationNo()).orElse(0))
+					Optional.ofNullable(photoDetailModel.getLocationNo()).orElse(0))
 				.imageFilePath(photoDetailModel.getImageFilePath())
 				.photoJapaneseTitle(
-						Optional.ofNullable(photoDetailModel.getPhotoJapaneseTitle()).orElse(Consts.STRING_EMPTY))
-					.photoEnglishTitle(
-						Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(Consts.STRING_EMPTY))
-					.caption(
-						Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
-					.directionKbnCode(
-						Optional.ofNullable(photoDetailModel.getDirectionKbnCode()).orElse(Consts.STRING_NONE))
-					.focalLength(
-						Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
-					.fValue(
-						Optional.ofNullable(photoDetailModel.getFValue()).orElse(BigDecimal.ZERO))
-					.shutterSpeed(
-						Optional.ofNullable(photoDetailModel.getShutterSpeed()).orElse(BigDecimal.ZERO))
-					.iso(
-						Optional.ofNullable(photoDetailModel.getIso()).orElse(0))
+					Optional.ofNullable(photoDetailModel.getPhotoJapaneseTitle()).orElse(Consts.STRING_EMPTY))
+				.photoEnglishTitle(
+					Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(Consts.STRING_EMPTY))
+				.caption(
+					Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
+				.directionKbn(
+					Optional.ofNullable(photoDetailModel.getDirectionKbn()).orElse(DirectionEnum.NONE))
+				.focalLength(
+					Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
+				.fValue(
+					Optional.ofNullable(photoDetailModel.getFValue()).orElse(BigDecimal.ZERO))
+				.shutterSpeed(
+					Optional.ofNullable(photoDetailModel.getShutterSpeed()).orElse(BigDecimal.ZERO))
+				.iso(
+					Optional.ofNullable(photoDetailModel.getIso()).orElse(0))
 				.build();
 		
 		if (photoMstMapper.update(cndPhotoMst, targetPhotoMst) < 1) {
-			log.error("PhotoMst: Update Failed(AccountNo: " + cndPhotoMst.getAccountNo() 
-										  + ", PhotoNo: "   + cndPhotoMst.getPhotoNo() + ")");
+			log.warn("PhotoMst: Update Failed (AccountNo: {}, PhotoNo: {})", cndPhotoMst.getAccountNo(), cndPhotoMst.getPhotoNo());
 			throw new UpdateFailureException(ErrorEnum.FAIL_TO_UPDATE_PHOTO);
 		}
 	}
@@ -142,8 +141,7 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 				.build();
 		
 		if (photoMstMapper.update(cndPhotoMst, targetPhotoMst) < 1) {
-			log.error("PhotoMst: Delete Failed(AccountNo: " + cndPhotoMst.getAccountNo() 
-										  + ", PhotoNo: "   + cndPhotoMst.getPhotoNo() + ")");
+			log.warn("PhotoMst: Delete Failed (AccountNo: {}, PhotoNo: {})", cndPhotoMst.getAccountNo(), cndPhotoMst.getPhotoNo());
 			throw new UpdateFailureException(ErrorEnum.FAIL_TO_DELETE_PHOTO);
 		}
 	}

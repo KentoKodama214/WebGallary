@@ -43,6 +43,7 @@ import com.web.gallary.model.PhotoTagModel;
 import com.web.gallary.service.PhotoService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 写真に関するAPI通信を扱うRestControllerクラス
@@ -50,6 +51,7 @@ import lombok.RequiredArgsConstructor;
  * @version	1.0.0
  * @since	1.0.0
 */
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class PhotoRestController {
@@ -70,18 +72,6 @@ public class PhotoRestController {
 	public ResponseEntity<PhotoListGetResponse> getPhotoList(
 			@PathVariable String photoAccountId, 
 			@RequestBody @Validated PhotoListRequest photoListRequest) {
-		photoListRequest.setDirectionKbnCode(
-				Optional.ofNullable(photoListRequest.getDirectionKbnCode()).orElse(Consts.STRING_EMPTY));
-		
-		photoListRequest.setIsFavorite(
-				Optional.ofNullable(photoListRequest.getIsFavorite()).orElse(false));
-		
-		photoListRequest.setSortBy(
-				Optional.ofNullable(photoListRequest.getSortBy()).orElse("photoAt"));
-		
-		photoListRequest.setPageNo(
-				Optional.ofNullable(photoListRequest.getPageNo()).orElse(1));
-		
 		Optional<String> tagsOpt = Optional.ofNullable(photoListRequest.getTagList());
 		photoListRequest.setTagList(tagsOpt.map(tag -> tag.replace(Consts.HALF_SPACE, Consts.FULL_SPACE)).orElse(Consts.STRING_EMPTY));
 		List<String> tagList = tagsOpt.map(tag -> 
@@ -92,7 +82,7 @@ public class PhotoRestController {
 				PhotoListGetModel.builder()
 					.accountNo(sessionHelper.getAccountNo())
 					.photoAccountId(photoAccountId)
-					.directionKbnCode(photoListRequest.getDirectionKbnCode())
+					.directionKbn(photoListRequest.getDirectionKbn())
 					.isFavoriteOnly(photoListRequest.getIsFavorite())
 					.tagList(tagList)
 					.sortBy(photoListRequest.getSortBy())
@@ -136,6 +126,8 @@ public class PhotoRestController {
 		
 		for(FieldError error : result.getFieldErrors()) {
 			if(!error.isBindingFailure()) {
+				log.info("Invalid input. (Field: {}, Value: {}, Message: {})",
+						error.getField(), error.getRejectedValue(), error.getDefaultMessage());
 				throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 			}
 		};
@@ -175,7 +167,7 @@ public class PhotoRestController {
 				.photoJapaneseTitle(photoSaveRequest.getPhotoJapaneseTitle())
 				.photoEnglishTitle(photoSaveRequest.getPhotoEnglishTitle())
 				.caption(photoSaveRequest.getCaption())
-				.directionKbnCode(photoSaveRequest.getDirectionKbnCode())
+				.directionKbn(photoSaveRequest.getDirectionKbn())
 				.focalLength(photoSaveRequest.getFocalLength())
 				.fValue(photoSaveRequest.getFValue())
 				.shutterSpeed(photoSaveRequest.getShutterSpeed())
@@ -215,6 +207,8 @@ public class PhotoRestController {
 		}
 		
 		if(result.hasErrors()) {
+			log.info("Invalid input. (AccountNo: {}, PhotoNo: {}, ImageFilePath: {})",
+					photoDeleteRequest.getAccountNo(), photoDeleteRequest.getPhotoNo(), photoDeleteRequest.getImageFilePath());
 			throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 		}
 		
@@ -256,7 +250,7 @@ public class PhotoRestController {
 						.isFavorite(photo.getIsFavorite())
 						.imageFilePath(photo.getImageFilePath())
 						.caption(photo.getCaption())
-						.directionKbnCode(photo.getDirectionKbnCode())
+						.directionKbn(photo.getDirectionKbn())
 						.build());
 			});
 		

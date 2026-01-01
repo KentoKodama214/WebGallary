@@ -35,7 +35,7 @@ CREATE TABLE photo.photo_mst
 	-- vertical: 縦
 	-- horizontal: 横
 	-- square: 正方形
-	direction_kbn_code varchar(20) NOT NULL,
+	direction_kbn photo.direction_enum DEFAULT 'none' NOT NULL,
 	-- 焦点距離: 単位：mm
 	focal_length int NOT NULL,
 	-- F値
@@ -74,7 +74,7 @@ COMMENT ON COLUMN photo.photo_mst.image_file_path IS '画像ファイルパス :
 COMMENT ON COLUMN photo.photo_mst.photo_japanese_title IS '写真タイトル日本語名 : 空文字不可';
 COMMENT ON COLUMN photo.photo_mst.photo_english_title IS '写真タイトル英語名';
 COMMENT ON COLUMN photo.photo_mst.caption IS 'キャプション';
-COMMENT ON COLUMN photo.photo_mst.direction_kbn_code IS '向き区分コード: vertical: 縦 horizontal: 横 square: 正方形';
+COMMENT ON COLUMN photo.photo_mst.direction_kbn IS '向き区分: vertical(縦)、horizontal(横)、square(正方形)、none(未設定)';
 COMMENT ON COLUMN photo.photo_mst.focal_length IS '焦点距離 : 単位：mm';
 COMMENT ON COLUMN photo.photo_mst.f_value IS 'F値';
 COMMENT ON COLUMN photo.photo_mst.shutter_speed IS 'シャッタースピード : 単位：秒 1日が86400秒 1/4000秒が0.00025秒';

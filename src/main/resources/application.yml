@@ -16,12 +16,17 @@ server:
       remote-ip-header: "x-forwarded-for"
       protocol-header: "x-forwarded-proto"
 
+mybatis:
+  type-handlers-package: com.web.gallary.type_handler
+ 
 management:
   add-application-context-header: false
 
 logging:
   level:
     ROOT: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36}.%M:%L - %msg%n"
 
 auth:
   login:

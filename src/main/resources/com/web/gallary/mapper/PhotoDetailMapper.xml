@@ -40,7 +40,7 @@
 			photo_mst.photo_at AS photoAt,
 			photo_mst.image_file_path AS imageFilePath,
 			photo_mst.caption AS caption,
-			photo_mst.direction_kbn_code AS directionKbnCode
+			photo_mst.direction_kbn AS directionKbn
 		FROM 
 			photo.photo_mst photo_mst
 		LEFT JOIN isFavorite ON
@@ -78,7 +78,7 @@
 			photo_mst.photo_japanese_title AS photoJapaneseTitle,
 			photo_mst.photo_english_title AS photoEnglishTitle,
 			photo_mst.caption AS caption,
-			photo_mst.direction_kbn_code AS directionKbnCode,
+			photo_mst.direction_kbn AS directionKbn,
 			photo_mst.focal_length AS focalLength,
 			photo_mst.f_value AS fValue,
 			photo_mst.shutter_speed AS shutterSpeed,

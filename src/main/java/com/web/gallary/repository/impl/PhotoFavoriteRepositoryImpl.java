@@ -44,9 +44,8 @@ public class PhotoFavoriteRepositoryImpl implements PhotoFavoriteRepository{
 			photoFavoriteMapper.insert(photoFavorite);
 		}
 		catch (DuplicateKeyException e) {
-			log.error("PhotoFavorite: Duplicate Key (AccountNo: "  + favoriteModel.getAccountNo()
-									+ ", FavoritePhotoAccountNo: " + favoriteModel.getFavoritePhotoAccountNo()
-									+ ", FavoritePhotoNo: " 	   + favoriteModel.getFavoritePhotoNo() + ")");
+			log.warn("PhotoFavorite: Duplicate Key (AccountNo: {}, FavoritePhotoAccountNo: {}, FavoritePhotoNo: {})",
+					favoriteModel.getAccountNo(), favoriteModel.getFavoritePhotoAccountNo(), favoriteModel.getFavoritePhotoNo(), e);
 			throw new RegistFailureException(ErrorEnum.FAIL_TO_REGIST_FAVORITE);
 		}
 	}
@@ -66,9 +65,8 @@ public class PhotoFavoriteRepositoryImpl implements PhotoFavoriteRepository{
 				.build();
 		
 		if (photoFavoriteMapper.delete(photoFavorite) < 1) {
-			log.error("PhotoFavorite: Delete Failed(AccountNo: "  + favoriteDeleteModel.getAccountNo() 
-									+ ", FavoritePhotoAccountNo:" + favoriteDeleteModel.getFavoritePhotoAccountNo()
-									+ ", FavoritePhotoNo: "       + favoriteDeleteModel.getFavoritePhotoNo() + ")");
+			log.warn("PhotoFavorite: Delete Failed (AccountNo: {}, FavoritePhotoAccountNo: {}, FavoritePhotoNo: {})",
+					favoriteDeleteModel.getAccountNo(), favoriteDeleteModel.getFavoritePhotoAccountNo(), favoriteDeleteModel.getFavoritePhotoNo());
 			throw new UpdateFailureException(ErrorEnum.FAIL_TO_CANCEL_FAVORITE);
 		}
 	}

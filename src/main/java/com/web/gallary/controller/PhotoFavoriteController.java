@@ -22,6 +22,7 @@ import com.web.gallary.model.PhotoFavoriteModel;
 import com.web.gallary.service.PhotoFavoriteService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 写真のお気に入りの登録・解除を扱うRestControllerクラス
@@ -29,6 +30,7 @@ import lombok.RequiredArgsConstructor;
  * @version	1.0.0
  * @since	1.0.0
 */
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class PhotoFavoriteController {
@@ -50,6 +52,8 @@ public class PhotoFavoriteController {
 			BindingResult result) throws BadRequestException, RegistFailureException {
 		
 		if(result.hasErrors()) {
+			log.info("Invalid input. (FavoritePhotoAccountNo: {}, FavoritePhotoNo: {})",
+					photoFavoriteRegistRequest.getFavoritePhotoAccountNo(), photoFavoriteRegistRequest.getFavoritePhotoNo());
 			throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 		}
 		
@@ -81,6 +85,8 @@ public class PhotoFavoriteController {
 			BindingResult result) throws BadRequestException, UpdateFailureException {
 
 		if(result.hasErrors()) {
+			log.info("Invalid input. (FavoritePhotoAccountNo: {}, FavoritePhotoNo: {})",
+					photoFavoriteDeleteRequest.getFavoritePhotoAccountNo(), photoFavoriteDeleteRequest.getFavoritePhotoNo());
 			throw new BadRequestException(ErrorEnum.INVALID_INPUT);
 		}
 		

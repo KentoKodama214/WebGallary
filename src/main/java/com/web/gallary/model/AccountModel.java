@@ -3,6 +3,9 @@ package com.web.gallary.model;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
+import com.web.gallary.enumuration.AuthorityEnum;
+import com.web.gallary.enumuration.SexEnum;
+
 import lombok.Builder;
 import lombok.Value;
 
@@ -28,12 +31,11 @@ public class AccountModel {
 	private LocalDate birthdate;
 
 	/** 
-	 * 性別区分コード
+	 * 性別区分
 	 * <p>
-	 * man:男性<p>
-	 * woman:女性 
+	 * {@link SexEnum}
 	 */
-	private String sexKbnCode;
+	private SexEnum sexKbn;
 
 	/** 出身都道府県区分コード */
 	private String birthplacePrefectureKbnCode;
@@ -44,8 +46,12 @@ public class AccountModel {
 	/** フリーメモ */
 	private String freeMemo;
 	
-	/** 権限区分コード */
-	private String authorityKbnCode;
+	/**
+	 * 権限区分
+	 * <p>
+	 * {@link AuthorityEnum}
+	 */
+	private AuthorityEnum authorityKbn;
 	
 	/** 最終ログイン日時 */
 	private OffsetDateTime lastLoginDatetime;

@@ -1,6 +1,5 @@
 package com.web.gallary.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.gallary.constant.ApiRoutes;
+import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.ForbiddenAccountException;
@@ -71,7 +71,7 @@ public class AccountController {
 		mv.addObject("my_photo_list_url", PhotoUrlUtil.getPhotoListUrl(sessionHelper.getAccountId()));
 		
 		Account account = accountService.getAccountById(accountId);
-		if(account.getBirthdate().equals(LocalDate.of(1900,1,1))) {
+		if(account.getBirthdate().equals(Consts.MIN_LOCAL_DATE)) {
 			account.setBirthdate(null);
 		}
 		mv.addObject("AccountSettingRequest", account);

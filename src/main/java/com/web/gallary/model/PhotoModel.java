@@ -3,6 +3,8 @@ package com.web.gallary.model;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import com.web.gallary.enumuration.DirectionEnum;
+
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
@@ -42,13 +44,12 @@ public class PhotoModel {
 	private String caption;
 
 	/** 
-	 * 向き区分コード
+	 * 向き区分
 	 * <p>
-	 * vertical: 縦<p>
-	 * horizontal: 横
+	 * {@link DirectionEnum}
 	 */
 	@NonNull
-	private String directionKbnCode;
+	private DirectionEnum directionKbn;
 	
 	/** 写真タグリスト */
 	@NonNull

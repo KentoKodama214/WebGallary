@@ -25,6 +25,7 @@ import com.web.gallary.dto.PhotoDetailDto;
 import com.web.gallary.dto.PhotoDetailGetDto;
 import com.web.gallary.dto.PhotoDto;
 import com.web.gallary.dto.PhotoListGetDto;
+import com.web.gallary.enumuration.DirectionEnum;
 
 @MybatisTest
 @ActiveProfiles("test")
@@ -56,7 +57,7 @@ public class PhotoDetailMapperTest {
 			assertEquals(OffsetDateTime.of(2021, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualPhotoDto1.getPhotoAt());
 			assertEquals("https://www.xxx.com/DSC111.jpg", actualPhotoDto1.getImageFilePath());
 			assertEquals("キャプション11", actualPhotoDto1.getCaption());
-			assertEquals("vertical", actualPhotoDto1.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualPhotoDto1.getDirectionKbn());
 			
 			PhotoDto actualPhotoDto2 = actual.stream().sorted(Comparator.comparing(PhotoDto::getPhotoNo)).toList().getLast();
 			assertEquals(1, actualPhotoDto2.getAccountNo());
@@ -66,7 +67,7 @@ public class PhotoDetailMapperTest {
 			assertEquals(OffsetDateTime.of(2021, 2, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualPhotoDto2.getPhotoAt());
 			assertEquals("https://www.xxx.com/DSC222.jpg", actualPhotoDto2.getImageFilePath());
 			assertEquals("キャプション12", actualPhotoDto2.getCaption());
-			assertEquals("horizontal", actualPhotoDto2.getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actualPhotoDto2.getDirectionKbn());
 		}
 		
 		@Test
@@ -110,7 +111,7 @@ public class PhotoDetailMapperTest {
 			assertEquals("タイトル11", actual.getPhotoJapaneseTitle());
 			assertEquals("title11", actual.getPhotoEnglishTitle());
 			assertEquals("キャプション11", actual.getCaption());
-			assertEquals("vertical", actual.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.getDirectionKbn());
 			assertEquals(24, actual.getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actual.getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actual.getShutterSpeed()));

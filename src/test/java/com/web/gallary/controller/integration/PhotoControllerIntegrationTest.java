@@ -35,6 +35,8 @@ import com.web.gallary.AccountPrincipal;
 import com.web.gallary.controller.request.PhotoSettingRequest;
 import com.web.gallary.controller.request.PhotoTagRequest;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.model.PhotoDetailModel;
 import com.web.gallary.model.PhotoTagModel;
@@ -85,7 +87,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("EEEEEEEE")
 					.password("$2a$10$password5")
-					.authorityKbnCode("special-user")
+					.authorityKbn(AuthorityEnum.SPECIAL)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -124,7 +126,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("EEEEEEEE")
 					.password("$2a$10$password5")
-					.authorityKbnCode("special-user")
+					.authorityKbn(AuthorityEnum.SPECIAL)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -163,7 +165,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -232,7 +234,7 @@ public class PhotoControllerIntegrationTest {
 					.photoJapaneseTitle("タイトル11")
 					.photoEnglishTitle("title11")
 					.caption("キャプション11")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.focalLength(24)
 					.fValue(BigDecimal.valueOf(8.0).setScale(2))
 					.shutterSpeed(BigDecimal.valueOf(1).setScale(5))
@@ -270,7 +272,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("EEEEEEEE")
 					.password("$2a$10$password5")
-					.authorityKbnCode("special-user")
+					.authorityKbn(AuthorityEnum.SPECIAL)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -313,7 +315,7 @@ public class PhotoControllerIntegrationTest {
 					.photoJapaneseTitle("")
 					.photoEnglishTitle("")
 					.caption("")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.focalLength(null)
 					.fValue(null)
 					.shutterSpeed(null)
@@ -357,7 +359,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -393,7 +395,7 @@ public class PhotoControllerIntegrationTest {
 					.photoJapaneseTitle("タイトル11")
 					.photoEnglishTitle("title11")
 					.caption("キャプション11")
-					.directionKbnCode("horizontal")
+					.directionKbn(DirectionEnum.HORIZONTAL)
 					.focalLength(24)
 					.fValue(BigDecimal.valueOf(8.0).setScale(2))
 					.shutterSpeed(BigDecimal.valueOf(1).setScale(5))
@@ -437,7 +439,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -496,7 +498,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -541,7 +543,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -578,7 +580,7 @@ public class PhotoControllerIntegrationTest {
 			expected.setPhotoJapaneseTitle("タイトル11");
 			expected.setPhotoEnglishTitle("title11");
 			expected.setCaption("キャプション11");
-			expected.setDirectionKbnCode("horizontal");
+			expected.setDirectionKbn(DirectionEnum.HORIZONTAL);
 			expected.setFocalLength(24);
 			expected.setFValue(BigDecimal.valueOf(8.0));
 			expected.setShutterSpeed(BigDecimal.valueOf(1.0));
@@ -601,7 +603,7 @@ public class PhotoControllerIntegrationTest {
 					.param("photoJapaneseTitle", "タイトル11")
 					.param("photoEnglishTitle", "title11")
 					.param("caption", "キャプション11")
-					.param("directionKbnCode", "horizontal")
+					.param("directionKbn", "HORIZONTAL")
 					.param("focalLength", "24")
 					.param("fValue", "8.0")
 					.param("shutterSpeed", "1.0")
@@ -650,7 +652,7 @@ public class PhotoControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -672,7 +674,7 @@ public class PhotoControllerIntegrationTest {
 					.param("photoJapaneseTitle", "タイトル11")
 					.param("photoEnglishTitle", "title11")
 					.param("caption", "キャプション11")
-					.param("directionKbnCode", "horizontal")
+					.param("directionKbn", "HORIZONTAL")
 					.param("focalLength", "24")
 					.param("fValue", "8.0")
 					.param("shutterSpeed", "1.0")
@@ -715,7 +717,7 @@ public class PhotoControllerIntegrationTest {
 					.param("photoJapaneseTitle", "タイトル11")
 					.param("photoEnglishTitle", "title11")
 					.param("caption", "キャプション11")
-					.param("directionKbnCode", "horizontal")
+					.param("directionKbn", "HORIZONTAL")
 					.param("focalLength", "24")
 					.param("fValue", "8.0")
 					.param("shutterSpeed", "1.0")

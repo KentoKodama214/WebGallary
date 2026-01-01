@@ -44,6 +44,8 @@ import com.web.gallary.entity.Account;
 import com.web.gallary.entity.PhotoFavorite;
 import com.web.gallary.entity.PhotoMst;
 import com.web.gallary.entity.PhotoTagMst;
+import com.web.gallary.enumuration.AuthorityEnum;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 
 @ActiveProfiles("test")
@@ -91,35 +93,35 @@ public class PhotoRestControllerIntegrationTest {
 			assertFalse(photoList.get(0).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC19.jpg", photoList.get(0).get("imageFilePath").asText());
 			assertEquals("caption19", photoList.get(0).get("caption").asText());
-			assertEquals("horizontal", photoList.get(0).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.HORIZONTAL, DirectionEnum.getOrDefault(photoList.get(0).get("directionKbn").asText()));
 			
 			assertEquals(1, photoList.get(1).get("accountNo").asInt());
 			assertEquals(8, photoList.get(1).get("photoNo").asInt());
 			assertFalse(photoList.get(1).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC18.jpg", photoList.get(1).get("imageFilePath").asText());
 			assertEquals("caption18", photoList.get(1).get("caption").asText());
-			assertEquals("vertical", photoList.get(1).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.VERTICAL, DirectionEnum.getOrDefault(photoList.get(1).get("directionKbn").asText()));
 			
 			assertEquals(1, photoList.get(2).get("accountNo").asInt());
 			assertEquals(7, photoList.get(2).get("photoNo").asInt());
 			assertFalse(photoList.get(2).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC17.jpg", photoList.get(2).get("imageFilePath").asText());
 			assertEquals("caption17", photoList.get(2).get("caption").asText());
-			assertEquals("vertical", photoList.get(2).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.VERTICAL, DirectionEnum.getOrDefault(photoList.get(2).get("directionKbn").asText()));
 			
 			assertEquals(1, photoList.get(3).get("accountNo").asInt());
 			assertEquals(6, photoList.get(3).get("photoNo").asInt());
 			assertFalse(photoList.get(3).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC16.jpg", photoList.get(3).get("imageFilePath").asText());
 			assertEquals("caption16", photoList.get(3).get("caption").asText());
-			assertEquals("horizontal", photoList.get(3).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.HORIZONTAL, DirectionEnum.getOrDefault(photoList.get(3).get("directionKbn").asText()));
 			
 			assertEquals(1, photoList.get(4).get("accountNo").asInt());
 			assertEquals(5, photoList.get(4).get("photoNo").asInt());
 			assertFalse(photoList.get(4).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC15.jpg", photoList.get(4).get("imageFilePath").asText());
 			assertEquals("caption15", photoList.get(4).get("caption").asText());
-			assertEquals("vertical", photoList.get(4).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.VERTICAL, DirectionEnum.getOrDefault(photoList.get(4).get("directionKbn").asText()));
 		}
 		
 		@Test
@@ -152,7 +154,7 @@ public class PhotoRestControllerIntegrationTest {
 			assertFalse(photoList.get(0).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC11.jpg", photoList.get(0).get("imageFilePath").asText());
 			assertEquals("caption11", photoList.get(0).get("caption").asText());
-			assertEquals("horizontal", photoList.get(0).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.HORIZONTAL, DirectionEnum.getOrDefault(photoList.get(0).get("directionKbn").asText()));
 		}
 		
 		@Test
@@ -186,7 +188,7 @@ public class PhotoRestControllerIntegrationTest {
 			assertFalse(photoList.get(0).get("isFavorite").asBoolean());
 			assertEquals("https://www.xxx.com/aaaaaaaa/DSC11.jpg", photoList.get(0).get("imageFilePath").asText());
 			assertEquals("caption11", photoList.get(0).get("caption").asText());
-			assertEquals("horizontal", photoList.get(0).get("directionKbnCode").asText());
+			assertEquals(DirectionEnum.HORIZONTAL, DirectionEnum.getOrDefault(photoList.get(0).get("directionKbn").asText()));
 		}
 		
 		@Test
@@ -238,7 +240,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -251,7 +253,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("accountNo", "2")
 					.param("caption", "")
 					.param("imageFilePath", "")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "")
 					.param("photoJapaneseTitle", "")
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -280,7 +282,7 @@ public class PhotoRestControllerIntegrationTest {
 						.photoJapaneseTitle(rs.getString("photo_japanese_title"))
 						.photoEnglishTitle(rs.getString("photo_english_title"))
 						.caption(rs.getString("caption"))
-						.directionKbnCode(rs.getString("direction_kbn_code"))
+						.directionKbn(DirectionEnum.getOrDefault(rs.getString("direction_kbn")))
 						.focalLength(rs.getInt("focal_length"))
 						.fValue(rs.getBigDecimal("f_value"))
 						.shutterSpeed(rs.getBigDecimal("shutter_speed"))
@@ -297,7 +299,7 @@ public class PhotoRestControllerIntegrationTest {
 			assertEquals("", actualPhotoMst.getFirst().getPhotoJapaneseTitle());
 			assertEquals("", actualPhotoMst.getFirst().getPhotoEnglishTitle());
 			assertEquals("", actualPhotoMst.getFirst().getCaption());
-			assertEquals("vertical", actualPhotoMst.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualPhotoMst.getFirst().getDirectionKbn());
 			assertEquals(0, actualPhotoMst.getFirst().getFocalLength());
 			assertEquals(0, BigDecimal.ZERO.compareTo(actualPhotoMst.getFirst().getFValue()));
 			assertEquals(0, BigDecimal.ZERO.compareTo(actualPhotoMst.getFirst().getShutterSpeed()));
@@ -334,7 +336,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -347,7 +349,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("accountNo", "2")
 					.param("caption", "caption111")
 					.param("imageFilePath", "")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "title111")
 					.param("photoJapaneseTitle", "タイトル111")
 					.param("photoAt", LocalDateTime.of(2000, 1, 1, 0, 0, 0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
@@ -387,7 +389,7 @@ public class PhotoRestControllerIntegrationTest {
 						.photoJapaneseTitle(rs.getString("photo_japanese_title"))
 						.photoEnglishTitle(rs.getString("photo_english_title"))
 						.caption(rs.getString("caption"))
-						.directionKbnCode(rs.getString("direction_kbn_code"))
+						.directionKbn(DirectionEnum.getOrDefault(rs.getString("direction_kbn")))
 						.focalLength(rs.getInt("focal_length"))
 						.fValue(rs.getBigDecimal("f_value"))
 						.shutterSpeed(rs.getBigDecimal("shutter_speed"))
@@ -404,7 +406,7 @@ public class PhotoRestControllerIntegrationTest {
 			assertEquals("タイトル111", actualPhotoMst.getFirst().getPhotoJapaneseTitle());
 			assertEquals("title111", actualPhotoMst.getFirst().getPhotoEnglishTitle());
 			assertEquals("caption111", actualPhotoMst.getFirst().getCaption());
-			assertEquals("vertical", actualPhotoMst.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualPhotoMst.getFirst().getDirectionKbn());
 			assertEquals(24, actualPhotoMst.getFirst().getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualPhotoMst.getFirst().getFValue()));
 			assertEquals(0, BigDecimal.valueOf(0.01).compareTo(actualPhotoMst.getFirst().getShutterSpeed()));
@@ -447,7 +449,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -460,7 +462,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("photoNo", "1")
 					.param("caption", "caption111")
 					.param("imageFilePath", "https://www.xxx.com/bbbbbbbb/DSC21.jpg")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "title111")
 					.param("photoJapaneseTitle", "タイトル111")
 					.param("photoAt", LocalDateTime.of(2000, 1, 1, 0, 0, 0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
@@ -502,7 +504,7 @@ public class PhotoRestControllerIntegrationTest {
 						.photoJapaneseTitle(rs.getString("photo_japanese_title"))
 						.photoEnglishTitle(rs.getString("photo_english_title"))
 						.caption(rs.getString("caption"))
-						.directionKbnCode(rs.getString("direction_kbn_code"))
+						.directionKbn(DirectionEnum.getOrDefault(rs.getString("direction_kbn")))
 						.focalLength(rs.getInt("focal_length"))
 						.fValue(rs.getBigDecimal("f_value"))
 						.shutterSpeed(rs.getBigDecimal("shutter_speed"))
@@ -519,7 +521,7 @@ public class PhotoRestControllerIntegrationTest {
 			assertEquals("タイトル111", actualPhotoMst.getFirst().getPhotoJapaneseTitle());
 			assertEquals("title111", actualPhotoMst.getFirst().getPhotoEnglishTitle());
 			assertEquals("caption111", actualPhotoMst.getFirst().getCaption());
-			assertEquals("vertical", actualPhotoMst.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualPhotoMst.getFirst().getDirectionKbn());
 			assertEquals(24, actualPhotoMst.getFirst().getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualPhotoMst.getFirst().getFValue()));
 			assertEquals(0, BigDecimal.valueOf(0.01).compareTo(actualPhotoMst.getFirst().getShutterSpeed()));
@@ -567,7 +569,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -606,7 +608,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("aaaaaaaa")
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -640,7 +642,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -671,7 +673,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -708,7 +710,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -746,7 +748,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -759,7 +761,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("accountNo", "2")
 					.param("caption", "")
 					.param("imageFilePath", "")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "")
 					.param("photoJapaneseTitle", "")
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -784,7 +786,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId("bbbbbbbb")
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -797,7 +799,7 @@ public class PhotoRestControllerIntegrationTest {
 					.param("photoNo", "99")
 					.param("caption", "caption21")
 					.param("imageFilePath", "https://www.xxx.com/DSC99.jpg")
-					.param("directionKbnCode", "vertical")
+					.param("directionKbn", "VERTICAL")
 					.param("photoEnglishTitle", "")
 					.param("photoJapaneseTitle", "")
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -837,7 +839,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -873,7 +875,7 @@ public class PhotoRestControllerIntegrationTest {
 						.photoJapaneseTitle(rs.getString("photo_japanese_title"))
 						.photoEnglishTitle(rs.getString("photo_english_title"))
 						.caption(rs.getString("caption"))
-						.directionKbnCode(rs.getString("direction_kbn_code"))
+						.directionKbn(DirectionEnum.getOrDefault(rs.getString("direction_kbn")))
 						.focalLength(rs.getInt("focal_length"))
 						.fValue(rs.getBigDecimal("f_value"))
 						.shutterSpeed(rs.getBigDecimal("shutter_speed"))
@@ -928,7 +930,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("EEEEEEEE")
 					.password("$2a$10$password5")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -969,7 +971,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
@@ -1009,7 +1011,7 @@ public class PhotoRestControllerIntegrationTest {
 					.accountId(loginAccountId)
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
 			
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);

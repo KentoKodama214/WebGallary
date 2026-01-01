@@ -18,7 +18,13 @@ public final class Consts {
 	/** none */
 	public static final String STRING_NONE = "none";
 	/** mini-user */
-	public static final String AUTHORITY_KBN_CODE = "mini-user";
+	public static final String AUTHORITY_MINI = "mini-user";
+	/** normal-user */
+	public static final String AUTHORITY_NORMAL = "normal-user";
+	/** special-user */
+	public static final String AUTHORITY_SPECIAL = "special-user";
+	/** administrator */
+	public static final String ADMINISTRATOR = "administrator";
 	
 	// ZoneOffset
 	public static final ZoneOffset JST = ZoneOffset.ofHours(9);

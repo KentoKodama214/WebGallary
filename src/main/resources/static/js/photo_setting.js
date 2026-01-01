@@ -32,11 +32,11 @@ function previewFile() {
 		image.onload = function() {
 			result = { width: image.naturalWidth, height: image.naturalHeight };
 			if (result.width < result.height) {
-				document.getElementById("direction_kbn_code").value = "vertical";
+				document.getElementById("direction_kbn_code").value = "VERTICAL";
 			} else if (result.width > result.height) {
-				document.getElementById("direction_kbn_code").value = "horizontal";
+				document.getElementById("direction_kbn_code").value = "HORIZONTAL";
 			} else {
-				document.getElementById("direction_kbn_code").value = "square";
+				document.getElementById("direction_kbn_code").value = "SQUARE";
 			}
 		}
 	});
@@ -293,7 +293,7 @@ async function regist(obj) {
 	const PhotoNo = document.getElementsByName('photoNo')[0];
 	const ImageFile = document.getElementsByName('imageFile')[0];
 	const ImageFilePath = document.getElementsByName('imageFilePath')[0];
-	const DirectionKbnCode = document.getElementsByName('directionKbnCode')[0];
+	const DirectionKbnCode = document.getElementsByName('directionKbn')[0];
 	const JapaneseTitle = document.getElementsByName('photoJapaneseTitle')[0];
 	const EnglishTitle = document.getElementsByName('photoEnglishTitle')[0];
 	const PhotoAt = document.getElementsByName('photoAt')[0];
@@ -322,7 +322,7 @@ async function regist(obj) {
 	formData.append('photoJapaneseTitle', JapaneseTitle.value);
 	formData.append('photoEnglishTitle', EnglishTitle.value);
 	formData.append('caption', Caption.value);
-	formData.append('directionKbnCode', DirectionKbnCode.value);
+	formData.append('directionKbn', DirectionKbnCode.value);
 	formData.append('focalLength', FocalLength.value);
 	formData.append('fValue', FValue.value);
 	formData.append('shutterSpeed', ShutterSpeed.value);

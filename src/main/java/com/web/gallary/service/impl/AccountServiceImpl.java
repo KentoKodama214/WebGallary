@@ -25,12 +25,13 @@ import com.web.gallary.model.AccountModel;
 import com.web.gallary.repository.AccountRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * アカウントに関するビジネスロジックを行うServiceの実装クラス
  */
+@Slf4j
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class AccountServiceImpl implements UserDetailsService {
 
@@ -45,10 +46,12 @@ public class AccountServiceImpl implements UserDetailsService {
 	 * @throws	UsernameNotFoundException	ユーザーが存在しない場合
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Account account = accountRepository.getByAccountId(username);
 		
 		if (Objects.isNull(account)) {
+			log.info("User not found. (username: {})", username);
 			throw new UsernameNotFoundException(MessageConst.USER_NOT_FOUND);
 		}
 		return new AccountPrincipal(account, loginConfig.getFailCount());
@@ -61,10 +64,10 @@ public class AccountServiceImpl implements UserDetailsService {
 	 * @return							登録に成功した場合、true
 	 * @throws	RegistFailureException	登録に失敗した場合
 	 */
+	@Transactional
 	public Boolean registAccount(AccountModel accountModel) throws RegistFailureException {
 		Boolean isExist = accountRepository.isExistAccount(null, accountModel.getAccountId());
 		if(!isExist) accountRepository.regist(accountModel);
-		
 		return !isExist;
 	}
 	
@@ -75,6 +78,7 @@ public class AccountServiceImpl implements UserDetailsService {
 	 * @return							更新に成功した場合、true
 	 * @throws UpdateFailureException	更新に失敗した場合
 	 */
+	@Transactional
 	public Boolean updateAccount(AccountModel accountModel) throws UpdateFailureException {
 		Boolean isExist = accountRepository.isExistAccount(accountModel.getAccountNo(), accountModel.getAccountId());
 		if(!isExist) accountRepository.update(accountModel);
@@ -87,6 +91,7 @@ public class AccountServiceImpl implements UserDetailsService {
 	 * @param	accountId	アカウントID
 	 * @return				{@link Account}
 	 */
+	@Transactional(readOnly = true)
 	public Account getAccountById(String accountId) {
 		return accountRepository.getByAccountId(accountId);
 	}
@@ -96,6 +101,7 @@ public class AccountServiceImpl implements UserDetailsService {
 	 * 
 	 * @return	{@link AccountModel}
 	 */
+	@Transactional(readOnly = true)
 	public List<AccountModel> getAccountList() {
 		return accountRepository.getAccountList().stream().sorted(Comparator.comparing(AccountModel::getAccountId)).toList();
 	}
@@ -107,6 +113,7 @@ public class AccountServiceImpl implements UserDetailsService {
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
 	@EventListener
+	@Transactional
 	public void handle(AuthenticationSuccessEvent event) throws UpdateFailureException {
 		Account account = accountRepository.getByAccountId(event.getAuthentication().getName());
 		
@@ -125,6 +132,7 @@ public class AccountServiceImpl implements UserDetailsService {
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
 	@EventListener
+	@Transactional
 	public void handle(AuthenticationFailureBadCredentialsEvent event) throws UpdateFailureException {
 		Account account = accountRepository.getByAccountId(event.getAuthentication().getName());
 		

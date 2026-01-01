@@ -22,6 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.web.gallary.entity.PhotoMst;
+import com.web.gallary.enumuration.DirectionEnum;
 
 @MybatisTest
 @ActiveProfiles("test")
@@ -124,7 +125,7 @@ public class PhotoMstMapperTest {
 		@Order(10)
 		@DisplayName("正常系：向き区分コードでのcountで1件の場合")
 		void count_by_directionKbnCode() {
-			PhotoMst photoMst = PhotoMst.builder().directionKbnCode("vertical").build();
+			PhotoMst photoMst = PhotoMst.builder().directionKbn(DirectionEnum.VERTICAL).build();
 			Integer actual = photoMstMapper.count(photoMst);
 			assertEquals(1, actual);
 		}
@@ -207,7 +208,7 @@ public class PhotoMstMapperTest {
 					.photoJapaneseTitle("")
 					.photoEnglishTitle("")
 					.caption("")
-					.directionKbnCode("")
+					.directionKbn(DirectionEnum.NONE)
 					.focalLength(100)
 					.fValue(BigDecimal.valueOf(2.8))
 					.shutterSpeed(BigDecimal.valueOf(0.01))
@@ -233,7 +234,7 @@ public class PhotoMstMapperTest {
 							.photoJapaneseTitle(rs.getString("photo_japanese_title"))
 							.photoEnglishTitle(rs.getString("photo_english_title"))
 							.caption(rs.getString("caption"))
-							.directionKbnCode(rs.getString("direction_kbn_code"))
+							.directionKbn(DirectionEnum.getOrDefault(rs.getString("direction_kbn")))
 							.focalLength(rs.getInt("focal_length"))
 							.fValue(rs.getBigDecimal("f_value"))
 							.shutterSpeed(rs.getBigDecimal("shutter_speed"))
@@ -252,7 +253,7 @@ public class PhotoMstMapperTest {
 			assertEquals("", actualData.getFirst().getPhotoJapaneseTitle());
 			assertEquals("", actualData.getFirst().getPhotoEnglishTitle());
 			assertEquals("", actualData.getFirst().getCaption());
-			assertEquals("", actualData.getFirst().getDirectionKbnCode());
+			assertEquals(DirectionEnum.NONE, actualData.getFirst().getDirectionKbn());
 			assertEquals(100, actualData.getFirst().getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(2.8).compareTo(actualData.getFirst().getFValue()));
 			assertEquals(0, BigDecimal.valueOf(0.01).compareTo(actualData.getFirst().getShutterSpeed()));
@@ -282,7 +283,7 @@ public class PhotoMstMapperTest {
 							.photoJapaneseTitle(rs.getString("photo_japanese_title"))
 							.photoEnglishTitle(rs.getString("photo_english_title"))
 							.caption(rs.getString("caption"))
-							.directionKbnCode(rs.getString("direction_kbn_code"))
+							.directionKbn(DirectionEnum.getOrDefault(rs.getString("direction_kbn")))
 							.focalLength(rs.getInt("focal_length"))
 							.fValue(rs.getBigDecimal("f_value"))
 							.shutterSpeed(rs.getBigDecimal("shutter_speed"))
@@ -312,7 +313,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -343,7 +344,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -360,7 +361,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル21", actualData.get(1).getPhotoJapaneseTitle());
 			assertEquals("title21", actualData.get(1).getPhotoEnglishTitle());
 			assertEquals("キャプション21", actualData.get(1).getCaption());
-			assertEquals("horizontal", actualData.get(1).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actualData.get(1).getDirectionKbn());
 			assertEquals(80, actualData.get(1).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(12.0).compareTo(actualData.get(1).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(5).compareTo(actualData.get(1).getShutterSpeed()));
@@ -391,7 +392,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル23", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title23", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション23", actualData.get(0).getCaption());
-			assertEquals("horizontal", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actualData.get(0).getDirectionKbn());
 			assertEquals(50, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(10.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(3).compareTo(actualData.get(0).getShutterSpeed()));
@@ -422,7 +423,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -452,7 +453,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -482,7 +483,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -512,7 +513,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -542,7 +543,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -572,7 +573,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -583,12 +584,12 @@ public class PhotoMstMapperTest {
 		@Order(10)
 		@DisplayName("正常系：向き区分コードでのupdate")
 		void update_by_directionKbnCode() {
-			PhotoMst conditionPhotoMst = PhotoMst.builder().directionKbnCode("vertical").build();
+			PhotoMst conditionPhotoMst = PhotoMst.builder().directionKbn(DirectionEnum.VERTICAL).build();
 			PhotoMst targetPhotoMst = PhotoMst.builder().iso(1000).build();
 			Integer actual = photoMstMapper.update(conditionPhotoMst, targetPhotoMst);
 			assertEquals(1, actual);
 			
-			List<PhotoMst> actualData = getPhotoMstList("direction_kbn_code='vertical'");
+			List<PhotoMst> actualData = getPhotoMstList("direction_kbn='vertical'");
 			assertEquals(1, actualData.size());
 			
 			assertEquals(1, actualData.get(0).getAccountNo());
@@ -602,7 +603,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -632,7 +633,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -662,7 +663,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -692,7 +693,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -722,7 +723,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));
@@ -765,7 +766,7 @@ public class PhotoMstMapperTest {
 			assertEquals("タイトル11", actualData.get(0).getPhotoJapaneseTitle());
 			assertEquals("title11", actualData.get(0).getPhotoEnglishTitle());
 			assertEquals("キャプション11", actualData.get(0).getCaption());
-			assertEquals("vertical", actualData.get(0).getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actualData.get(0).getDirectionKbn());
 			assertEquals(24, actualData.get(0).getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actualData.get(0).getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actualData.get(0).getShutterSpeed()));

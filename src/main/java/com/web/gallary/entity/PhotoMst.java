@@ -3,6 +3,8 @@ package com.web.gallary.entity;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+import com.web.gallary.enumuration.DirectionEnum;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -52,12 +54,11 @@ public class PhotoMst {
 	private String caption;
 
 	/** 
-	 * 向き区分コード
+	 * 向き区分
 	 * <p>
-	 * vertical: 縦<p>
-	 * horizontal: 横
+	 * {@link DirectionEnum}
 	 */
-	private String directionKbnCode;
+	private DirectionEnum directionKbn;
 
 	/** 焦点距離 */
 	private Integer focalLength;

@@ -20,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.model.PhotoDetailGetModel;
 import com.web.gallary.model.PhotoDetailModel;
@@ -149,7 +150,7 @@ public class PhotoDetailRepositoryImplIntegrationTest {
 			assertEquals("タイトル21", actual.getPhotoJapaneseTitle());
 			assertEquals("title21", actual.getPhotoEnglishTitle());
 			assertEquals("キャプション21", actual.getCaption());
-			assertEquals("horizontal", actual.getDirectionKbnCode());
+			assertEquals(DirectionEnum.HORIZONTAL, actual.getDirectionKbn());
 			assertEquals(80, actual.getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(12.0).compareTo(actual.getFValue()));
 			assertEquals(0, BigDecimal.valueOf(5).compareTo(actual.getShutterSpeed()));
@@ -182,7 +183,7 @@ public class PhotoDetailRepositoryImplIntegrationTest {
 			assertEquals("タイトル11", actual.getPhotoJapaneseTitle());
 			assertEquals("title11", actual.getPhotoEnglishTitle());
 			assertEquals("キャプション11", actual.getCaption());
-			assertEquals("vertical", actual.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, actual.getDirectionKbn());
 			assertEquals(24, actual.getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(8.0).compareTo(actual.getFValue()));
 			assertEquals(0, BigDecimal.valueOf(1).compareTo(actual.getShutterSpeed()));

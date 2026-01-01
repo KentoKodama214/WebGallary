@@ -26,10 +26,12 @@ import com.web.gallary.model.PhotoTagModel;
 import com.web.gallary.repository.PhotoDetailRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 写真のメタデータを含めた詳細情報を永続化するRepositoryの実装クラス
  */
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
@@ -74,7 +76,7 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 					.photoAt(photoDto.getPhotoAt().plusHours(9))
 					.imageFilePath(photoDto.getImageFilePath())
 					.caption(photoDto.getCaption())
-					.directionKbnCode(photoDto.getDirectionKbnCode())
+					.directionKbn(photoDto.getDirectionKbn())
 					.photoTagModelList(
 							photoTagModelList.stream().filter(photoTagModel -> 
 								photoTagModel.getAccountNo() == photoDto.getAccountNo() &&
@@ -100,6 +102,8 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 		PhotoDetailDto photoDetailDto = photoDetailMapper.getPhotoDetail(photoGetDto);
 		
 		if(Objects.isNull(photoDetailDto)) {
+			log.warn("Photo not found. (AccountNo: {}, PhotoAccountNo: {}, PhotoNo: {})"
+					, photoGetDto.getAccountNo(), photoGetDto.getPhotoAccountNo(), photoGetDto.getPhotoNo());
 			throw new PhotoNotFoundException(ErrorEnum.PHOTO_NOT_FOUND);
 		}
 		
@@ -135,7 +139,7 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 				.photoJapaneseTitle(photoDetailDto.getPhotoJapaneseTitle())
 				.photoEnglishTitle(photoDetailDto.getPhotoEnglishTitle())
 				.caption(photoDetailDto.getCaption())
-				.directionKbnCode(photoDetailDto.getDirectionKbnCode())
+				.directionKbn(photoDetailDto.getDirectionKbn())
 				.focalLength(photoDetailDto.getFocalLength() != 0 ? photoDetailDto.getFocalLength() : null)
 				.fValue(photoDetailDto.getFValue().compareTo(BigDecimal.ZERO) == 1 ? photoDetailDto.getFValue(): null)
 				.shutterSpeed(photoDetailDto.getShutterSpeed().compareTo(BigDecimal.ZERO) == 1 ? photoDetailDto.getShutterSpeed() : null)

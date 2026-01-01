@@ -27,6 +27,7 @@ public class SessionHelper {
 					AccountPrincipal.class.cast(authentication.getPrincipal());
 			accountNo = accountPrincipal.getAccountNo();
 		}
+		
 		return accountNo;
 	}
 	

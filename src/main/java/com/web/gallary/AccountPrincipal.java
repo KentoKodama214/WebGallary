@@ -14,7 +14,6 @@ import com.web.gallary.entity.Account;
  */
 public class AccountPrincipal implements UserDetails {
 
-	private static final String ADMIN = "administrator";
 	private static final String ROLE_ADMIN = "ROLE_ADMIN";
 	private static final String ROLE_USER = "ROLE_USER";
 
@@ -31,8 +30,8 @@ public class AccountPrincipal implements UserDetails {
 	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		switch(account.getAuthorityKbnCode()) {
-			case ADMIN:
+		switch(account.getAuthorityKbn()) {
+			case ADMINISTRATOR:
 				return Collections.singleton(new SimpleGrantedAuthority(ROLE_ADMIN));
 			default:
 				return Collections.singleton(new SimpleGrantedAuthority(ROLE_USER));

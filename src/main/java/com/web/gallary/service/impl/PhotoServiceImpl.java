@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.constant.Consts;
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
+import com.web.gallary.enumuration.SortPhotoEnum;
 import com.web.gallary.exception.FileDuplicateException;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.exception.RegistFailureException;
@@ -47,7 +49,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class PhotoServiceImpl implements PhotoService {
 
@@ -66,6 +67,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @return						{@link PhotoModel}
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public List<PhotoModel> getPhotoList(PhotoListGetModel photoListGetModel) {
 		Account account = accountRepository.getByAccountId(photoListGetModel.getPhotoAccountId());
 		
@@ -77,7 +79,7 @@ public class PhotoServiceImpl implements PhotoService {
 		
 		return photoModelList.stream()
 					.filter(photoModel -> 
-						filteringByDirectionKbnCode(photoModel.getDirectionKbnCode(), photoListGetModel.getDirectionKbnCode()))
+						filteringByDirectionKbn(photoModel.getDirectionKbn(), photoListGetModel.getDirectionKbn()))
 					.filter(photoModel -> 
 						filteringByIsFavorite(photoModel.getIsFavorite(), photoListGetModel.getIsFavoriteOnly()))
 					.filter(photoModel -> 
@@ -94,6 +96,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @throws	PhotoNotFoundException	写真が存在しなかった場合
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public PhotoDetailModel getPhotoDetail(PhotoDetailGetModel photoDetailGetModel) throws PhotoNotFoundException {
 		return photoDetailRepository.getPhotoDetail(photoDetailGetModel);
 	}
@@ -107,6 +110,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
 	@Override
+	@Transactional
 	public void savePhotos(String accountId, List<PhotoDetailModel> photoDetailModelList) throws FileDuplicateException, RegistFailureException, UpdateFailureException {
 		if(Objects.isNull(photoDetailModelList)) return;
 		if(photoDetailModelList.isEmpty()) return;
@@ -118,7 +122,7 @@ public class PhotoServiceImpl implements PhotoService {
 			if(Objects.isNull(photoDetailModel.getPhotoNo())) {
 				String filename = photoDetailModel.getImageFile().getOriginalFilename();
 				if(photoMstRepository.isExistPhoto(photoDetailModel)) {
-					log.error("Save Photo: Duplicate File (File: "  + filename + ")");
+					log.warn("Duplicate image file (filename: {}}", filename);
 					throw new FileDuplicateException(ErrorEnum.DUPLICATE_PHOTO_FILE);
 				}
 				
@@ -141,6 +145,7 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @throws	UpdateFailureException	削除に失敗した場合
 	 */
 	@Override
+	@Transactional
 	public void deletePhotos(String accountId, List<PhotoDeleteModel> photoDeleteModelList) throws UpdateFailureException {
 		String filePath = photoConfig.getOutputPath() + accountId + "/";
 		
@@ -167,19 +172,20 @@ public class PhotoServiceImpl implements PhotoService {
 	 * @return				上限に達している場合、true
 	 */
 	@Override
+	@Transactional(readOnly = true)
 	public Boolean isReachedUpperLimit(Integer accountNo) {
 		if(Objects.isNull(accountNo)) return true;
 		
 		Account account = accountRepository.getByAccountNo(accountNo);
 		Integer count = photoMstRepository.count(accountNo);
 		
-		switch(account.getAuthorityKbnCode()) {
-			case "mini-user":
+		switch(account.getAuthorityKbn()) {
+			case MINI:
 				return count > (photoConfig.getMiniUserUpperLimit() - 1);
-			case "normal-user":
+			case NORMAL:
 				return count > (photoConfig.getNormalUserUpperLimit() - 1);
-			case "special-user":
-			case "administrator":
+			case SPECIAL:
+			case ADMINISTRATOR:
 				return false;
 			default:
 				return true;
@@ -189,19 +195,16 @@ public class PhotoServiceImpl implements PhotoService {
 	/**
 	 * 写真一覧の並び順のComparatorを取得する
 	 * 
-	 * @param	sortBy	並び順<p>
-	 * 					photoAt: 撮影日順<p>
-	 * 					favorite: お気に入り数順<p>
-	 * 					season: 季節・時期順
+	 * @param	sortBy	{@link SortPhotoEnum}
 	 * @return			{@link PhotoModel}のComparator
 	 */
-	private Comparator<PhotoModel> getComparator(String sortBy) {
+	private Comparator<PhotoModel> getComparator(SortPhotoEnum sortBy) {
 		switch(sortBy) {
-			case "photoAt":
+			case PHOTO_AT:
 				return Comparator.comparing(PhotoModel::getPhotoAt).reversed();
-			case "favorite":
+			case FAVORITE:
 				return Comparator.comparing(PhotoModel::getFavoriteCount).reversed();
-			case "season":
+			case SEASON:
 				return new Comparator<PhotoModel>() {
 					@Override
 					public int compare(PhotoModel photoModelA, PhotoModel photoModelB) {
@@ -222,13 +225,13 @@ public class PhotoServiceImpl implements PhotoService {
 	/**
 	 * 写真の向きでフィルタリングする
 	 * 
-	 * @param	targetDirectionKbnCode		フィルター対象の向き区分コード
-	 * @param	conditionDirectionKbnCode	フィルター条件の向き区分コード
+	 * @param	targetDirectionKbn	フィルター対象の向き区分
+	 * @param	conditionDirectionKbn	フィルター条件の向き区分
 	 * @return	フィルタリングして除外する場合はfalse
 	 */
-	private Boolean filteringByDirectionKbnCode(String targetDirectionKbnCode, String conditionDirectionKbnCode) {
-		if(Consts.STRING_EMPTY.equals(conditionDirectionKbnCode)) return true;
-		else return targetDirectionKbnCode.equals(conditionDirectionKbnCode);
+	private Boolean filteringByDirectionKbn(DirectionEnum targetDirectionKbn, DirectionEnum conditionDirectionKbn) {
+		if(DirectionEnum.NONE.equals(conditionDirectionKbn)) return true;
+		else return targetDirectionKbn.equals(conditionDirectionKbn);
 	}
 	
 	/**

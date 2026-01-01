@@ -22,6 +22,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.web.gallary.entity.Account;
+import com.web.gallary.enumuration.AuthorityEnum;
+import com.web.gallary.enumuration.SexEnum;
 
 @MybatisTest
 @ActiveProfiles("test")
@@ -56,11 +58,11 @@ public class AccountMapperTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -90,11 +92,11 @@ public class AccountMapperTest {
 					.accountName("IIIIIIII")
 					.password("$2a$10$password9")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("special-user")
+					.authorityKbn(AuthorityEnum.SPECIAL)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -124,11 +126,11 @@ public class AccountMapperTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -158,11 +160,11 @@ public class AccountMapperTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -192,11 +194,11 @@ public class AccountMapperTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -226,11 +228,11 @@ public class AccountMapperTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -246,7 +248,7 @@ public class AccountMapperTest {
 		@Order(7)
 		@DisplayName("正常系：性別区分コードでのselectで1件の場合")
 		void select_by_sexKbnCode() {
-			Account account = Account.builder().sexKbnCode("man").build();
+			Account account = Account.builder().sexKbn(SexEnum.MAN).build();
 			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
@@ -260,11 +262,11 @@ public class AccountMapperTest {
 					.accountName("BBBBBBBB")
 					.password("$2a$10$password2")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("man")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.MAN)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -294,11 +296,11 @@ public class AccountMapperTest {
 					.accountName("CCCCCCCC")
 					.password("$2a$10$password3")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
+					.sexKbn(SexEnum.NONE)
 					.birthplacePrefectureKbnCode("Hokkaido")
-					.residentPrefectureKbnCode("")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -328,11 +330,11 @@ public class AccountMapperTest {
 					.accountName("DDDDDDDD")
 					.password("$2a$10$password4")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
 					.residentPrefectureKbnCode("Okinawa")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -362,11 +364,11 @@ public class AccountMapperTest {
 					.accountName("EEEEEEEE")
 					.password("$2a$10$password5")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("フリーメモ")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -382,7 +384,7 @@ public class AccountMapperTest {
 		@Order(11)
 		@DisplayName("正常系：権限区分コードでのselectで1件の場合")
 		void select_by_authorityKbnCode() {
-			Account account = Account.builder().authorityKbnCode("mini-user").build();
+			Account account = Account.builder().authorityKbn(AuthorityEnum.MINI).build();
 			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount = Account.builder()
@@ -396,11 +398,11 @@ public class AccountMapperTest {
 					.accountName("FFFFFFFF")
 					.password("$2a$10$password6")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("mini-user")
+					.authorityKbn(AuthorityEnum.MINI)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -430,11 +432,11 @@ public class AccountMapperTest {
 					.accountName("GGGGGGGG")
 					.password("$2a$10$password7")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -464,11 +466,11 @@ public class AccountMapperTest {
 					.accountName("HHHHHHHH")
 					.password("$2a$10$password8")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(2)
 					.build();
@@ -496,7 +498,7 @@ public class AccountMapperTest {
 		@Order(15)
 		@DisplayName("正常系：selectで2件以上の場合")
 		void select_accounts() {
-			Account account = Account.builder().authorityKbnCode("special-user").build();
+			Account account = Account.builder().authorityKbn(AuthorityEnum.SPECIAL).build();
 			List<Account> actual = accountMapper.select(account);
 			
 			Account expectedAccount1 = Account.builder()
@@ -510,11 +512,11 @@ public class AccountMapperTest {
 					.accountName("IIIIIIII")
 					.password("$2a$10$password9")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("special-user")
+					.authorityKbn(AuthorityEnum.SPECIAL)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -530,11 +532,11 @@ public class AccountMapperTest {
 					.accountName("JJJJJJJJ")
 					.password("$2a$10$password10")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("")
-					.birthplacePrefectureKbnCode("")
-					.residentPrefectureKbnCode("")
+					.sexKbn(SexEnum.NONE)
+					.birthplacePrefectureKbnCode("none")
+					.residentPrefectureKbnCode("none")
 					.freeMemo("")
-					.authorityKbnCode("special-user")
+					.authorityKbn(AuthorityEnum.SPECIAL)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(0)
 					.build();
@@ -553,7 +555,7 @@ public class AccountMapperTest {
 		void select_some_conditions() {
 			Account account = Account.builder()
 					.accountId("llllllll")
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Okinawa")
 					.residentPrefectureKbnCode("Tokyo")
 					.freeMemo("よろしく")
@@ -571,11 +573,11 @@ public class AccountMapperTest {
 					.accountName("LLLLLLLL")
 					.password("$2a$10$password12")
 					.birthdate(LocalDate.of(1900, 1, 1))
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Okinawa")
 					.residentPrefectureKbnCode("Tokyo")
 					.freeMemo("よろしく")
-					.authorityKbnCode("normal-user")
+					.authorityKbn(AuthorityEnum.NORMAL)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)))
 					.loginFailureCount(3)
 					.build();
@@ -651,7 +653,7 @@ public class AccountMapperTest {
 		@Order(7)
 		@DisplayName("正常系：性別区分コードでのcount")
 		void count_by_sexKbnCode() {
-			Account account = Account.builder().sexKbnCode("man").build();
+			Account account = Account.builder().sexKbn(SexEnum.MAN).build();
 			Integer actual = accountMapper.count(account);
 			assertEquals(1, actual);
 		}
@@ -687,7 +689,7 @@ public class AccountMapperTest {
 		@Order(11)
 		@DisplayName("正常系：権限区分コードでのcount")
 		void count_by_authorityKbnCode() {
-			Account account = Account.builder().authorityKbnCode("mini-user").build();
+			Account account = Account.builder().authorityKbn(AuthorityEnum.MINI).build();
 			Integer actual = accountMapper.count(account);
 			assertEquals(1, actual);
 		}
@@ -725,7 +727,7 @@ public class AccountMapperTest {
 		@Order(15)
 		@DisplayName("正常系：countで2件以上の場合")
 		void count_accounts() {
-			Account account = Account.builder().authorityKbnCode("special-user").build();
+			Account account = Account.builder().authorityKbn(AuthorityEnum.SPECIAL).build();
 			Integer actual = accountMapper.count(account);
 			assertEquals(2, actual);
 		}
@@ -736,7 +738,7 @@ public class AccountMapperTest {
 		void count_some_conditions() {
 			Account account = Account.builder()
 					.accountId("llllllll")
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Okinawa")
 					.residentPrefectureKbnCode("Tokyo")
 					.freeMemo("よろしく")
@@ -766,11 +768,11 @@ public class AccountMapperTest {
 					.accountName("AAAAAAAA")
 					.password("$2a$10$password1")
 					.birthdate(LocalDate.of(1991, 2, 14))
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Hokkaido")
 					.residentPrefectureKbnCode("Okinawa")
 					.freeMemo("フリーメモ")
-					.authorityKbnCode("administrator")
+					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.lastLoginDatetime(OffsetDateTime.of(2002, 1, 1, 9, 0, 0, 0, ZoneOffset.ofHours(9)))
 					.loginFailureCount(0)
 					.build();
@@ -791,11 +793,11 @@ public class AccountMapperTest {
 							.accountName(rs.getString("account_name"))
 							.password(rs.getString("password"))
 							.birthdate(rs.getObject("birthdate", LocalDate.class))
-							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 							.freeMemo(rs.getString("free_memo"))
-							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
@@ -809,11 +811,11 @@ public class AccountMapperTest {
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
-			assertEquals("woman", actualData.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, actualData.getFirst().getSexKbn());
 			assertEquals("Hokkaido", actualData.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("Okinawa", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("フリーメモ", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
@@ -838,11 +840,11 @@ public class AccountMapperTest {
 							.accountName(rs.getString("account_name"))
 							.password(rs.getString("password"))
 							.birthdate(rs.getObject("birthdate", LocalDate.class))
-							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 							.freeMemo(rs.getString("free_memo"))
-							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
@@ -868,11 +870,11 @@ public class AccountMapperTest {
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -897,11 +899,11 @@ public class AccountMapperTest {
 			assertEquals("IIIIIIII", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password9", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("special-user", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.SPECIAL, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -926,11 +928,11 @@ public class AccountMapperTest {
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -955,11 +957,11 @@ public class AccountMapperTest {
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -984,11 +986,11 @@ public class AccountMapperTest {
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1013,11 +1015,11 @@ public class AccountMapperTest {
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password1", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1991, 2, 14), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1026,12 +1028,12 @@ public class AccountMapperTest {
 		@Order(7)
 		@DisplayName("正常系：性別区分コードでのupdate")
 		void update_by_sexKbnCode() {
-			Account conditionAccount = Account.builder().sexKbnCode("man").build();
+			Account conditionAccount = Account.builder().sexKbn(SexEnum.MAN).build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
 			
-			List<Account> actualData = getAccountList("sex_kbn_code='man'");
+			List<Account> actualData = getAccountList("sex_kbn='man'");
 			assertEquals(1, actualData.size());
 			assertEquals(2, actualData.getFirst().getAccountNo());
 			assertEquals(2, actualData.getFirst().getCreatedBy());
@@ -1042,11 +1044,11 @@ public class AccountMapperTest {
 			assertEquals("BBBBBBBB", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password2", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("man", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.MAN, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1071,11 +1073,11 @@ public class AccountMapperTest {
 			assertEquals("CCCCCCCC", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password3", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
 			assertEquals("Hokkaido", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1100,11 +1102,11 @@ public class AccountMapperTest {
 			assertEquals("DDDDDDDD", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password4", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("Okinawa", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1129,11 +1131,11 @@ public class AccountMapperTest {
 			assertEquals("EEEEEEEE", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password5", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("フリーメモ", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1142,12 +1144,12 @@ public class AccountMapperTest {
 		@Order(11)
 		@DisplayName("正常系：権限区分コードでのupdate")
 		void update_by_authorityKbnCode() {
-			Account conditionAccount = Account.builder().authorityKbnCode("mini-user").build();
+			Account conditionAccount = Account.builder().authorityKbn(AuthorityEnum.MINI).build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(1, actual);
 			
-			List<Account> actualData = getAccountList("authority_kbn_code='mini-user'");
+			List<Account> actualData = getAccountList("authority_kbn='mini-user'");
 			assertEquals(1, actualData.size());
 			assertEquals(6, actualData.getFirst().getAccountNo());
 			assertEquals(6, actualData.getFirst().getCreatedBy());
@@ -1158,11 +1160,11 @@ public class AccountMapperTest {
 			assertEquals("FFFFFFFF", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password6", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("mini-user", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.MINI, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1189,11 +1191,11 @@ public class AccountMapperTest {
 			assertEquals("GGGGGGGG", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password7", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(1, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1218,11 +1220,11 @@ public class AccountMapperTest {
 			assertEquals("HHHHHHHH", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password8", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("", actualData.getFirst().getSexKbnCode());
-			assertEquals("", actualData.getFirst().getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.getFirst().getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.getFirst().getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("", actualData.getFirst().getFreeMemo());
-			assertEquals("administrator", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.ADMINISTRATOR, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1244,12 +1246,12 @@ public class AccountMapperTest {
 		@Order(15)
 		@DisplayName("正常系：2件以上updateの場合")
 		void update_accounts() {
-			Account conditionAccount = Account.builder().authorityKbnCode("special-user").build();
+			Account conditionAccount = Account.builder().authorityKbn(AuthorityEnum.SPECIAL).build();
 			Account targetAccount = Account.builder().loginFailureCount(1).build();
 			Integer actual = accountMapper.update(conditionAccount, targetAccount);
 			assertEquals(2, actual);
 			
-			List<Account> actualData = getAccountList("authority_kbn_code='special-user' order by account_no");
+			List<Account> actualData = getAccountList("authority_kbn='special-user' order by account_no");
 			assertEquals(2, actualData.size());
 			assertEquals(9, actualData.get(0).getAccountNo());
 			assertEquals(9, actualData.get(0).getCreatedBy());
@@ -1260,11 +1262,11 @@ public class AccountMapperTest {
 			assertEquals("IIIIIIII", actualData.get(0).getAccountName());
 			assertEquals("$2a$10$password9", actualData.get(0).getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.get(0).getBirthdate());
-			assertEquals("", actualData.get(0).getSexKbnCode());
-			assertEquals("", actualData.get(0).getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.get(0).getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.get(0).getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.get(0).getResidentPrefectureKbnCode());
 			assertEquals("", actualData.get(0).getFreeMemo());
-			assertEquals("special-user", actualData.get(0).getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.SPECIAL, actualData.get(0).getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(0).getLastLoginDatetime());
 			assertEquals(1, actualData.get(0).getLoginFailureCount());
 			
@@ -1277,11 +1279,11 @@ public class AccountMapperTest {
 			assertEquals("JJJJJJJJ", actualData.get(1).getAccountName());
 			assertEquals("$2a$10$password10", actualData.get(1).getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.get(1).getBirthdate());
-			assertEquals("", actualData.get(1).getSexKbnCode());
-			assertEquals("", actualData.get(1).getBirthplacePrefectureKbnCode());
-			assertEquals("", actualData.get(1).getResidentPrefectureKbnCode());
+			assertEquals(SexEnum.NONE, actualData.getFirst().getSexKbn());
+			assertEquals("none", actualData.get(1).getBirthplacePrefectureKbnCode());
+			assertEquals("none", actualData.get(1).getResidentPrefectureKbnCode());
 			assertEquals("", actualData.get(1).getFreeMemo());
-			assertEquals("special-user", actualData.get(1).getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.SPECIAL, actualData.get(1).getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.get(1).getLastLoginDatetime());
 			assertEquals(1, actualData.get(1).getLoginFailureCount());
 		}
@@ -1292,7 +1294,7 @@ public class AccountMapperTest {
 		void update_some_conditions() {
 			Account conditionAccount = Account.builder()
 					.accountId("llllllll")
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Okinawa")
 					.residentPrefectureKbnCode("Tokyo")
 					.freeMemo("よろしく")
@@ -1312,11 +1314,11 @@ public class AccountMapperTest {
 			assertEquals("LLLLLLLL", actualData.getFirst().getAccountName());
 			assertEquals("$2a$10$password12", actualData.getFirst().getPassword());
 			assertEquals(LocalDate.of(1900, 1, 1), actualData.getFirst().getBirthdate());
-			assertEquals("woman", actualData.getFirst().getSexKbnCode());
+			assertEquals(SexEnum.WOMAN, actualData.getFirst().getSexKbn());
 			assertEquals("Okinawa", actualData.getFirst().getBirthplacePrefectureKbnCode());
 			assertEquals("Tokyo", actualData.getFirst().getResidentPrefectureKbnCode());
 			assertEquals("よろしく", actualData.getFirst().getFreeMemo());
-			assertEquals("normal-user", actualData.getFirst().getAuthorityKbnCode());
+			assertEquals(AuthorityEnum.NORMAL, actualData.getFirst().getAuthorityKbn());
 			assertEquals(OffsetDateTime.of(2002, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime());
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
@@ -1341,11 +1343,11 @@ public class AccountMapperTest {
 							.accountName(rs.getString("account_name"))
 							.password(rs.getString("password"))
 							.birthdate(rs.getObject("birthdate", LocalDate.class))
-							.sexKbnCode(rs.getString("sex_kbn_code"))
+							.sexKbn(SexEnum.getOrDefault(rs.getString("sex_kbn")))
 							.birthplacePrefectureKbnCode(rs.getString("birthplace_prefecture_kbn_code"))
 							.residentPrefectureKbnCode(rs.getString("resident_prefecture_kbn_code"))
 							.freeMemo(rs.getString("free_memo"))
-							.authorityKbnCode(rs.getString("authority_kbn_code"))
+							.authorityKbn(AuthorityEnum.getOrDefault(rs.getString("authority_kbn")))
 							.lastLoginDatetime(rs.getObject("last_login_datetime", OffsetDateTime.class))
 							.loginFailureCount(rs.getInt("login_failure_count"))
 							.build());
@@ -1445,14 +1447,14 @@ public class AccountMapperTest {
 		@Order(7)
 		@DisplayName("正常系：性別区分コードでのdelete")
 		void delete_by_sexKbnCode() {
-			Account deleteAccount = Account.builder().sexKbnCode("man").build();
+			Account deleteAccount = Account.builder().sexKbn(SexEnum.MAN).build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
 			
-			List<Account> actualData = getAccountList("sex_kbn_code='man'");
+			List<Account> actualData = getAccountList("sex_kbn='man'");
 			assertEquals(0, actualData.size());
 			
-			List<Account> actualRestData = getAccountList("sex_kbn_code<>'man'");
+			List<Account> actualRestData = getAccountList("sex_kbn<>'man'");
 			assertEquals(11, actualRestData.size());
 		}
 		
@@ -1505,14 +1507,14 @@ public class AccountMapperTest {
 		@Order(11)
 		@DisplayName("正常系：権限区分コードでのdelete")
 		void delete_by_authorityKbnCode() {
-			Account deleteAccount = Account.builder().authorityKbnCode("mini-user").build();
+			Account deleteAccount = Account.builder().authorityKbn(AuthorityEnum.MINI).build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(1, actual);
 			
-			List<Account> actualData = getAccountList("authority_kbn_code='mini-user'");
+			List<Account> actualData = getAccountList("authority_kbn='mini-user'");
 			assertEquals(0, actualData.size());
 			
-			List<Account> actualRestData = getAccountList("authority_kbn_code<>'mini-user'");
+			List<Account> actualRestData = getAccountList("authority_kbn<>'mini-user'");
 			assertEquals(11, actualRestData.size());
 		}
 		
@@ -1567,14 +1569,14 @@ public class AccountMapperTest {
 		@Order(15)
 		@DisplayName("正常系：2件以上deleteする場合")
 		void delete_accounts() {
-			Account deleteAccount = Account.builder().authorityKbnCode("special-user").build();
+			Account deleteAccount = Account.builder().authorityKbn(AuthorityEnum.SPECIAL).build();
 			Integer actual = accountMapper.delete(deleteAccount);
 			assertEquals(2, actual);
 			
-			List<Account> actualData = getAccountList("authority_kbn_code='special-user'");
+			List<Account> actualData = getAccountList("authority_kbn='special-user'");
 			assertEquals(0, actualData.size());
 			
-			List<Account> actualRestData = getAccountList("authority_kbn_code<>'special-user'");
+			List<Account> actualRestData = getAccountList("authority_kbn<>'special-user'");
 			assertEquals(10, actualRestData.size());
 		}
 		
@@ -1584,7 +1586,7 @@ public class AccountMapperTest {
 		void delete_some_conditions() {
 			Account deleteAccount = Account.builder()
 					.accountId("llllllll")
-					.sexKbnCode("woman")
+					.sexKbn(SexEnum.WOMAN)
 					.birthplacePrefectureKbnCode("Okinawa")
 					.residentPrefectureKbnCode("Tokyo")
 					.freeMemo("よろしく")
@@ -1594,14 +1596,14 @@ public class AccountMapperTest {
 			
 			List<Account> actualData
 				= getAccountList("account_id='llllllll'"
-						+ " and sex_kbn_code='woman'"
+						+ " and sex_kbn='woman'"
 						+ " and birthplace_prefecture_kbn_code='Okinawa'"
 						+ " and resident_prefecture_kbn_code='Tokyo'"
 						+ " and free_memo='よろしく'");
 			assertEquals(0, actualData.size());
 			
 			List<Account> actualRestData = getAccountList("account_id<>'llllllll'"
-					+ " and sex_kbn_code<>'woman'"
+					+ " and sex_kbn<>'woman'"
 					+ " and birthplace_prefecture_kbn_code<>'Okinawa'"
 					+ " and resident_prefecture_kbn_code<>'Tokyo'"
 					+ " and free_memo<>'よろしく'");
