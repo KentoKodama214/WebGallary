@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="com.web.gallary.mapper.AccountMapper">
-	<select id="select" parameterType="com.web.gallary.entity.Account" resultType="com.web.gallary.entity.Account">
+	<resultMap id="AccountMap" type="com.web.gallary.entity.Account">
+		<result property="sexKbn" column="sex_kbn" typeHandler="com.web.gallary.type_handler.SexEnumTypeHandler"/>
+	</resultMap>
+
+	<select id="select" parameterType="com.web.gallary.entity.Account" resultMap="AccountMap">
 		SELECT
 			account_no AS accountNo,
 			created_by AS createdBy,
@@ -14,7 +19,7 @@
 			account_name AS accountName,
 			password,
 			birthdate,
-			sex_kbn_code AS sexKbnCode,
+			sex_kbn AS sexKbn,
 			birthplace_prefecture_kbn_code AS birthplacePrefectureKbnCode,
 			resident_prefecture_kbn_code AS residentPrefectureKbnCode,
 			free_memo AS freeMemo,
@@ -30,7 +35,7 @@
 			<if test="accountName != null"> AND account_name = #{accountName}</if>
 			<if test="password != null"> AND password = #{password}</if>
 			<if test="birthdate != null"> AND birthdate = #{birthdate}</if>
-			<if test="sexKbnCode != null"> AND sex_kbn_code = #{sexKbnCode}</if>
+			<if test="sexKbn != null"> AND sex_kbn = #{sexKbn}::common.sex_enum</if>
 			<if test="birthplacePrefectureKbnCode != null"> AND birthplace_prefecture_kbn_code = #{birthplacePrefectureKbnCode}</if>
 			<if test="residentPrefectureKbnCode != null"> AND resident_prefecture_kbn_code = #{residentPrefectureKbnCode}</if>
 			<if test="freeMemo != null"> AND free_memo = #{freeMemo}</if>
@@ -52,7 +57,7 @@
 			<if test="accountName != null"> AND account_name = #{accountName}</if>
 			<if test="password != null"> AND password = #{password}</if>
 			<if test="birthdate != null"> AND birthdate = #{birthdate}</if>
-			<if test="sexKbnCode != null"> AND sex_kbn_code = #{sexKbnCode}</if>
+			<if test="sexKbn != null"> AND sex_kbn = #{sexKbn}::common.sex_enum</if>
 			<if test="birthplacePrefectureKbnCode != null"> AND birthplace_prefecture_kbn_code = #{birthplacePrefectureKbnCode}</if>
 			<if test="residentPrefectureKbnCode != null"> AND resident_prefecture_kbn_code = #{residentPrefectureKbnCode}</if>
 			<if test="freeMemo != null"> AND free_memo = #{freeMemo}</if>
@@ -75,7 +80,7 @@
 				account_name,
 				password,
 				birthdate,
-				sex_kbn_code,
+				sex_kbn,
 				birthplace_prefecture_kbn_code,
 				resident_prefecture_kbn_code,
 				free_memo,
@@ -95,7 +100,7 @@
 				#{accountName},
 				#{password},
 				#{birthdate},
-				#{sexKbnCode},
+				#{sexKbn}::common.sex_enum,
 				#{birthplacePrefectureKbnCode},
 				#{residentPrefectureKbnCode},
 				#{freeMemo},
@@ -116,7 +121,7 @@
 			<if test="target.accountName != null"> , account_name = #{target.accountName}</if>
 			<if test="target.password != null"> , password = #{target.password}</if>
 			<if test="target.birthdate != null"> , birthdate = #{target.birthdate}</if>
-			<if test="target.sexKbnCode != null"> , sex_kbn_code = #{target.sexKbnCode}</if>
+			<if test="target.sexKbn != null"> , sex_kbn = #{target.sexKbn}::common.sex_enum</if>
 			<if test="target.birthplacePrefectureKbnCode != null"> , birthplace_prefecture_kbn_code = #{target.birthplacePrefectureKbnCode}</if>
 			<if test="target.residentPrefectureKbnCode != null"> , resident_prefecture_kbn_code = #{target.residentPrefectureKbnCode}</if>
 			<if test="target.freeMemo != null"> , free_memo = #{target.freeMemo}</if>
@@ -131,7 +136,7 @@
 			<if test="condition.accountName != null"> AND account_name = #{condition.accountName}</if>
 			<if test="condition.password != null"> AND password = #{condition.password}</if>
 			<if test="condition.birthdate != null"> AND birthdate = #{condition.birthdate}</if>
-			<if test="condition.sexKbnCode != null"> AND sex_kbn_code = #{condition.sexKbnCode}</if>
+			<if test="condition.sexKbn != null"> AND sex_kbn = #{condition.sexKbn}::common.sex_enum</if>
 			<if test="condition.birthplacePrefectureKbnCode != null"> AND birthplace_prefecture_kbn_code = #{condition.birthplacePrefectureKbnCode}</if>
 			<if test="condition.residentPrefectureKbnCode != null"> AND resident_prefecture_kbn_code = #{condition.residentPrefectureKbnCode}</if>
 			<if test="condition.freeMemo != null"> AND free_memo = #{condition.freeMemo}</if>
@@ -151,7 +156,7 @@
 			<if test="accountName != null"> AND account_name = #{accountName}</if>
 			<if test="password != null"> AND password = #{password}</if>
 			<if test="birthdate != null"> AND birthdate = #{birthdate}</if>
-			<if test="sexKbnCode != null"> AND sex_kbn_code = #{sexKbnCode}</if>
+			<if test="sexKbn != null"> AND sex_kbn = #{sexKbn}::common.sex_enum</if>
 			<if test="birthplacePrefectureKbnCode != null"> AND birthplace_prefecture_kbn_code = #{birthplacePrefectureKbnCode}</if>
 			<if test="residentPrefectureKbnCode != null"> AND resident_prefecture_kbn_code = #{residentPrefectureKbnCode}</if>
 			<if test="freeMemo != null"> AND free_memo = #{freeMemo}</if>

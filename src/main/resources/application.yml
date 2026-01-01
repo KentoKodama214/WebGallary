@@ -2,7 +2,7 @@ spring:
   application:
     name: WebGallary
   datasource:
-    url: jdbc:postgresql://localhost:5432/web_gallary
+    url: jdbc:postgresql://localhost:5432/web_gallary?stringtype=unspecified
     username: postgres
     password: postgres
   servlet:
@@ -16,6 +16,9 @@ server:
       remote-ip-header: "x-forwarded-for"
       protocol-header: "x-forwarded-proto"
 
+mybatis:
+  type-handlers-package: com.web.gallary.type_handler
+ 
 management:
   add-application-context-header: false
 

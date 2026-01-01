@@ -27,7 +27,7 @@ public enum SexEnum {
 	WOMAN("woman");
 	
 	/** コード */
-	private final String code;
+	private final String dbValue;
 	
 	/**
 	 * 名称からEnumを取得する<p>

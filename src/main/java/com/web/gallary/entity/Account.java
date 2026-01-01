@@ -3,6 +3,8 @@ package com.web.gallary.entity;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
+import com.web.gallary.enumuration.SexEnum;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -45,10 +47,9 @@ public class Account {
 	/** 
 	 * 性別区分コード
 	 * <p>
-	 * man:男性<p>
-	 * woman:女性 
+	 * {@link SexEnum}
 	 */
-	private String sexKbnCode;
+	private SexEnum sexKbn;
 
 	/** 出身都道府県区分コード */
 	private String birthplacePrefectureKbnCode;

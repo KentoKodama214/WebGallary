@@ -84,15 +84,15 @@ public class AccountRepositoryImpl implements AccountRepository {
 			.accountName(accountModel.getAccountName())
 			.password(passwordEncoder.encode(accountModel.getPassword()))
 			.birthdate(
-					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
-			.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbn()).orElse(SexEnum.NONE).getCode())
+				Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
+			.sexKbn(
+				Optional.ofNullable(accountModel.getSexKbn()).orElse(SexEnum.NONE))
 			.birthplacePrefectureKbnCode(
-					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
+				Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.residentPrefectureKbnCode(
-					Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse(Consts.STRING_NONE))
+				Optional.ofNullable(accountModel.getResidentPrefectureKbnCode()).orElse(Consts.STRING_NONE))
 			.freeMemo(
-					Optional.ofNullable(accountModel.getFreeMemo()).orElse(Consts.STRING_EMPTY))
+				Optional.ofNullable(accountModel.getFreeMemo()).orElse(Consts.STRING_EMPTY))
 			.authorityKbnCode(AuthorityEnum.MINI.getCode())
 			.lastLoginDatetime(Consts.MIN_OFFSET_DATE_TIME)
 			.loginFailureCount(0)
@@ -122,8 +122,8 @@ public class AccountRepositoryImpl implements AccountRepository {
 				.accountName(accountModel.getAccountName())
 				.birthdate(
 					Optional.ofNullable(accountModel.getBirthdate()).orElse(Consts.MIN_LOCAL_DATE))
-				.sexKbnCode(
-					Optional.ofNullable(accountModel.getSexKbn()).orElse(SexEnum.NONE).getCode())
+				.sexKbn(
+					Optional.ofNullable(accountModel.getSexKbn()).orElse(SexEnum.NONE))
 				.birthplacePrefectureKbnCode(
 					Optional.ofNullable(accountModel.getBirthplacePrefectureKbnCode()).orElse(Consts.STRING_NONE))
 				.residentPrefectureKbnCode(
@@ -133,7 +133,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 				.lastLoginDatetime(
 					Optional.ofNullable(accountModel.getLastLoginDatetime()).orElse(Consts.MIN_OFFSET_DATE_TIME))
 				.loginFailureCount(
-						Optional.ofNullable(accountModel.getLoginFailureCount()).orElse(0))
+					Optional.ofNullable(accountModel.getLoginFailureCount()).orElse(0))
 				.build();
 		
 		if(!Objects.isNull(accountModel.getPassword())) {
@@ -198,7 +198,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 					.accountName(accountData.getAccountName())
 					.password(accountData.getPassword())
 					.birthdate(accountData.getBirthdate())
-					.sexKbn(SexEnum.getOrDefault(accountData.getSexKbnCode()))
+					.sexKbn(accountData.getSexKbn())
 					.birthplacePrefectureKbnCode(accountData.getBirthplacePrefectureKbnCode())
 					.residentPrefectureKbnCode(accountData.getResidentPrefectureKbnCode())
 					.freeMemo(accountData.getFreeMemo())

@@ -25,11 +25,11 @@ CREATE TABLE common.account
 	password text NOT NULL,
 	-- 生年月日: 個人情報管理の観点で、必須入力なし、かつ年月まで。データ登録時にすべて1日に変換する
 	birthdate date DEFAULT '1900-01-01' NOT NULL,
-	-- 性別区分コード:
+	-- 性別区分:
 	-- none:未設定
 	-- man:男
 	-- woman:女
-	sex_kbn_code varchar(20) DEFAULT 'none' NOT NULL,
+	sex_kbn common.sex_enum DEFAULT 'none' NOT NULL,
 	-- 出身都道府県区分コード:
 	-- none:未設定（画面上、任意入力）
 	-- 北海道　〜　沖縄
@@ -66,7 +66,7 @@ COMMENT ON COLUMN common.account.account_id IS 'アカウントID : 8文字以�
 COMMENT ON COLUMN common.account.account_name IS 'アカウント名';
 COMMENT ON COLUMN common.account.password IS 'パスワード';
 COMMENT ON COLUMN common.account.birthdate IS '生年月日 : 個人情報管理の観点で、必須入力なし、かつ年月まで。データ登録時にすべて1日に変換する';
-COMMENT ON COLUMN common.account.sex_kbn_code IS '性別区分コード : none:未設定 man:男 woman:女';
+COMMENT ON COLUMN common.account.sex_kbn IS '性別区分: man(男性)、woman(女性)、none(未設定)';
 COMMENT ON COLUMN common.account.birthplace_prefecture_kbn_code IS '出身都道府県区分コード : none:未設定（画面上、任意入力）北海道　〜　沖縄';
 COMMENT ON COLUMN common.account.resident_prefecture_kbn_code IS '在住都道府県区分コード : none:未設定（画面上、任意入力）北海道　〜　沖縄';
 COMMENT ON COLUMN common.account.free_memo IS 'フリーメモ';
