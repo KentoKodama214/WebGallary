@@ -3,6 +3,8 @@ package com.web.gallary.dto;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+import com.web.gallary.enumuration.DirectionEnum;
+
 import lombok.Data;
 
 /**
@@ -50,12 +52,11 @@ public class PhotoDetailDto {
 	private String caption;
 
 	/** 
-	 * 向き区分コード
+	 * 向き区分
 	 * <p>
-	 * vertical: 縦<p>
-	 * horizontal: 横
+	 * {@link DirectionEnum}
 	 */
-	private String directionKbnCode;
+	private DirectionEnum directionKbn;
 
 	/** 焦点距離 */
 	private Integer focalLength;

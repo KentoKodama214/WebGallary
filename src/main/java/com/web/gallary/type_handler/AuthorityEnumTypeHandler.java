@@ -15,32 +15,32 @@ import com.web.gallary.enumuration.AuthorityEnum;
  */
 public class AuthorityEnumTypeHandler extends BaseTypeHandler<AuthorityEnum> {
 	// Java -> DB (WHERE句やINSERTで使用)
-		@Override
-	    public void setNonNullParameter(PreparedStatement ps, int i, AuthorityEnum parameter, JdbcType jdbcType) throws SQLException {
-	        ps.setString(i, parameter.getDbValue());
-	    }
-		
-		// DB -> Java (SELECTの結果取得で使用)
-	    @Override
-	    public AuthorityEnum getNullableResult(ResultSet rs, String columnName) throws SQLException {
-	        return fromDbValue(rs.getString(columnName));
-	    }
-	    
-	    @Override
-	    public AuthorityEnum getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-	        return fromDbValue(rs.getString(columnIndex));
-	    }
-	    
-	    @Override
-	    public AuthorityEnum getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-	        return fromDbValue(cs.getString(columnIndex));
-	    }
-	    
-	    private AuthorityEnum fromDbValue(String dbValue) {
-	        if (dbValue == null) return null;
-	        for (AuthorityEnum authority : AuthorityEnum.values()) {
-	            if (authority.getDbValue().equals(dbValue)) return authority;
-	        }
-	        return null;
-	    }
+	@Override
+	public void setNonNullParameter(PreparedStatement ps, int i, AuthorityEnum parameter, JdbcType jdbcType) throws SQLException {
+		ps.setString(i, parameter.getDbValue());
+	}
+	
+	// DB -> Java (SELECTの結果取得で使用)
+	@Override
+	public AuthorityEnum getNullableResult(ResultSet rs, String columnName) throws SQLException {
+		return fromDbValue(rs.getString(columnName));
+	}
+	
+	@Override
+	public AuthorityEnum getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+		return fromDbValue(rs.getString(columnIndex));
+	}
+	
+	@Override
+	public AuthorityEnum getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+		return fromDbValue(cs.getString(columnIndex));
+	}
+	
+	private AuthorityEnum fromDbValue(String dbValue) {
+		if (dbValue == null) return null;
+		for (AuthorityEnum authority : AuthorityEnum.values()) {
+			if (authority.getDbValue().equals(dbValue)) return authority;
+		}
+		return null;
+	}
 }

@@ -14,7 +14,6 @@ import com.web.gallary.dto.PhotoDetailGetDto;
 import com.web.gallary.dto.PhotoDto;
 import com.web.gallary.dto.PhotoListGetDto;
 import com.web.gallary.entity.PhotoTagMst;
-import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.PhotoNotFoundException;
 import com.web.gallary.mapper.PhotoDetailMapper;
@@ -77,7 +76,7 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 					.photoAt(photoDto.getPhotoAt().plusHours(9))
 					.imageFilePath(photoDto.getImageFilePath())
 					.caption(photoDto.getCaption())
-					.directionKbn(DirectionEnum.getOrDefault(photoDto.getDirectionKbnCode()))
+					.directionKbn(photoDto.getDirectionKbn())
 					.photoTagModelList(
 							photoTagModelList.stream().filter(photoTagModel -> 
 								photoTagModel.getAccountNo() == photoDto.getAccountNo() &&
@@ -140,7 +139,7 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 				.photoJapaneseTitle(photoDetailDto.getPhotoJapaneseTitle())
 				.photoEnglishTitle(photoDetailDto.getPhotoEnglishTitle())
 				.caption(photoDetailDto.getCaption())
-				.directionKbn(DirectionEnum.getOrDefault(photoDetailDto.getDirectionKbnCode()))
+				.directionKbn(photoDetailDto.getDirectionKbn())
 				.focalLength(photoDetailDto.getFocalLength() != 0 ? photoDetailDto.getFocalLength() : null)
 				.fValue(photoDetailDto.getFValue().compareTo(BigDecimal.ZERO) == 1 ? photoDetailDto.getFValue(): null)
 				.shutterSpeed(photoDetailDto.getShutterSpeed().compareTo(BigDecimal.ZERO) == 1 ? photoDetailDto.getShutterSpeed() : null)

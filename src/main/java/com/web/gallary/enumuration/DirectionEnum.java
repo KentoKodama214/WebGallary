@@ -16,7 +16,7 @@ import lombok.Getter;
 public enum DirectionEnum {
 	/** 未選択 */
 	@JsonProperty("")
-	NONE(""),
+	NONE("none"),
 	/** 縦 */
 	@JsonProperty("vertical")
 	VERTICAL("vertical"),
@@ -27,8 +27,8 @@ public enum DirectionEnum {
 	@JsonProperty("square")
 	SQUARE("square");
 	
-	/** コード */
-	private final String code;
+	/** DBに保持する値 */
+	private final String dbValue;
 	
 	/**
 	 * 名称からEnumを取得する<p>
@@ -40,7 +40,7 @@ public enum DirectionEnum {
 	@JsonCreator
 	public static DirectionEnum getOrDefault(String value) {
 		return Arrays.stream(DirectionEnum.values())
-				.filter(e -> e.getCode().equals(value))
+				.filter(e -> e.getDbValue().equals(value))
 				.findFirst()
 				.orElse(DirectionEnum.NONE);
     }

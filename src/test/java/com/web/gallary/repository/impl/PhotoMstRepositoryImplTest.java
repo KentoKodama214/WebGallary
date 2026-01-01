@@ -77,7 +77,7 @@ public class PhotoMstRepositoryImplTest {
 			assertEquals("", photoMst.getPhotoJapaneseTitle());
 			assertEquals("", photoMst.getPhotoEnglishTitle());
 			assertEquals("", photoMst.getCaption());
-			assertEquals("", photoMst.getDirectionKbnCode());
+			assertEquals(DirectionEnum.NONE, photoMst.getDirectionKbn());
 			assertEquals(0, photoMst.getFocalLength());
 			assertEquals(0, BigDecimal.ZERO.compareTo(photoMst.getFValue()));
 			assertEquals(0, BigDecimal.ZERO.compareTo(photoMst.getShutterSpeed()));
@@ -126,7 +126,7 @@ public class PhotoMstRepositoryImplTest {
 			assertEquals("タイトル1", photoMst.getPhotoJapaneseTitle());
 			assertEquals("title1", photoMst.getPhotoEnglishTitle());
 			assertEquals("キャプション1", photoMst.getCaption());
-			assertEquals("vertical", photoMst.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, photoMst.getDirectionKbn());
 			assertEquals(24, photoMst.getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(2.8).compareTo(photoMst.getFValue()));
 			assertEquals(0, BigDecimal.valueOf(0.01).compareTo(photoMst.getShutterSpeed()));
@@ -165,7 +165,7 @@ public class PhotoMstRepositoryImplTest {
 			assertEquals("", photoMst.getPhotoJapaneseTitle());
 			assertEquals("", photoMst.getPhotoEnglishTitle());
 			assertEquals("", photoMst.getCaption());
-			assertEquals("", photoMst.getDirectionKbnCode());
+			assertEquals(DirectionEnum.NONE, photoMst.getDirectionKbn());
 			assertEquals(0, photoMst.getFocalLength());
 			assertEquals(0, BigDecimal.ZERO.compareTo(photoMst.getFValue()));
 			assertEquals(0, BigDecimal.ZERO.compareTo(photoMst.getShutterSpeed()));
@@ -211,7 +211,7 @@ public class PhotoMstRepositoryImplTest {
 			assertNull(cndPhotoMst.getPhotoJapaneseTitle());
 			assertNull(cndPhotoMst.getPhotoEnglishTitle());
 			assertNull(cndPhotoMst.getCaption());
-			assertNull(cndPhotoMst.getDirectionKbnCode());
+			assertNull(cndPhotoMst.getDirectionKbn());
 			assertNull(cndPhotoMst.getFocalLength());
 			assertNull(cndPhotoMst.getFValue());
 			assertNull(cndPhotoMst.getShutterSpeed());
@@ -231,7 +231,7 @@ public class PhotoMstRepositoryImplTest {
 			assertEquals("", targetPhotoMst.getPhotoJapaneseTitle());
 			assertEquals("", targetPhotoMst.getPhotoEnglishTitle());
 			assertEquals("", targetPhotoMst.getCaption());
-			assertEquals("", targetPhotoMst.getDirectionKbnCode());
+			assertEquals(DirectionEnum.NONE, targetPhotoMst.getDirectionKbn());
 			assertEquals(0, targetPhotoMst.getFocalLength());
 			assertEquals(0, BigDecimal.ZERO.compareTo(targetPhotoMst.getFValue()));
 			assertEquals(0, BigDecimal.ZERO.compareTo(targetPhotoMst.getShutterSpeed()));
@@ -282,7 +282,7 @@ public class PhotoMstRepositoryImplTest {
 			assertNull(cndPhotoMst.getPhotoJapaneseTitle());
 			assertNull(cndPhotoMst.getPhotoEnglishTitle());
 			assertNull(cndPhotoMst.getCaption());
-			assertNull(cndPhotoMst.getDirectionKbnCode());
+			assertNull(cndPhotoMst.getDirectionKbn());
 			assertNull(cndPhotoMst.getFocalLength());
 			assertNull(cndPhotoMst.getFValue());
 			assertNull(cndPhotoMst.getShutterSpeed());
@@ -302,7 +302,7 @@ public class PhotoMstRepositoryImplTest {
 			assertEquals("タイトル1", targetPhotoMst.getPhotoJapaneseTitle());
 			assertEquals("title1", targetPhotoMst.getPhotoEnglishTitle());
 			assertEquals("キャプション1", targetPhotoMst.getCaption());
-			assertEquals("vertical", targetPhotoMst.getDirectionKbnCode());
+			assertEquals(DirectionEnum.VERTICAL, targetPhotoMst.getDirectionKbn());
 			assertEquals(24, targetPhotoMst.getFocalLength());
 			assertEquals(0, BigDecimal.valueOf(2.8).compareTo(targetPhotoMst.getFValue()));
 			assertEquals(0, BigDecimal.valueOf(0.01).compareTo(targetPhotoMst.getShutterSpeed()));
@@ -343,7 +343,7 @@ public class PhotoMstRepositoryImplTest {
 			assertNull(cndPhotoMst.getPhotoJapaneseTitle());
 			assertNull(cndPhotoMst.getPhotoEnglishTitle());
 			assertNull(cndPhotoMst.getCaption());
-			assertNull(cndPhotoMst.getDirectionKbnCode());
+			assertNull(cndPhotoMst.getDirectionKbn());
 			assertNull(cndPhotoMst.getFocalLength());
 			assertNull(cndPhotoMst.getFValue());
 			assertNull(cndPhotoMst.getShutterSpeed());
@@ -363,7 +363,7 @@ public class PhotoMstRepositoryImplTest {
 			assertEquals("", targetPhotoMst.getPhotoJapaneseTitle());
 			assertEquals("", targetPhotoMst.getPhotoEnglishTitle());
 			assertEquals("", targetPhotoMst.getCaption());
-			assertEquals("", targetPhotoMst.getDirectionKbnCode());
+			assertEquals(DirectionEnum.NONE, targetPhotoMst.getDirectionKbn());
 			assertEquals(0, targetPhotoMst.getFocalLength());
 			assertEquals(0, BigDecimal.ZERO.compareTo(targetPhotoMst.getFValue()));
 			assertEquals(0, BigDecimal.ZERO.compareTo(targetPhotoMst.getShutterSpeed()));
@@ -409,7 +409,7 @@ public class PhotoMstRepositoryImplTest {
 			assertNull(cndPhotoMst.getPhotoJapaneseTitle());
 			assertNull(cndPhotoMst.getPhotoEnglishTitle());
 			assertNull(cndPhotoMst.getCaption());
-			assertNull(cndPhotoMst.getDirectionKbnCode());
+			assertNull(cndPhotoMst.getDirectionKbn());
 			assertNull(cndPhotoMst.getFocalLength());
 			assertNull(cndPhotoMst.getFValue());
 			assertNull(cndPhotoMst.getShutterSpeed());
@@ -429,7 +429,7 @@ public class PhotoMstRepositoryImplTest {
 			assertNull(targetPhotoMst.getPhotoJapaneseTitle());
 			assertNull(targetPhotoMst.getPhotoEnglishTitle());
 			assertNull(targetPhotoMst.getCaption());
-			assertNull(targetPhotoMst.getDirectionKbnCode());
+			assertNull(targetPhotoMst.getDirectionKbn());
 			assertNull(targetPhotoMst.getFocalLength());
 			assertNull(targetPhotoMst.getFValue());
 			assertNull(targetPhotoMst.getShutterSpeed());
@@ -470,7 +470,7 @@ public class PhotoMstRepositoryImplTest {
 			assertNull(cndPhotoMst.getPhotoJapaneseTitle());
 			assertNull(cndPhotoMst.getPhotoEnglishTitle());
 			assertNull(cndPhotoMst.getCaption());
-			assertNull(cndPhotoMst.getDirectionKbnCode());
+			assertNull(cndPhotoMst.getDirectionKbn());
 			assertNull(cndPhotoMst.getFocalLength());
 			assertNull(cndPhotoMst.getFValue());
 			assertNull(cndPhotoMst.getShutterSpeed());
@@ -490,7 +490,7 @@ public class PhotoMstRepositoryImplTest {
 			assertNull(targetPhotoMst.getPhotoJapaneseTitle());
 			assertNull(targetPhotoMst.getPhotoEnglishTitle());
 			assertNull(targetPhotoMst.getCaption());
-			assertNull(targetPhotoMst.getDirectionKbnCode());
+			assertNull(targetPhotoMst.getDirectionKbn());
 			assertNull(targetPhotoMst.getFocalLength());
 			assertNull(targetPhotoMst.getFValue());
 			assertNull(targetPhotoMst.getShutterSpeed());
@@ -602,7 +602,7 @@ public class PhotoMstRepositoryImplTest {
 			assertNull(photoMst.getPhotoJapaneseTitle());
 			assertNull(photoMst.getPhotoEnglishTitle());
 			assertNull(photoMst.getCaption());
-			assertNull(photoMst.getDirectionKbnCode());
+			assertNull(photoMst.getDirectionKbn());
 			assertNull(photoMst.getFocalLength());
 			assertNull(photoMst.getFValue());
 			assertNull(photoMst.getShutterSpeed());

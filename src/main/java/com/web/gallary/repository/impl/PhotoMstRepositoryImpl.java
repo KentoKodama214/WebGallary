@@ -56,8 +56,8 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 					Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(Consts.STRING_EMPTY))
 				.caption(
 					Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
-				.directionKbnCode(
-					Optional.ofNullable(photoDetailModel.getDirectionKbn()).orElse(DirectionEnum.NONE).getCode())
+				.directionKbn(
+					Optional.ofNullable(photoDetailModel.getDirectionKbn()).orElse(DirectionEnum.NONE))
 				.focalLength(
 					Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
 				.fValue(
@@ -94,9 +94,9 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 				.updatedBy(photoDetailModel.getAccountNo())
 				.isDeleted(false)
 				.photoAt(
-						Optional.ofNullable(photoDetailModel.getPhotoAt()).orElse(Consts.MIN_OFFSET_DATE_TIME))
+					Optional.ofNullable(photoDetailModel.getPhotoAt()).orElse(Consts.MIN_OFFSET_DATE_TIME))
 				.locationNo(
-						Optional.ofNullable(photoDetailModel.getLocationNo()).orElse(0))
+					Optional.ofNullable(photoDetailModel.getLocationNo()).orElse(0))
 				.imageFilePath(photoDetailModel.getImageFilePath())
 				.photoJapaneseTitle(
 					Optional.ofNullable(photoDetailModel.getPhotoJapaneseTitle()).orElse(Consts.STRING_EMPTY))
@@ -104,8 +104,8 @@ public class PhotoMstRepositoryImpl implements PhotoMstRepository {
 					Optional.ofNullable(photoDetailModel.getPhotoEnglishTitle()).orElse(Consts.STRING_EMPTY))
 				.caption(
 					Optional.ofNullable(photoDetailModel.getCaption()).orElse(Consts.STRING_EMPTY))
-				.directionKbnCode(
-					Optional.ofNullable(photoDetailModel.getDirectionKbn()).orElse(DirectionEnum.NONE).getCode())
+				.directionKbn(
+					Optional.ofNullable(photoDetailModel.getDirectionKbn()).orElse(DirectionEnum.NONE))
 				.focalLength(
 					Optional.ofNullable(photoDetailModel.getFocalLength()).orElse(0))
 				.fValue(
