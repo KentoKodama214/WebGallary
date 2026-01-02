@@ -1,12 +1,13 @@
 # 区分値
 | 分類コード | 分類名 | 区分グループコード | 区分グループ名 | 区分値コード | 区分名 | 説明 | 備考 |
 |:---|:---|:---|:---|:---|:---|:---|:---|
-| sex | 性別 | - | - | man | 男性 | - |  |
-| sex | 性別 | - | - | woman | 女性 | - |  |
 | authority | 権限 | - | - | mini-user | 簡易ユーザー | サイトを閲覧したり、サービスを利用する人<br>写真登録の上限は10枚（上限50MB） |  |
 | authority | 権限 | - | - | normal-user | 一般ユーザー | サイトを閲覧したり、サービスを利用する人<br>写真登録の上限は1000枚（上限5GB） |  |
 | authority | 権限 | - | - | special-user | 特別ユーザー | サイトを閲覧したり、サービスを利用する人<br>写真登録の上限は無制限 |  |
 | authority | 権限 | - | - | administrator | 管理者 | サイトを管理・運営する人<br>写真登録の上限は無制限 |  |
+| direction | 向き | - | - | vertical | 縦 | - |  |
+| direction | 向き | - | - | horizontal | 横 | - |  |
+| direction | 向き | - | - | square | 正方形 | - |  |
 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Hokkaido | 北海道 | - |  |
 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Aomori | 青森 | - |  |
 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Iwate | 岩手 | - |  |
@@ -54,6 +55,5 @@
 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Miyazaki | 宮崎 | - |  |
 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Kagoshima | 鹿児島 | - |  |
 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Okinawa | 沖縄 | - |  |
-| direction | 向き | - | - | vertical | 縦 | - |  |
-| direction | 向き | - | - | horizontal | 横 | - |  |
-| direction | 向き | - | - | square | 正方形 | - |  |
+| sex | 性別 | - | - | man | 男性 | - |  |
+| sex | 性別 | - | - | woman | 女性 | - |  |
