@@ -9,11 +9,20 @@
 <br>
 
 ## commonスキーマ
+### 型一覧
+| 物理名 | 論理名 | 値 |
+|:---|:---|:---|
+| sex_enum | 性別区分 | man: 男<br>woman: 女<br>none: 未設定 |
+| authority_enum | 権限区分 | mini-user: 簡易ユーザー<br>normal-user: 一般ユーザー<br>special-user: 特別ユーザー<br>administrator: 管理者 |
+
+<br>
+
 ### テーブル一覧
 | 物理名 | 論理名 | 説明 |
 |:---|:---|:---|
 | account | アカウント | アカウント情報を管理する |
 | kbn_mst | 区分マスタ | 区分を管理する |
+| location_mst | ロケーションマスタ | ロケーション情報を管理する |
 
 <br>
 
@@ -33,11 +42,11 @@
 | account_name | アカウント名 | varchar(50) | NOT NULL | - |  |
 | password | パスワード | text | NOT NULL | - |  |
 | birthdate | 生年月日 | date | NOT NULL | 1900-01-01 | 個人情報管理の観点で、必須入力なし、かつ年月まで。データ登録時にすべて1日に変換する |
-| sex_kbn_code | 性別区分コード | varchar(20) | NOT NULL | none | none: 未設定<br>man: 男<br>woman: 女 |
+| sex_kbn | 性別区分 | common.sex_enum | NOT NULL | none |  |
 | birthplace_prefecture_kbn_code | 出身都道府県区分コード | varchar(20) | NOT NULL | none | none: 未設定<br>分類コード：prefecture |
 | resident_prefecture_kbn_code | 在住都道府県区分コード | varchar(20) | NOT NULL | none | none: 未設定<br>分類コード：prefecture |
 | free_memo | フリーメモ | text | NOT NULL | "" |  |
-| authority_kbn_code | 権限区分コード | varchar(20) | NOT NULL | - | mini-user: 簡易ユーザー<br>normal-user: 一般ユーザー<br>special-user: 特別ユーザー<br>administrator: 管理者 |
+| authority_kbn | 権限区分 | common.authority_enum | NOT NULL | - |  |
 | last_login_datetime | 最終ログイン日時 | timestamp with time zone | NOT NULL | - |  |
 | login_failure_count | ログイン失敗回数 | smallint | NOT NULL | 0 |  |
 
@@ -72,7 +81,31 @@
 
 <br>
 
+#### locatino_mst ( ロケーションマスタ ) : ロケーション情報を管理する
+| 物理名 | 論理名 | データ型 | NULL許可 | デフォルト | コメント |
+|:---|:---|:---|---|:---|:---|
+| account_no | アカウント番号 | int | NOT NULL | - |  |
+| location_no | ロケーション番号 | int | NOT NULL | - |  |
+| created_by | 作成者 | int | NOT NULL | - |  |
+| created_at | 作成日時 | timestamp with time zone | NOT NULL | - |  |
+| updated_by | 更新者 | int | NOT NULL | - |  |
+| updated_at | 更新日時 | timestamp with time zone | NOT NULL | - |  |
+| is_deleted | 削除フラグ | boolean | NOT NULL | false |  |
+| location_name | ロケーション名 | text | NOT NULL | - |  |
+| address | 住所 | text | NOT NULL | "" |  |
+| latitude | 緯度 | decimal(11,4) | NOT NULL | - |  |
+| longitude | 経度 | decimal(11,4) | NOT NULL | - |  |
+
+<br>
+
 ## photoスキーマ
+### 型一覧
+| 物理名 | 論理名 | 値 |
+|:---|:---|:---|
+| direction_enum | 向き区分 | vertical: 縦<br>horizontal: 横<br>square: 正方形<br>none: 未設定 |
+
+<br>
+
 ### テーブル一覧
 | 物理名 | 論理名 | 説明 |
 |:---|:---|:---|
@@ -99,7 +132,7 @@
 | photo_japanese_title | 写真タイトル日本語名 | varchar(100) | NOT NULL | - | 空文字不可 |
 | photo_english_title | 写真タイトル英語名 | varchar(100) | NOT NULL | "" |  |
 | caption | キャプション | text | NOT NULL | "" |  |
-| direction_kbn_code | 向き区分コード | varchar(20) | NOT NULL | - | vertical: 縦<br>horizontal: 横<br>square: 正方形 |
+| direction_kbn | 向き区分 | photo.direction_enum | NOT NULL | - |  |
 | focal_length | 焦点距離 | int | NOT NULL | - | 単位: mm |
 | f_value | F値 | decimal(5,2) | NOT NULL | - |  |
 | shutter_speed | シャッタースピード | decimal(10,5) | NOT NULL | - | 単位: 秒 |

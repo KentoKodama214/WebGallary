@@ -1,59 +1,59 @@
 # 区分値
-| No. | 分類コード | 分類名 | 区分グループコード | 区分グループ名 | 区分値コード | 区分名 | 説明 | 備考 |
-|:---:|:---|:---|:---|:---|:---|:---|:---|:---|
-| 1 | sex | 性別 | - | - | man | 男性 | - |  |
-| 2 | sex | 性別 | - | - | woman | 女性 | - |  |
-| 3 | authority | 権限 | - | - | mini-user | 簡易ユーザー | サイトを閲覧したり、サービスを利用する人<br>写真登録の上限は10枚（上限50MB） |  |
-| 4 | authority | 権限 | - | - | normal-user | 一般ユーザー | サイトを閲覧したり、サービスを利用する人<br>写真登録の上限は1000枚（上限5GB） |  |
-| 5 | authority | 権限 | - | - | special-user | 特別ユーザー | サイトを閲覧したり、サービスを利用する人<br>写真登録の上限は無制限 |  |
-| 6 | authority | 権限 | - | - | administrator | 管理者 | サイトを管理・運営する人<br>写真登録の上限は無制限 |  |
-| 7 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Hokkaido | 北海道 | - |  |
-| 8 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Aomori | 青森 | - |  |
-| 9 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Iwate | 岩手 | - |  |
-| 10 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Miyagi | 宮城 | - |  |
-| 11 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Akita | 秋田 | - |  |
-| 12 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Yamagata | 山形 | - |  |
-| 13 | prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Fukushima | 福島 | - |  |
-| 14 | prefecture | 都道府県 | Kanto | 関東 | Ibaraki | 茨城 | - |  |
-| 15 | prefecture | 都道府県 | Kanto | 関東 | Tochigi | 栃木 | - |  |
-| 16 | prefecture | 都道府県 | Kanto | 関東 | Gunma | 群馬 | - |  |
-| 17 | prefecture | 都道府県 | Kanto | 関東 | Saitama | 埼玉 | - |  |
-| 18 | prefecture | 都道府県 | Kanto | 関東 | Chiba | 千葉 | - |  |
-| 19 | prefecture | 都道府県 | Kanto | 関東 | Tokyo | 東京 | - |  |
-| 20 | prefecture | 都道府県 | Kanto | 関東 | Kanagawa | 神奈川 | - |  | 
-| 21 | prefecture | 都道府県 | Chubu | 中部 | Niigata | 新潟 | - |  |
-| 22 | prefecture | 都道府県 | Chubu | 中部 | Toyama | 富山 | - |  |
-| 23 | prefecture | 都道府県 | Chubu | 中部 | Ishikawa | 石川 | - |  |
-| 24 | prefecture | 都道府県 | Chubu | 中部 | Fukui | 福井 | - |  |
-| 25 | prefecture | 都道府県 | Chubu | 中部 | Yamanashi | 山梨 | - |  | 
-| 26 | prefecture | 都道府県 | Chubu | 中部 | Nagano | 長野 | - |  |
-| 27 | prefecture | 都道府県 | Chubu | 中部 | Gifu | 岐阜 | - |  |
-| 28 | prefecture | 都道府県 | Chubu | 中部 | Shizuoka | 静岡 | - |  | 
-| 29 | prefecture | 都道府県 | Chubu | 中部 | Aichi | 愛知 | - |  |
-| 30 | prefecture | 都道府県 | Chubu | 中部 | Mie | 三重 | - |  |
-| 31 | prefecture | 都道府県 | Kansai | 関西 | Shiga | 滋賀 | - |  |
-| 32 | prefecture | 都道府県 | Kansai | 関西 | Kyoto | 京都 | - |  |
-| 33 | prefecture | 都道府県 | Kansai | 関西 | Osaka | 大阪 | - |  |
-| 34 | prefecture | 都道府県 | Kansai | 関西 | Hyogo | 兵庫 | - |  |
-| 35 | prefecture | 都道府県 | Kansai | 関西 | Nara | 奈良 | - |  |
-| 36 | prefecture | 都道府県 | Kansai | 関西 | Wakayama | 和歌山 | - |  | 
-| 37 | prefecture | 都道府県 | Chugoku | 中国 | Tottori | 鳥取 | - |  |
-| 38 | prefecture | 都道府県 | Chugoku | 中国 | Shimane | 島根 | - |  |
-| 39 | prefecture | 都道府県 | Chugoku | 中国 | Okayama | 岡山 | - |  |
-| 40 | prefecture | 都道府県 | Chugoku | 中国 | Hiroshima | 広島 | - |  |
-| 41 | prefecture | 都道府県 | Chugoku | 中国 | Yamaguchi | 山口 | - |  |
-| 42 | prefecture | 都道府県 | Shikoku | 四国 | Tokushima | 徳島 | - |  |
-| 43 | prefecture | 都道府県 | Shikoku | 四国 | Kagawa | 香川 | - |  |
-| 44 | prefecture | 都道府県 | Shikoku | 四国 | Ehime | 愛媛 | - |  |
-| 45 | prefecture | 都道府県 | Shikoku | 四国 | Kochi | 高知 | - |  |
-| 46 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Fukuoka | 福岡 | - |  | 
-| 47 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Saga | 佐賀 | - |  |
-| 48 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Nagasaki | 長崎 | - |  | 
-| 49 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Kumamoto | 熊本 | - |  |
-| 50 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Oita | 大分 | - |  |
-| 51 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Miyazaki | 宮崎 | - |  | 
-| 52 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Kagoshima | 鹿児島 | - |  | 
-| 53 | prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Okinawa | 沖縄 | - |  |
-| 54 | direction | 向き | - | - | vertical | 縦 | - |  |
-| 55 | direction | 向き | - | - | horizontal | 横 | - |  |
-| 56 | direction | 向き | - | - | square | 正方形 | - |  |
+| 分類コード | 分類名 | 区分グループコード | 区分グループ名 | 区分値コード | 区分名 | 説明 | 備考 |
+|:---|:---|:---|:---|:---|:---|:---|:---|
+| sex | 性別 | - | - | man | 男性 | - |  |
+| sex | 性別 | - | - | woman | 女性 | - |  |
+| authority | 権限 | - | - | mini-user | 簡易ユーザー | サイトを閲覧したり、サービスを利用する人<br>写真登録の上限は10枚（上限50MB） |  |
+| authority | 権限 | - | - | normal-user | 一般ユーザー | サイトを閲覧したり、サービスを利用する人<br>写真登録の上限は1000枚（上限5GB） |  |
+| authority | 権限 | - | - | special-user | 特別ユーザー | サイトを閲覧したり、サービスを利用する人<br>写真登録の上限は無制限 |  |
+| authority | 権限 | - | - | administrator | 管理者 | サイトを管理・運営する人<br>写真登録の上限は無制限 |  |
+| prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Hokkaido | 北海道 | - |  |
+| prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Aomori | 青森 | - |  |
+| prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Iwate | 岩手 | - |  |
+| prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Miyagi | 宮城 | - |  |
+| prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Akita | 秋田 | - |  |
+| prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Yamagata | 山形 | - |  |
+| prefecture | 都道府県 | Hokkaido_Tohoku | 北海道・東北 | Fukushima | 福島 | - |  |
+| prefecture | 都道府県 | Kanto | 関東 | Ibaraki | 茨城 | - |  |
+| prefecture | 都道府県 | Kanto | 関東 | Tochigi | 栃木 | - |  |
+| prefecture | 都道府県 | Kanto | 関東 | Gunma | 群馬 | - |  |
+| prefecture | 都道府県 | Kanto | 関東 | Saitama | 埼玉 | - |  |
+| prefecture | 都道府県 | Kanto | 関東 | Chiba | 千葉 | - |  |
+| prefecture | 都道府県 | Kanto | 関東 | Tokyo | 東京 | - |  |
+| prefecture | 都道府県 | Kanto | 関東 | Kanagawa | 神奈川 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Niigata | 新潟 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Toyama | 富山 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Ishikawa | 石川 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Fukui | 福井 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Yamanashi | 山梨 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Nagano | 長野 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Gifu | 岐阜 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Shizuoka | 静岡 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Aichi | 愛知 | - |  |
+| prefecture | 都道府県 | Chubu | 中部 | Mie | 三重 | - |  |
+| prefecture | 都道府県 | Kansai | 関西 | Shiga | 滋賀 | - |  |
+| prefecture | 都道府県 | Kansai | 関西 | Kyoto | 京都 | - |  |
+| prefecture | 都道府県 | Kansai | 関西 | Osaka | 大阪 | - |  |
+| prefecture | 都道府県 | Kansai | 関西 | Hyogo | 兵庫 | - |  |
+| prefecture | 都道府県 | Kansai | 関西 | Nara | 奈良 | - |  |
+| prefecture | 都道府県 | Kansai | 関西 | Wakayama | 和歌山 | - |  |
+| prefecture | 都道府県 | Chugoku | 中国 | Tottori | 鳥取 | - |  |
+| prefecture | 都道府県 | Chugoku | 中国 | Shimane | 島根 | - |  |
+| prefecture | 都道府県 | Chugoku | 中国 | Okayama | 岡山 | - |  |
+| prefecture | 都道府県 | Chugoku | 中国 | Hiroshima | 広島 | - |  |
+| prefecture | 都道府県 | Chugoku | 中国 | Yamaguchi | 山口 | - |  |
+| prefecture | 都道府県 | Shikoku | 四国 | Tokushima | 徳島 | - |  |
+| prefecture | 都道府県 | Shikoku | 四国 | Kagawa | 香川 | - |  |
+| prefecture | 都道府県 | Shikoku | 四国 | Ehime | 愛媛 | - |  |
+| prefecture | 都道府県 | Shikoku | 四国 | Kochi | 高知 | - |  |
+| prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Fukuoka | 福岡 | - |  |
+| prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Saga | 佐賀 | - |  |
+| prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Nagasaki | 長崎 | - |  |
+| prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Kumamoto | 熊本 | - |  |
+| prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Oita | 大分 | - |  |
+| prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Miyazaki | 宮崎 | - |  |
+| prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Kagoshima | 鹿児島 | - |  |
+| prefecture | 都道府県 | Kyushu_Okinawa | 九州・沖縄 | Okinawa | 沖縄 | - |  |
+| direction | 向き | - | - | vertical | 縦 | - |  |
+| direction | 向き | - | - | horizontal | 横 | - |  |
+| direction | 向き | - | - | square | 正方形 | - |  |
