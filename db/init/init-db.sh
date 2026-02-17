@@ -18,17 +18,25 @@ echo "Running initialization scripts..."
 psql -U $USER -d $DATABASE -c "CREATE SCHEMA IF NOT EXISTS $SCHEMA1;"
 psql -U $USER -d $DATABASE -c "CREATE SCHEMA IF NOT EXISTS $SCHEMA2;"
 
-for f in /docker-entrypoint-initdb.d/common/*.sql; do
-  if [ -e "$f" ]; then
-    echo "Executing $f"
-    psql -U "$USER" -d "$DATABASE" -f "$f"
-  fi
-done
+# 依存関係を考慮した実行順序でSQLファイルを実行
+SQL_FILES=(
+  # commonスキーマ: 型定義 → テーブル定義（外部キー依存順）
+  "common/common.type.sql"
+  "common/account.sql"
+  "common/kbn_mst.sql"
+  "common/location_mst.sql"
+  # photoスキーマ: 型定義 → テーブル定義（外部キー依存順）
+  "photo/photo.type.sql"
+  "photo/photo_mst.sql"
+  "photo/photo_tag_mst.sql"
+  "photo/photo_favorite.sql"
+)
 
-for f in /docker-entrypoint-initdb.d/photo/*.sql; do
-  if [ -e "$f" ]; then
-    echo "Executing $f"
-    psql -U "$USER" -d "$DATABASE" -f "$f"
+for f in "${SQL_FILES[@]}"; do
+  filepath="/docker-entrypoint-initdb.d/$f"
+  if [ -e "$filepath" ]; then
+    echo "Executing $filepath"
+    psql -U "$USER" -d "$DATABASE" -f "$filepath"
   fi
 done
 
