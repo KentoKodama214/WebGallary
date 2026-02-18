@@ -50,9 +50,11 @@ public class SecurityConfig {
 				.requestMatchers(ApiRoutes.ERROR_PAGE).permitAll()
 				.requestMatchers(ApiRoutes.LOGIN).permitAll()
 				.requestMatchers(ApiRoutes.REGISTER).permitAll()
-				.requestMatchers(ApiRoutes.UPDATE).permitAll()
+				.requestMatchers(ApiRoutes.API_ACCOUNTS).permitAll()
+				.requestMatchers(ApiRoutes.API_ACCOUNTS + "/**").permitAll()
 				.requestMatchers(ApiRoutes.ACCOUNT_LIST).permitAll()
 				.requestMatchers(ApiRoutes.PHOTO + "/**").permitAll()
+				.requestMatchers(ApiRoutes.API_PREFIX + "/**").permitAll()
 				.requestMatchers(AccountUrlUtil.getAccountSettingUrl("{name}"))
 					.access(new WebExpressionAuthorizationManager("#name == authentication.name"))
 				.anyRequest().authenticated())
@@ -68,6 +70,7 @@ public class SecurityConfig {
 				.logoutRequestMatcher(new AntPathRequestMatcher(ApiRoutes.LOGOUT))
 				.logoutSuccessUrl(ApiRoutes.LOGIN))
 			.headers(headers -> headers
+				// 外部サイトへの<iframe>の埋め込みは禁止し、自サイト内のみ許可する
 				.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
 		return http.build();

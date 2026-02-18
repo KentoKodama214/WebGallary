@@ -267,7 +267,7 @@ public class AccountRestControllerTest {
 			doReturn(false).when(accountServiceImpl).updateAccount(accountModelCaptor.capture());
 			
 			ResponseEntity<AccountUpdateResponse> actual
-				= accountRestController.update(accountUpdateRequest, result);
+				= accountRestController.update(accountId, accountUpdateRequest, result);
 			
 			assertEquals(HttpStatus.OK, actual.getStatusCode());
 			assertEquals(HttpStatus.OK.value(), actual.getBody().getHttpStatus());
@@ -324,7 +324,7 @@ public class AccountRestControllerTest {
 			doReturn(false).when(accountServiceImpl).updateAccount(accountModelCaptor.capture());
 			
 			ResponseEntity<AccountUpdateResponse> actual
-				= accountRestController.update(accountUpdateRequest, result);
+				= accountRestController.update(accountId, accountUpdateRequest, result);
 			
 			assertEquals(HttpStatus.OK, actual.getStatusCode());
 			assertEquals(HttpStatus.OK.value(), actual.getBody().getHttpStatus());
@@ -379,7 +379,7 @@ public class AccountRestControllerTest {
 			doReturn(false).when(accountServiceImpl).updateAccount(accountModelCaptor.capture());
 			
 			ResponseEntity<AccountUpdateResponse> actual
-				= accountRestController.update(accountUpdateRequest, result);
+				= accountRestController.update(accountId, accountUpdateRequest, result);
 			
 			assertEquals(HttpStatus.OK, actual.getStatusCode());
 			assertEquals(HttpStatus.OK.value(), actual.getBody().getHttpStatus());
@@ -434,7 +434,7 @@ public class AccountRestControllerTest {
 			doReturn(false).when(accountServiceImpl).updateAccount(accountModelCaptor.capture());
 			
 			ResponseEntity<AccountUpdateResponse> actual
-				= accountRestController.update(accountUpdateRequest, result);
+				= accountRestController.update(accountId, accountUpdateRequest, result);
 			
 			assertEquals(HttpStatus.OK, actual.getStatusCode());
 			assertEquals(HttpStatus.OK.value(), actual.getBody().getHttpStatus());
@@ -489,7 +489,7 @@ public class AccountRestControllerTest {
 			doReturn(true).when(accountServiceImpl).updateAccount(accountModelCaptor.capture());
 			
 			ResponseEntity<AccountUpdateResponse> actual
-				= accountRestController.update(accountUpdateRequest, result);
+				= accountRestController.update(accountId, accountUpdateRequest, result);
 			
 			assertEquals(HttpStatus.OK, actual.getStatusCode());
 			assertEquals(HttpStatus.OK.value(), actual.getBody().getHttpStatus());
@@ -541,7 +541,7 @@ public class AccountRestControllerTest {
 			FieldError fError2 = new FieldError("accountUpdateRequest","accountId", "");
 			result.addError((ObjectError) fError2);
 			
-			assertThrows(BadRequestException.class, () -> accountRestController.update(accountUpdateRequest, result));
+			assertThrows(BadRequestException.class, () -> accountRestController.update(accountId, accountUpdateRequest, result));
 			verify(sessionHelper, times(0)).getAccountNo();
 			verify(sessionHelper, times(0)).getAccountId();
 			verify(accountServiceImpl,times(0)).updateAccount(any(AccountModel.class));
@@ -573,7 +573,7 @@ public class AccountRestControllerTest {
 			FieldError fError1 = new FieldError("accountUpdateRequest","accountId", "");
 			result.addError((ObjectError) fError1);
 			
-			assertThrows(BadRequestException.class, () -> accountRestController.update(accountUpdateRequest, result));
+			assertThrows(BadRequestException.class, () -> accountRestController.update(accountId, accountUpdateRequest, result));
 			verify(sessionHelper, times(0)).getAccountNo();
 			verify(sessionHelper, times(0)).getAccountId();
 			verify(accountServiceImpl,times(0)).updateAccount(any(AccountModel.class));
@@ -605,7 +605,7 @@ public class AccountRestControllerTest {
 			FieldError fError1 = new FieldError("accountUpdateRequest","newPassword", "");
 			result.addError((ObjectError) fError1);
 			
-			assertThrows(BadRequestException.class, () -> accountRestController.update(accountUpdateRequest, result));
+			assertThrows(BadRequestException.class, () -> accountRestController.update(accountId, accountUpdateRequest, result));
 			verify(sessionHelper, times(0)).getAccountNo();
 			verify(sessionHelper, times(0)).getAccountId();
 			verify(accountServiceImpl,times(0)).updateAccount(any(AccountModel.class));
@@ -640,7 +640,7 @@ public class AccountRestControllerTest {
 			ArgumentCaptor<AccountModel> accountModelCaptor = ArgumentCaptor.forClass(AccountModel.class);
 			doThrow(UpdateFailureException.class).when(accountServiceImpl).updateAccount(accountModelCaptor.capture());
 			
-			assertThrows(UpdateFailureException.class, () -> accountRestController.update(accountUpdateRequest, result));
+			assertThrows(UpdateFailureException.class, () -> accountRestController.update(accountId, accountUpdateRequest, result));
 			verify(sessionHelper, times(0)).getAccountId();
 			
 			AccountModel accountModel = accountModelCaptor.getValue();

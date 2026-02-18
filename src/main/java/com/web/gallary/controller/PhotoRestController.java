@@ -11,10 +11,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.gallary.config.PhotoConfig;
@@ -68,10 +73,10 @@ public class PhotoRestController {
 	 * @param	photoListRequest	{@link PhotoListRequest}
 	 * @return						{@link PhotoListGetResponse}
 	 */
-	@PostMapping(ApiRoutes.GET_PHOTO_LIST)
+	@GetMapping(ApiRoutes.API_PHOTOS)
 	public ResponseEntity<PhotoListGetResponse> getPhotoList(
-			@PathVariable String photoAccountId, 
-			@RequestBody @Validated PhotoListRequest photoListRequest) {
+			@PathVariable String photoAccountId,
+			@ModelAttribute @Validated PhotoListRequest photoListRequest) {
 		Optional<String> tagsOpt = Optional.ofNullable(photoListRequest.getTagList());
 		photoListRequest.setTagList(tagsOpt.map(tag -> tag.replace(Consts.HALF_SPACE, Consts.FULL_SPACE)).orElse(Consts.STRING_EMPTY));
 		List<String> tagList = tagsOpt.map(tag -> 
@@ -105,7 +110,7 @@ public class PhotoRestController {
 	 * @throws	RegistFailureException 		写真の登録に失敗した場合
 	 * @throws	UpdateFailureException 		写真の更新に失敗した場合
 	 */
-	@PostMapping(ApiRoutes.SAVE_PHOTO)
+	@RequestMapping(value = ApiRoutes.API_PHOTOS, method = {RequestMethod.POST, RequestMethod.PUT})
 	public ResponseEntity<PhotoEditResponse> savePhoto(
 			@PathVariable String photoAccountId, 
 			@ModelAttribute @Validated PhotoSaveRequest photoSaveRequest, 
@@ -196,7 +201,7 @@ public class PhotoRestController {
 	 * @throws ForbiddenAccountException 	写真の所有者以外がリクエストした場合
 	 * @throws UpdateFailureException 		写真の削除に失敗した場合
 	 */
-	@PostMapping(ApiRoutes.DELETE_PHOTO)
+	@DeleteMapping(ApiRoutes.API_PHOTOS)
 	public ResponseEntity<PhotoEditResponse> deletePhoto(
 			@PathVariable String photoAccountId, 
 			@RequestBody @Validated PhotoDeleteRequest photoDeleteRequest, 

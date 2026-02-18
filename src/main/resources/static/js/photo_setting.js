@@ -349,7 +349,7 @@ async function regist(obj) {
 		headers: {
 			"X-CSRF-Token": csrf_token,
 		},
-		method: "POST",
+		method: isAddMode == 'true' ? "POST" : "PUT",
 		credentials: "same-origin",
 		body: formData
 	};

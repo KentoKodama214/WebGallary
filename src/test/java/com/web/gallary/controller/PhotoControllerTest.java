@@ -111,10 +111,10 @@ public class PhotoControllerTest {
 			assertEquals("/" + loginAccountId + "/account_setting", models.get("account_setting_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_list", models.get("my_photo_list_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_setting", models.get("photo_setting_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/delete", models.get("photo_delete_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/save", models.get("photo_save_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_delete_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_save_url").toString());
 		}
-		
+
 		@Test
 		@Order(3)
 		@DisplayName("正常系：ログインユーザー（ページ所有者）で、登録枚数の上限に達していないの場合")
@@ -142,10 +142,10 @@ public class PhotoControllerTest {
 			assertEquals("/" + loginAccountId + "/account_setting", models.get("account_setting_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_list", models.get("my_photo_list_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_setting", models.get("photo_setting_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/delete", models.get("photo_delete_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/save", models.get("photo_save_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_delete_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_save_url").toString());
 		}
-		
+
 		@Test
 		@Order(4)
 		@DisplayName("正常系：ログインユーザー（ページ所有者）で、登録枚数の上限に達している場合")
@@ -174,8 +174,8 @@ public class PhotoControllerTest {
 			assertEquals("/" + loginAccountId + "/account_setting", models.get("account_setting_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_list", models.get("my_photo_list_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_setting", models.get("photo_setting_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/delete", models.get("photo_delete_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/save", models.get("photo_save_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_delete_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_save_url").toString());
 		}
 	}
 	
@@ -266,8 +266,8 @@ public class PhotoControllerTest {
 			assertEquals("/" + loginAccountId + "/account_setting", models.get("account_setting_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_list", models.get("my_photo_list_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_setting", models.get("photo_setting_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/delete", models.get("photo_delete_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/save", models.get("photo_save_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_delete_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_save_url").toString());
 			
 			PhotoDetailGetModel photoDetailGetModel = photoDetailGetModelCaptor.getValue();
 			assertEquals(1, photoDetailGetModel.getAccountNo());
@@ -315,8 +315,8 @@ public class PhotoControllerTest {
 			assertEquals("/" + loginAccountId + "/account_setting", models.get("account_setting_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_list", models.get("my_photo_list_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_setting", models.get("photo_setting_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/delete", models.get("photo_delete_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/save", models.get("photo_save_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_delete_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_save_url").toString());
 			
 			PhotoDetailGetModel photoDetailGetModel = photoDetailGetModelCaptor.getValue();
 			assertEquals(1, photoDetailGetModel.getAccountNo());
@@ -420,8 +420,8 @@ public class PhotoControllerTest {
 			assertEquals("/" + accountId + "/account_setting", models.get("account_setting_url").toString());
 			assertEquals("/photo/" + accountId + "/photo_list", models.get("my_photo_list_url").toString());
 			assertEquals("/photo/" + accountId + "/photo_setting", models.get("photo_setting_url").toString());
-			assertEquals("/photo/" + accountId + "/delete", models.get("photo_delete_url").toString());
-			assertEquals("/photo/" + accountId + "/save", models.get("photo_save_url").toString());
+			assertEquals("/api/v1/accounts/" + accountId + "/photos", models.get("photo_delete_url").toString());
+			assertEquals("/api/v1/accounts/" + accountId + "/photos", models.get("photo_save_url").toString());
 		}
 		
 		@Test
@@ -461,8 +461,8 @@ public class PhotoControllerTest {
 			assertEquals("/" + accountId + "/account_setting", models.get("account_setting_url").toString());
 			assertEquals("/photo/" + accountId + "/photo_list", models.get("my_photo_list_url").toString());
 			assertEquals("/photo/" + accountId + "/photo_setting", models.get("photo_setting_url").toString());
-			assertEquals("/photo/" + accountId + "/delete", models.get("photo_delete_url").toString());
-			assertEquals("/photo/" + accountId + "/save", models.get("photo_save_url").toString());
+			assertEquals("/api/v1/accounts/" + accountId + "/photos", models.get("photo_delete_url").toString());
+			assertEquals("/api/v1/accounts/" + accountId + "/photos", models.get("photo_save_url").toString());
 		}
 		
 		@Test
@@ -541,8 +541,8 @@ public class PhotoControllerTest {
 			assertEquals("/" + loginAccountId + "/account_setting", models.get("account_setting_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_list", models.get("my_photo_list_url").toString());
 			assertEquals("/photo/" + loginAccountId + "/photo_setting", models.get("photo_setting_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/delete", models.get("photo_delete_url").toString());
-			assertEquals("/photo/" + loginAccountId + "/save", models.get("photo_save_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_delete_url").toString());
+			assertEquals("/api/v1/accounts/" + loginAccountId + "/photos", models.get("photo_save_url").toString());
 		}
 	}
 }

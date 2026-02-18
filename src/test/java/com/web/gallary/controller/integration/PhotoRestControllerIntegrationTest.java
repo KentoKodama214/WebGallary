@@ -39,7 +39,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.gallary.AccountPrincipal;
 import com.web.gallary.controller.request.PhotoDeleteRequest;
-import com.web.gallary.controller.request.PhotoListRequest;
 import com.web.gallary.entity.Account;
 import com.web.gallary.entity.PhotoFavorite;
 import com.web.gallary.entity.PhotoMst;
@@ -69,14 +68,9 @@ public class PhotoRestControllerIntegrationTest {
 		@DisplayName("正常系：Nullのパラメータがある場合")
 		void getPhotoList_with_null_parameter() throws JsonProcessingException, Exception {
 			String photoAccountId = "aaaaaaaa";
-			PhotoListRequest request = new PhotoListRequest();
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			MvcResult result = mockMvc.perform(
-					post("/photo/" + photoAccountId + "/photo_list/get")
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					get("/api/v1/accounts/" + photoAccountId + "/photos")
 					.with(csrf())
 				)
 				.andExpect(status().isOk())
@@ -85,6 +79,7 @@ public class PhotoRestControllerIntegrationTest {
 				.andReturn();
 			
 			String jsonResponse = result.getResponse().getContentAsString();
+			ObjectMapper objectMapper = new ObjectMapper();
 			JsonNode photoList = objectMapper.readTree(jsonResponse).get("photoList");
 			assertEquals(5, photoList.size());
 			
@@ -129,15 +124,10 @@ public class PhotoRestControllerIntegrationTest {
 		@DisplayName("正常系：タグに半角スペースが含まれている場合")
 		void getPhotoList_with_halfspace_tag() throws JsonProcessingException, Exception {
 			String photoAccountId = "aaaaaaaa";
-			PhotoListRequest request = new PhotoListRequest();
-			request.setTagList("太陽 青空");
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			MvcResult result = mockMvc.perform(
-					post("/photo/" + photoAccountId + "/photo_list/get")
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					get("/api/v1/accounts/" + photoAccountId + "/photos")
+					.param("tagList", "太陽 青空")
 					.with(csrf())
 				)
 				.andExpect(status().isOk())
@@ -146,6 +136,7 @@ public class PhotoRestControllerIntegrationTest {
 				.andReturn();
 			
 			String jsonResponse = result.getResponse().getContentAsString();
+			ObjectMapper objectMapper = new ObjectMapper();
 			JsonNode photoList = objectMapper.readTree(jsonResponse).get("photoList");
 			assertEquals(1, photoList.size());
 			
@@ -162,16 +153,10 @@ public class PhotoRestControllerIntegrationTest {
 		@DisplayName("正常系：タグに全角スペースが含まれている場合")
 		void getPhotoList_with_fullspace_tag() throws JsonProcessingException, Exception {
 			String photoAccountId = "aaaaaaaa";
-			
-			PhotoListRequest request = new PhotoListRequest();
-			request.setTagList("太陽　青空");
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			MvcResult result = mockMvc.perform(
-					post("/photo/" + photoAccountId + "/photo_list/get")
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					get("/api/v1/accounts/" + photoAccountId + "/photos")
+					.param("tagList", "太陽　青空")
 					.with(csrf())
 				)
 				.andExpect(status().isOk())
@@ -180,6 +165,7 @@ public class PhotoRestControllerIntegrationTest {
 				.andReturn();
 			
 			String jsonResponse = result.getResponse().getContentAsString();
+			ObjectMapper objectMapper = new ObjectMapper();
 			JsonNode photoList = objectMapper.readTree(jsonResponse).get("photoList");
 			assertEquals(1, photoList.size());
 			
@@ -196,16 +182,10 @@ public class PhotoRestControllerIntegrationTest {
 		@DisplayName("正常系：写真が0件の場合")
 		void getPhotoList_not_found_photo() throws JsonProcessingException, Exception {
 			String photoAccountId = "aaaaaaaa";
-			
-			PhotoListRequest request = new PhotoListRequest();
-			request.setTagList("太陽　海");
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			MvcResult result = mockMvc.perform(
-					post("/photo/" + photoAccountId + "/photo_list/get")
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					get("/api/v1/accounts/" + photoAccountId + "/photos")
+					.param("tagList", "太陽　海")
 					.with(csrf())
 				)
 				.andExpect(status().isOk())
@@ -214,6 +194,7 @@ public class PhotoRestControllerIntegrationTest {
 				.andReturn();
 			
 			String jsonResponse = result.getResponse().getContentAsString();
+			ObjectMapper objectMapper = new ObjectMapper();
 			JsonNode photoList = objectMapper.readTree(jsonResponse).get("photoList");
 			assertEquals(0, photoList.size());
 		}
@@ -247,7 +228,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.file(multipartFile)
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "2")
@@ -343,7 +324,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.file(multipartFile)
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "2")
@@ -456,7 +437,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "2")
 					.param("photoNo", "1")
@@ -576,7 +557,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.file(multipartFile)
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "1")
@@ -615,7 +596,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.file(multipartFile)
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "1")
@@ -649,7 +630,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "2")
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -680,7 +661,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "2")
 					.param("imageFilePath", "")
@@ -717,7 +698,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.file(multipartFile)
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "")
@@ -755,7 +736,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.file(multipartFile)
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "2")
@@ -793,7 +774,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					multipart("/photo/" + photoAccountId + "/save")
+					multipart("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.MULTIPART_FORM_DATA)
 					.param("accountNo", "2")
 					.param("photoNo", "99")
@@ -846,7 +827,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/" + photoAccountId + "/delete")
+					delete("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -937,7 +918,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/" + photoAccountId + "/delete")
+					delete("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -978,7 +959,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/" + photoAccountId + "/delete")
+					delete("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -1018,7 +999,7 @@ public class PhotoRestControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/" + photoAccountId + "/delete")
+					delete("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))

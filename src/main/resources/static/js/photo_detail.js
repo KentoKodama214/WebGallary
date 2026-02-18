@@ -39,11 +39,11 @@ async function deletePhoto(obj) {
 			"X-CSRF-Token": csrf_token,
 			"Content-Type": "application/json; charset=UTF-8"
 		},
-		method: "POST",
+		method: "DELETE",
 		credentials: "same-origin",
 		body: JSON.stringify(requestData)
 	};
-	
+
 	const response = await fetch(postUrl, otherParam)
 		.then((response) => response.json())
   		.catch((err) => console.error(`Fetch problem: ${err.message}`));
@@ -88,7 +88,7 @@ async function addFavorite() {
 		body: JSON.stringify(requestData)
 	};
 	
-	const response = await fetch('/photo/favorite/add', otherParam)
+	const response = await fetch('/api/v1/photos/favorites', otherParam)
 		.then(response => response.json())
 		.catch(err => (console.log(`Fetch problem: ${err.message}`)));
 	
@@ -130,12 +130,12 @@ async function cancelFavorite() {
 			"X-CSRF-Token": csrf_token,
 			"Content-Type": "application/json; charset=UTF-8"
 		},
-		method: "POST",
+		method: "DELETE",
 		credentials: "same-origin",
 		body: JSON.stringify(requestData)
 	};
-	
-	const response = await fetch('/photo/favorite/delete', otherParam)
+
+	const response = await fetch('/api/v1/photos/favorites', otherParam)
 		.then(response => response.json())
 		.catch(err => (console.log(`Fetch problem: ${err.message}`)));
 	

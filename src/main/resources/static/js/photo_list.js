@@ -120,17 +120,16 @@ async function getPhotoList() {
 		pageNo: page_no
 	};
 	
+	const queryParams = new URLSearchParams(requestData).toString();
 	const otherParam = {
 		headers: {
-			"X-CSRF-Token": csrf_token,
-			"Content-Type": "application/json; charset=UTF-8"
+			"X-CSRF-Token": csrf_token
 		},
-		method: "POST",
-		credentials: "same-origin",
-		body: JSON.stringify(requestData)
+		method: "GET",
+		credentials: "same-origin"
 	};
-	
-	const response = await fetch('/photo/' + photoAccountId + '/photo_list/get', otherParam)
+
+	const response = await fetch('/api/v1/accounts/' + photoAccountId + '/photos?' + queryParams, otherParam)
 		.then(response => response.json())
 		.catch(err => (console.log(`Fetch problem: ${err.message}`)));
 		

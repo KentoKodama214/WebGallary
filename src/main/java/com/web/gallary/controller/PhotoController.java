@@ -153,8 +153,8 @@ public class PhotoController {
 			mv.addObject("account_setting_url", AccountUrlUtil.getAccountSettingUrl(accountId));
 			mv.addObject("my_photo_list_url", PhotoUrlUtil.getPhotoListUrl(accountId));
 			mv.addObject("photo_setting_url", PhotoUrlUtil.getPhotoSettingUrl(accountId));
-			mv.addObject("photo_delete_url",  PhotoUrlUtil.getPhotoDeleteUrl(accountId));
-			mv.addObject("photo_save_url",    PhotoUrlUtil.getPhotoSaveUrl(accountId));
+			mv.addObject("photo_delete_url",  PhotoUrlUtil.getPhotoApiUrl(accountId));
+			mv.addObject("photo_save_url",    PhotoUrlUtil.getPhotoApiUrl(accountId));
 		}
 
 		return mv;
