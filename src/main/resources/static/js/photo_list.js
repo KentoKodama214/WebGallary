@@ -114,12 +114,14 @@ async function getPhotoList() {
 	
 	const requestData = {
 		directionKbn: directionKbnCode,
-		isFavorite: isFavorite,
 		tagList: tagList,
 		sortBy: sortBy,
 		pageNo: page_no
 	};
-	
+	if(isFavorite != null && isFavorite !== '') {
+		requestData.isFavorite = isFavorite;
+	}
+
 	const queryParams = new URLSearchParams(requestData).toString();
 	const otherParam = {
 		headers: {

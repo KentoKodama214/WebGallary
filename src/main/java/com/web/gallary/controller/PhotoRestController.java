@@ -88,7 +88,7 @@ public class PhotoRestController {
 					.accountNo(sessionHelper.getAccountNo())
 					.photoAccountId(photoAccountId)
 					.directionKbn(photoListRequest.getDirectionKbn())
-					.isFavoriteOnly(photoListRequest.getIsFavorite())
+					.isFavoriteOnly(Optional.ofNullable(photoListRequest.getIsFavorite()).orElse(Boolean.FALSE))
 					.tagList(tagList)
 					.sortBy(photoListRequest.getSortBy())
 					.build()
