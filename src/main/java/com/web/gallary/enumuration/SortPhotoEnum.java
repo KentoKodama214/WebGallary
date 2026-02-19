@@ -37,7 +37,7 @@ public enum SortPhotoEnum {
 	@JsonCreator
 	public static SortPhotoEnum getOrDefault(String value) {
 		return Arrays.stream(SortPhotoEnum.values())
-				.filter(e -> e.getQueryValue().equals(value))
+				.filter(e -> e.getQueryValue().equals(value) || e.name().equals(value))
 				.findFirst()
 				.orElse(SortPhotoEnum.PHOTO_AT);
 	}
