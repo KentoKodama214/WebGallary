@@ -5,15 +5,22 @@ import java.time.OffsetDateTime;
 
 import com.web.gallary.enumuration.DirectionEnum;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 写真マスタテーブルのEntityクラス
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PhotoMst {
+	/** 写真ID */
+	private Integer photoId;
+
 	/** アカウント番号 */
 	private Integer accountNo;
 

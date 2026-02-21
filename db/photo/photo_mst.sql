@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS photo.photo_mst;
 /* Create Tables */
 CREATE TABLE photo.photo_mst
 (
+	-- 写真ID
+	photo_id serial NOT NULL,
 	-- アカウント番号
 	account_no int NOT NULL,
 	-- 写真番号
@@ -46,7 +48,8 @@ CREATE TABLE photo.photo_mst
 	shutter_speed decimal(10,5) NOT NULL,
 	-- ISO
 	iso int NOT NULL,
-	PRIMARY KEY (account_no, photo_no)
+	PRIMARY KEY (photo_id),
+	CONSTRAINT photo_no_unique UNIQUE (account_no, photo_no)
 ) WITHOUT OIDS;
 
 
@@ -61,6 +64,7 @@ ALTER TABLE photo.photo_mst
 
 /* Comments */
 COMMENT ON TABLE photo.photo_mst IS '写真マスタ';
+COMMENT ON COLUMN photo.photo_mst.photo_id IS '写真ID';
 COMMENT ON COLUMN photo.photo_mst.account_no IS 'アカウント番号';
 COMMENT ON COLUMN photo.photo_mst.photo_no IS '写真番号';
 COMMENT ON COLUMN photo.photo_mst.created_by IS '作成者';
