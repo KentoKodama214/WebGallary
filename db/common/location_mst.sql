@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS common.location_mst;
 /* Create Tables */
 CREATE TABLE common.location_mst
 (
+	-- ロケーションID
+	location_id serial NOT NULL,
 	-- アカウント番号
 	account_no int NOT NULL,
 	-- ロケーション番号
@@ -27,7 +29,8 @@ CREATE TABLE common.location_mst
 	latitude decimal(11,4) NOT NULL,
 	-- 経度
 	longitude decimal(11,4) NOT NULL,
-	PRIMARY KEY (account_no, location_no),
+	PRIMARY KEY (location_id),
+	CONSTRAINT location_no_unique UNIQUE (account_no, location_no),
 	CONSTRAINT location_name_unique UNIQUE (account_no, location_name)
 ) WITHOUT OIDS;
 
@@ -43,6 +46,7 @@ ALTER TABLE common.location_mst
 
 /* Comments */
 COMMENT ON TABLE common.location_mst IS 'ロケーションマスタ';
+COMMENT ON COLUMN common.location_mst.location_id IS 'ロケーションID';
 COMMENT ON COLUMN common.location_mst.account_no IS 'アカウント番号';
 COMMENT ON COLUMN common.location_mst.location_no IS 'ロケーション番号';
 COMMENT ON COLUMN common.location_mst.created_by IS '作成者';

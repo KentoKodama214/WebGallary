@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS photo.photo_favorite;
 /* Create Tables */
 CREATE TABLE photo.photo_favorite
 (
+	-- 写真お気に入りID
+	photo_favorite_id serial NOT NULL,
 	-- アカウント番号
 	account_no int NOT NULL,
 	-- お気に入り写真アカウント番号
@@ -15,7 +17,8 @@ CREATE TABLE photo.photo_favorite
 	created_by int NOT NULL,
 	-- 作成日時
 	created_at timestamp with time zone NOT NULL,
-	PRIMARY KEY (account_no, favorite_photo_account_no, favorite_photo_no)
+	PRIMARY KEY (photo_favorite_id),
+	CONSTRAINT photo_favorite_unique UNIQUE (account_no, favorite_photo_account_no, favorite_photo_no)
 ) WITHOUT OIDS;
 
 
@@ -36,6 +39,7 @@ ALTER TABLE photo.photo_favorite
 
 /* Comments */
 COMMENT ON TABLE photo.photo_favorite IS '写真お気に入り';
+COMMENT ON COLUMN photo.photo_favorite.photo_favorite_id IS '写真お気に入りID';
 COMMENT ON COLUMN photo.photo_favorite.account_no IS 'アカウント番号';
 COMMENT ON COLUMN photo.photo_favorite.favorite_photo_account_no IS 'お気に入り写真アカウント番号';
 COMMENT ON COLUMN photo.photo_favorite.favorite_photo_no IS 'お気に入り写真番号';
