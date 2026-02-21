@@ -75,7 +75,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/favorite/add")
+					post("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -124,7 +124,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/favorite/add")
+					post("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -159,7 +159,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/favorite/add")
+					post("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -201,7 +201,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/favorite/delete")
+					delete("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -267,7 +267,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/favorite/delete")
+					delete("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -302,7 +302,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
 			
 			mockMvc.perform(
-					post("/photo/favorite/delete")
+					delete("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))

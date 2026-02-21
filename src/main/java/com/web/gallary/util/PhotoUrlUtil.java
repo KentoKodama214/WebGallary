@@ -54,32 +54,17 @@ public final class PhotoUrlUtil {
 	}
 	
 	/**
-	 * アカウントIDに対する写真保存APIのパスを取得する<p>
+	 * アカウントIDに対する写真APIのパスを取得する<p>
 	 * アカウントIDがnullや空文字の場合は、ログインページのURLを返す
-	 * 
+	 *
 	 * @param accountId	アカウントID
-	 * @return	写真保存APIのパス
+	 * @return	写真APIのパス
 	 */
-	public static String getPhotoSaveUrl(String accountId) {
+	public static String getPhotoApiUrl(String accountId) {
 		if(Objects.isNull(accountId) || accountId.trim().isEmpty()) {
 			return ApiRoutes.LOGIN;
 		}
-		
-		return ApiRoutes.SAVE_PHOTO.replace(ApiRoutes.PHOTO_ACCOUNT_ID, accountId);
-	}
-	
-	/**
-	 * アカウントIDに対する写真削除APIのパスを取得する<p>
-	 * アカウントIDがnullや空文字の場合は、ログインページのURLを返す
-	 * 
-	 * @param accountId	アカウントID
-	 * @return	写真削除APIのパス
-	 */
-	public static String getPhotoDeleteUrl(String accountId) {
-		if(Objects.isNull(accountId) || accountId.trim().isEmpty()) {
-			return ApiRoutes.LOGIN;
-		}
-		
-		return ApiRoutes.DELETE_PHOTO.replace(ApiRoutes.PHOTO_ACCOUNT_ID, accountId);
+
+		return ApiRoutes.API_PHOTOS.replace(ApiRoutes.PHOTO_ACCOUNT_ID, accountId);
 	}
 }

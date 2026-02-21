@@ -99,54 +99,27 @@ public class PhotoUrlUtilTest {
 	@Nested
 	@Order(4)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class getPhotoSaveUrl {
+	class getPhotoApiUrl {
 		@Test
 		@Order(1)
 		@DisplayName("正常系")
-		void getPhotoSaveUrl_success() {
+		void getPhotoApiUrl_success() {
 			String accountId = "dummyAccountId";
-			assertEquals("/photo/" + accountId + "/save", PhotoUrlUtil.getPhotoSaveUrl(accountId));
+			assertEquals("/api/v1/accounts/" + accountId + "/photos", PhotoUrlUtil.getPhotoApiUrl(accountId));
 		}
-		
+
 		@Test
 		@Order(2)
 		@DisplayName("正常系：アカウントIDがNullの場合、ログインページのパスを返す")
-		void getPhotoSaveUrl_accountId_is_null() {
-			assertEquals("/login", PhotoUrlUtil.getPhotoSaveUrl(null));
+		void getPhotoApiUrl_accountId_is_null() {
+			assertEquals("/login", PhotoUrlUtil.getPhotoApiUrl(null));
 		}
 
 		@Test
 		@Order(3)
 		@DisplayName("正常系：アカウントIDが空文字の場合、ログインページのパスを返す")
-		void getPhotoSaveUrl_accountId_is_empty() {
-			assertEquals("/login", PhotoUrlUtil.getPhotoSaveUrl(" "));
-		}
-	}
-	
-	@Nested
-	@Order(5)
-	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-	class getPhotoDeleteUrl {
-		@Test
-		@Order(1)
-		@DisplayName("正常系")
-		void getPhotoDeleteUrl_success() {
-			String accountId = "dummyAccountId";
-			assertEquals("/photo/" + accountId + "/delete", PhotoUrlUtil.getPhotoDeleteUrl(accountId));
-		}
-		
-		@Test
-		@Order(2)
-		@DisplayName("正常系：アカウントIDがNullの場合、ログインページのパスを返す")
-		void getPhotoDeleteUrl_accountId_is_null() {
-			assertEquals("/login", PhotoUrlUtil.getPhotoDeleteUrl(null));
-		}
-
-		@Test
-		@Order(3)
-		@DisplayName("正常系：アカウントIDが空文字の場合、ログインページのパスを返す")
-		void getPhotoDeleteUrl_accountId_is_empty() {
-			assertEquals("/login", PhotoUrlUtil.getPhotoDeleteUrl(" "));
+		void getPhotoApiUrl_accountId_is_empty() {
+			assertEquals("/login", PhotoUrlUtil.getPhotoApiUrl(" "));
 		}
 	}
 }

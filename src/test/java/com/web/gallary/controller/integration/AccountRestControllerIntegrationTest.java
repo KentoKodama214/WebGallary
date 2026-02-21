@@ -108,7 +108,7 @@ public class AccountRestControllerIntegrationTest {
 			request.setFreeMemo(freeMemo);
 			
 			mockMvc.perform(
-					post("/register")
+					post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(csrf())
@@ -154,7 +154,7 @@ public class AccountRestControllerIntegrationTest {
 			request.setPassword(password);
 			
 			mockMvc.perform(
-					post("/register")
+					post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(csrf())
@@ -187,7 +187,7 @@ public class AccountRestControllerIntegrationTest {
 			request.setPassword(password);
 			
 			mockMvc.perform(
-					post("/register")
+					post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(csrf())
@@ -236,14 +236,14 @@ public class AccountRestControllerIntegrationTest {
 			String accountId = "aaaaaaaa";
 			String accountName = "AAAAAAAA";
 			String password = "";
-			
+
 			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			AccountUpdateRequest request = new AccountUpdateRequest();
 			request.setAccountId(accountId);
 			request.setAccountName(accountName);
 			request.setNewPassword(password);
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId(accountId)
@@ -251,12 +251,12 @@ public class AccountRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
-					post("/update")
+					put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -297,14 +297,14 @@ public class AccountRestControllerIntegrationTest {
 			String accountId = "aaaaaaaab";
 			String accountName = "AAAAAAAA";
 			String password = "";
-			
+
 			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			AccountUpdateRequest request = new AccountUpdateRequest();
 			request.setAccountId(accountId);
 			request.setAccountName(accountName);
 			request.setNewPassword(password);
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId("aaaaaaaa")
@@ -312,12 +312,12 @@ public class AccountRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
-					post("/update")
+					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -358,14 +358,14 @@ public class AccountRestControllerIntegrationTest {
 			String accountId = "aaaaaaaa";
 			String accountName = "AAAAAAAA";
 			String password = "password111";
-			
+
 			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			AccountUpdateRequest request = new AccountUpdateRequest();
 			request.setAccountId(accountId);
 			request.setAccountName(accountName);
 			request.setNewPassword(password);
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId(accountId)
@@ -373,12 +373,12 @@ public class AccountRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
-					post("/update")
+					put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -419,14 +419,14 @@ public class AccountRestControllerIntegrationTest {
 			String accountId = "aaaaaaaab";
 			String accountName = "AAAAAAAA";
 			String password = "password111";
-			
+
 			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			AccountUpdateRequest request = new AccountUpdateRequest();
 			request.setAccountId(accountId);
 			request.setAccountName(accountName);
 			request.setNewPassword(password);
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId("aaaaaaaa")
@@ -434,12 +434,12 @@ public class AccountRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
-					post("/update")
+					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -480,14 +480,14 @@ public class AccountRestControllerIntegrationTest {
 			String accountId = "bbbbbbbb";
 			String accountName = "AAAAAAAA";
 			String password = "";
-			
+
 			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			AccountUpdateRequest request = new AccountUpdateRequest();
 			request.setAccountId(accountId);
 			request.setAccountName(accountName);
 			request.setNewPassword(password);
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId("aaaaaaaa")
@@ -495,12 +495,12 @@ public class AccountRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
-					post("/update")
+					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -522,14 +522,14 @@ public class AccountRestControllerIntegrationTest {
 			String accountId = "";
 			String accountName = "AAAAAAAA";
 			String password = "";
-			
+
 			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			AccountUpdateRequest request = new AccountUpdateRequest();
 			request.setAccountId(accountId);
 			request.setAccountName(accountName);
 			request.setNewPassword(password);
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId("aaaaaaaa")
@@ -537,12 +537,12 @@ public class AccountRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
-					post("/update")
+					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -558,14 +558,14 @@ public class AccountRestControllerIntegrationTest {
 			String accountId = "";
 			String accountName = "AAAAAAAA";
 			String password = "pasword111";
-			
+
 			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			AccountUpdateRequest request = new AccountUpdateRequest();
 			request.setAccountId(accountId);
 			request.setAccountName(accountName);
 			request.setNewPassword(password);
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId("aaaaaaaa")
@@ -573,12 +573,12 @@ public class AccountRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
-					post("/update")
+					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -594,14 +594,14 @@ public class AccountRestControllerIntegrationTest {
 			String accountId = "aaaaaaaa";
 			String accountName = "AAAAAAAA";
 			String password = "$$$$$12345";
-			
+
 			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			AccountUpdateRequest request = new AccountUpdateRequest();
 			request.setAccountId(accountId);
 			request.setAccountName(accountName);
 			request.setNewPassword(password);
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId("aaaaaaaa")
@@ -609,12 +609,12 @@ public class AccountRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
-					post("/update")
+					put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
@@ -630,14 +630,14 @@ public class AccountRestControllerIntegrationTest {
 			String accountId = "zzzzzzzz";
 			String accountName = "AAAAAAAA";
 			String password = "";
-			
+
 			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			AccountUpdateRequest request = new AccountUpdateRequest();
 			request.setAccountId(accountId);
 			request.setAccountName(accountName);
 			request.setNewPassword(password);
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(9)
 					.accountId(accountId)
@@ -645,12 +645,12 @@ public class AccountRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
-					post("/update")
+					put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
 					.content(objectMapper.writeValueAsString(request))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))

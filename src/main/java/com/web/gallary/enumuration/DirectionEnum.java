@@ -40,7 +40,7 @@ public enum DirectionEnum {
 	@JsonCreator
 	public static DirectionEnum getOrDefault(String value) {
 		return Arrays.stream(DirectionEnum.values())
-				.filter(e -> e.getDbValue().equals(value))
+				.filter(e -> e.getDbValue().equals(value) || e.name().equals(value))
 				.findFirst()
 				.orElse(DirectionEnum.NONE);
     }

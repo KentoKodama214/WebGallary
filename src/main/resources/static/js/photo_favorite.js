@@ -20,7 +20,7 @@ class PhotoFavorite {
 			body: JSON.stringify(requestData)
 		};
 
-		const response = await fetch('/photo/favorite/add', otherParam)
+		const response = await fetch('/api/v1/photos/favorites', otherParam)
 			.then(response => response.json())
 			.catch(err => (console.log(`Fetch problem: ${err.message}`)));
 			
@@ -53,12 +53,12 @@ class PhotoFavorite {
 				"X-CSRF-Token": this.csrf_token,
 				"Content-Type": "application/json; charset=UTF-8"
 			},
-			method: "POST",
+			method: "DELETE",
 			credentials: "same-origin",
 			body: JSON.stringify(requestData)
 		};
 
-		const response = await fetch('/photo/favorite/delete', otherParam)
+		const response = await fetch('/api/v1/photos/favorites', otherParam)
 			.then(response => response.json())
 			.catch(err => (console.log(`Fetch problem: ${err.message}`)));
 		

@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +47,7 @@ public class PhotoFavoriteController {
 	 * @throws	BadRequestException 		リクエストパラメータが不正の場合
 	 * @throws	RegistFailureException 		お気に入りの登録に失敗した場合
 	 */
-	@PostMapping(ApiRoutes.ADD_FAVORITE)
+	@PostMapping(ApiRoutes.API_FAVORITES)
 	public ResponseEntity<PhotoFavoriteResponse> addFavorite(
 			@RequestBody @Validated PhotoFavoriteRegistRequest photoFavoriteRegistRequest,
 			BindingResult result) throws BadRequestException, RegistFailureException {
@@ -79,7 +80,7 @@ public class PhotoFavoriteController {
 	 * @throws	BadRequestException 		リクエストパラメータが不正の場合
 	 * @throws	UpdateFailureException 		お気に入りの解除に失敗した場合
 	 */
-	@PostMapping(ApiRoutes.CANDEL_FAVORITE)
+	@DeleteMapping(ApiRoutes.API_FAVORITES)
 	public ResponseEntity<PhotoFavoriteResponse> deleteFavorite(
 			@RequestBody @Validated PhotoFavoriteDeleteRequest photoFavoriteDeleteRequest,
 			BindingResult result) throws BadRequestException, UpdateFailureException {

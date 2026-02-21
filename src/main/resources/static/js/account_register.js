@@ -152,7 +152,7 @@ async function regist(obj) {
 		credentials: "same-origin",
 		body: JSON.stringify(requestData)
 	};
-	const response = await fetch('/register', otherParam)
+	const response = await fetch('/api/v1/accounts', otherParam)
 		.then(response => response.json())
   		.catch((err) => console.error(`Fetch problem: ${err.message}`));
 	

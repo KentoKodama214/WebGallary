@@ -8,7 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,7 +54,7 @@ public class AccountRestController {
 	 * @throws	BadRequestException 	リクエストパラメータが不正の場合
 	 * @throws	RegistFailureException 	一意制約違反でアカウントの登録に失敗した場合
 	 */
-	@PostMapping(ApiRoutes.REGISTER)
+	@PostMapping(ApiRoutes.API_ACCOUNTS)
 	public ResponseEntity<AccountRegistResponse> register(
 			@RequestBody @Validated AccountRegistRequest accuontRegistRequest, 
 			BindingResult result) throws BadRequestException, RegistFailureException {
@@ -94,9 +96,10 @@ public class AccountRestController {
 	 * @throws	BadRequestException		リクエストパラメータが不正の場合
 	 * @throws	UpdateFailureException	更新に失敗した場合
 	 */
-	@PostMapping(ApiRoutes.UPDATE)
+	@PutMapping(ApiRoutes.API_ACCOUNT)
 	public ResponseEntity<AccountUpdateResponse> update(
-			@RequestBody @Validated AccountUpdateRequest accountUpdateRequest, 
+			@PathVariable String accountId,
+			@RequestBody @Validated AccountUpdateRequest accountUpdateRequest,
 			BindingResult result) throws BadRequestException, UpdateFailureException {
 		
 		if(result.hasErrors()) {
