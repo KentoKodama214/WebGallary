@@ -221,6 +221,7 @@ Initialization scripts in `db/` directory, orchestrated by `db/init/init-db.sh`.
 
 - JavaDoc comments in Japanese for all public classes and methods
 - Lombok annotations to reduce boilerplate (prefer `@Builder`, `@Getter`, `@Setter`)
+- Entityクラスには `@Data` と `@Builder` のみを使用する（`@NoArgsConstructor` や `@AllArgsConstructor` は使用しない）
 - Interface-based design for services and repositories
 - No explicit linting or formatting tools configured; follow existing code style
 

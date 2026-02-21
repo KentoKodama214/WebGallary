@@ -2,18 +2,14 @@ package com.web.gallary.entity;
 
 import java.time.OffsetDateTime;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 写真お気に入りテーブルのEntityクラス
  */
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class PhotoFavorite {
 	/** ID */
 	private Integer id;
