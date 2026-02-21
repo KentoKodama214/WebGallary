@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PhotoMst {
-	/** 写真ID */
-	private Integer photoId;
+	/** ID */
+	private Integer id;
 
 	/** アカウント番号 */
 	private Integer accountNo;

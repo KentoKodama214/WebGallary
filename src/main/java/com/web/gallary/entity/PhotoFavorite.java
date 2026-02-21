@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PhotoFavorite {
-	/** 写真お気に入りID */
-	private Integer photoFavoriteId;
+	/** ID */
+	private Integer id;
 
 	/** アカウント番号 */
 	private Integer accountNo;
