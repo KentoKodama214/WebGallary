@@ -55,7 +55,7 @@ public class PhotoFavoriteControllerTest {
 
 	private String readJsonFile(String fileName) throws Exception {
 		return new String(
-				new ClassPathResource("json/controller/PhotoFavoriteController/" + fileName).getInputStream().readAllBytes(),
+				new ClassPathResource("json/controller/PhotoFavoriteControllerTest/" + fileName).getInputStream().readAllBytes(),
 				StandardCharsets.UTF_8);
 	}
 

@@ -74,7 +74,7 @@ public class PhotoRestControllerTest {
 
 	private String readJsonFile(String fileName) throws Exception {
 		return new String(
-				new ClassPathResource("json/controller/PhotoRestController/" + fileName).getInputStream().readAllBytes(),
+				new ClassPathResource("json/controller/PhotoRestControllerTest/" + fileName).getInputStream().readAllBytes(),
 				StandardCharsets.UTF_8);
 	}
 

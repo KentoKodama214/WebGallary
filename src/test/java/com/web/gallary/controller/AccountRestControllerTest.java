@@ -72,7 +72,7 @@ public class AccountRestControllerTest {
 
 	private String readJsonFile(String fileName) throws Exception {
 		return new String(
-				new ClassPathResource("json/controller/AccountRestController/" + fileName).getInputStream().readAllBytes(),
+				new ClassPathResource("json/controller/AccountRestControllerTest/" + fileName).getInputStream().readAllBytes(),
 				StandardCharsets.UTF_8);
 	}
 
