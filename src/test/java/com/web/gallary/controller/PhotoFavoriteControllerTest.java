@@ -6,6 +6,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -18,14 +20,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.web.gallary.controller.request.PhotoFavoriteDeleteRequest;
-import com.web.gallary.controller.request.PhotoFavoriteRegistRequest;
 import com.web.gallary.exception.RegistFailureException;
 import com.web.gallary.exception.UpdateFailureException;
 import com.web.gallary.helper.SessionHelper;
@@ -45,14 +45,18 @@ public class PhotoFavoriteControllerTest {
 	private SessionHelper sessionHelper;
 
 	private MockMvc mockMvc;
-	private ObjectMapper objectMapper;
 
 	@BeforeEach
 	void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(photoFavoriteController)
 				.setControllerAdvice(new CommonRestControllerAdvice(sessionHelper))
 				.build();
-		objectMapper = new ObjectMapper();
+	}
+
+	private String readJsonFile(String fileName) throws Exception {
+		return new String(
+				new ClassPathResource("json/controller/photo_favorite_controller/" + fileName).getInputStream().readAllBytes(),
+				StandardCharsets.UTF_8);
 	}
 
 	@Nested
@@ -63,10 +67,6 @@ public class PhotoFavoriteControllerTest {
 		@Order(1)
 		@DisplayName("正常系")
 		void addFavorite_success() throws Exception {
-			PhotoFavoriteRegistRequest photoFavoriteRegistRequest = new PhotoFavoriteRegistRequest();
-			photoFavoriteRegistRequest.setFavoritePhotoAccountNo(2);
-			photoFavoriteRegistRequest.setFavoritePhotoNo(3);
-
 			doReturn(1).when(sessionHelper).getAccountNo();
 
 			ArgumentCaptor<PhotoFavoriteModel> photoFavoriteModelCaptor = ArgumentCaptor.forClass(PhotoFavoriteModel.class);
@@ -74,7 +74,7 @@ public class PhotoFavoriteControllerTest {
 
 			mockMvc.perform(post("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(photoFavoriteRegistRequest)))
+					.content(readJsonFile("add_favorite.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isSuccess").value(true))
@@ -90,13 +90,9 @@ public class PhotoFavoriteControllerTest {
 		@Order(2)
 		@DisplayName("異常系：BadRequestExceptionをthrowする")
 		void addFavorite_BadRequestException() throws Exception {
-			PhotoFavoriteRegistRequest photoFavoriteRegistRequest = new PhotoFavoriteRegistRequest();
-			photoFavoriteRegistRequest.setFavoritePhotoAccountNo(null);
-			photoFavoriteRegistRequest.setFavoritePhotoNo(3);
-
 			mockMvc.perform(post("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content("{\"favoritePhotoNo\":3}"))
+					.content(readJsonFile("add_favorite_badrequest.json")))
 				.andExpect(status().isBadRequest());
 
 			verify(sessionHelper, times(0)).getAccountNo();
@@ -107,10 +103,6 @@ public class PhotoFavoriteControllerTest {
 		@Order(3)
 		@DisplayName("異常系：RegistFailureExceptionをthrowする")
 		void addFavorite_RegistFailureException() throws Exception {
-			PhotoFavoriteRegistRequest photoFavoriteRegistRequest = new PhotoFavoriteRegistRequest();
-			photoFavoriteRegistRequest.setFavoritePhotoAccountNo(2);
-			photoFavoriteRegistRequest.setFavoritePhotoNo(3);
-
 			doReturn(1).when(sessionHelper).getAccountNo();
 
 			ArgumentCaptor<PhotoFavoriteModel> photoFavoriteModelCaptor = ArgumentCaptor.forClass(PhotoFavoriteModel.class);
@@ -118,7 +110,7 @@ public class PhotoFavoriteControllerTest {
 
 			mockMvc.perform(post("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(photoFavoriteRegistRequest)))
+					.content(readJsonFile("add_favorite.json")))
 				.andExpect(status().isConflict());
 
 			PhotoFavoriteModel photoFavoriteModel = photoFavoriteModelCaptor.getValue();
@@ -136,10 +128,6 @@ public class PhotoFavoriteControllerTest {
 		@Order(1)
 		@DisplayName("正常系")
 		void deleteFavorite_success() throws Exception {
-			PhotoFavoriteDeleteRequest photoFavoriteDeleteRequest = new PhotoFavoriteDeleteRequest();
-			photoFavoriteDeleteRequest.setFavoritePhotoAccountNo(2);
-			photoFavoriteDeleteRequest.setFavoritePhotoNo(3);
-
 			doReturn(1).when(sessionHelper).getAccountNo();
 
 			ArgumentCaptor<PhotoFavoriteModel> photoFavoriteModelCaptor = ArgumentCaptor.forClass(PhotoFavoriteModel.class);
@@ -147,7 +135,7 @@ public class PhotoFavoriteControllerTest {
 
 			mockMvc.perform(delete("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(photoFavoriteDeleteRequest)))
+					.content(readJsonFile("delete_favorite.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isSuccess").value(true))
@@ -165,7 +153,7 @@ public class PhotoFavoriteControllerTest {
 		void deleteFavorite_BadRequestException() throws Exception {
 			mockMvc.perform(delete("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content("{\"favoritePhotoNo\":3}"))
+					.content(readJsonFile("delete_favorite_badrequest.json")))
 				.andExpect(status().isBadRequest());
 
 			verify(sessionHelper, times(0)).getAccountNo();
@@ -176,10 +164,6 @@ public class PhotoFavoriteControllerTest {
 		@Order(3)
 		@DisplayName("異常系：UpdateFailureExceptionをthrowする")
 		void deleteFavorite_UpdateFailureException() throws Exception {
-			PhotoFavoriteDeleteRequest photoFavoriteDeleteRequest = new PhotoFavoriteDeleteRequest();
-			photoFavoriteDeleteRequest.setFavoritePhotoAccountNo(2);
-			photoFavoriteDeleteRequest.setFavoritePhotoNo(3);
-
 			doReturn(1).when(sessionHelper).getAccountNo();
 
 			ArgumentCaptor<PhotoFavoriteModel> photoFavoriteModelCaptor = ArgumentCaptor.forClass(PhotoFavoriteModel.class);
@@ -187,7 +171,7 @@ public class PhotoFavoriteControllerTest {
 
 			mockMvc.perform(delete("/api/v1/photos/favorites")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(photoFavoriteDeleteRequest)))
+					.content(readJsonFile("delete_favorite.json")))
 				.andExpect(status().isConflict());
 
 			PhotoFavoriteModel photoFavoriteModel = photoFavoriteModelCaptor.getValue();

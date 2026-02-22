@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +33,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.web.gallary.controller.request.AccountRegistRequest;
-import com.web.gallary.controller.request.AccountUpdateRequest;
 import com.web.gallary.controller.request.ErrorRequest;
 import com.web.gallary.controller.response.AccountRegistResponse;
 import com.web.gallary.controller.response.AccountUpdateResponse;
@@ -57,11 +57,10 @@ public class AccountRestControllerTest {
 	private SessionHelper sessionHelper;
 
 	private MockMvc mockMvc;
-	private ObjectMapper objectMapper;
 
 	@BeforeEach
 	void setUp() {
-		objectMapper = new ObjectMapper();
+		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new JavaTimeModule());
 		objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
@@ -73,34 +72,10 @@ public class AccountRestControllerTest {
 				.build();
 	}
 
-	private AccountRegistRequest createRegistRequest(String accountId, String accountName, String password,
-			LocalDate birthDate, SexEnum sexKbn, String birthplacePrefectureKbnCode,
-			String residentPrefectureKbnCode, String freeMemo) {
-		AccountRegistRequest request = new AccountRegistRequest();
-		request.setAccountId(accountId);
-		request.setAccountName(accountName);
-		request.setPassword(password);
-		request.setBirthdate(birthDate);
-		request.setSexKbn(sexKbn);
-		request.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
-		request.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
-		request.setFreeMemo(freeMemo);
-		return request;
-	}
-
-	private AccountUpdateRequest createUpdateRequest(String accountId, String accountName, String newPassword,
-			LocalDate birthDate, SexEnum sexKbn, String birthplacePrefectureKbnCode,
-			String residentPrefectureKbnCode, String freeMemo) {
-		AccountUpdateRequest request = new AccountUpdateRequest();
-		request.setAccountId(accountId);
-		request.setAccountName(accountName);
-		request.setNewPassword(newPassword);
-		request.setBirthdate(birthDate);
-		request.setSexKbn(sexKbn);
-		request.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
-		request.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
-		request.setFreeMemo(freeMemo);
-		return request;
+	private String readJsonFile(String fileName) throws Exception {
+		return new String(
+				new ClassPathResource("json/controller/account_rest_controller/" + fileName).getInputStream().readAllBytes(),
+				StandardCharsets.UTF_8);
 	}
 
 	@Nested
@@ -111,17 +86,12 @@ public class AccountRestControllerTest {
 		@Order(1)
 		@DisplayName("正常系")
 		void register_regist_success() throws Exception {
-			AccountRegistRequest request = createRegistRequest(
-					"aaaaaaaa", "AAAAAAAA", "password01",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
-
 			ArgumentCaptor<AccountModel> accountModelCaptor = ArgumentCaptor.forClass(AccountModel.class);
 			doReturn(true).when(accountServiceImpl).registAccount(accountModelCaptor.capture());
 
 			mockMvc.perform(post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("regist_success.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isSuccess").value(true))
@@ -146,17 +116,12 @@ public class AccountRestControllerTest {
 		@Order(2)
 		@DisplayName("正常系：既に使われているアカウントIDの場合")
 		void register_exist_accountId() throws Exception {
-			AccountRegistRequest request = createRegistRequest(
-					"aaaaaaaa", "AAAAAAAA", "password01",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
-
 			ArgumentCaptor<AccountModel> accountModelCaptor = ArgumentCaptor.forClass(AccountModel.class);
 			doReturn(false).when(accountServiceImpl).registAccount(accountModelCaptor.capture());
 
 			mockMvc.perform(post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("regist_success.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isSuccess").value(false))
@@ -181,14 +146,9 @@ public class AccountRestControllerTest {
 		@Order(3)
 		@DisplayName("異常系：BadRequestExceptionをthrowする")
 		void account_setting_BadRequestException_accountId_is_blank() throws Exception {
-			AccountRegistRequest request = createRegistRequest(
-					"", "AAAAAAAA", "password01",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
-
 			mockMvc.perform(post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("regist_badrequest_blank_accountid.json")))
 				.andExpect(status().isBadRequest());
 
 			verify(accountServiceImpl, times(0)).registAccount(any(AccountModel.class));
@@ -198,17 +158,12 @@ public class AccountRestControllerTest {
 		@Order(4)
 		@DisplayName("異常系：RegistFailureExceptionをthrowする")
 		void account_setting_RegistFailureException() throws Exception {
-			AccountRegistRequest request = createRegistRequest(
-					"aaaaaaaa", "AAAAAAAA", "password01",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
-
 			ArgumentCaptor<AccountModel> accountModelCaptor = ArgumentCaptor.forClass(AccountModel.class);
 			doThrow(new RegistFailureException(ErrorEnum.FAIL_TO_REGIST_ACCOUNT)).when(accountServiceImpl).registAccount(accountModelCaptor.capture());
 
 			mockMvc.perform(post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("regist_success.json")))
 				.andExpect(status().isConflict())
 				.andExpect(jsonPath("$.goBackPageUrl").value("/register"));
 
@@ -237,10 +192,6 @@ public class AccountRestControllerTest {
 		@DisplayName("正常系：アカウントID、パスワード変更なし")
 		void update_not_change_accountID_and_password() throws Exception {
 			String accountId = "aaaaaaaa";
-			AccountUpdateRequest request = createUpdateRequest(
-					accountId, "AAAAAAAA", "",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
 
 			doReturn(1).when(sessionHelper).getAccountNo();
 			doReturn(accountId).when(sessionHelper).getAccountId();
@@ -250,7 +201,7 @@ public class AccountRestControllerTest {
 
 			mockMvc.perform(put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("update_no_password_change.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isDuplicateAccountId").value(false))
@@ -278,10 +229,6 @@ public class AccountRestControllerTest {
 		@DisplayName("正常系：アカウントID変更あり、パスワード変更なし")
 		void update_change_accountID() throws Exception {
 			String accountId = "aaaaaaaa";
-			AccountUpdateRequest request = createUpdateRequest(
-					accountId, "AAAAAAAA", "",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
 
 			doReturn(1).when(sessionHelper).getAccountNo();
 			doReturn("bbbbbbbb").when(sessionHelper).getAccountId();
@@ -291,7 +238,7 @@ public class AccountRestControllerTest {
 
 			mockMvc.perform(put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("update_no_password_change.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isDuplicateAccountId").value(false))
@@ -311,10 +258,6 @@ public class AccountRestControllerTest {
 		@DisplayName("正常系：アカウントID変更なし、パスワード変更あり")
 		void update_change_password() throws Exception {
 			String accountId = "aaaaaaaa";
-			AccountUpdateRequest request = createUpdateRequest(
-					accountId, "AAAAAAAA", "password01",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
 
 			doReturn(1).when(sessionHelper).getAccountNo();
 			doReturn(accountId).when(sessionHelper).getAccountId();
@@ -324,7 +267,7 @@ public class AccountRestControllerTest {
 
 			mockMvc.perform(put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("update_with_password_change.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isDuplicateAccountId").value(false))
@@ -344,10 +287,6 @@ public class AccountRestControllerTest {
 		@DisplayName("正常系：アカウントID変更あり、パスワード変更あり")
 		void update_change_accountId_and_password() throws Exception {
 			String accountId = "aaaaaaaa";
-			AccountUpdateRequest request = createUpdateRequest(
-					accountId, "AAAAAAAA", "password01",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
 
 			doReturn(1).when(sessionHelper).getAccountNo();
 			doReturn("bbbbbbbb").when(sessionHelper).getAccountId();
@@ -357,7 +296,7 @@ public class AccountRestControllerTest {
 
 			mockMvc.perform(put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("update_with_password_change.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isDuplicateAccountId").value(false))
@@ -376,10 +315,6 @@ public class AccountRestControllerTest {
 		@DisplayName("正常系：アカウントID重複")
 		void update_duplicate_accountId() throws Exception {
 			String accountId = "aaaaaaaa";
-			AccountUpdateRequest request = createUpdateRequest(
-					accountId, "AAAAAAAA", "",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
 
 			doReturn(1).when(sessionHelper).getAccountNo();
 			doReturn("bbbbbbbb").when(sessionHelper).getAccountId();
@@ -389,7 +324,7 @@ public class AccountRestControllerTest {
 
 			mockMvc.perform(put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("update_no_password_change.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isDuplicateAccountId").value(true))
@@ -407,14 +342,9 @@ public class AccountRestControllerTest {
 		@Order(6)
 		@DisplayName("異常系：パスワード変更なしで、パスワード以外のパラメータが不正")
 		void update_BadRequestException_account_id() throws Exception {
-			AccountUpdateRequest request = createUpdateRequest(
-					"", "AAAAAAAA", "",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
-
 			mockMvc.perform(put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("update_badrequest_blank_accountid_no_password.json")))
 				.andExpect(status().isBadRequest());
 
 			verify(sessionHelper, times(0)).getAccountNo();
@@ -425,14 +355,9 @@ public class AccountRestControllerTest {
 		@Order(7)
 		@DisplayName("異常系：パスワード変更ありで不正でなく、パスワード以外のパラメータが不正")
 		void update_BadRequestException_account_id_with_change_password() throws Exception {
-			AccountUpdateRequest request = createUpdateRequest(
-					"", "AAAAAAAA", "password01",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
-
 			mockMvc.perform(put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("update_badrequest_blank_accountid_with_password.json")))
 				.andExpect(status().isBadRequest());
 
 			verify(sessionHelper, times(0)).getAccountNo();
@@ -443,14 +368,9 @@ public class AccountRestControllerTest {
 		@Order(8)
 		@DisplayName("異常系：パスワード変更ありで、パスワードが不正")
 		void update_BadRequestException_password() throws Exception {
-			AccountUpdateRequest request = createUpdateRequest(
-					"aaaaaaaa", "AAAAAAAA", "pass",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
-
 			mockMvc.perform(put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("update_badrequest_short_password.json")))
 				.andExpect(status().isBadRequest());
 
 			verify(sessionHelper, times(0)).getAccountNo();
@@ -462,10 +382,6 @@ public class AccountRestControllerTest {
 		@DisplayName("異常系：UpdateFailureExceptionをthrowする")
 		void update_UpdateFailureException() throws Exception {
 			String accountId = "aaaaaaaa";
-			AccountUpdateRequest request = createUpdateRequest(
-					accountId, "AAAAAAAA", "password01",
-					LocalDate.of(2000, 1, 1), SexEnum.WOMAN,
-					"Hokkaido", "Okinawa", "フリーメモ");
 
 			doReturn(1).when(sessionHelper).getAccountNo();
 
@@ -474,7 +390,7 @@ public class AccountRestControllerTest {
 
 			mockMvc.perform(put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request)))
+					.content(readJsonFile("update_with_password_change.json")))
 				.andExpect(status().isConflict());
 
 			AccountModel accountModel = accountModelCaptor.getValue();

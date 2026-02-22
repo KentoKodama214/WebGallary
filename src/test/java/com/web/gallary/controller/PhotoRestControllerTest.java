@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -27,15 +27,14 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.gallary.config.PhotoConfig;
-import com.web.gallary.controller.request.PhotoDeleteRequest;
 import com.web.gallary.controller.response.PhotoListGetResponse;
 import com.web.gallary.enumuration.DirectionEnum;
 import com.web.gallary.enumuration.SortPhotoEnum;
@@ -66,14 +65,18 @@ public class PhotoRestControllerTest {
 	private PhotoConfig photoConfig;
 
 	private MockMvc mockMvc;
-	private ObjectMapper objectMapper;
 
 	@BeforeEach
 	void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(photoRestController)
 				.setControllerAdvice(new CommonRestControllerAdvice(sessionHelper))
 				.build();
-		objectMapper = new ObjectMapper();
+	}
+
+	private String readJsonFile(String fileName) throws Exception {
+		return new String(
+				new ClassPathResource("json/controller/photo_rest_controller/" + fileName).getInputStream().readAllBytes(),
+				StandardCharsets.UTF_8);
 	}
 
 	@Nested
@@ -726,11 +729,6 @@ public class PhotoRestControllerTest {
 		void deletePhoto_success() throws Exception {
 			String imageFilePath = "https://localhost:8080/image/aaaaaaaa/DSC111.jpg";
 
-			PhotoDeleteRequest photoDeleteRequest = new PhotoDeleteRequest();
-			photoDeleteRequest.setAccountNo(1);
-			photoDeleteRequest.setPhotoNo(1);
-			photoDeleteRequest.setImageFilePath(imageFilePath);
-
 			doReturn("aaaaaaaa").when(sessionHelper).getAccountId();
 
 			ArgumentCaptor<List<PhotoDeleteModel>> photoDeleteModelCaptor = ArgumentCaptor.forClass(List.class);
@@ -739,7 +737,7 @@ public class PhotoRestControllerTest {
 
 			mockMvc.perform(delete("/api/v1/accounts/aaaaaaaa/photos")
 					.contentType("application/json")
-					.content(objectMapper.writeValueAsString(photoDeleteRequest)))
+					.content(readJsonFile("delete_photo.json")))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isSuccess").value(true))
@@ -757,18 +755,11 @@ public class PhotoRestControllerTest {
 		@Order(2)
 		@DisplayName("異常系：不正アクセス。ForbiddenAccountExceptionをthrowする")
 		void deletePhoto_ForbiddenAccountException() throws Exception {
-			String imageFilePath = "https://localhost:8080/image/aaaaaaaa/DSC111.jpg";
-
-			PhotoDeleteRequest photoDeleteRequest = new PhotoDeleteRequest();
-			photoDeleteRequest.setAccountNo(1);
-			photoDeleteRequest.setPhotoNo(1);
-			photoDeleteRequest.setImageFilePath(imageFilePath);
-
 			doReturn("bbbbbbbb").when(sessionHelper).getAccountId();
 
 			mockMvc.perform(delete("/api/v1/accounts/aaaaaaaa/photos")
 					.contentType("application/json")
-					.content(objectMapper.writeValueAsString(photoDeleteRequest)))
+					.content(readJsonFile("delete_photo.json")))
 				.andExpect(status().isForbidden());
 
 			verify(photoServiceImpl, times(0)).deletePhotos(any(), any());
@@ -782,7 +773,7 @@ public class PhotoRestControllerTest {
 
 			mockMvc.perform(delete("/api/v1/accounts/aaaaaaaa/photos")
 					.contentType("application/json")
-					.content("{\"accountNo\":1,\"photoNo\":1}"))
+					.content(readJsonFile("delete_photo_badrequest.json")))
 				.andExpect(status().isBadRequest());
 
 			verify(photoServiceImpl, times(0)).deletePhotos(any(), any());
@@ -795,11 +786,6 @@ public class PhotoRestControllerTest {
 		void deletePhoto_UpdateFailureException() throws Exception {
 			String imageFilePath = "https://localhost:8080/image/aaaaaaaa/DSC111.jpg";
 
-			PhotoDeleteRequest photoDeleteRequest = new PhotoDeleteRequest();
-			photoDeleteRequest.setAccountNo(1);
-			photoDeleteRequest.setPhotoNo(1);
-			photoDeleteRequest.setImageFilePath(imageFilePath);
-
 			doReturn("aaaaaaaa").when(sessionHelper).getAccountId();
 
 			ArgumentCaptor<List<PhotoDeleteModel>> photoDeleteModelCaptor = ArgumentCaptor.forClass(List.class);
@@ -808,7 +794,7 @@ public class PhotoRestControllerTest {
 
 			mockMvc.perform(delete("/api/v1/accounts/aaaaaaaa/photos")
 					.contentType("application/json")
-					.content(objectMapper.writeValueAsString(photoDeleteRequest)))
+					.content(readJsonFile("delete_photo.json")))
 				.andExpect(status().isConflict());
 
 			List<PhotoDeleteModel> photoDeleteModelList = photoDeleteModelCaptor.getValue();
