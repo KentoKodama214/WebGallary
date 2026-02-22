@@ -32,7 +32,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.web.gallary.config.PhotoConfig;
 import com.web.gallary.controller.response.PhotoListGetResponse;
@@ -75,7 +74,7 @@ public class PhotoRestControllerTest {
 
 	private String readJsonFile(String fileName) throws Exception {
 		return new String(
-				new ClassPathResource("json/controller/photo_rest_controller/" + fileName).getInputStream().readAllBytes(),
+				new ClassPathResource("json/controller/PhotoRestController/" + fileName).getInputStream().readAllBytes(),
 				StandardCharsets.UTF_8);
 	}
 

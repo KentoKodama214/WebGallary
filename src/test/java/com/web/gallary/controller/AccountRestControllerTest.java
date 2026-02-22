@@ -34,8 +34,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.web.gallary.controller.request.ErrorRequest;
-import com.web.gallary.controller.response.AccountRegistResponse;
-import com.web.gallary.controller.response.AccountUpdateResponse;
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.enumuration.SexEnum;
 import com.web.gallary.exception.RegistFailureException;
@@ -74,7 +72,7 @@ public class AccountRestControllerTest {
 
 	private String readJsonFile(String fileName) throws Exception {
 		return new String(
-				new ClassPathResource("json/controller/account_rest_controller/" + fileName).getInputStream().readAllBytes(),
+				new ClassPathResource("json/controller/AccountRestController/" + fileName).getInputStream().readAllBytes(),
 				StandardCharsets.UTF_8);
 	}
 
