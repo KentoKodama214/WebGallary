@@ -3,7 +3,6 @@
 
 <mapper namespace="com.web.gallary.mapper.PhotoMstMapper">
 	<resultMap id="PhotoMstMap" type="com.web.gallary.entity.PhotoMst">
-		<id property="id" column="id"/>
 		<result property="directionKbn" column="direction_kbn" typeHandler="com.web.gallary.type_handler.DirectionEnumTypeHandler"/>
 	</resultMap>
 	
