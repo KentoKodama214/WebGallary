@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS photo.photo_tag_mst;
 /* Create Tables */
 CREATE TABLE photo.photo_tag_mst
 (
+	-- ID
+	id serial NOT NULL,
 	-- アカウント番号
 	account_no int NOT NULL,
 	-- 写真番号
@@ -19,7 +21,8 @@ CREATE TABLE photo.photo_tag_mst
 	tag_japanese_name varchar(20) NOT NULL,
 	-- タグ英語名
 	tag_english_name varchar(20) DEFAULT '""' NOT NULL,
-	PRIMARY KEY (account_no, photo_no, tag_no)
+	PRIMARY KEY (id),
+	CONSTRAINT photo_tag_no_unique UNIQUE (account_no, photo_no, tag_no)
 ) WITHOUT OIDS;
 
 
@@ -34,6 +37,7 @@ ALTER TABLE photo.photo_tag_mst
 
 /* Comments */
 COMMENT ON TABLE photo.photo_tag_mst IS '写真タグマスタ';
+COMMENT ON COLUMN photo.photo_tag_mst.id IS 'ID';
 COMMENT ON COLUMN photo.photo_tag_mst.account_no IS 'アカウント番号';
 COMMENT ON COLUMN photo.photo_tag_mst.photo_no IS '写真番号';
 COMMENT ON COLUMN photo.photo_tag_mst.tag_no IS 'タグ番号';

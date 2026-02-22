@@ -4,6 +4,7 @@
 <mapper namespace="com.web.gallary.mapper.PhotoTagMstMapper">
 	<select id="select" parameterType="com.web.gallary.entity.PhotoTagMst" resultType="com.web.gallary.entity.PhotoTagMst">
 		SELECT
+			id,
 			account_no AS accountNo,
 			photo_no AS photoNo,
 			tag_no AS tagNo,

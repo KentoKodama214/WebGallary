@@ -11,6 +11,9 @@ import lombok.Data;
 @Data
 @Builder
 public class PhotoFavorite {
+	/** ID */
+	private Integer id;
+
 	/** アカウント番号 */
 	private Integer accountNo;
 

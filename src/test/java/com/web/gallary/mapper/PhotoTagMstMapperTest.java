@@ -44,7 +44,8 @@ public class PhotoTagMstMapperTest {
 		void select_by_accountNo() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().accountNo(1).build();
 			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
-			
+			actual.forEach(e -> e.setId(null));
+
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
 					.photoNo(1)
@@ -108,7 +109,8 @@ public class PhotoTagMstMapperTest {
 		void select_by_photoNo() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().photoNo(1).build();
 			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
-			
+			actual.forEach(e -> e.setId(null));
+
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
 					.photoNo(1)
@@ -142,7 +144,8 @@ public class PhotoTagMstMapperTest {
 		void select_by_tagNo() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().tagNo(1).build();
 			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
-			
+			actual.forEach(e -> e.setId(null));
+
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
 					.photoNo(1)
@@ -176,7 +179,8 @@ public class PhotoTagMstMapperTest {
 		void select_by_tagJapaneseName() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().tagJapaneseName("太陽").build();
 			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
-			
+			actual.forEach(e -> e.setId(null));
+
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
 					.photoNo(1)
@@ -210,7 +214,8 @@ public class PhotoTagMstMapperTest {
 		void select_by_tagEnglishName() {
 			PhotoTagMst photoTagMst = PhotoTagMst.builder().tagEnglishName("sun").build();
 			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
-			
+			actual.forEach(e -> e.setId(null));
+
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
 					.photoNo(1)
@@ -259,7 +264,8 @@ public class PhotoTagMstMapperTest {
 					.tagNo(1)
 					.build();
 			List<PhotoTagMst> actual = photoTagMstMapper.select(photoTagMst);
-			
+			actual.forEach(e -> e.setId(null));
+
 			PhotoTagMst expectedPhotoTagMst1 = PhotoTagMst.builder()
 					.accountNo(1)
 					.photoNo(1)

@@ -14,6 +14,9 @@ import lombok.Data;
 @Data
 @Builder
 public class PhotoMst {
+	/** ID */
+	private Integer id;
+
 	/** アカウント番号 */
 	private Integer accountNo;
 
