@@ -1,8 +1,9 @@
 package com.web.gallary.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Nested;
@@ -21,10 +23,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.web.gallary.entity.Account;
-import com.web.gallary.exception.ForbiddenAccountException;
 import com.web.gallary.helper.KbnHelper;
 import com.web.gallary.helper.SessionHelper;
 import com.web.gallary.model.AccountModel;
@@ -37,19 +40,32 @@ import com.web.gallary.service.impl.KbnMstServiceImpl;
 public class AccountControllerTest {
 	@InjectMocks
 	private AccountController accountController;
-	
+
 	@Mock
 	private AccountServiceImpl accountServiceImpl;
-	
+
 	@Mock
 	private KbnMstServiceImpl kbnMstServiceImpl;
-	
+
 	@Mock
 	private SessionHelper sessionHelper;
-	
+
 	@Mock
 	private KbnHelper kbnHepler;
-	
+
+	private MockMvc mockMvc;
+
+	@BeforeEach
+	void setUp() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setPrefix("/WEB-INF/views/");
+		viewResolver.setSuffix(".html");
+		mockMvc = MockMvcBuilders.standaloneSetup(accountController)
+				.setControllerAdvice(new CommonControllerAdvice(sessionHelper))
+				.setViewResolvers(viewResolver)
+				.build();
+	}
+
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -82,13 +98,13 @@ public class AccountControllerTest {
 					.kbnEnglishName("Okinawa")
 					.explanation("沖縄は南国")
 					.build());
-			
+
 			return prefectureList;
 		}
-		
+
 		private Map<String, List<KbnMstModel>> createLinkedHashMap() {
 			LinkedHashMap<String, List<KbnMstModel>> kbnMstLinkedHashMap = new LinkedHashMap<String, List<KbnMstModel>>();
-			
+
 			List<KbnMstModel> hokkaido_tohoku = new ArrayList<KbnMstModel>();
 			hokkaido_tohoku.add(KbnMstModel.builder()
 					.kbnClassCode("prefecture")
@@ -117,7 +133,7 @@ public class AccountControllerTest {
 					.explanation("青森は本州最北")
 					.build());
 			kbnMstLinkedHashMap.put("北海道・東北", hokkaido_tohoku);
-			
+
 			List<KbnMstModel> kyushu_okinawa = new ArrayList<KbnMstModel>();
 			kyushu_okinawa.add(KbnMstModel.builder()
 					.kbnClassCode("prefecture")
@@ -146,28 +162,27 @@ public class AccountControllerTest {
 					.explanation("沖縄は南国")
 					.build());
 			kbnMstLinkedHashMap.put("九州・沖縄", kyushu_okinawa);
-			
+
 			return kbnMstLinkedHashMap;
 		}
-		
+
 		@Test
 		@Order(1)
-		@SuppressWarnings("unchecked")
 		@DisplayName("正常系")
-		void register_success() {
+		void register_success() throws Exception {
 			List<KbnMstModel> prefectureList = createPrefectureList();
 			doReturn(prefectureList).when(kbnMstServiceImpl).getPrefectureList();
-			
+
 			Map<String, List<KbnMstModel>> prefectureMap = createLinkedHashMap();
 			doReturn(prefectureMap).when(kbnHepler).convertToLinkedHashMap(prefectureList);
-			
-			ModelAndView actual = accountController.register();
-			Map<String, Object> models = actual.getModel();
-			assertEquals("account_register", actual.getViewName());
-			assertEquals(prefectureMap, (Map<String, List<KbnMstModel>>) models.get("prefectureGroupList"));
+
+			mockMvc.perform(get("/register"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("account_register"))
+				.andExpect(model().attribute("prefectureGroupList", prefectureMap));
 		}
 	}
-	
+
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -200,13 +215,13 @@ public class AccountControllerTest {
 					.kbnEnglishName("Okinawa")
 					.explanation("沖縄は南国")
 					.build());
-			
+
 			return prefectureList;
 		}
-		
+
 		private Map<String, List<KbnMstModel>> createLinkedHashMap() {
 			LinkedHashMap<String, List<KbnMstModel>> kbnMstLinkedHashMap = new LinkedHashMap<String, List<KbnMstModel>>();
-			
+
 			List<KbnMstModel> hokkaido_tohoku = new ArrayList<KbnMstModel>();
 			hokkaido_tohoku.add(KbnMstModel.builder()
 					.kbnClassCode("prefecture")
@@ -235,7 +250,7 @@ public class AccountControllerTest {
 					.explanation("青森は本州最北")
 					.build());
 			kbnMstLinkedHashMap.put("北海道・東北", hokkaido_tohoku);
-			
+
 			List<KbnMstModel> kyushu_okinawa = new ArrayList<KbnMstModel>();
 			kyushu_okinawa.add(KbnMstModel.builder()
 					.kbnClassCode("prefecture")
@@ -264,81 +279,82 @@ public class AccountControllerTest {
 					.explanation("沖縄は南国")
 					.build());
 			kbnMstLinkedHashMap.put("九州・沖縄", kyushu_okinawa);
-			
+
 			return kbnMstLinkedHashMap;
 		}
-		
+
 		@Test
 		@Order(1)
-		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：生年月日が1900/01/01の場合")
-		void account_setting_birthdate_is_19000101() throws ForbiddenAccountException {
+		void account_setting_birthdate_is_19000101() throws Exception {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			
+
 			Account account = Account.builder()
 					.accountId(accountId)
 					.birthdate(LocalDate.of(1900,1,1))
 					.build();
-			
+
 			doReturn(account).when(accountServiceImpl).getAccountById(accountId);
-			
+
 			List<KbnMstModel> prefectureList = createPrefectureList();
 			doReturn(prefectureList).when(kbnMstServiceImpl).getPrefectureList();
-			
+
 			Map<String, List<KbnMstModel>> prefectureMap = createLinkedHashMap();
 			doReturn(prefectureMap).when(kbnHepler).convertToLinkedHashMap(prefectureList);
-			
-			ModelAndView actual = accountController.account_setting(accountId);
-			Map<String, Object> models = actual.getModel();
-			assertEquals("account_setting", actual.getViewName());
-			assertEquals("/photo/" + accountId + "/photo_list", models.get("my_photo_list_url").toString());
-			assertEquals(account, (Account) models.get("AccountSettingRequest"));
-			assertEquals(prefectureMap, (Map<String, List<KbnMstModel>>) models.get("prefectureGroupList"));
+
+			mockMvc.perform(get("/" + accountId + "/account_setting"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("account_setting"))
+				.andExpect(model().attribute("my_photo_list_url", "/photo/" + accountId + "/photo_list"))
+				.andExpect(model().attribute("AccountSettingRequest", account))
+				.andExpect(model().attribute("prefectureGroupList", prefectureMap));
 		}
-		
+
 		@Test
 		@Order(2)
-		@SuppressWarnings("unchecked")
 		@DisplayName("正常系：生年月日が1900/01/01以外の場合")
-		void account_setting_birthdate_is_not_19000101() throws ForbiddenAccountException {
+		void account_setting_birthdate_is_not_19000101() throws Exception {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			
+
 			Account account = Account.builder()
 					.accountId(accountId)
 					.birthdate(LocalDate.of(2000,1,1))
 					.build();
 			doReturn(account).when(accountServiceImpl).getAccountById(accountId);
-			
+
 			List<KbnMstModel> prefectureList = createPrefectureList();
 			doReturn(prefectureList).when(kbnMstServiceImpl).getPrefectureList();
-			
+
 			Map<String, List<KbnMstModel>> prefectureMap = createLinkedHashMap();
 			doReturn(prefectureMap).when(kbnHepler).convertToLinkedHashMap(prefectureList);
-			
-			ModelAndView actual = accountController.account_setting(accountId);
-			Map<String, Object> models = actual.getModel();
-			assertEquals("account_setting", actual.getViewName());
-			assertEquals("/photo/" + accountId + "/photo_list", models.get("my_photo_list_url").toString());
-			assertEquals(account, (Account) models.get("AccountSettingRequest"));
-			assertEquals(prefectureMap, (Map<String, List<KbnMstModel>>) models.get("prefectureGroupList"));
+
+			mockMvc.perform(get("/" + accountId + "/account_setting"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("account_setting"))
+				.andExpect(model().attribute("my_photo_list_url", "/photo/" + accountId + "/photo_list"))
+				.andExpect(model().attribute("AccountSettingRequest", account))
+				.andExpect(model().attribute("prefectureGroupList", prefectureMap));
 		}
-		
+
 		@Test
 		@Order(3)
 		@SuppressWarnings("unchecked")
 		@DisplayName("異常系：ForbiddenAccountExceptionをthrowする")
-		void account_setting_ForbiddenAccountException() {
+		void account_setting_ForbiddenAccountException() throws Exception {
 			String accountId = "aaaaaaaa";
 			doReturn(null).when(sessionHelper).getAccountId();
-			assertThrows(ForbiddenAccountException.class, () -> accountController.account_setting(accountId));
+
+			mockMvc.perform(get("/" + accountId + "/account_setting"))
+				.andExpect(status().isForbidden());
+
 			verify(accountServiceImpl, times(0)).getAccountById(any(String.class));
 			verify(kbnMstServiceImpl, times(0)).getPrefectureList();
 			verify(kbnHepler, times(0)).convertToLinkedHashMap(any(List.class));
 		}
 	}
-	
+
 	@Nested
 	@Order(3)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -346,41 +362,41 @@ public class AccountControllerTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：ログインユーザー")
-		void account_list_success_login_user() {
+		void account_list_success_login_user() throws Exception {
 			List<AccountModel> accountModelList = new ArrayList<AccountModel>();
 			accountModelList.add(AccountModel.builder().accountNo(1).build());
 			accountModelList.add(AccountModel.builder().accountNo(2).build());
 			accountModelList.add(AccountModel.builder().accountNo(3).build());
-			
+
 			doReturn(accountModelList).when(accountServiceImpl).getAccountList();
-			
+
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			
-			ModelAndView actual = accountController.account_list();
-			Map<String, Object> models = actual.getModel();
-			assertEquals("account_list", actual.getViewName());
-			assertEquals(accountModelList, models.get("AccountList"));
-			assertEquals("/photo/" + accountId + "/photo_list", models.get("my_photo_list_url"));
+
+			mockMvc.perform(get("/account_list"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("account_list"))
+				.andExpect(model().attribute("AccountList", accountModelList))
+				.andExpect(model().attribute("my_photo_list_url", "/photo/" + accountId + "/photo_list"));
 		}
-		
+
 		@Test
 		@Order(2)
 		@DisplayName("正常系：非ログインユーザー")
-		void account_list_success_not_login_user() {
+		void account_list_success_not_login_user() throws Exception {
 			List<AccountModel> accountModelList = new ArrayList<AccountModel>();
 			accountModelList.add(AccountModel.builder().accountNo(1).build());
 			accountModelList.add(AccountModel.builder().accountNo(2).build());
 			accountModelList.add(AccountModel.builder().accountNo(3).build());
-			
+
 			doReturn(accountModelList).when(accountServiceImpl).getAccountList();
 			doReturn(null).when(sessionHelper).getAccountId();
-			
-			ModelAndView actual = accountController.account_list();
-			Map<String, Object> models = actual.getModel();
-			assertEquals("account_list", actual.getViewName());
-			assertEquals(accountModelList, models.get("AccountList"));
-			assertEquals(null, models.get("my_photo_list_url"));
+
+			mockMvc.perform(get("/account_list"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("account_list"))
+				.andExpect(model().attribute("AccountList", accountModelList))
+				.andExpect(model().attributeDoesNotExist("my_photo_list_url"));
 		}
 	}
 }

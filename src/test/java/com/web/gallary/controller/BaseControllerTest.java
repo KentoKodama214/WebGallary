@@ -1,9 +1,9 @@
 package com.web.gallary.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.Map;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Nested;
@@ -14,16 +14,28 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.web.gallary.controller.request.ErrorRequest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class BaseControllerTest {
 	@InjectMocks
 	private BaseController baseController;
-	
+
+	private MockMvc mockMvc;
+
+	@BeforeEach
+	void setUp() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setPrefix("/WEB-INF/views/");
+		viewResolver.setSuffix(".html");
+		mockMvc = MockMvcBuilders.standaloneSetup(baseController)
+				.setViewResolvers(viewResolver)
+				.build();
+	}
+
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -31,11 +43,13 @@ public class BaseControllerTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系")
-		void footer_success() {
-			assertEquals("footer", baseController.footer());
+		void footer_success() throws Exception {
+			mockMvc.perform(get("/footer"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("footer"));
 		}
 	}
-	
+
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -43,11 +57,13 @@ public class BaseControllerTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系")
-		void error_success() {
-			assertEquals("error", baseController.error());
+		void error_success() throws Exception {
+			mockMvc.perform(get("/error"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error"));
 		}
 	}
-	
+
 	@Nested
 	@Order(3)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -55,39 +71,33 @@ public class BaseControllerTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：Nullのパラメータを含むErrorRequest")
-		void error_contain_null_parameter() {
-			ErrorRequest errorRequest = ErrorRequest.builder()
-					.errorCode("400")
-					.httpStatus(400)
-					.build();
-			
-			ModelAndView actual = baseController.error_page(errorRequest);
-			Map<String, Object> models = actual.getModel();
-			assertEquals("error_page", actual.getViewName());
-			assertEquals("/", models.get("goBackPageUrl").toString());
-			assertEquals("エラーが発生しました。システム管理者に問い合わせてください。", models.get("errorMessage").toString());
-			assertEquals("400", models.get("errorCode").toString());
-			assertEquals(400, (Integer) models.get("httpStatus"));
+		void error_contain_null_parameter() throws Exception {
+			mockMvc.perform(get("/error_page")
+					.param("errorCode", "400")
+					.param("httpStatus", "400"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error_page"))
+				.andExpect(model().attribute("goBackPageUrl", "/"))
+				.andExpect(model().attribute("errorMessage", "エラーが発生しました。システム管理者に問い合わせてください。"))
+				.andExpect(model().attribute("errorCode", "400"))
+				.andExpect(model().attribute("httpStatus", 400));
 		}
-		
+
 		@Test
 		@Order(2)
 		@DisplayName("正常系：Nullのパラメータを含まないErrorRequest")
-		void error_not_contain_null_parameter() {
-			ErrorRequest errorRequest = ErrorRequest.builder()
-					.errorCode("400")
-					.httpStatus(400)
-					.goBackPageUrl("/login")
-					.errorMessage("パラメータが不正です。")
-					.build();
-			
-			ModelAndView actual = baseController.error_page(errorRequest);
-			Map<String, Object> models = actual.getModel();
-			assertEquals("error_page", actual.getViewName());
-			assertEquals("/login", models.get("goBackPageUrl").toString());
-			assertEquals("パラメータが不正です。", models.get("errorMessage").toString());
-			assertEquals("400", models.get("errorCode").toString());
-			assertEquals(400, (Integer) models.get("httpStatus"));
+		void error_not_contain_null_parameter() throws Exception {
+			mockMvc.perform(get("/error_page")
+					.param("errorCode", "400")
+					.param("httpStatus", "400")
+					.param("goBackPageUrl", "/login")
+					.param("errorMessage", "パラメータが不正です。"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("error_page"))
+				.andExpect(model().attribute("goBackPageUrl", "/login"))
+				.andExpect(model().attribute("errorMessage", "パラメータが不正です。"))
+				.andExpect(model().attribute("errorCode", "400"))
+				.andExpect(model().attribute("httpStatus", 400));
 		}
 	}
 }
