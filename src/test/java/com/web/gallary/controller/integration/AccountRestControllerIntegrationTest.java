@@ -5,6 +5,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,12 +32,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.web.gallary.AccountPrincipal;
-import com.web.gallary.controller.request.AccountRegistRequest;
-import com.web.gallary.controller.request.AccountUpdateRequest;
 import com.web.gallary.entity.Account;
 import com.web.gallary.enumuration.AuthorityEnum;
 import com.web.gallary.enumuration.ErrorEnum;
@@ -48,10 +45,16 @@ import com.web.gallary.enumuration.SexEnum;
 public class AccountRestControllerIntegrationTest {
 	@Autowired
 	private MockMvc mockMvc;
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
+	private String readJsonFile(String fileName) throws Exception {
+		return new String(
+				new ClassPathResource("json/controller/integration/AccountRestControllerIntegrationTest/" + fileName).getInputStream().readAllBytes(),
+				StandardCharsets.UTF_8);
+	}
+
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -80,37 +83,22 @@ public class AccountRestControllerIntegrationTest {
 						.loginFailureCount(rs.getInt("login_failure_count"))
 						.build());
 		}
-		
+
 		@Test
 		@Order(1)
 		@DisplayName("正常系")
-		void register_regist_success() throws JsonProcessingException, Exception {
+		void register_regist_success() throws Exception {
 			String accountId = "dddddddd";
 			String accountName = "DDDDDDDD";
-			String password = "password04";
 			LocalDate birthDate = LocalDate.of(2000, 1, 1);
-			String sexKbnCode = "woman";
 			String birthplacePrefectureKbnCode = "Hokkaido";
 			String residentPrefectureKbnCode = "Okinawa";
 			String freeMemo = "フリーメモ";
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			objectMapper.registerModule(new JavaTimeModule());
-			
-			AccountRegistRequest request = new AccountRegistRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setPassword(password);
-			request.setBirthdate(birthDate);
-			request.setSexKbn(SexEnum.WOMAN);
-			request.setBirthplacePrefectureKbnCode(birthplacePrefectureKbnCode);
-			request.setResidentPrefectureKbnCode(residentPrefectureKbnCode);
-			request.setFreeMemo(freeMemo);
-			
+
 			mockMvc.perform(
 					post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("register_regist_success.json"))
 					.with(csrf())
 				)
 				.andExpect(status().isOk())
@@ -118,9 +106,9 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isSuccess").value(true))
 				.andExpect(jsonPath("$.message").value(""));
-			
+
 			List<Account> actualData = getAccountList(accountId);
-			
+
 			assertEquals(1, actualData.size());
 			assertEquals(4, actualData.getFirst().getAccountNo());
 			assertEquals(0, actualData.getFirst().getCreatedBy());
@@ -137,26 +125,17 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actualData.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actualData.getFirst().getLoginFailureCount());
 		}
-		
+
 		@Test
 		@Order(2)
 		@DisplayName("正常系：既に使われているアカウントIDの場合")
-		void register_exist_accountId() throws JsonProcessingException, Exception {
+		void register_exist_accountId() throws Exception {
 			String accountId = "aaaaaaaa";
-			String accountName = "DDDDDDDD";
-			String password = "password04";
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
-			AccountRegistRequest request = new AccountRegistRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setPassword(password);
-			
+
 			mockMvc.perform(
 					post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("register_exist_accountid.json"))
 					.with(csrf())
 				)
 				.andExpect(status().isOk())
@@ -164,32 +143,21 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(jsonPath("$.httpStatus").value(200))
 				.andExpect(jsonPath("$.isSuccess").value(false))
 				.andExpect(jsonPath("$.message").value(""));
-			
+
 			List<Account> actualData = getAccountList(accountId);
 			assertEquals(1, actualData.size());
 			assertEquals(accountId, actualData.getFirst().getAccountId());
 			assertEquals("AAAAAAAA", actualData.getFirst().getAccountName());
 		}
-		
+
 		@Test
 		@Order(3)
 		@DisplayName("異常系：BadRequestExceptionをthrowする")
-		void account_setting_BadRequestException_accountId_is_blank() throws JsonProcessingException, Exception {
-			String accountId = "";
-			String accountName = "DDDDDDDD";
-			String password = "password04";
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
-			AccountRegistRequest request = new AccountRegistRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setPassword(password);
-			
+		void account_setting_BadRequestException_accountId_is_blank() throws Exception {
 			mockMvc.perform(
 					post("/api/v1/accounts")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("register_badrequest_blank_accountid.json"))
 					.with(csrf())
 				)
 				.andExpect(status().isBadRequest())
@@ -199,7 +167,7 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(jsonPath("$.message").value(ErrorEnum.INVALID_INPUT.getErrorMessage()));
 		}
 	}
-	
+
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -228,21 +196,13 @@ public class AccountRestControllerIntegrationTest {
 						.loginFailureCount(rs.getInt("login_failure_count"))
 						.build());
 		}
-		
+
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウントID、パスワード変更なし")
-		void update_not_change_accountID_and_password() throws JsonProcessingException, Exception {
+		void update_not_change_accountID_and_password() throws Exception {
 			String accountId = "aaaaaaaa";
 			String accountName = "AAAAAAAA";
-			String password = "";
-
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			AccountUpdateRequest request = new AccountUpdateRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setNewPassword(password);
 
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
@@ -258,7 +218,7 @@ public class AccountRestControllerIntegrationTest {
 			mockMvc.perform(
 					put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("update_not_change_accountid_and_password.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
@@ -269,7 +229,7 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(jsonPath("$.isAccountIdChanged").value(false))
 				.andExpect(jsonPath("$.isPasswordChanged").value(false))
 				.andExpect(jsonPath("$.message").value(""));
-			
+
 			List<Account> actual = getAccountList(accountId);
 			assertEquals(1, actual.size());
 			assertEquals(1, actual.getFirst().getAccountNo());
@@ -289,21 +249,13 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actual.getFirst().getLoginFailureCount());
 		}
-		
+
 		@Test
 		@Order(2)
 		@DisplayName("正常系：アカウントID変更あり、パスワード変更なし")
-		void update_change_accountID() throws JsonProcessingException, Exception {
+		void update_change_accountID() throws Exception {
 			String accountId = "aaaaaaaab";
 			String accountName = "AAAAAAAA";
-			String password = "";
-
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			AccountUpdateRequest request = new AccountUpdateRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setNewPassword(password);
 
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
@@ -319,7 +271,7 @@ public class AccountRestControllerIntegrationTest {
 			mockMvc.perform(
 					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("update_change_accountid.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
@@ -330,7 +282,7 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(jsonPath("$.isAccountIdChanged").value(true))
 				.andExpect(jsonPath("$.isPasswordChanged").value(false))
 				.andExpect(jsonPath("$.message").value(""));
-			
+
 			List<Account> actual = getAccountList(accountId);
 			assertEquals(1, actual.size());
 			assertEquals(1, actual.getFirst().getAccountNo());
@@ -350,21 +302,13 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actual.getFirst().getLoginFailureCount());
 		}
-		
+
 		@Test
 		@Order(3)
 		@DisplayName("正常系：アカウントID変更なし、パスワード変更あり")
-		void update_change_password() throws JsonProcessingException, Exception {
+		void update_change_password() throws Exception {
 			String accountId = "aaaaaaaa";
 			String accountName = "AAAAAAAA";
-			String password = "password111";
-
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			AccountUpdateRequest request = new AccountUpdateRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setNewPassword(password);
 
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
@@ -380,7 +324,7 @@ public class AccountRestControllerIntegrationTest {
 			mockMvc.perform(
 					put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("update_change_password.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
@@ -391,7 +335,7 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(jsonPath("$.isAccountIdChanged").value(false))
 				.andExpect(jsonPath("$.isPasswordChanged").value(true))
 				.andExpect(jsonPath("$.message").value(""));
-			
+
 			List<Account> actual = getAccountList(accountId);
 			assertEquals(1, actual.size());
 			assertEquals(1, actual.getFirst().getAccountNo());
@@ -411,21 +355,13 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actual.getFirst().getLoginFailureCount());
 		}
-		
+
 		@Test
 		@Order(4)
 		@DisplayName("正常系：アカウントID変更あり、パスワード変更あり")
-		void update_change_accountId_and_password() throws JsonProcessingException, Exception {
+		void update_change_accountId_and_password() throws Exception {
 			String accountId = "aaaaaaaab";
 			String accountName = "AAAAAAAA";
-			String password = "password111";
-
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			AccountUpdateRequest request = new AccountUpdateRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setNewPassword(password);
 
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
@@ -441,7 +377,7 @@ public class AccountRestControllerIntegrationTest {
 			mockMvc.perform(
 					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("update_change_accountid_and_password.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
@@ -452,7 +388,7 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(jsonPath("$.isAccountIdChanged").value(true))
 				.andExpect(jsonPath("$.isPasswordChanged").value(true))
 				.andExpect(jsonPath("$.message").value(""));
-			
+
 			List<Account> actual = getAccountList(accountId);
 			assertEquals(1, actual.size());
 			assertEquals(1, actual.getFirst().getAccountNo());
@@ -472,21 +408,12 @@ public class AccountRestControllerIntegrationTest {
 			assertEquals(OffsetDateTime.of(1900, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(0)), actual.getFirst().getLastLoginDatetime().plusHours(9));
 			assertEquals(0, actual.getFirst().getLoginFailureCount());
 		}
-		
+
 		@Test
 		@Order(5)
 		@DisplayName("正常系：アカウントID重複")
-		void update_duplicate_accountId() throws JsonProcessingException, Exception {
-			String accountId = "bbbbbbbb";
+		void update_duplicate_accountId() throws Exception {
 			String accountName = "AAAAAAAA";
-			String password = "";
-
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			AccountUpdateRequest request = new AccountUpdateRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setNewPassword(password);
 
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
@@ -502,7 +429,7 @@ public class AccountRestControllerIntegrationTest {
 			mockMvc.perform(
 					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("update_duplicate_accountid.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
@@ -514,21 +441,12 @@ public class AccountRestControllerIntegrationTest {
 				.andExpect(jsonPath("$.isPasswordChanged").value(false))
 				.andExpect(jsonPath("$.message").value(""));
 		}
-		
+
 		@Test
 		@Order(6)
 		@DisplayName("異常系：パスワード変更なしで、パスワード以外のパラメータが不正")
-		void update_BadRequestException_account_id() throws JsonProcessingException, Exception {
-			String accountId = "";
+		void update_BadRequestException_account_id() throws Exception {
 			String accountName = "AAAAAAAA";
-			String password = "";
-
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			AccountUpdateRequest request = new AccountUpdateRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setNewPassword(password);
 
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
@@ -544,27 +462,18 @@ public class AccountRestControllerIntegrationTest {
 			mockMvc.perform(
 					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("update_badrequest_account_id.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
 				.andExpect(status().isBadRequest());
 		}
-		
+
 		@Test
 		@Order(7)
 		@DisplayName("異常系：パスワード変更ありで不正でなく、パスワード以外のパラメータが不正")
-		void update_BadRequestException_account_id_with_change_password() throws JsonProcessingException, Exception {
-			String accountId = "";
+		void update_BadRequestException_account_id_with_change_password() throws Exception {
 			String accountName = "AAAAAAAA";
-			String password = "pasword111";
-
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			AccountUpdateRequest request = new AccountUpdateRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setNewPassword(password);
 
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
@@ -580,27 +489,19 @@ public class AccountRestControllerIntegrationTest {
 			mockMvc.perform(
 					put("/api/v1/accounts/aaaaaaaa")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("update_badrequest_account_id_with_change_password.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
 				.andExpect(status().isBadRequest());
 		}
-		
+
 		@Test
 		@Order(8)
 		@DisplayName("異常系：パスワード変更ありで、パスワードが不正")
-		void update_BadRequestException_password() throws JsonProcessingException, Exception {
+		void update_BadRequestException_password() throws Exception {
 			String accountId = "aaaaaaaa";
 			String accountName = "AAAAAAAA";
-			String password = "$$$$$12345";
-
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			AccountUpdateRequest request = new AccountUpdateRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setNewPassword(password);
 
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
@@ -616,27 +517,19 @@ public class AccountRestControllerIntegrationTest {
 			mockMvc.perform(
 					put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("update_badrequest_password.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
 				.andExpect(status().isBadRequest());
 		}
-		
+
 		@Test
 		@Order(9)
 		@DisplayName("異常系：UpdateFailureExceptionをthrowする")
-		void update_UpdateFailureException() throws JsonProcessingException, Exception {
+		void update_UpdateFailureException() throws Exception {
 			String accountId = "zzzzzzzz";
 			String accountName = "AAAAAAAA";
-			String password = "";
-
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			AccountUpdateRequest request = new AccountUpdateRequest();
-			request.setAccountId(accountId);
-			request.setAccountName(accountName);
-			request.setNewPassword(password);
 
 			Account sessionAccount = Account.builder()
 					.accountNo(9)
@@ -652,7 +545,7 @@ public class AccountRestControllerIntegrationTest {
 			mockMvc.perform(
 					put("/api/v1/accounts/" + accountId)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("update_update_failure.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)

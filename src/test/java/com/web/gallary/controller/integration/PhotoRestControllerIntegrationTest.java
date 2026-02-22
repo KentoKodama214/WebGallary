@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -21,6 +22,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,7 +40,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.gallary.AccountPrincipal;
-import com.web.gallary.controller.request.PhotoDeleteRequest;
 import com.web.gallary.entity.Account;
 import com.web.gallary.entity.PhotoFavorite;
 import com.web.gallary.entity.PhotoMst;
@@ -57,7 +58,13 @@ public class PhotoRestControllerIntegrationTest {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
+	private String readJsonFile(String fileName) throws Exception {
+		return new String(
+				new ClassPathResource("json/controller/integration/PhotoRestControllerIntegrationTest/" + fileName).getInputStream().readAllBytes(),
+				StandardCharsets.UTF_8);
+	}
+
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -803,18 +810,10 @@ public class PhotoRestControllerIntegrationTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系")
-		void deletePhoto_success() throws JsonProcessingException, Exception {
+		void deletePhoto_success() throws Exception {
 			String photoAccountId = "aaaaaaaa";
 			String loginAccountId = "aaaaaaaa";
-			String imageFilePath = "https://www.xxx.com/aaaaaaaa/DSC11.jpg";
-			
-			PhotoDeleteRequest request = new PhotoDeleteRequest();
-			request.setAccountNo(1);
-			request.setPhotoNo(1);
-			request.setImageFilePath(imageFilePath);
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId(loginAccountId)
@@ -822,14 +821,14 @@ public class PhotoRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
 					delete("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("delete_photo_success.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
@@ -894,18 +893,10 @@ public class PhotoRestControllerIntegrationTest {
 		@Test
 		@Order(2)
 		@DisplayName("異常系：不正アクセス。ForbiddenAccountExceptionをthrowする")
-		void deletePhoto_ForbiddenAccountException() throws JsonProcessingException, Exception {
+		void deletePhoto_ForbiddenAccountException() throws Exception {
 			String photoAccountId = "aaaaaaaa";
 			String loginAccountId = "eeeeeeee";
-			String imageFilePath = "https://www.xxx.com/aaaaaaaa/DSC11.jpg";
-			
-			PhotoDeleteRequest request = new PhotoDeleteRequest();
-			request.setAccountNo(1);
-			request.setPhotoNo(1);
-			request.setImageFilePath(imageFilePath);
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId(loginAccountId)
@@ -913,14 +904,14 @@ public class PhotoRestControllerIntegrationTest {
 					.password("$2a$10$password5")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
 					delete("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("delete_photo_forbidden.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
@@ -936,17 +927,10 @@ public class PhotoRestControllerIntegrationTest {
 		@Test
 		@Order(3)
 		@DisplayName("異常系：パラメータ不正。BadRequestExceptionをthrowする")
-		void deletePhoto_BadRequestException() throws JsonProcessingException, Exception {
+		void deletePhoto_BadRequestException() throws Exception {
 			String photoAccountId = "aaaaaaaa";
 			String loginAccountId = "aaaaaaaa";
-			
-			PhotoDeleteRequest request = new PhotoDeleteRequest();
-			request.setAccountNo(1);
-			request.setPhotoNo(1);
-			request.setImageFilePath("");
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId(loginAccountId)
@@ -954,14 +938,14 @@ public class PhotoRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
 					delete("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("delete_photo_badrequest.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
@@ -975,18 +959,10 @@ public class PhotoRestControllerIntegrationTest {
 		@Test
 		@Order(4)
 		@DisplayName("異常系：UpdateFailureExceptionをthrowする")
-		void deletePhoto_UpdateFailureException() throws JsonProcessingException, Exception {
+		void deletePhoto_UpdateFailureException() throws Exception {
 			String photoAccountId = "aaaaaaaa";
 			String loginAccountId = "aaaaaaaa";
-			String imageFilePath = "https://www.xxx.com/aaaaaaaa/DSC11.jpg";
-			
-			PhotoDeleteRequest request = new PhotoDeleteRequest();
-			request.setAccountNo(1);
-			request.setPhotoNo(99);
-			request.setImageFilePath(imageFilePath);
-			
-			ObjectMapper objectMapper = new ObjectMapper();
-			
+
 			Account sessionAccount = Account.builder()
 					.accountNo(1)
 					.accountId(loginAccountId)
@@ -994,14 +970,14 @@ public class PhotoRestControllerIntegrationTest {
 					.password("$2a$10$password1")
 					.authorityKbn(AuthorityEnum.ADMINISTRATOR)
 					.build();
-			
+
 			AccountPrincipal accountPrincipal = new AccountPrincipal(sessionAccount, 0);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(accountPrincipal, null);
-			
+
 			mockMvc.perform(
 					delete("/api/v1/accounts/" + photoAccountId + "/photos")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(objectMapper.writeValueAsString(request))
+					.content(readJsonFile("delete_photo_update_failure.json"))
 					.with(SecurityMockMvcRequestPostProcessors.authentication(authentication))
 					.with(csrf())
 				)
