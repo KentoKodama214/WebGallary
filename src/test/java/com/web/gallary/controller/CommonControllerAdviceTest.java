@@ -2,11 +2,13 @@ package com.web.gallary.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Map;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Nested;
@@ -18,8 +20,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.web.gallary.enumuration.ErrorEnum;
 import com.web.gallary.exception.ForbiddenAccountException;
@@ -31,10 +37,36 @@ import com.web.gallary.helper.SessionHelper;
 public class CommonControllerAdviceTest {
 	@InjectMocks
 	private CommonControllerAdvice commonControllerAdvice;
-	
+
 	@Mock
 	private SessionHelper sessionHelper;
-	
+
+	private MockMvc mockMvc;
+
+	@Controller
+	static class TestController extends BaseController {
+		@GetMapping("/test/forbidden")
+		public String throwForbiddenAccountException() throws ForbiddenAccountException {
+			throw new ForbiddenAccountException(ErrorEnum.INVALID_INPUT);
+		}
+
+		@GetMapping("/test/photo_not_found")
+		public String throwPhotoNotFoundException() throws PhotoNotFoundException {
+			throw new PhotoNotFoundException(ErrorEnum.FAIL_TO_REGIST_PHOTO);
+		}
+	}
+
+	@BeforeEach
+	void setUp() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setPrefix("/WEB-INF/views/");
+		viewResolver.setSuffix(".html");
+		mockMvc = MockMvcBuilders.standaloneSetup(new TestController())
+				.setControllerAdvice(commonControllerAdvice)
+				.setViewResolvers(viewResolver)
+				.build();
+	}
+
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -42,39 +74,35 @@ public class CommonControllerAdviceTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：非ログインユーザーの場合")
-		void handleFileForbiddenAccountException_not_login_user() {
+		void handleFileForbiddenAccountException_not_login_user() throws Exception {
 			doReturn(null).when(sessionHelper).getAccountId();
-			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorEnum.INVALID_INPUT);
-			
-			ModelAndView actual = commonControllerAdvice.handleFileForbiddenAccountException(exception);
-			assertEquals("error_page", actual.getViewName());
-			assertEquals(HttpStatus.FORBIDDEN, actual.getStatus());
-			Map<String, Object> models = actual.getModel();
-			assertEquals(HttpStatus.FORBIDDEN.value(), (int)models.get("httpStatus"));
-			assertEquals(ErrorEnum.INVALID_INPUT.getErrorCode(), models.get("errorCode").toString());
-			assertEquals(ErrorEnum.INVALID_INPUT.getErrorMessage(), models.get("errorMessage").toString());
-			assertEquals("/login", models.get("goBackPageUrl").toString());
+
+			mockMvc.perform(get("/test/forbidden"))
+				.andExpect(status().isForbidden())
+				.andExpect(view().name("error_page"))
+				.andExpect(model().attribute("httpStatus", HttpStatus.FORBIDDEN.value()))
+				.andExpect(model().attribute("errorCode", ErrorEnum.INVALID_INPUT.getErrorCode()))
+				.andExpect(model().attribute("errorMessage", ErrorEnum.INVALID_INPUT.getErrorMessage()))
+				.andExpect(model().attribute("goBackPageUrl", "/login"));
 		}
-		
+
 		@Test
 		@Order(2)
 		@DisplayName("正常系：ログインユーザーの場合")
-		void handleFileForbiddenAccountException_login_user() {
+		void handleFileForbiddenAccountException_login_user() throws Exception {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			ForbiddenAccountException exception = new ForbiddenAccountException(ErrorEnum.INVALID_INPUT);
-			
-			ModelAndView actual = commonControllerAdvice.handleFileForbiddenAccountException(exception);
-			assertEquals("error_page", actual.getViewName());
-			assertEquals(HttpStatus.FORBIDDEN, actual.getStatus());
-			Map<String, Object> models = actual.getModel();
-			assertEquals(HttpStatus.FORBIDDEN.value(), (int)models.get("httpStatus"));
-			assertEquals(ErrorEnum.INVALID_INPUT.getErrorCode(), models.get("errorCode").toString());
-			assertEquals(ErrorEnum.INVALID_INPUT.getErrorMessage(), models.get("errorMessage").toString());
-			assertEquals("/photo/" + accountId + "/photo_list", models.get("goBackPageUrl").toString());
+
+			mockMvc.perform(get("/test/forbidden"))
+				.andExpect(status().isForbidden())
+				.andExpect(view().name("error_page"))
+				.andExpect(model().attribute("httpStatus", HttpStatus.FORBIDDEN.value()))
+				.andExpect(model().attribute("errorCode", ErrorEnum.INVALID_INPUT.getErrorCode()))
+				.andExpect(model().attribute("errorMessage", ErrorEnum.INVALID_INPUT.getErrorMessage()))
+				.andExpect(model().attribute("goBackPageUrl", "/photo/" + accountId + "/photo_list"));
 		}
 	}
-	
+
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -82,39 +110,35 @@ public class CommonControllerAdviceTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：非ログインユーザーの場合")
-		void handlePhotoNotFoundException_not_login_user() {
+		void handlePhotoNotFoundException_not_login_user() throws Exception {
 			doReturn(null).when(sessionHelper).getAccountId();
-			PhotoNotFoundException exception = new PhotoNotFoundException(ErrorEnum.FAIL_TO_REGIST_PHOTO);
-			
-			ModelAndView actual = commonControllerAdvice.handlePhotoNotFoundException(exception);
-			assertEquals("error_page", actual.getViewName());
-			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatus());
-			Map<String, Object> models = actual.getModel();
-			assertEquals(HttpStatus.BAD_REQUEST.value(), (int)models.get("httpStatus"));
-			assertEquals(ErrorEnum.FAIL_TO_REGIST_PHOTO.getErrorCode(), models.get("errorCode").toString());
-			assertEquals(ErrorEnum.FAIL_TO_REGIST_PHOTO.getErrorMessage(), models.get("errorMessage").toString());
-			assertEquals("/login", models.get("goBackPageUrl").toString());
+
+			mockMvc.perform(get("/test/photo_not_found"))
+				.andExpect(status().isBadRequest())
+				.andExpect(view().name("error_page"))
+				.andExpect(model().attribute("httpStatus", HttpStatus.BAD_REQUEST.value()))
+				.andExpect(model().attribute("errorCode", ErrorEnum.FAIL_TO_REGIST_PHOTO.getErrorCode()))
+				.andExpect(model().attribute("errorMessage", ErrorEnum.FAIL_TO_REGIST_PHOTO.getErrorMessage()))
+				.andExpect(model().attribute("goBackPageUrl", "/login"));
 		}
-		
+
 		@Test
 		@Order(2)
 		@DisplayName("正常系：ログインユーザーの場合")
-		void handlePhotoNotFoundException_login_user() {
+		void handlePhotoNotFoundException_login_user() throws Exception {
 			String accountId = "aaaaaaaa";
 			doReturn(accountId).when(sessionHelper).getAccountId();
-			PhotoNotFoundException exception = new PhotoNotFoundException(ErrorEnum.FAIL_TO_REGIST_PHOTO);
-			
-			ModelAndView actual = commonControllerAdvice.handlePhotoNotFoundException(exception);
-			assertEquals("error_page", actual.getViewName());
-			assertEquals(HttpStatus.BAD_REQUEST, actual.getStatus());
-			Map<String, Object> models = actual.getModel();
-			assertEquals(HttpStatus.BAD_REQUEST.value(), (int)models.get("httpStatus"));
-			assertEquals(ErrorEnum.FAIL_TO_REGIST_PHOTO.getErrorCode(), models.get("errorCode").toString());
-			assertEquals(ErrorEnum.FAIL_TO_REGIST_PHOTO.getErrorMessage(), models.get("errorMessage").toString());
-			assertEquals("/photo/" + accountId + "/photo_list", models.get("goBackPageUrl").toString());
+
+			mockMvc.perform(get("/test/photo_not_found"))
+				.andExpect(status().isBadRequest())
+				.andExpect(view().name("error_page"))
+				.andExpect(model().attribute("httpStatus", HttpStatus.BAD_REQUEST.value()))
+				.andExpect(model().attribute("errorCode", ErrorEnum.FAIL_TO_REGIST_PHOTO.getErrorCode()))
+				.andExpect(model().attribute("errorMessage", ErrorEnum.FAIL_TO_REGIST_PHOTO.getErrorMessage()))
+				.andExpect(model().attribute("goBackPageUrl", "/photo/" + accountId + "/photo_list"));
 		}
 	}
-	
+
 	@Nested
 	@Order(3)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -128,7 +152,7 @@ public class CommonControllerAdviceTest {
 			doReturn(null).when(sessionHelper).getAccountId();
 			assertEquals("/login", (String) goBackPageUrl.invoke(commonControllerAdvice));
 		}
-		
+
 		@Test
 		@Order(2)
 		@DisplayName("正常系：ログインユーザーの場合")
