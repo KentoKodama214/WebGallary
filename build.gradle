@@ -46,4 +46,18 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	exclude '**/*IntegrationTest*'
+}
+
+tasks.register('integrationTest', Test) {
+	description = '統合テストのみを実行する'
+	group = 'verification'
+	useJUnitPlatform()
+	include '**/*IntegrationTest*'
+}
+
+tasks.register('allTest', Test) {
+	description = '単体テストと統合テストをすべて実行する'
+	group = 'verification'
+	useJUnitPlatform()
 }
