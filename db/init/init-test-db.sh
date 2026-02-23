@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # データベース、ユーザー、パスワードを指定
-DATABASE=${POSTGRES_DB:-"web_gallary"}
+DATABASE=${POSTGRES_DB:-"web_gallary_test"}
 USER=${POSTGRES_USER:-"postgres"}
 PW=${POSTGRES_PASSWORD:-"postgres"}
 
@@ -35,7 +35,7 @@ SQL_FILES=(
 for f in "${SQL_FILES[@]}"; do
   filepath="/docker-entrypoint-initdb.d/$f"
   if [ -e "$filepath" ]; then
-    echo "Executing $filepath"
+    echo "Executing $filepath on $DATABASE"
     psql -U "$USER" -d "$DATABASE" -f "$filepath"
   fi
 done
