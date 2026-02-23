@@ -1,10 +1,6 @@
 spring:
   application:
     name: WebGallary
-  datasource:
-    url: jdbc:postgresql://localhost:5432/web_gallary
-    username: postgres
-    password: postgres
   servlet:
     multipart:
       max-file-size: 6MB
@@ -18,24 +14,19 @@ server:
 
 mybatis:
   type-handlers-package: com.web.gallary.type_handler
- 
+
 management:
   add-application-context-header: false
 
 logging:
-  level:
-    ROOT: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36}.%M:%L - %msg%n"
-
-auth:
-  login:
-    failCount: 3
 
 app:
   photo:
     photoCountPerPage: 20
     maxFileSizeMb: 5
-    miniUserUpperLimit: 10
-    normalUserUpperLimit: 1000
-    outputPath: https://localhost:8080/image/
+
+auth:
+  login:
+    failCount: 3
