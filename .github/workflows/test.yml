@@ -1,0 +1,111 @@
+name: テスト実行
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit-test:
+    name: 単体テスト
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v4
+
+      - name: JDK 21 セットアップ
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Gradleキャッシュ
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: 単体テスト実行
+        run: ./gradlew test
+
+      - name: テスト結果アップロード
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: build/reports/tests/test/
+
+  integration-test:
+    name: 結合テスト
+    needs: unit-test
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: web_gallary_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v4
+
+      - name: JDK 21 セットアップ
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Gradleキャッシュ
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: データベース初期化
+        env:
+          PGPASSWORD: postgres
+        run: |
+          psql -h localhost -p 5433 -U postgres -d web_gallary_test -c "CREATE SCHEMA IF NOT EXISTS common;"
+          psql -h localhost -p 5433 -U postgres -d web_gallary_test -c "CREATE SCHEMA IF NOT EXISTS photo;"
+          SQL_FILES=(
+            "db/common/common.type.sql"
+            "db/common/account.sql"
+            "db/common/kbn_mst.sql"
+            "db/common/location_mst.sql"
+            "db/photo/photo.type.sql"
+            "db/photo/photo_mst.sql"
+            "db/photo/photo_tag_mst.sql"
+            "db/photo/photo_favorite.sql"
+          )
+          for file in "${SQL_FILES[@]}"; do
+            psql -h localhost -p 5433 -U postgres -d web_gallary_test -f "$file"
+          done
+
+      - name: 結合テスト実行
+        run: ./gradlew integrationTest
+
+      - name: テスト結果アップロード
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: build/reports/tests/integrationTest/
