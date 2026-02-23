@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # データベース、ユーザー、パスワードを指定
-DATABASE=${POSTGRES_DB:-"web_gallary"}
-DATABASE_TEST="${DATABASE}_test"
+DATABASE=${POSTGRES_DB:-"web_gallary_test"}
 USER=${POSTGRES_USER:-"postgres"}
 PW=${POSTGRES_PASSWORD:-"postgres"}
 
@@ -13,12 +12,12 @@ SCHEMA2="photo"
 # psqlコマンドでパスワード入力を省略するために環境変数を利用
 export PGPASSWORD="$PW"
 
-echo "Running initialization scripts for $DATABASE_TEST..."
+echo "Running initialization scripts for $DATABASE..."
 
 # テスト用データベースとスキーマを作成
-psql -U $USER -c "CREATE DATABASE $DATABASE_TEST;"
-psql -U $USER -d $DATABASE_TEST -c "CREATE SCHEMA IF NOT EXISTS $SCHEMA1;"
-psql -U $USER -d $DATABASE_TEST -c "CREATE SCHEMA IF NOT EXISTS $SCHEMA2;"
+psql -U $USER -c "CREATE DATABASE $DATABASE;"
+psql -U $USER -d $DATABASE -c "CREATE SCHEMA IF NOT EXISTS $SCHEMA1;"
+psql -U $USER -d $DATABASE -c "CREATE SCHEMA IF NOT EXISTS $SCHEMA2;"
 
 # 依存関係を考慮した実行順序でSQLファイルを実行
 SQL_FILES=(
@@ -37,12 +36,12 @@ SQL_FILES=(
 for f in "${SQL_FILES[@]}"; do
   filepath="/docker-entrypoint-initdb.d/$f"
   if [ -e "$filepath" ]; then
-    echo "Executing $filepath on $DATABASE_TEST"
-    psql -U "$USER" -d "$DATABASE_TEST" -f "$filepath"
+    echo "Executing $filepath on $DATABASE"
+    psql -U "$USER" -d "$DATABASE" -f "$filepath"
   fi
 done
 
 # 終了後、環境変数を消す場合
 unset PW
 
-echo "Initialization complete for $DATABASE_TEST."
+echo "Initialization complete for $DATABASE."
