@@ -52,6 +52,7 @@ public class AccountServiceImplIntegrationTest {
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/service/AccountServiceImplIntegrationTest.sql")
 	class loadUserByUsername {
 		@Test
@@ -78,6 +79,7 @@ public class AccountServiceImplIntegrationTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウントを新規登録")
+		@Sql("/sql/common/cleanup.sql")
 		@Sql("/sql/common/ResetAccountNoSeq.sql")
 		void registAccount_success() throws RegistFailureException {
 			AccountModel accountModel = AccountModel.builder()
@@ -129,6 +131,7 @@ public class AccountServiceImplIntegrationTest {
 		@Test
 		@Order(2)
 		@DisplayName("正常系：アカウントが既に存在する")
+		@Sql("/sql/common/cleanup.sql")
 		@Sql("/sql/service/AccountServiceImplIntegrationTest.sql")
 		void registAccount_account_already_exist() throws RegistFailureException {
 			AccountModel accountModel = AccountModel.builder()
@@ -143,6 +146,7 @@ public class AccountServiceImplIntegrationTest {
 	@Nested
 	@Order(3)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/service/AccountServiceImplIntegrationTest.sql")
 	class updateAccount {
 		@Test
@@ -251,6 +255,7 @@ public class AccountServiceImplIntegrationTest {
 	@Nested
 	@Order(4)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/service/AccountServiceImplIntegrationTest.sql")
 	class getAccountById {
 		@Test
@@ -291,6 +296,7 @@ public class AccountServiceImplIntegrationTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウントが存在する場合")
+		@Sql("/sql/common/cleanup.sql")
 		@Sql("/sql/service/AccountServiceImplIntegrationTest.sql")
 		void getAccountList_found() {
 			List<AccountModel> actual = accountServiceImpl.getAccountList();
@@ -321,6 +327,7 @@ public class AccountServiceImplIntegrationTest {
 	@Nested
 	@Order(6)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/service/AccountServiceImplIntegrationTest.sql")
 	class handleAuthenticationSuccess {
 		@Test
@@ -382,6 +389,7 @@ public class AccountServiceImplIntegrationTest {
 	@Nested
 	@Order(7)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/service/AccountServiceImplIntegrationTest.sql")
 	class handleAuthenticationFailureBadCredentials {
 		@Test

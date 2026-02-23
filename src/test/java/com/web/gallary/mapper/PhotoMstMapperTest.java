@@ -37,6 +37,7 @@ public class PhotoMstMapperTest {
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoMstMapperTest.sql")
 	class count {
 		@Test
@@ -188,6 +189,7 @@ public class PhotoMstMapperTest {
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoMstMapperTest.sql")
 	class insert {
 		@Test
@@ -264,6 +266,7 @@ public class PhotoMstMapperTest {
 	@Nested
 	@Order(3)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoMstMapperTest.sql")
 	class update {
 		private List<PhotoMst> getPhotoMstList(String condition) {
@@ -777,6 +780,7 @@ public class PhotoMstMapperTest {
 	@Nested
 	@Order(4)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoMstMapperTest.sql")
 	class getMaxPhotoNo {
 		@Test
@@ -799,6 +803,7 @@ public class PhotoMstMapperTest {
 	@Nested
 	@Order(5)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoMstMapperTest.sql")
 	class isExistPhoto {
 		@Test

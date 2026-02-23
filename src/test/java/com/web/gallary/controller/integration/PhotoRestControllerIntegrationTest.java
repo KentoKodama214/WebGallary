@@ -68,6 +68,7 @@ public class PhotoRestControllerIntegrationTest {
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/controller/PhotoRestControllerIntegrationTest.sql")
 	class getPhotoList {
 		@Test
@@ -210,6 +211,7 @@ public class PhotoRestControllerIntegrationTest {
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/controller/PhotoRestControllerIntegrationTest.sql")
 	class savePhoto {
 		@Test
@@ -805,6 +807,7 @@ public class PhotoRestControllerIntegrationTest {
 	@Nested
 	@Order(3)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/controller/PhotoRestControllerIntegrationTest.sql")
 	class deletePhoto {
 		@Test

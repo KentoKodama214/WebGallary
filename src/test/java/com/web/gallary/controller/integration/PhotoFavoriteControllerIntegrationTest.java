@@ -55,6 +55,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/controller/PhotoFavoriteControllerIntegrationTest.sql")
 	class addFavorite {
 		@Test
@@ -164,6 +165,7 @@ public class PhotoFavoriteControllerIntegrationTest {
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/controller/PhotoFavoriteControllerIntegrationTest.sql")
 	class deleteFavorite {
 		@Test

@@ -35,6 +35,7 @@ public class KbnMstServiceImplIntegrationTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：区分マスタが存在する場合")
+		@Sql("/sql/common/cleanup.sql")
 		@Sql("/sql/service/KbnMstServiceImplIntegrationTest.sql")
 		void getPrefectureList_found() {
 			List<KbnMstModel> actual = kbnMstServiceImpl.getPrefectureList();
@@ -93,6 +94,7 @@ public class KbnMstServiceImplIntegrationTest {
 		@Test
 		@Order(2)
 		@DisplayName("正常系：区分マスタが存在しない場合")
+		@Sql("/sql/common/cleanup.sql")
 		void getPrefectureList_not_found() {
 			List<KbnMstModel> actual = kbnMstServiceImpl.getPrefectureList();
 			assertEquals(0, actual.size());

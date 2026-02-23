@@ -39,6 +39,7 @@ public class PhotoFavoriteRepositoryImplIntegrationTest {
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/repository/PhotoFavoriteRepositoryImplIntegrationTest.sql")
 	class regist {
 		@Test
@@ -86,6 +87,7 @@ public class PhotoFavoriteRepositoryImplIntegrationTest {
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/repository/PhotoFavoriteRepositoryImplIntegrationTest.sql")
 	class delete {
 		@Test
@@ -140,6 +142,7 @@ public class PhotoFavoriteRepositoryImplIntegrationTest {
 	@Nested
 	@Order(3)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/repository/PhotoFavoriteRepositoryImplIntegrationTest.sql")
 	class clear {
 		@Test
