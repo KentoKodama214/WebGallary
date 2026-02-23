@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/web_gallary}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+
+logging:
+  level:
+    ROOT: DEBUG
+
+app:
+  photo:
+    miniUserUpperLimit: ${MINI_USER_UPPER_LIMIT:10}
+    normalUserUpperLimit: ${NORMAL_USER_UPPER_LIMIT:1000}
+    outputPath: ${OUTPUT_PATH:https://localhost:8080/image/}
