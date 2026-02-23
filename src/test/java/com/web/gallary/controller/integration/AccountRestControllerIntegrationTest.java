@@ -58,6 +58,7 @@ public class AccountRestControllerIntegrationTest {
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/controller/AccountRestControllerIntegrationTest.sql")
 	class register {
 		private List<Account> getAccountList(String accountId) {
@@ -171,6 +172,7 @@ public class AccountRestControllerIntegrationTest {
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/controller/AccountRestControllerIntegrationTest.sql")
 	class update {
 		private List<Account> getAccountList(String accountId) {

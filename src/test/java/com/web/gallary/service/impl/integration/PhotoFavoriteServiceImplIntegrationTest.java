@@ -38,6 +38,7 @@ public class PhotoFavoriteServiceImplIntegrationTest {
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/service/PhotoFavoriteServiceImplIntegrationTest.sql")
 	class addFavorite {
 		@Test
@@ -85,6 +86,7 @@ public class PhotoFavoriteServiceImplIntegrationTest {
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/service/PhotoFavoriteServiceImplIntegrationTest.sql")
 	class deleteFavorite {
 		@Test

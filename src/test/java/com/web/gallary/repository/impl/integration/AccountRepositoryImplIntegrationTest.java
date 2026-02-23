@@ -42,6 +42,7 @@ public class AccountRepositoryImplIntegrationTest {
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/repository/AccountRepositoryImplIntegrationTest.sql")
 	class getByAccountNo {
 		@Test
@@ -81,6 +82,7 @@ public class AccountRepositoryImplIntegrationTest {
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/repository/AccountRepositoryImplIntegrationTest.sql")
 	class getByAccountId {
 		@Test
@@ -124,6 +126,7 @@ public class AccountRepositoryImplIntegrationTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：Nullのパラメータを含むAccountModelの登録")
+		@Sql("/sql/common/cleanup.sql")
 		@Sql("/sql/common/ResetAccountNoSeq.sql")
 		void regist_contain_null_parameter() throws RegistFailureException {
 			AccountModel accountModel = AccountModel.builder()
@@ -176,6 +179,7 @@ public class AccountRepositoryImplIntegrationTest {
 		@Test
 		@Order(2)
 		@DisplayName("正常系：Nullのパラメータを含まないAccountModelの登録")
+		@Sql("/sql/common/cleanup.sql")
 		@Sql("/sql/common/ResetAccountNoSeq.sql")
 		void regist_not_contain_null_parameter() throws RegistFailureException {
 			AccountModel accountModel = AccountModel.builder()
@@ -233,6 +237,7 @@ public class AccountRepositoryImplIntegrationTest {
 		@Test
 		@Order(3)
 		@DisplayName("異常系：RegistFailureExceptionをthrowする")
+		@Sql("/sql/common/cleanup.sql")
 		@Sql("/sql/repository/AccountRepositoryImplIntegrationTest.sql")
 		void regist_RegistFailureException() throws RegistFailureException {
 			AccountModel accountModel = AccountModel.builder()
@@ -248,6 +253,7 @@ public class AccountRepositoryImplIntegrationTest {
 	@Nested
 	@Order(4)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/repository/AccountRepositoryImplIntegrationTest.sql")
 	class update {
 		@Test
@@ -379,6 +385,7 @@ public class AccountRepositoryImplIntegrationTest {
 	@Nested
 	@Order(5)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/repository/AccountRepositoryImplIntegrationTest.sql")
 	class updateLoginFailureCount {
 		@Test
@@ -499,6 +506,7 @@ public class AccountRepositoryImplIntegrationTest {
 	@Nested
 	@Order(6)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/repository/AccountRepositoryImplIntegrationTest.sql")
 	class isExistAccount {
 		@Test
@@ -523,6 +531,7 @@ public class AccountRepositoryImplIntegrationTest {
 		@Test
 		@Order(1)
 		@DisplayName("正常系：アカウントを2件以上取得")
+		@Sql("/sql/common/cleanup.sql")
 		@Sql("/sql/repository/AccountRepositoryImplIntegrationTest.sql")
 		void getAccountList_found_some_accounts() {
 			List<AccountModel> actual = accountRepositoryImpl.getAccountList();

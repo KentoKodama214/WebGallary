@@ -30,6 +30,7 @@ public class KbnMstRepositoryImplIntegrationTest {
 	@Nested
 	@Order(1)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/repository/KbnMstRepositoryImplIntegrationTest.sql")
 	class get {
 		@Test

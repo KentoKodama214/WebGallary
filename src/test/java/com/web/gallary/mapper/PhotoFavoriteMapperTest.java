@@ -32,6 +32,7 @@ public class PhotoFavoriteMapperTest {
 	
 	@Nested
 	@Order(1)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoFavoriteMapperTest.sql")
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class insert {
@@ -69,6 +70,7 @@ public class PhotoFavoriteMapperTest {
 	@Nested
 	@Order(2)
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoFavoriteMapperTest.sql")
 	class delete {
 		private List<PhotoFavorite> getPhotoFavoriteList(String condition) {

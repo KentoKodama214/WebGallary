@@ -35,6 +35,7 @@ public class PhotoTagMstMapperTest {
 	
 	@Nested
 	@Order(1)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoTagMstMapperTest.sql")
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class select {
@@ -286,6 +287,7 @@ public class PhotoTagMstMapperTest {
 	
 	@Nested
 	@Order(2)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoTagMstMapperTest.sql")
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class insert {
@@ -328,6 +330,7 @@ public class PhotoTagMstMapperTest {
 	
 	@Nested
 	@Order(3)
+	@Sql("/sql/common/cleanup.sql")
 	@Sql("/sql/mapper/PhotoTagMstMapperTest.sql")
 	@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 	class delete {
