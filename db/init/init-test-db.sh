@@ -14,7 +14,8 @@ export PGPASSWORD="$PW"
 
 echo "Running initialization scripts for $DATABASE..."
 
-# テスト用データベースとスキーマを作成
+# テスト用データベースが既に存在する場合は削除して作り直す
+psql -U $USER -c "DROP DATABASE IF EXISTS $DATABASE;"
 psql -U $USER -c "CREATE DATABASE $DATABASE;"
 psql -U $USER -d $DATABASE -c "CREATE SCHEMA IF NOT EXISTS $SCHEMA1;"
 psql -U $USER -d $DATABASE -c "CREATE SCHEMA IF NOT EXISTS $SCHEMA2;"
