@@ -8,14 +8,14 @@
 |----|--------|--------|----------|-------------|----------|-------------|
 | 1 | account_id | アカウントID | varchar(20) | - | 8〜20文字の英数字。ログイン時に使用する一意の識別子 | account |
 | 2 | account_name | アカウント名 | varchar(50) | - | ユーザーの表示名 | account |
-| 3 | account_no | アカウント番号 | serial / int | (自動採番) / - | accountテーブルではPK（自動採番）、他テーブルではFK | account, location_mst, photo_mst, photo_tag_mst, photo_favorite |
+| 3 | account_no | アカウント番号 | serial / int | (自動採番) / - | アカウントを一意に特定するための番号。accountテーブルではPK（自動採番）、他テーブルではFK | account, location_mst, photo_mst, photo_tag_mst, photo_favorite |
 | 4 | address | 住所 | text | '' | 撮影場所の住所 | location_mst |
 | 5 | authority_kbn | 権限区分 | common.authority_enum | - | mini-user/normal-user/special-user/administratorの4段階。写真アップロード上限に影響 | account |
-| 6 | birthdate | 生年月日 | date | '1900-01-01' | 年月のみ使用し、日は1固定 | account |
+| 6 | birthdate | 生年月日 | date | '1900-01-01' | 個人情報管理の観点で、必須入力なし、かつ年月まで。データ登録時にすべて1日に変換する | account |
 | 7 | birthplace_prefecture_kbn_code | 出身地都道府県区分コード | varchar(20) | 'none' | kbn_mstの都道府県区分コードを参照。未設定時は'none' | account |
 | 8 | caption | キャプション | text | '""' | 写真の説明文 | photo_mst |
 | 9 | created_at | 作成日時 | timestamp with time zone | - | レコード作成日時（タイムゾーン付き） | account, kbn_mst, location_mst, photo_mst, photo_tag_mst, photo_favorite |
-| 10 | created_by | 作成者 | int | - | レコードを作成したアカウント番号 | account, kbn_mst, location_mst, photo_mst, photo_tag_mst, photo_favorite |
+| 10 | created_by | 作成者 | int | - | レコードを作成したアカウント番号。システム側が作成した場合は'0'を入れる | account, kbn_mst, location_mst, photo_mst, photo_tag_mst, photo_favorite |
 | 11 | direction_kbn | 写真の向き | photo.direction_enum | 'none' | vertical（縦）/horizontal（横）/square（正方形）/none（未設定） | photo_mst |
 | 12 | explanation | 説明 | text | '""' | 区分コードの補足説明 | kbn_mst |
 | 13 | f_value | F値 | decimal(5,2) | - | EXIF情報から取得した絞り値 | photo_mst |
@@ -29,13 +29,13 @@
 | 21 | iso | ISO感度 | int | - | EXIF情報から取得したISO感度 | photo_mst |
 | 22 | kbn_class_code | 区分クラスコード | varchar(20) | - | 区分の大分類コード（例: prefecture） | kbn_mst |
 | 23 | kbn_class_english_name | 区分クラス英語名 | varchar(20) | '""' | 区分クラスの英語表記 | kbn_mst |
-| 24 | kbn_class_japanese_name | 区分クラス日本語名 | varchar(20) | - | 区分クラスの日本語表記。kbn_japanese_nameとの複合UNIQUEを構成 | kbn_mst |
+| 24 | kbn_class_japanese_name | 区分クラス日本語名（空文字不可） | varchar(20) | - | 区分クラスの日本語表記。kbn_japanese_nameとの複合UNIQUEを構成 | kbn_mst |
 | 25 | kbn_code | 区分コード | varchar(20) | - | 区分の個別コード。kbn_class_codeとの複合PKを構成 | kbn_mst |
 | 26 | kbn_english_name | 区分英語名 | varchar(20) | '""' | 区分の英語表記 | kbn_mst |
 | 27 | kbn_group_code | 区分グループコード | varchar(20) | '""' | 区分のグループ分類コード（例: 地域コード） | kbn_mst |
 | 28 | kbn_group_english_name | 区分グループ英語名 | varchar(20) | '""' | 区分グループの英語表記 | kbn_mst |
 | 29 | kbn_group_japanese_name | 区分グループ日本語名 | varchar(20) | '""' | 区分グループの日本語表記 | kbn_mst |
-| 30 | kbn_japanese_name | 区分日本語名 | varchar(20) | - | 区分の日本語表記。kbn_class_japanese_nameとの複合UNIQUEを構成 | kbn_mst |
+| 30 | kbn_japanese_name | 区分日本語名 | varchar(20) | - | 区分の日本語表記。kbn_class_japanese_nameとの複合UNIQUEを構成（空文字不可） | kbn_mst |
 | 31 | last_login_datetime | 最終ログイン日時 | timestamp with time zone | - | ユーザーが最後にログインした日時 | account |
 | 32 | latitude | 緯度 | decimal(11,4) | - | 撮影場所の緯度座標 | location_mst |
 | 33 | location_name | ロケーション名 | text | - | 撮影場所の名称。同一アカウント内で一意 | location_mst |

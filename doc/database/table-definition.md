@@ -2,12 +2,27 @@
 
 ## 目次
 
-- [1. common.account - アカウント](#1-commonaccount---アカウント)
-- [2. common.kbn_mst - 区分マスタ](#2-commonkbn_mst---区分マスタ)
-- [3. common.location_mst - ロケーションマスタ](#3-commonlocation_mst---ロケーションマスタ)
-- [4. photo.photo_mst - 写真マスタ](#4-photophoto_mst---写真マスタ)
-- [5. photo.photo_tag_mst - 写真タグマスタ](#5-photophoto_tag_mst---写真タグマスタ)
-- [6. photo.photo_favorite - 写真お気に入り](#6-photophoto_favorite---写真お気に入り)
+- [テーブル定義・カラム一覧](#テーブル定義カラム一覧)
+  - [目次](#目次)
+  - [1. common.account - アカウント](#1-commonaccount---アカウント)
+    - [カラム一覧](#カラム一覧)
+    - [制約](#制約)
+  - [2. common.kbn\_mst - 区分マスタ](#2-commonkbn_mst---区分マスタ)
+    - [カラム一覧](#カラム一覧-1)
+    - [制約](#制約-1)
+    - [マスタデータ](#マスタデータ)
+  - [3. common.location\_mst - ロケーションマスタ](#3-commonlocation_mst---ロケーションマスタ)
+    - [カラム一覧](#カラム一覧-2)
+    - [制約](#制約-2)
+  - [4. photo.photo\_mst - 写真マスタ](#4-photophoto_mst---写真マスタ)
+    - [カラム一覧](#カラム一覧-3)
+    - [制約](#制約-3)
+  - [5. photo.photo\_tag\_mst - 写真タグマスタ](#5-photophoto_tag_mst---写真タグマスタ)
+    - [カラム一覧](#カラム一覧-4)
+    - [制約](#制約-4)
+  - [6. photo.photo\_favorite - 写真お気に入り](#6-photophoto_favorite---写真お気に入り)
+    - [カラム一覧](#カラム一覧-5)
+    - [制約](#制約-5)
 
 ---
 
@@ -117,8 +132,8 @@
 | 制約種別 | 制約名 | 対象カラム |
 |----------|--------|------------|
 | PRIMARY KEY | location_mst_pkey | id |
-| UNIQUE | location_mst_unique1 | account_no, location_no |
-| UNIQUE | location_mst_unique2 | account_no, location_name |
+| UNIQUE | location_no_unique | account_no, location_no |
+| UNIQUE | location_name_unique | account_no, location_name |
 | FOREIGN KEY | location_mst_fkey | account_no → common.account(account_no) |
 
 ---
@@ -156,7 +171,7 @@
 | 制約種別 | 制約名 | 対象カラム |
 |----------|--------|------------|
 | PRIMARY KEY | photo_mst_pkey | id |
-| UNIQUE | photo_mst_unique | account_no, photo_no |
+| UNIQUE | photo_no_unique | account_no, photo_no |
 | FOREIGN KEY | photo_mst_fkey | account_no → common.account(account_no) |
 
 ---
@@ -183,7 +198,7 @@
 | 制約種別 | 制約名 | 対象カラム |
 |----------|--------|------------|
 | PRIMARY KEY | photo_tag_mst_pkey | id |
-| UNIQUE | photo_tag_mst_unique | account_no, photo_no, tag_no |
+| UNIQUE | photo_tag_no_unique | account_no, photo_no, tag_no |
 | FOREIGN KEY | photo_tag_mst_fkey | (account_no, photo_no) → photo.photo_mst(account_no, photo_no) |
 
 ---

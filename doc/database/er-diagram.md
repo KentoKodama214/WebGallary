@@ -61,8 +61,8 @@ erDiagram
 
     photo_mst {
         serial id PK "写真ID"
-        int account_no FK "アカウント番号"
-        int photo_no "写真番号"
+        int account_no FK,UK "アカウント番号"
+        int photo_no UK "写真番号"
         int created_by "作成者"
         timestamptz created_at "作成日時"
         int updated_by "更新者"
@@ -83,9 +83,9 @@ erDiagram
 
     photo_tag_mst {
         serial id PK "タグID"
-        int account_no FK "アカウント番号"
-        int photo_no FK "写真番号"
-        int tag_no "タグ番号"
+        int account_no FK,UK "アカウント番号"
+        int photo_no FK,UK "写真番号"
+        int tag_no UK "タグ番号"
         int created_by "作成者"
         timestamptz created_at "作成日時"
         varchar tag_japanese_name "タグ名(日本語)"
@@ -94,9 +94,9 @@ erDiagram
 
     photo_favorite {
         serial id PK "お気に入りID"
-        int account_no FK "アカウント番号"
-        int favorite_photo_account_no FK "写真所有者アカウント番号"
-        int favorite_photo_no FK "写真番号"
+        int account_no FK,UK "アカウント番号"
+        int favorite_photo_account_no FK,UK "写真所有者アカウント番号"
+        int favorite_photo_no FK,UK "写真番号"
         int created_by "作成者"
         timestamptz created_at "作成日時"
     }
@@ -182,8 +182,8 @@ erDiagram
 
     photo_mst {
         serial id PK "写真ID"
-        int account_no FK "アカウント番号"
-        int photo_no "写真番号"
+        int account_no FK,UK "アカウント番号"
+        int photo_no UK "写真番号"
         int created_by "作成者"
         timestamptz created_at "作成日時"
         int updated_by "更新者"
@@ -204,9 +204,9 @@ erDiagram
 
     photo_tag_mst {
         serial id PK "タグID"
-        int account_no FK "アカウント番号"
-        int photo_no FK "写真番号"
-        int tag_no "タグ番号"
+        int account_no FK,UK "アカウント番号"
+        int photo_no FK,UK "写真番号"
+        int tag_no UK "タグ番号"
         int created_by "作成者"
         timestamptz created_at "作成日時"
         varchar tag_japanese_name "タグ名(日本語)"
@@ -215,9 +215,9 @@ erDiagram
 
     photo_favorite {
         serial id PK "お気に入りID"
-        int account_no FK "アカウント番号"
-        int favorite_photo_account_no FK "写真所有者アカウント番号"
-        int favorite_photo_no FK "写真番号"
+        int account_no FK,UK "アカウント番号"
+        int favorite_photo_account_no FK,UK "写真所有者アカウント番号"
+        int favorite_photo_no FK,UK "写真番号"
         int created_by "作成者"
         timestamptz created_at "作成日時"
     }
