@@ -13,23 +13,39 @@ WebGallaryのREST APIは、アカウント管理・写真管理・お気に入�
 
 ## ドキュメント一覧
 
-- [アカウント管理API](./account-api.md)
-- [写真管理API](./photo-api.md)
-- [お気に入りAPI](./favorite-api.md)
+### アカウント管理API（Account）
+
+- [アカウント登録](./Account/regist-account.md)
+- [アカウント更新](./Account/update-account.md)
+
+### 写真管理API（Photo）
+
+- [写真一覧取得](./Photo/get-photo-list.md)
+- [写真登録](./Photo/regist-photo.md)
+- [写真更新](./Photo/update-photo.md)
+- [写真削除](./Photo/delete-photo.md)
+
+### お気に入りAPI（PhotoFavorite）
+
+- [お気に入り登録](./PhotoFavorite/regist-favorite.md)
+- [お気に入り解除](./PhotoFavorite/delete-favorite.md)
+
+### 共通
+
 - [エラー定義](./error-definition.md)
 
 ## API一覧
 
 | No | Controllerクラス | HTTPメソッド | エンドポイント | 概要 | 認証 |
 |----|------------------|-------------|---------------|------|------|
-| 1 | AccountRestController | POST | `/api/v1/accounts` | アカウント登録 | 不要 |
-| 2 | AccountRestController | PUT | `/api/v1/accounts/{accountId}` | アカウント更新 | 必要 |
-| 3 | PhotoRestController | GET | `/api/v1/accounts/{photoAccountId}/photos` | 写真一覧取得 | 不要 |
-| 4 | PhotoRestController | POST | `/api/v1/accounts/{photoAccountId}/photos` | 写真登録 | 必要 |
-| 5 | PhotoRestController | PUT | `/api/v1/accounts/{photoAccountId}/photos` | 写真更新 | 必要 |
-| 6 | PhotoRestController | DELETE | `/api/v1/accounts/{photoAccountId}/photos` | 写真削除 | 必要 |
-| 7 | PhotoFavoriteController | POST | `/api/v1/photos/favorites` | お気に入り登録 | 必要 |
-| 8 | PhotoFavoriteController | DELETE | `/api/v1/photos/favorites` | お気に入り解除 | 必要 |
+| 1 | AccountRestController | POST | [`/api/v1/accounts`](./Account/regist-account.md) | アカウント登録 | 不要 |
+| 2 | AccountRestController | PUT | [`/api/v1/accounts/{accountId}`](./Account/update-account.md) | アカウント更新 | 必要 |
+| 3 | PhotoRestController | GET | [`/api/v1/accounts/{photoAccountId}/photos`](./Photo/get-photo-list.md) | 写真一覧取得 | 不要 |
+| 4 | PhotoRestController | POST | [`/api/v1/accounts/{photoAccountId}/photos`](./Photo/regist-photo.md) | 写真登録 | 必要 |
+| 5 | PhotoRestController | PUT | [`/api/v1/accounts/{photoAccountId}/photos`](./Photo/update-photo.md) | 写真更新 | 必要 |
+| 6 | PhotoRestController | DELETE | [`/api/v1/accounts/{photoAccountId}/photos`](./Photo/delete-photo.md) | 写真削除 | 必要 |
+| 7 | PhotoFavoriteController | POST | [`/api/v1/photos/favorites`](./PhotoFavorite/regist-favorite.md) | お気に入り登録 | 必要 |
+| 8 | PhotoFavoriteController | DELETE | [`/api/v1/photos/favorites`](./PhotoFavorite/delete-favorite.md) | お気に入り解除 | 必要 |
 
 ## 認証・認可
 
