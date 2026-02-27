@@ -20,16 +20,16 @@ WebGallaryのREST APIは、アカウント管理・写真管理・お気に入�
 
 ## API一覧
 
-| No | HTTPメソッド | エンドポイント | 概要 | 認証 |
-|----|-------------|---------------|------|------|
-| 1 | POST | `/api/v1/accounts` | アカウント登録 | 不要 |
-| 2 | PUT | `/api/v1/accounts/{accountId}` | アカウント更新 | 必要 |
-| 3 | GET | `/api/v1/accounts/{photoAccountId}/photos` | 写真一覧取得 | 不要 |
-| 4 | POST | `/api/v1/accounts/{photoAccountId}/photos` | 写真登録 | 必要 |
-| 5 | PUT | `/api/v1/accounts/{photoAccountId}/photos` | 写真更新 | 必要 |
-| 6 | DELETE | `/api/v1/accounts/{photoAccountId}/photos` | 写真削除 | 必要 |
-| 7 | POST | `/api/v1/photos/favorites` | お気に入り登録 | 必要 |
-| 8 | DELETE | `/api/v1/photos/favorites` | お気に入り解除 | 必要 |
+| No | Controllerクラス | HTTPメソッド | エンドポイント | 概要 | 認証 |
+|----|------------------|-------------|---------------|------|------|
+| 1 | AccountRestController | POST | `/api/v1/accounts` | アカウント登録 | 不要 |
+| 2 | AccountRestController | PUT | `/api/v1/accounts/{accountId}` | アカウント更新 | 必要 |
+| 3 | PhotoRestController | GET | `/api/v1/accounts/{photoAccountId}/photos` | 写真一覧取得 | 不要 |
+| 4 | PhotoRestController | POST | `/api/v1/accounts/{photoAccountId}/photos` | 写真登録 | 必要 |
+| 5 | PhotoRestController | PUT | `/api/v1/accounts/{photoAccountId}/photos` | 写真更新 | 必要 |
+| 6 | PhotoRestController | DELETE | `/api/v1/accounts/{photoAccountId}/photos` | 写真削除 | 必要 |
+| 7 | PhotoFavoriteController | POST | `/api/v1/photos/favorites` | お気に入り登録 | 必要 |
+| 8 | PhotoFavoriteController | DELETE | `/api/v1/photos/favorites` | お気に入り解除 | 必要 |
 
 ## 認証・認可
 
