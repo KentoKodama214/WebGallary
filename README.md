@@ -105,8 +105,42 @@ docker-compose up -d
 
 ### レイヤード・アーキテクチャ
 
-```
-Controller → Service → Repository → Mapper（MyBatis）
+```mermaid
+graph TB
+    Client["クライアント<br>（ブラウザ）"]
+
+    subgraph Controller["Controller層"]
+        MVC["MVCコントローラ<br>Thymeleafビュー返却"]
+        REST["RESTコントローラ<br>JSON API"]
+    end
+
+    subgraph Service["Service層"]
+        SI["Service<br>インターフェース"]
+        SImpl["ServiceImpl<br>ビジネスロジック・バリデーション"]
+        SI --> SImpl
+    end
+
+    subgraph Repository["Repository層"]
+        RI["Repository<br>インターフェース"]
+        RImpl["RepositoryImpl<br>データアクセスの抽象化"]
+        RI --> RImpl
+    end
+
+    subgraph Mapper["Mapper層"]
+        MI["Mapperインターフェース"]
+        MX["Mapper XML<br>SQL定義"]
+        MI --> MX
+    end
+
+    DB[("PostgreSQL<br>commonスキーマ<br>photoスキーマ")]
+
+    Client -- "HTTPリクエスト" --> MVC
+    Client -- "APIリクエスト" --> REST
+    MVC -- "Request/Response DTO" --> SI
+    REST -- "Request/Response DTO" --> SI
+    SImpl -- "Modelオブジェクト" --> RI
+    RImpl --> MI
+    MX --> DB
 ```
 
 | レイヤー | 役割 |
