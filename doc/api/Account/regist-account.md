@@ -31,8 +31,8 @@
   "password": "password01",
   "birthdate": "1990-01-15",
   "sexKbn": "man",
-  "birthplacePrefectureKbnCode": "13",
-  "residentPrefectureKbnCode": "14",
+  "birthplacePrefectureKbnCode": "Hokkaido",
+  "residentPrefectureKbnCode": "Aomori",
   "freeMemo": "よろしくお願いします"
 }
 ```
