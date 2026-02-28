@@ -11,6 +11,7 @@
 - [ビルド・テスト](#ビルドテスト)
 - [アーキテクチャ](#アーキテクチャ)
 - [API](#api)
+- [画面設計](#画面設計)
 - [プロジェクト構成](#プロジェクト構成)
 
 ## 主な機能
@@ -123,6 +124,10 @@ Controller → Service → Repository → Mapper（MyBatis）
 
 データベースの詳細は [`doc/database/`](doc/database/) を参照してください。
 
+### 画面設計
+
+画面遷移図・画面一覧の詳細は [`doc/view/`](doc/view/) を参照してください。
+
 ### セキュリティ
 
 - Spring Securityによるフォームベース認証
@@ -154,7 +159,8 @@ WebGallary/
 │   └── photo/                      # photoスキーマSQL
 ├── doc/
 │   ├── api/                        # API設計書
-│   └── database/                   # データベース設計書
+│   ├── database/                   # データベース設計書
+│   └── view/                       # 画面設計書
 └── src/
     ├── main/
     │   ├── java/com/web/gallary/
