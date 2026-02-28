@@ -1,1 +1,188 @@
-# KentoKodama214
+# WebGallary
+
+写真ギャラリーWebアプリケーションです。ユーザー登録・写真のアップロード・EXIF情報の管理・タグ付け・お気に入り機能などを備えています。
+
+## 目次
+
+- [主な機能](#主な機能)
+- [技術スタック](#技術スタック)
+- [前提条件](#前提条件)
+- [セットアップ](#セットアップ)
+- [ビルド・テスト](#ビルドテスト)
+- [アーキテクチャ](#アーキテクチャ)
+- [API](#api)
+- [プロジェクト構成](#プロジェクト構成)
+
+## 主な機能
+
+- **アカウント管理** - ユーザー登録・ログイン・プロフィール編集
+- **写真管理** - 写真のアップロード・編集・削除（EXIF情報の自動取得に対応）
+- **タグ機能** - 写真への日本語・英語タグ付け
+- **お気に入り** - 他ユーザーの写真をお気に入り登録
+- **写真一覧** - フィルタリング（方向・タグ）やソート（撮影日・お気に入り数・季節）に対応
+- **権限管理** - 4段階のユーザー権限によるアップロード枚数制限
+
+### ユーザー権限
+
+| 権限 | 説明 | アップロード上限 |
+|------|------|------------------|
+| MINI | ミニユーザー | 10枚 |
+| NORMAL | 一般ユーザー | 1,000枚 |
+| SPECIAL | 特別ユーザー | 無制限 |
+| ADMINISTRATOR | 管理者 | 無制限 |
+
+## 技術スタック
+
+| コンポーネント | 技術 |
+|----------------|------|
+| 言語 | Java 21 |
+| ビルドツール | Gradle 8.7 |
+| フレームワーク | Spring Boot 3.3.3 |
+| セキュリティ | Spring Security 3.3.3（BCrypt） |
+| テンプレートエンジン | Thymeleaf 3.3.3 |
+| ORM | MyBatis 3.0.3 |
+| データベース | PostgreSQL |
+| コード生成 | Lombok 1.18.34 |
+| オブジェクトマッピング | ModelMapper 3.2.1 |
+| テスト | JUnit Jupiter 5.11.1 / Mockito 5.14 |
+| パッケージング | WAR（Tomcatデプロイ） |
+
+## 前提条件
+
+- Java 21
+- Docker / Docker Compose
+
+## セットアップ
+
+### 1. データベースの起動
+
+```bash
+docker-compose up -d
+```
+
+開発用データベース（`web_gallary`、ポート5432）とテスト用データベース（`web_gallary_test`、ポート5433）が起動します。データベースの初期化は `db/` 配下のSQLスクリプトにより自動的に行われます。
+
+### 2. 環境変数の設定
+
+```bash
+./set-env.sh
+```
+
+デフォルト値でもアプリケーションの起動は可能ですが、必要に応じて環境変数を設定してください。
+
+### 3. アプリケーションの起動
+
+```bash
+./gradlew bootRun
+```
+
+起動後、`http://localhost:8080` でアクセスできます。
+
+## ビルド・テスト
+
+```bash
+# ビルド
+./gradlew build
+
+# 単体テストの実行
+./gradlew test
+
+# 統合テストの実行（要Docker）
+./gradlew integrationTest
+
+# 全テストの実行（要Docker）
+./gradlew allTest
+
+# WARファイルの生成
+./gradlew war
+
+# クリーンビルド
+./gradlew clean build
+```
+
+## アーキテクチャ
+
+### レイヤード・アーキテクチャ
+
+```
+Controller → Service → Repository → Mapper（MyBatis）
+```
+
+| レイヤー | 役割 |
+|----------|------|
+| Controller | MVCコントローラ（Thymeleafビュー）/ RESTコントローラ（JSON API） |
+| Service | ビジネスロジック・バリデーション |
+| Repository | データアクセスの抽象化 |
+| Mapper | MyBatisによるSQL実行 |
+
+- Service・Repositoryはインターフェースと実装クラスに分離
+- Controller ↔ Service 間は Request/Response DTO を使用
+- Service ↔ Repository 間は Model オブジェクトを使用
+
+### データベース構成
+
+データベースの詳細は [`doc/database/`](doc/database/) を参照してください。
+
+### セキュリティ
+
+- Spring Securityによるフォームベース認証
+- BCryptパスワードハッシュ
+- ユーザーあたり最大1セッション
+- ログイン失敗3回でロック
+- 写真の閲覧は未ログインでも可能、編集は認証が必要
+
+## API
+
+REST APIの詳細は [`doc/api/`](doc/api/) を参照してください。
+
+## プロジェクト構成
+
+```
+WebGallary/
+├── .github
+│   ├── ISSUE_TEMPLATE
+│   │   ├── テストissue.md          # テスト用Issueのテンプレート
+│   │   └── 開発issue.md            # 開発用Issueのテンプレート
+│   └── workflows
+│       └── test.yml                # テスト実行のGithub Action
+├── build.gradle
+├── docker-compose.yml
+├── docker/db/                      # DBイメージ用Dockerfile
+├── db/                             # DB初期化スクリプト
+│   ├── init/                       # 初期化エントリポイント
+│   ├── common/                     # commonスキーマSQL
+│   └── photo/                      # photoスキーマSQL
+├── doc/
+│   ├── api/                        # API設計書
+│   └── database/                   # データベース設計書
+└── src/
+    ├── main/
+    │   ├── java/com/web/gallary/
+    │   │   ├── config/             # 設定クラス
+    │   │   ├── constant/           # 定数（APIルート・メッセージ）
+    │   │   ├── controller/         # コントローラ
+    │   │   │   ├── request/        # リクエストDTO
+    │   │   │   └── response/       # レスポンスDTO
+    │   │   ├── entity/             # エンティティ
+    │   │   ├── enumuration/        # 列挙型
+    │   │   ├── exception/          # カスタム例外
+    │   │   ├── helper/             # ヘルパーユーティリティ
+    │   │   ├── mapper/             # MyBatisマッパー
+    │   │   ├── model/              # モデルオブジェクト
+    │   │   ├── repository/         # リポジトリ
+    │   │   │   └── impl/
+    │   │   ├── service/            # サービス
+    │   │   │   └── impl/
+    │   │   ├── type_handler/       # MyBatis型ハンドラ
+    │   │   └── util/               # ユーティリティ
+    │   └── resources/
+    │       ├── application.yml
+    │       ├── messages.properties
+    │       └── com/web/gallary/mapper/  # MyBatis XMLマッパー
+    └── test/
+        ├── java/com/web/gallary/   # テストクラス
+        └── resources/
+            ├── application-test.yml
+            |── json/controller     # テスト用リクエストjson
+            └── sql/                # テスト用SQL
+```
