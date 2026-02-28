@@ -103,56 +103,7 @@ docker-compose up -d
 
 ## アーキテクチャ
 
-### レイヤード・アーキテクチャ
-
-```mermaid
-graph TB
-    Client["クライアント<br>（ブラウザ）"]
-
-    subgraph Controller["Controller層"]
-        MVC["MVCコントローラ<br>Thymeleafビュー返却"]
-        REST["RESTコントローラ<br>JSON API"]
-    end
-
-    subgraph Service["Service層"]
-        SI["Service<br>インターフェース"]
-        SImpl["ServiceImpl<br>ビジネスロジック・バリデーション"]
-        SI --> SImpl
-    end
-
-    subgraph Repository["Repository層"]
-        RI["Repository<br>インターフェース"]
-        RImpl["RepositoryImpl<br>データアクセスの抽象化"]
-        RI --> RImpl
-    end
-
-    subgraph Mapper["Mapper層"]
-        MI["Mapperインターフェース"]
-        MX["Mapper XML<br>SQL定義"]
-        MI --> MX
-    end
-
-    DB[("PostgreSQL<br>commonスキーマ<br>photoスキーマ")]
-
-    Client -- "HTTPリクエスト" --> MVC
-    Client -- "APIリクエスト" --> REST
-    MVC -- "Request/Response DTO" --> SI
-    REST -- "Request/Response DTO" --> SI
-    SImpl -- "Modelオブジェクト" --> RI
-    RImpl --> MI
-    MX --> DB
-```
-
-| レイヤー | 役割 |
-|----------|------|
-| Controller | MVCコントローラ（Thymeleafビュー）/ RESTコントローラ（JSON API） |
-| Service | ビジネスロジック・バリデーション |
-| Repository | データアクセスの抽象化 |
-| Mapper | MyBatisによるSQL実行 |
-
-- Service・Repositoryはインターフェースと実装クラスに分離
-- Controller ↔ Service 間は Request/Response DTO を使用
-- Service ↔ Repository 間は Model オブジェクトを使用
+アーキテクチャの詳細は [`doc/architecture/`](doc/architecture/) を参照してください。
 
 ### データベース構成
 
@@ -161,14 +112,6 @@ graph TB
 ### 画面設計
 
 画面遷移図・画面一覧の詳細は [`doc/view/`](doc/view/) を参照してください。
-
-### セキュリティ
-
-- Spring Securityによるフォームベース認証
-- BCryptパスワードハッシュ
-- ユーザーあたり最大1セッション
-- ログイン失敗3回でロック
-- 写真の閲覧は未ログインでも可能、編集は認証が必要
 
 ## API
 
@@ -193,6 +136,7 @@ WebGallary/
 │   └── photo/                      # photoスキーマSQL
 ├── doc/
 │   ├── api/                        # API設計書
+│   ├── architecture/               # アーキテクチャ設計書
 │   ├── database/                   # データベース設計書
 │   └── view/                       # 画面設計書
 └── src/
