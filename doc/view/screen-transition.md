@@ -31,11 +31,11 @@ graph TD
     end
 
     subgraph メイン画面
-        ACCOUNT_LIST["アカウント一覧\n/account_list"]
-        PHOTO_LIST["写真一覧\n/photo/{id}/photo_list"]
-        PHOTO_DETAIL["写真詳細\n/photo/{id}/photo_detail"]
-        PHOTO_SETTING["写真設定\n/photo/{id}/photo_setting"]
-        ACCOUNT_SETTING["アカウント設定\n/{id}/account_setting"]
+        ACCOUNT_LIST["アカウント一覧<br/>/account_list"]
+        PHOTO_LIST["写真一覧<br/>/photo/{id}/photo_list"]
+        PHOTO_DETAIL["写真詳細<br/>/photo/{id}/photo_detail"]
+        PHOTO_SETTING["写真設定<br/>/photo/{id}/photo_setting"]
+        ACCOUNT_SETTING["アカウント設定<br/>/{id}/account_setting"]
     end
 
     ACCOUNT_LIST -->|ギャラリーボタン| PHOTO_LIST
@@ -50,7 +50,7 @@ graph TD
     ACCOUNT_SETTING -->|ID/PW変更| LOGIN
 
     subgraph エラーフロー
-        ERROR_PAGE["エラー詳細\n/error_page"]
+        ERROR_PAGE["エラー詳細<br/>/error_page"]
     end
 
     REGISTER -->|登録失敗| ERROR_PAGE
@@ -70,11 +70,11 @@ graph TD
 graph LR
     MENU["ハンバーガーメニュー"]
 
-    MENU -->|"Sign In（未認証時）"| LOGIN["ログイン\n/login"]
-    MENU -->|"Photographers"| ACCOUNT_LIST["アカウント一覧\n/account_list"]
-    MENU -->|"My Gallary（認証済み時）"| PHOTO_LIST["写真一覧\n/photo/{id}/photo_list"]
-    MENU -->|"Account Setting（認証済み時）"| ACCOUNT_SETTING["アカウント設定\n/{id}/account_setting"]
-    MENU -->|"Sign Out（認証済み時）"| LOGOUT["ログアウト → /login"]
+    MENU -->|"Sign In<br/>（未認証時）"| LOGIN["ログイン<br/>/login"]
+    MENU -->|"Photographers"| ACCOUNT_LIST["アカウント一覧<br/>/account_list"]
+    MENU -->|"My Gallary<br/>（認証済み時）"| PHOTO_LIST["写真一覧<br/>/photo/{id}/photo_list"]
+    MENU -->|"Account Setting<br/>（認証済み時）"| ACCOUNT_SETTING["アカウント設定<br/>/{id}/account_setting"]
+    MENU -->|"Sign Out<br/>（認証済み時）"| LOGOUT["ログアウト → /login"]
 ```
 
 ---
