@@ -51,7 +51,15 @@ docker-compose up -d
 
 開発用データベース（`web_gallary`、ポート5432）とテスト用データベース（`web_gallary_test`、ポート5433）が起動します。データベースの初期化は `db/` 配下のSQLスクリプトにより自動的に行われます。
 
-### 2. アプリケーションの起動
+### 2. 環境変数の設定
+
+```bash
+./set-env.sh
+```
+
+デフォルト値でもアプリケーションの起動は可能ですが、必要に応じて環境変数を設定してください。
+
+### 3. アプリケーションの起動
 
 ```bash
 ./gradlew bootRun
@@ -120,6 +128,12 @@ REST APIの詳細は [`doc/api/`](doc/api/) を参照してください。
 
 ```
 WebGallary/
+├── .github
+│   ├── ISSUE_TEMPLATE
+│   │   ├── テストissue.md          # テスト用Issueのテンプレート
+│   │   └── 開発issue.md            # 開発用Issueのテンプレート
+│   └── workflows
+│       └── test.yml                # テスト実行のGithub Action
 ├── build.gradle
 ├── docker-compose.yml
 ├── docker/db/                      # DBイメージ用Dockerfile
@@ -127,7 +141,9 @@ WebGallary/
 │   ├── init/                       # 初期化エントリポイント
 │   ├── common/                     # commonスキーマSQL
 │   └── photo/                      # photoスキーマSQL
-├── doc/api/                        # API設計書
+├── doc/
+│   ├── api/                        # API設計書
+│   └── database/                   # データベース設計書
 └── src/
     ├── main/
     │   ├── java/com/web/gallary/
@@ -156,5 +172,6 @@ WebGallary/
         ├── java/com/web/gallary/   # テストクラス
         └── resources/
             ├── application-test.yml
-            └── sql/                # テスト用SQLフィクスチャ
+            |── json/controller     # テスト用リクエストjson
+            └── sql/                # テスト用SQL
 ```
