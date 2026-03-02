@@ -1,0 +1,18 @@
+name: アーキテクチャチェック
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  architecture-check:
+    name: レイヤードアーキテクチャチェック
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v4
+
+      - name: アーキテクチャ違反チェック実行
+        run: bash scripts/check-architecture.sh
