@@ -22,7 +22,7 @@ public interface PhotoService {
 	 * @param	photoListGetModel	{@link PhotoListGetModel}
 	 * @return						{@link PhotoModel}
 	 */
-	List<PhotoModel> getPhotoList(PhotoListGetModel photoSearchModel);
+	List<PhotoModel> getPhotoList(PhotoListGetModel photoListGetModel);
 	
 	/**
 	 * 写真のメタデータを含めた詳細情報を取得する
@@ -36,6 +36,7 @@ public interface PhotoService {
 	/**
 	 * 写真を登録・更新する
 	 * 
+	 * @param	accountId				アカウントID
 	 * @param	photoDetailModelList	{@link PhotoDetailModel}
 	 * @throws	FileDuplicateException 	同じファイル名のファイルが既に保存済みの場合
 	 * @throws	RegistFailureException	登録に失敗した場合
