@@ -56,6 +56,7 @@ public interface AccountRepository {
 	/**
 	 * アカウントIDに該当するアカウントの存在有無をチェックする
 	 * 
+	 * @param	accountNo	検索対象外のアカウント番号
 	 * @param	accountId	アカウントID
 	 * @return				true：存在する
 	 */

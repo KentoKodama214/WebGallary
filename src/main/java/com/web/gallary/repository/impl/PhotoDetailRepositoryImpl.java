@@ -48,8 +48,8 @@ public class PhotoDetailRepositoryImpl implements PhotoDetailRepository {
 	 */
 	@Override
 	public List<PhotoModel> getPhotoList(PhotoGetModel photoGetModel) {
-		PhotoListGetDto photoSelectDto = modelMapper.map(photoGetModel, PhotoListGetDto.class);
-		List<PhotoDto> photoDtoList = photoDetailMapper.getPhotoList(photoSelectDto);
+		PhotoListGetDto photoListGetDto = modelMapper.map(photoGetModel, PhotoListGetDto.class);
+		List<PhotoDto> photoDtoList = photoDetailMapper.getPhotoList(photoListGetDto);
 		
 		PhotoTagMst photoTagMst = PhotoTagMst.builder()
 				.accountNo(photoGetModel.getPhotoAccountNo())

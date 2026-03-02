@@ -57,6 +57,7 @@ public class AccountController {
 	/**
 	 * アカウント設定を行うページ
 	 * 
+	 * @param	accountId		アカウントID
 	 * @return	ModelAndView	アカウント編集ページ。
 	 * @throws ForbiddenAccountException	アカウントを編集する権限がない場合
 	 */

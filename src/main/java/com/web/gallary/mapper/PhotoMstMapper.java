@@ -46,7 +46,7 @@ public interface PhotoMstMapper {
 	/**
 	 * ファイル名から登録済みの写真家判定する
 	 * 
-	 * @param	filename	ファイル名
+	 * @param	photoMst	{@link PhotoMst}
 	 * @return				登録有無
 	 */
 	public Boolean isExistPhoto(PhotoMst photoMst);
