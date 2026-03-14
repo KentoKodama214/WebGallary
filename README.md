@@ -137,6 +137,9 @@ WebGallary/
 │       ├── checkstyle.yml          # CheckstyleによるJavadocチェックのGithub Action
 │       └── test.yml                # テスト実行のGithub Action
 ├── build.gradle
+├── config/
+│   └── checkstyle/
+│       └── checkstyle.xml          # Checkstyle設定ファイル
 ├── docker-compose.yml
 ├── docker/db/                      # DBイメージ用Dockerfile
 ├── db/                             # DB初期化スクリプト
@@ -148,6 +151,8 @@ WebGallary/
 │   ├── architecture/               # アーキテクチャ設計書
 │   ├── database/                   # データベース設計書
 │   └── view/                       # 画面設計書
+├── scripts/
+│   └── check-architecture.sh       # アーキテクチャチェックスクリプト
 └── src/
     ├── main/
     │   ├── java/com/web/gallary/
