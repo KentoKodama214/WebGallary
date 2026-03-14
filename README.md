@@ -133,6 +133,8 @@ WebGallary/
 │   │   ├── テストissue.md          # テスト用Issueのテンプレート
 │   │   └── 開発issue.md            # 開発用Issueのテンプレート
 │   └── workflows
+│       ├── architecture-check.yml  # アーキテクチャチェックのGithub Action
+│       ├── checkstyle.yml          # CheckstyleによるJavadocチェックのGithub Action
 │       └── test.yml                # テスト実行のGithub Action
 ├── build.gradle
 ├── docker-compose.yml
