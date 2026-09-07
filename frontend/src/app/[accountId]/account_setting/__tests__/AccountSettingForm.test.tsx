@@ -6,9 +6,17 @@ import { AccountSettingForm } from "../AccountSettingForm";
 // モック
 const mockLogout = jest.fn();
 const mockPush = jest.fn();
+const mockReplace = jest.fn();
+const mockSetNextLogoutDestination = jest.fn();
 
 jest.mock("next/navigation", () => ({
-  useRouter: () => ({ push: mockPush }),
+  useRouter: () => ({ push: mockPush, replace: mockReplace }),
+}));
+
+jest.mock("@/lib/auth/loginRedirect", () => ({
+  setNextLogoutDestination: (...args: unknown[]) =>
+    mockSetNextLogoutDestination(...args),
+  consumeNextLogoutDestination: jest.fn(),
 }));
 
 jest.mock("@/lib/auth/AuthProvider", () => ({
@@ -219,6 +227,36 @@ describe("AccountSettingForm", () => {
     await waitFor(() => {
       expect(mockDeleteAccount).toHaveBeenCalledWith("testuser1", "mypassword1");
       expect(mockLogout).toHaveBeenCalled();
+    });
+    // 退避元（本人専用ページ）を redirect クエリに載せず、削除完了ページへ退避させる
+    expect(mockSetNextLogoutDestination).toHaveBeenCalledWith("/login?deleted=1");
+    // logout 成功時の /login 遷移は AuthGuard が担うため、ここでは replace しない
+    expect(mockReplace).not.toHaveBeenCalled();
+    // 退避するまでの繋ぎとして削除完了表示になり、権限エラーは出さない
+    expect(await screen.findByText("アカウントを削除しました")).toBeInTheDocument();
+    expect(
+      screen.queryByText("この操作を行う権限がありません")
+    ).not.toBeInTheDocument();
+  });
+
+  it("アカウント削除の logout が失敗しても /login?deleted=1 へ遷移すること", async () => {
+    mockDeleteAccount.mockResolvedValue(undefined);
+    mockLogout.mockRejectedValueOnce(new Error("network"));
+
+    const user = userEvent.setup();
+    render(<AccountSettingForm accountId="testuser1" />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Account Setting")).toBeInTheDocument();
+    });
+
+    await user.click(screen.getByRole("button", { name: "アカウント削除" }));
+    const dialog = within(screen.getByRole("dialog"));
+    await user.type(dialog.getByLabelText("現在のパスワード"), "mypassword1");
+    await user.click(dialog.getByRole("button", { name: "はい" }));
+
+    await waitFor(() => {
+      expect(mockReplace).toHaveBeenCalledWith("/login?deleted=1");
     });
   });
 

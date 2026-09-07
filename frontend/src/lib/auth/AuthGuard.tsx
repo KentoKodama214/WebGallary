@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth/AuthProvider";
+import { consumeNextLogoutDestination } from "@/lib/auth/loginRedirect";
 import { loginUrlWithRedirect } from "@/lib/url";
 
 interface AuthGuardProps {
@@ -31,7 +32,9 @@ export function AuthGuard({ children, fallback }: AuthGuardProps) {
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      router.replace(loginUrlWithRedirect());
+      // アカウント削除などで退避先が明示指定されている場合はそれを優先する
+      // （現在のパスを redirect クエリに載せない）。指定は1回で消費される。
+      router.replace(consumeNextLogoutDestination() ?? loginUrlWithRedirect());
     }
   }, [isLoading, isAuthenticated, router]);
 

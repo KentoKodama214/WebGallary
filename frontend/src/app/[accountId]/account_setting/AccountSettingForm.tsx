@@ -5,6 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import {
+  consumeNextLogoutDestination,
+  setNextLogoutDestination,
+} from "@/lib/auth/loginRedirect";
+import {
   getAccount,
   updateAccount,
   deleteAccount,
@@ -102,7 +106,9 @@ export function AccountSettingForm({ accountId }: AccountSettingFormProps) {
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [showDeleteCompleteModal, setShowDeleteCompleteModal] = useState(false);
+  // 削除成功後は logout で user が消え isOwner が false になるが、その一瞬に
+  // 「権限がありません」画面を見せないためのフラグ（/login へ退避するまでの繋ぎ表示）
+  const [deleteSucceeded, setDeleteSucceeded] = useState(false);
   // アカウント削除時の本人確認用（現在のパスワード）
   const [deletePassword, setDeletePassword] = useState("");
   const [deleteError, setDeleteErrorState] = useState("");
@@ -147,7 +153,6 @@ export function AccountSettingForm({ accountId }: AccountSettingFormProps) {
   const [reloadKey, setReloadKey] = useState(0);
 
   const modalTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const redirectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   /*
    * 初期表示（本人のページの場合のみデータを取得する。他人のページはガードで弾く）
@@ -204,7 +209,6 @@ export function AccountSettingForm({ accountId }: AccountSettingFormProps) {
   useEffect(() => {
     return () => {
       if (modalTimerRef.current) clearTimeout(modalTimerRef.current);
-      if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current);
     };
   }, []);
 
@@ -371,22 +375,40 @@ export function AccountSettingForm({ accountId }: AccountSettingFormProps) {
     }
 
     if (deleted) {
-      // 削除は確定済み。以降の logout の通信失敗で完了フロー（完了モーダル・/login への遷移）を止めない。
+      // 削除は確定済み。以降の logout の通信失敗で /login への遷移を止めない。
       // ローカルのトークン破棄は logout 内で行われ、サーバー側のリフレッシュトークンは削除済み。
+      //
+      // アカウント削除後は退避元（本人だけが開けるアカウント設定ページ）へ戻す
+      // redirect クエリを付けさせない。付くと、同じタブで別アカウントにログインし直した
+      // 際にそのページが開き「この操作を行う権限がありません」と表示されてしまうため、
+      // AuthGuard の退避先を削除完了ページ（/login?deleted=1）に固定する。
+      setShowDeleteConfirm(false);
+      setDeleteSucceeded(true);
+      setNextLogoutDestination("/login?deleted=1");
       try {
         await logout();
+        // logout 成功時は user が消え、AuthGuard が上記の退避先へ遷移させる
       } catch {
-        // no-op
+        // logout の通信に失敗すると AuthGuard の退避が働かないため、明示的に遷移する
+        consumeNextLogoutDestination();
+        router.replace("/login?deleted=1");
       }
-      setShowDeleteConfirm(false);
-      setShowDeleteCompleteModal(true);
-      redirectTimerRef.current = setTimeout(() => {
-        router.push("/login");
-      }, 3000);
+      return;
     }
 
     setIsDeleting(false);
   };
+
+  // アカウント削除に成功した直後（logout で user が消えたが /login へ退避する前）。
+  // 「権限がありません」ではなく削除完了の繋ぎ表示を出す。
+  if (deleteSucceeded) {
+    return (
+      <div className="min-h-screen bg-[whitesmoke] flex flex-col items-center justify-center gap-4">
+        <div className="inline-block w-8 h-8 border-4 border-[#2196F3] border-t-transparent rounded-full animate-spin" />
+        <p className="text-[#444]">アカウントを削除しました</p>
+      </div>
+    );
+  }
 
   // 認証状態の確定と未ログイン時の /login 誘導は <AuthGuard> が担う。
   // ここでは本人ページの初期データ取得中のみスピナーを表示する
@@ -717,16 +739,6 @@ export function AccountSettingForm({ accountId }: AccountSettingFormProps) {
               </button>
             </div>
           </form>
-        </ModalDialog>
-      )}
-
-      {showDeleteCompleteModal && (
-        <ModalDialog
-          label="アカウント削除完了"
-          overlayClassName="fixed inset-0 bg-[rgba(0,0,0,0.5)] flex items-center justify-center z-[2000]"
-          containerClassName="bg-white rounded-md p-6 shadow-lg relative max-w-[300px] w-[90%]"
-        >
-          <p className="text-[#444] text-center">アカウントを削除しました</p>
         </ModalDialog>
       )}
 
