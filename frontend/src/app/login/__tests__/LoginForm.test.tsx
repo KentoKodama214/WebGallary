@@ -107,6 +107,17 @@ describe("LoginForm", () => {
     window.history.replaceState({}, "", "/login");
   });
 
+  it("アカウント削除後（?deleted=1）は削除完了メッセージを表示する", async () => {
+    window.history.replaceState({}, "", "/login?deleted=1");
+
+    render(<LoginForm />);
+
+    expect(
+      await screen.findByText("アカウントを削除しました")
+    ).toBeInTheDocument();
+    window.history.replaceState({}, "", "/login");
+  });
+
   it("ログイン失敗時にエラーメッセージが表示されること", async () => {
     mockLogin.mockRejectedValueOnce(
       new Error("アカウントIDまたはパスワードが間違っています。")

@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth/AuthProvider";
 import { safeRedirectPath } from "@/lib/url";
+
+/** ライブラリ等の外部購読はないため、購読関数は何もしない */
+const subscribeNoop = () => () => {};
 
 /**
  * ログインフォームコンポーネント
@@ -16,6 +19,14 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
+
+  // アカウント削除完了後にこの画面へ退避してきた場合の通知（?deleted=1）。
+  // クエリはクライアントでのみ参照し、SSR/ハイドレーション時は false を返して不整合を避ける。
+  const deletedNotice = useSyncExternalStore(
+    subscribeNoop,
+    () => new URLSearchParams(window.location.search).get("deleted") === "1",
+    () => false
+  );
 
   /**
    * ログイン
@@ -63,6 +74,15 @@ export function LoginForm() {
           <p className="text-[#444] text-[1.2em] font-bold my-[10px_0_30px_0] mt-[10px] mb-[30px] border-b border-[#eee] pb-5">
             Log in
           </p>
+
+          {deletedNotice && !error && (
+            <p
+              role="status"
+              className="text-[#2196F3] text-xs font-bold text-left mb-[10px]"
+            >
+              アカウントを削除しました
+            </p>
+          )}
 
           <label htmlFor="login-account-id" className="sr-only">
             アカウントID

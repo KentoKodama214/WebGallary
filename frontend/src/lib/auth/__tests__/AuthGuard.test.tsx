@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { AuthGuard } from "../AuthGuard";
+import { setNextLogoutDestination } from "../loginRedirect";
 
 const mockReplace = jest.fn();
 jest.mock("next/navigation", () => ({
@@ -47,6 +48,48 @@ describe("AuthGuard", () => {
     expect(link).toHaveAttribute(
       "href",
       "/login?redirect=%2Fe2etestaccount%2Faccount_setting"
+    );
+    await waitFor(() => {
+      expect(mockReplace).toHaveBeenCalledWith(
+        "/login?redirect=%2Fe2etestaccount%2Faccount_setting"
+      );
+    });
+  });
+
+  it("退避先が明示指定されている場合は redirect クエリを付けずその先へ遷移する", async () => {
+    mockUseAuth.mockReturnValue({ isAuthenticated: false, isLoading: false });
+    setNextLogoutDestination("/login?deleted=1");
+
+    render(
+      <AuthGuard>
+        <div>protected</div>
+      </AuthGuard>
+    );
+
+    await waitFor(() => {
+      expect(mockReplace).toHaveBeenCalledWith("/login?deleted=1");
+    });
+  });
+
+  it("明示指定は1回で消費され、次回は通常どおり redirect クエリ付きで退避する", async () => {
+    setNextLogoutDestination("/login?deleted=1");
+    mockUseAuth.mockReturnValue({ isAuthenticated: false, isLoading: false });
+
+    const { unmount } = render(
+      <AuthGuard>
+        <div>protected</div>
+      </AuthGuard>
+    );
+    await waitFor(() => {
+      expect(mockReplace).toHaveBeenCalledWith("/login?deleted=1");
+    });
+    unmount();
+    mockReplace.mockClear();
+
+    render(
+      <AuthGuard>
+        <div>protected</div>
+      </AuthGuard>
     );
     await waitFor(() => {
       expect(mockReplace).toHaveBeenCalledWith(
