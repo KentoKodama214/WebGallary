@@ -36,3 +36,5 @@ ALTER TABLE common.refresh_token
 /* Create Indexes */
 CREATE INDEX idx_refresh_token_account ON common.refresh_token (account_no);
 CREATE INDEX idx_refresh_token_hash ON common.refresh_token (token_hash);
+-- 期限切れリフレッシュトークンを削除する定期実行タスク（expires_at < NOW()）の全走査を回避する
+CREATE INDEX idx_refresh_token_expires_at ON common.refresh_token (expires_at);

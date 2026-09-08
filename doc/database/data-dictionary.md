@@ -18,10 +18,10 @@
 | 10 | created_by | 作成者 | bigint（kbn_mstのみint） | - | レコードを作成したアカウント番号。システム側が作成した場合は'0'を入れる | account, kbn_mst, location_mst, photo_mst, photo_tag_mst, photo_favorite |
 | 11 | direction_kbn | 写真の向き | photo.direction_enum | 'none' | vertical（縦）/horizontal（横）/square（正方形）/none（未設定） | photo_mst |
 | 12 | explanation | 説明 | text | '""' | 区分コードの補足説明 | kbn_mst |
-| 13 | expires_at | 有効期限 | timestamp with time zone | - | リフレッシュトークンの有効期限 | refresh_token |
+| 13 | expires_at | 有効期限 | timestamp with time zone | - | リフレッシュトークンの有効期限。期限切れトークン削除の定期実行タスク用インデックスあり | refresh_token |
 | 14 | f_value | F値 | decimal(5,2) | - | EXIF情報から取得した絞り値 | photo_mst |
-| 15 | favorite_photo_account_no | 写真所有者のアカウント番号 | bigint | - | お気に入り対象の写真を所有するアカウント番号。photo_mst(account_no)へのFK | photo_favorite |
-| 16 | favorite_photo_no | お気に入り写真番号 | bigint | - | お気に入り対象の写真番号。photo_mst(photo_no)へのFK | photo_favorite |
+| 15 | favorite_photo_account_no | 写真所有者のアカウント番号 | bigint | - | お気に入り対象の写真を所有するアカウント番号。photo_mst(account_no)へのFK。(favorite_photo_account_no, favorite_photo_no)の複合インデックスあり | photo_favorite |
+| 16 | favorite_photo_no | お気に入り写真番号 | bigint | - | お気に入り対象の写真番号。photo_mst(photo_no)へのFK。(favorite_photo_account_no, favorite_photo_no)の複合インデックスあり | photo_favorite |
 | 17 | focal_length | 焦点距離 | int | - | EXIF情報から取得した焦点距離（mm単位） | photo_mst |
 | 18 | free_memo | フリーメモ | text | '""' | ユーザーが自由に入力できるメモ欄 | account |
 | 19 | id | ID | bigserial | (自動採番) | サロゲートキー（自動採番） | location_mst, photo_mst, photo_tag_mst, photo_favorite |
@@ -47,7 +47,7 @@
 | 39 | login_failure_count | ログイン失敗回数 | smallint | 0 | 連続ログイン失敗回数。ログイン成功時にリセット | account |
 | 40 | longitude | 経度 | decimal(11,4) | - | 撮影場所の経度座標 | location_mst |
 | 41 | password | パスワード | text | - | BCryptでハッシュ化されたパスワード | account |
-| 42 | photo_at | 撮影日時 | timestamp with time zone | - | 写真を撮影した日時 | photo_mst |
+| 42 | photo_at | 撮影日時 | timestamp with time zone | - | 写真を撮影した日時。ギャラリー一覧の既定ソート用に(account_no, photo_at DESC)の部分インデックス（is_deleted = false）あり | photo_mst |
 | 43 | photo_english_title | 写真タイトル（英語） | varchar(100) | '""' | 写真の英語タイトル（任意入力） | photo_mst |
 | 44 | photo_japanese_title | 写真タイトル（日本語） | varchar(100) | - | 写真の日本語タイトル（必須入力） | photo_mst |
 | 45 | photo_no | 写真番号 | bigint | - | アカウント単位の写真連番。account_noとの複合UNIQUEを構成 | photo_mst, photo_tag_mst |

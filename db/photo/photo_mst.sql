@@ -66,6 +66,8 @@ ALTER TABLE photo.photo_mst
 
 /* Create Indexes */
 CREATE INDEX idx_photo_mst_account_no_image_file_name ON photo.photo_mst (account_no, image_file_name);
+-- ギャラリー一覧の既定ソート（撮影日時の降順）をインデックス順で取得し、ソート処理とページングを高速化する
+CREATE INDEX idx_photo_mst_account_no_photo_at ON photo.photo_mst (account_no, photo_at DESC) WHERE is_deleted = false;
 
 
 /* Comments */

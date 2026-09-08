@@ -37,6 +37,12 @@ ALTER TABLE photo.photo_favorite
 ;
 
 
+/* Create Indexes */
+-- ギャラリー一覧のお気に入り件数集計、写真削除・アカウント削除時のお気に入り削除、
+-- 外部キー(favorite_photo_account_no, favorite_photo_no)の参照チェックで使用する
+CREATE INDEX idx_photo_favorite_favorite_photo ON photo.photo_favorite (favorite_photo_account_no, favorite_photo_no);
+
+
 /* Comments */
 COMMENT ON TABLE photo.photo_favorite IS '写真お気に入り';
 COMMENT ON COLUMN photo.photo_favorite.id IS 'ID';
