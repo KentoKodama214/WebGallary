@@ -1,5 +1,6 @@
 package com.web.gallery.scheduler;
 
+import com.web.gallery.constant.Consts;
 import com.web.gallery.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,8 @@ public class RefreshTokenCleanupScheduler {
 
   private final AuthService authService;
 
-  /** 有効期限切れのリフレッシュトークンを削除する（毎日04:00に実行） */
-  @Scheduled(cron = "0 0 4 * * *")
+  /** 有効期限切れのリフレッシュトークンを削除する（毎日04:00 JSTに実行） */
+  @Scheduled(cron = "0 0 4 * * *", zone = Consts.ZONE_ID_ASIA_TOKYO)
   public void purgeExpiredRefreshTokens() {
     log.info("Start purging expired refresh tokens.");
     authService.purgeExpiredRefreshTokens();
