@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -53,7 +54,8 @@ public class AdminAccountController {
   @RequireAdminAuthority
   @GetMapping(ApiRoutes.API_ADMIN_ACCOUNTS)
   public ResponseEntity<AdminAccountListGetResponse> getAdminAccountList(
-      @ModelAttribute @Validated AccountListRequest accountListRequest, BindingResult result)
+      @ParameterObject @ModelAttribute @Validated AccountListRequest accountListRequest,
+      BindingResult result)
       throws GalleryException {
 
     if (result.hasErrors()) {

@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -71,7 +72,8 @@ public class AccountController {
   @ApiResponse(responseCode = "400", description = "リクエストパラメータ不正", content = @Content)
   @GetMapping(ApiRoutes.API_ACCOUNTS)
   public ResponseEntity<AccountListGetResponse> getAccountList(
-      @ModelAttribute @Validated AccountListRequest accountListRequest, BindingResult result)
+      @ParameterObject @ModelAttribute @Validated AccountListRequest accountListRequest,
+      BindingResult result)
       throws GalleryException {
 
     if (result.hasErrors()) {

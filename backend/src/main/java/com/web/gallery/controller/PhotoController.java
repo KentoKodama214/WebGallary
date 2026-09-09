@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -79,7 +80,7 @@ public class PhotoController {
   @GetMapping(ApiRoutes.API_PHOTOS)
   public ResponseEntity<PhotoListGetResponse> getPhotoList(
       @PathVariable String photoAccountId,
-      @ModelAttribute @Validated PhotoListRequest photoListRequest,
+      @ParameterObject @ModelAttribute @Validated PhotoListRequest photoListRequest,
       BindingResult result)
       throws GalleryException {
 
