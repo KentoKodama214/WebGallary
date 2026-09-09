@@ -4,6 +4,7 @@ import com.web.gallery.constant.ApiRoutes;
 import jakarta.servlet.DispatcherType;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -35,6 +36,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+  private final RateLimitFilter rateLimitFilter;
 
   private final CorsConfig corsConfig;
 
@@ -150,9 +153,27 @@ public class SecurityConfig {
                 exceptionHandling
                     .authenticationEntryPoint(restAuthenticationEntryPoint)
                     .accessDeniedHandler(restAccessDeniedHandler))
-        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        // レート制限は認証・認可より前に適用し、上限超過リクエストで無駄な認証処理をさせない
+        .addFilterBefore(rateLimitFilter, JwtAuthenticationFilter.class);
 
     return http.build();
+  }
+
+  /**
+   * {@link RateLimitFilter} のサーブレットコンテナへの自動登録を無効化します
+   *
+   * <p>{@code @Component} かつ {@code Filter} であるため Spring Boot が全URL向けに自動登録するが、 適用対象は {@code
+   * SecurityFilterChain} 内に {@code addFilterBefore} で差し込んだ1インスタンスに限定する。
+   *
+   * @param filter レート制限フィルター
+   * @return 自動登録を無効化した登録Bean
+   */
+  @Bean
+  FilterRegistrationBean<RateLimitFilter> rateLimitFilterRegistration(RateLimitFilter filter) {
+    FilterRegistrationBean<RateLimitFilter> registration = new FilterRegistrationBean<>(filter);
+    registration.setEnabled(false);
+    return registration;
   }
 
   /**

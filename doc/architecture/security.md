@@ -40,6 +40,27 @@ Spring SecurityによるJWT（JSON Web Token）認証を採用しています。
 | アカウント詳細取得・更新 | 認証必須（本人のみ） |
 | パスワード変更・アカウント削除 | 認証必須（本人のみ）＋ 現在のパスワードによる再認証 |
 
+### レート制限（`RateLimitFilter`）
+
+送信元 IP アドレスごとに、エンドポイントのカテゴリ別リクエスト数を固定ウィンドウで数え、上限を
+超えたリクエストを `429 Too Many Requests`（`Retry-After` 付き）で拒否する。認証・認可より前に
+実行する。前段の WAF / ロードバランサのレート制限に加えたアプリ側の多層防御。
+
+| カテゴリ | 対象 | 既定しきい値 | 環境変数 |
+|---|---|---|---|
+| `AUTH` | `POST /api/v1/auth/login` | 30 回 / 60 秒 | `RATE_LIMIT_AUTH_*` |
+| `REGISTER` | `POST /api/v1/accounts` | 10 回 / 3600 秒 | `RATE_LIMIT_REGISTER_*` |
+| `GENERAL` | 上記以外の `/api/**`（リフレッシュ・アップロード等） | 300 回 / 60 秒 | `RATE_LIMIT_GENERAL_*` |
+
+- 送信元 IP は `HttpServletRequest#getRemoteAddr()`（Tomcat `RemoteIpValve` が `X-Forwarded-For` を
+  解決した後の値）。フロントの `/api` プロキシが前段プロキシ付与の実クライアント IP を
+  `X-Forwarded-For` に載せ直し、バックエンドは `TRUSTED_PROXIES` の範囲でのみそれを信頼する。
+- カウンタは `RateLimiter`（プロセスローカルの `ConcurrentHashMap`、エントリ上限 20 万・定期間引き）。
+  複数インスタンス構成では実効しきい値がインスタンス数倍になる。
+- IP 単位のため共有 NAT（CGNAT・社内 NAT）配下では誤検知しうる。厳密な制御は前段の WAF に委ね、
+  アカウント単位のロック（ログイン失敗 3 回）と併せた多層防御と位置づける。
+- `app.rate-limit.enabled=false`（`RATE_LIMIT_ENABLED`）で無効化できる（`test` プロファイル・E2E は無効）。
+
 パスワード変更（`PUT /api/v1/accounts/{id}` で新しいパスワードを指定）とアカウント削除
 （`POST /api/v1/accounts/{id}/deletion`）は、アクセストークンの有効性に加えてリクエストボディ（JSON）の
 `currentPassword` による現在のパスワードの本人確認を必須とする
@@ -104,8 +125,10 @@ APM に記録されやすく（`Authorization` と違い）マスク対象から
   `Origin` の自サイト一致検証（CSRF 多層防御。バックエンドの SameSite Cookie と併用）
 - パストラバーサル（`.` / `..` / 空セグメント）の拒否、リクエストボディの上限（6MB）、
   バックエンドへの中継タイムアウト（30 秒）、リダイレクト追従の無効化（`redirect: "manual"`）
-- クライアント由来の転送系ヘッダー（`X-Forwarded-*` 等）の除去、`Location` の正規化
-  （バックエンド絶対 URL は相対化、外部 URL・プロトコル相対は削除）
+- クライアント由来の転送系ヘッダー（`X-Forwarded-Host` / `X-Forwarded-Proto` / `Forwarded` /
+  `X-Real-IP`）の除去。バックエンドのレート制限が使う `X-Forwarded-For` だけは、前段プロキシ
+  （ALB / CloudFront）が付与した値の左端＝実クライアント IP に載せ直してから中継する
+- `Location` の正規化（バックエンド絶対 URL は相対化、外部 URL・プロトコル相対は削除）
 
 > **注意**: `NEXT_PUBLIC_API_BASE_URL` を設定して別オリジンのバックエンドを直接叩く構成にした場合、
 > 上記プロキシの CSRF 検証はバイパスされる。その構成ではバックエンド側の CSRF 対策に完全に依存する。
