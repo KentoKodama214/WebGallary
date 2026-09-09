@@ -95,6 +95,28 @@ APM に記録されやすく（`Authorization` と違い）マスク対象から
 `newPassword` / `currentPassword`）の入力値は `***` にマスクする
 （`helper/ValidationErrorLogger`）。ログ集約基盤に平文の資格情報を残さないため。
 
+### エラーレスポンスからの内部情報の抑止
+
+`application.yml` で `server.error.*` をすべて `never` / `false` に固定し、エラーレスポンスに
+例外メッセージ・スタックトレース・バインドエラー詳細・例外クラス名・ホワイトラベルページを
+一切含めない。`CommonControllerAdvice` は `@RestControllerAdvice(assignableTypes = {...})`
+で列挙した Controller の例外のみを汎用レスポンスへ変換するため、認証フィルタやレートリミット等
+**フィルタ内で発生した例外**が `/error` ディスパッチに落ちたときの多層防御として設定している。
+併せて `spring.mvc.log-resolved-exception: false` で、処理済み例外のスタックトレース重複ログを抑止する。
+
+### 本番プロファイルの起動時設定検証
+
+`config/ProdConfigValidationRunner`（`@Profile("prod")`）が起動完了時に本番設定を検証し、
+危険な構成を検出したら `IllegalStateException` を投げて**起動自体を失敗させる**（フェイルクローズ）。
+
+- `app.cors.allowed-origins`（環境変数 `FRONTEND_ORIGIN`）が 1 件以上・すべて `https://` の
+  絶対オリジン・ワイルドカード（`*`）やパス・クエリを含まないこと
+- `app.s3.endpoint` / `app.s3.public-base-url` が設定されている場合、`https://` であること（平文通信の禁止）
+
+`JWT_SECRET` の 256bit 長チェックは `helper/JwtTokenProvider` の `@PostConstruct` で全プロファイル共通に行う。
+`prod` プロファイルでは OpenAPI ドキュメント（`/scalar`・`/v3/api-docs`）用の `SecurityFilterChain` を
+登録しないため、デフォルトの `denyAll` チェーンにより拒否される。
+
 ## フロントエンド（API プロキシ）側の防御
 
 フロントエンド（`frontend/`）は既定で同一オリジンの `/api/*` プロキシ（`src/app/api/[...path]/route.ts`）
