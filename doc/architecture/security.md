@@ -99,7 +99,7 @@ APM に記録されやすく（`Authorization` と違い）マスク対象から
 
 `application.yml` で `server.error.*` をすべて `never` / `false` に固定し、エラーレスポンスに
 例外メッセージ・スタックトレース・バインドエラー詳細・例外クラス名・ホワイトラベルページを
-一切含めない。`CommonRestControllerAdvice` は `@RestControllerAdvice(assignableTypes = {...})`
+一切含めない。`CommonControllerAdvice` は `@RestControllerAdvice(assignableTypes = {...})`
 で列挙した Controller の例外のみを汎用レスポンスへ変換するため、認証フィルタやレートリミット等
 **フィルタ内で発生した例外**が `/error` ディスパッチに落ちたときの多層防御として設定している。
 併せて `spring.mvc.log-resolved-exception: false` で、処理済み例外のスタックトレース重複ログを抑止する。
