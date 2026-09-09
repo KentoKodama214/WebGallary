@@ -1,5 +1,7 @@
 package com.web.gallery.scheduler;
 
+import com.web.gallery.enumeration.SchedulerLockName;
+import com.web.gallery.helper.SchedulerLock;
 import com.web.gallery.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +14,9 @@ import org.springframework.stereotype.Component;
  *
  * <p>無効化済み・期限切れのレコードが蓄積してテーブルが肥大化するのを防ぐ。
  *
- * <p>複数インスタンス構成では全インスタンスが同時刻に実行し重複するため（削除自体は冪等）、 {@code
- * app.scheduler.refresh-token-cleanup-enabled=false} で個別インスタンスの実行を抑止できる （未設定時は有効）
+ * <p>複数インスタンス構成では全インスタンスが同時刻に起動するため、{@link SchedulerLock} による PostgreSQL
+ * アドバイザリーロックで多重実行を防止し、実際に削除を行うのは1インスタンスのみとする。 個別インスタンスでスケジュール自体を無効化したい場合は {@code
+ * app.scheduler.refresh-token-cleanup-enabled=false} を指定する（未設定時は有効）。
  *
  * @author Kento Kodama
  * @version 1.0.0
@@ -28,13 +31,18 @@ import org.springframework.stereotype.Component;
     matchIfMissing = true)
 public class RefreshTokenCleanupScheduler {
 
+  private final SchedulerLock schedulerLock;
   private final AuthService authService;
 
   /** 有効期限切れのリフレッシュトークンを削除する（毎日04:00に実行） */
   @Scheduled(cron = "0 0 4 * * *")
   public void purgeExpiredRefreshTokens() {
-    log.info("Start purging expired refresh tokens.");
-    authService.purgeExpiredRefreshTokens();
-    log.info("Finished purging expired refresh tokens.");
+    schedulerLock.runIfLocked(
+        SchedulerLockName.REFRESH_TOKEN_CLEANUP,
+        () -> {
+          log.info("Start purging expired refresh tokens.");
+          authService.purgeExpiredRefreshTokens();
+          log.info("Finished purging expired refresh tokens.");
+        });
   }
 }
