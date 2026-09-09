@@ -95,6 +95,20 @@ APM に記録されやすく（`Authorization` と違い）マスク対象から
 `newPassword` / `currentPassword`）の入力値は `***` にマスクする
 （`helper/ValidationErrorLogger`）。ログ集約基盤に平文の資格情報を残さないため。
 
+### 撮影場所（位置情報）の公開制御
+
+写真ごとに `photo_mst.is_location_public`（位置情報公開フラグ）を持つ。写真詳細 API
+（`GET /api/v1/accounts/{id}/photos/{photoNo}`）は、このフラグが `false` の写真について、
+**閲覧者が写真所有者本人でない限り**、撮影場所（`locationNo` / 住所 / 緯度経度 / ロケーション名）を
+レスポンスから除外する（`PhotoServiceImpl#getPhotoDetail`）。公開ギャラリーの写真の撮影場所から
+撮影者の生活圏が特定されるのを防ぐため。
+
+- 新規アップロード時は安全側に倒し、フロントのトグルは既定 OFF（非公開）。写真登録・編集画面で
+  ユーザーが公開/非公開を選択できる。
+- 既存写真の DB カラムは `DEFAULT true`（従来どおり公開）で移行する。
+- フラグの値自体はレスポンスに含まれる（`isLocationPublic`）。所有者の編集画面での現在値表示・
+  所有者向けの「撮影場所は非公開」表示に用いる。
+
 ## フロントエンド（API プロキシ）側の防御
 
 フロントエンド（`frontend/`）は既定で同一オリジンの `/api/*` プロキシ（`src/app/api/[...path]/route.ts`）
