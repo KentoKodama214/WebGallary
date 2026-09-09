@@ -29,13 +29,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/** 管理者用アカウント管理に関するAPI通信を扱うRestControllerクラス */
+/** 管理者用アカウント管理に関するAPI通信を扱うControllerクラス */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "管理者アカウント管理", description = "管理者用アカウント管理に関するAPI")
 @SecurityRequirement(name = "Bearer")
-public class AdminAccountRestController {
+public class AdminAccountController {
   private final AccountService accountService;
 
   /**

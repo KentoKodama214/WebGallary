@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * アカウントに関するAPI通信を扱うRestControllerクラス
+ * アカウントに関するAPI通信を扱うControllerクラス
  *
  * @author Kento Kodama
  * @version 1.0.0
@@ -53,7 +53,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "アカウント", description = "アカウント管理に関するAPI")
-public class AccountRestController {
+public class AccountController {
 
   private final AccountService accountService;
   private final SessionHelper sessionHelper;
