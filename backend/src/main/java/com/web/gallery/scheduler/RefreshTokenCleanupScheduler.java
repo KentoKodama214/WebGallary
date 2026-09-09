@@ -1,8 +1,8 @@
 package com.web.gallery.scheduler;
 
+import com.web.gallery.constant.Consts;
 import com.web.gallery.enumeration.SchedulerLockName;
 import com.web.gallery.helper.SchedulerLock;
-import com.web.gallery.constant.Consts;
 import com.web.gallery.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
