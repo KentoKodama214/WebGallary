@@ -32,6 +32,20 @@ const MAX_BODY_SIZE = 6 * 1024 * 1024;
 /** バックエンドへの中継リクエストのタイムアウト（ミリ秒） */
 const BACKEND_TIMEOUT_MS = 30_000;
 
+/**
+ * バックエンドへ同時に中継するリクエスト数の上限
+ *
+ * このキャッチオールルートは同時実行数の上限を持たないため、大量同時リクエスト
+ * （特に最大 6MB をバッファしうるアップロード）で Node プロセスのメモリ・接続が
+ * 枯渇しうる。上限を超えた分は待たせずに 503 で突き放し（ロードシェディング）、
+ * 前段の WAF / ロードバランサ側のレート制限と併せて多層で守る。
+ * 環境変数 `PROXY_MAX_CONCURRENCY` で上書き可能。
+ */
+const MAX_CONCURRENT_REQUESTS = Number(process.env.PROXY_MAX_CONCURRENCY) || 100;
+
+/** 現在バックエンドへ中継中のリクエスト数 */
+let inFlightRequests = 0;
+
 /** バックエンドへ転送しないリクエストヘッダー */
 const EXCLUDED_REQUEST_HEADERS = new Set([
   // fetch が再設定するもの
@@ -117,13 +131,41 @@ function limitedBodyStream(
 }
 
 /**
- * リクエストをバックエンドへ中継する
+ * リクエストをバックエンドへ中継する（同時実行数の上限を適用するエントリポイント）
+ *
+ * 中継中のリクエスト数が {@link MAX_CONCURRENT_REQUESTS} に達している場合は、
+ * バックエンドへ中継せず即座に 503 を返す（ロードシェディング）。
  *
  * @param request 受信したリクエスト
  * @param path    `/api/` 以降のパストークン
  * @returns バックエンドのレスポンスを引き継いだレスポンス
  */
 async function proxy(request: NextRequest, path: string[]): Promise<NextResponse> {
+  if (inFlightRequests >= MAX_CONCURRENT_REQUESTS) {
+    return NextResponse.json(
+      { message: "アクセスが集中しています。しばらくしてから再度お試しください" },
+      { status: 503, headers: { "retry-after": "5" } }
+    );
+  }
+  inFlightRequests++;
+  try {
+    return await forwardToBackend(request, path);
+  } finally {
+    inFlightRequests--;
+  }
+}
+
+/**
+ * リクエストをバックエンドへ中継する
+ *
+ * @param request 受信したリクエスト
+ * @param path    `/api/` 以降のパストークン
+ * @returns バックエンドのレスポンスを引き継いだレスポンス
+ */
+async function forwardToBackend(
+  request: NextRequest,
+  path: string[]
+): Promise<NextResponse> {
   // パストラバーサル対策：ドットセグメント・空セグメントは拒否する
   // （encodeURIComponent は "." や ".." をエスケープしないため、
   //   バックエンドの URL 解決で `/api` プレフィックス外へ抜けるのを防ぐ）

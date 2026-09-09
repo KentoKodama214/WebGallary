@@ -95,6 +95,33 @@ APM に記録されやすく（`Authorization` と違い）マスク対象から
 `newPassword` / `currentPassword`）の入力値は `***` にマスクする
 （`helper/ValidationErrorLogger`）。ログ集約基盤に平文の資格情報を残さないため。
 
+### 信頼するプロキシと発信元IPの復元
+
+`server.tomcat.remoteip` で `X-Forwarded-For` / `X-Forwarded-Proto` から発信元 IP・プロトコルを
+復元する。信頼する「直前の送信元 IP」の範囲は `server.tomcat.remoteip.internal-proxies`
+（環境変数 `TRUSTED_PROXIES`）で制御し、範囲外から届いた `X-Forwarded-For` は無視して TCP 接続の
+実 IP を使う（クライアントによる IP 詐称の防止）。既定値はループバック＋RFC1918（Tomcat 既定と同等）で、
+**本番では前段の ALB／リバースプロキシが存在するサブネットの CIDR だけに狭める**こと。加えて、
+アプリコンテナはネットワーク的に ALB 経由でしか到達できない構成にする。
+
+### バックエンドのレスポンスヘッダーと CORS
+
+`SecurityConfig#applyApiResponseHeaders` が API・デフォルトの両 `SecurityFilterChain` に対して
+以下を付与する（フロントのページレスポンスへの付与は `next.config.ts` / `src/proxy.ts` が担うが、
+バックエンドを直接叩く経路に備えた多層防御）。
+
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains`（HTTPS リクエストのみ送出）
+- `Referrer-Policy: no-referrer`
+- `Content-Security-Policy: default-src 'none'; frame-ancestors 'none'`（API は JSON のみ返すため最小）
+- `X-Frame-Options: DENY`、`X-Content-Type-Options: nosniff`（Spring Security 既定）
+
+CORS（`corsConfigurationSource`）は標準構成（同一オリジンの `/api` プロキシ経由）では発動しないが、
+`NEXT_PUBLIC_API_BASE_URL` で別オリジンのバックエンドを直接叩く構成に備え、許可オリジンを
+`FRONTEND_ORIGIN` に限定し、許可メソッドを `GET/POST/PUT/DELETE`、許可ヘッダーを
+`Authorization` / `Content-Type` のみに絞る。`app.cors.allowed-origins` の形式は
+`CorsConfig#validateAllowedOrigins`（全プロファイル）で、`https://` 限定・ワイルドカード禁止は
+`ProdConfigValidationRunner`（`prod` のみ）で起動時に検証する。
+
 ## フロントエンド（API プロキシ）側の防御
 
 フロントエンド（`frontend/`）は既定で同一オリジンの `/api/*` プロキシ（`src/app/api/[...path]/route.ts`）
@@ -106,6 +133,10 @@ APM に記録されやすく（`Authorization` と違い）マスク対象から
   バックエンドへの中継タイムアウト（30 秒）、リダイレクト追従の無効化（`redirect: "manual"`）
 - クライアント由来の転送系ヘッダー（`X-Forwarded-*` 等）の除去、`Location` の正規化
   （バックエンド絶対 URL は相対化、外部 URL・プロトコル相対は削除）
+- バックエンドへ同時に中継するリクエスト数の上限（`PROXY_MAX_CONCURRENCY`、既定 100）。
+  超過分は待たせず `503`＋`Retry-After` で突き放す（ロードシェディング。最大 6MB を
+  バッファしうるアップロードの同時多発で Node プロセスが枯渇するのを防ぐ。前段の
+  WAF・ロードバランサのレート制限／同時接続数制限と併せた多層防御）
 
 > **注意**: `NEXT_PUBLIC_API_BASE_URL` を設定して別オリジンのバックエンドを直接叩く構成にした場合、
 > 上記プロキシの CSRF 検証はバイパスされる。その構成ではバックエンド側の CSRF 対策に完全に依存する。
