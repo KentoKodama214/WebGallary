@@ -47,7 +47,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 写真に関するAPI通信を扱うRestControllerクラス
+ * 写真に関するAPI通信を扱うControllerクラス
  *
  * @author Kento Kodama
  * @version 1.0.0
@@ -57,7 +57,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "写真", description = "写真管理に関するAPI")
-public class PhotoRestController {
+public class PhotoController {
 
   private final PhotoService photoService;
   private final SessionHelper sessionHelper;
