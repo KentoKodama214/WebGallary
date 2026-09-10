@@ -60,7 +60,7 @@ import tools.jackson.databind.ObjectMapper;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-public class PhotoRestControllerIntegrationTest {
+public class PhotoControllerIntegrationTest {
   /** 新規登録時のバリデーション（Content-Type・マジックバイト）を通過させるための、実際のJPEGファイルの先頭バイト列 */
   private static final byte[] JPEG_BYTES = {
     (byte) 0xFF, (byte) 0xD8, (byte) 0xFF, (byte) 0xE0, 0x00, 0x10
@@ -99,7 +99,7 @@ public class PhotoRestControllerIntegrationTest {
   private String readJsonFile(String fileName) throws Exception {
     return new String(
         new ClassPathResource(
-                "json/controller/integration/PhotoRestControllerIntegrationTest/" + fileName)
+                "json/controller/integration/PhotoControllerIntegrationTest/" + fileName)
             .getInputStream()
             .readAllBytes(),
         StandardCharsets.UTF_8);
@@ -109,7 +109,7 @@ public class PhotoRestControllerIntegrationTest {
   @Order(1)
   @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
   @Sql("/sql/common/cleanup.sql")
-  @Sql("/sql/controller/PhotoRestControllerIntegrationTest.sql")
+  @Sql("/sql/controller/PhotoControllerIntegrationTest.sql")
   class getPhotoList {
     @Test
     @Order(1)
@@ -269,7 +269,7 @@ public class PhotoRestControllerIntegrationTest {
   @Order(2)
   @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
   @Sql("/sql/common/cleanup.sql")
-  @Sql("/sql/controller/PhotoRestControllerIntegrationTest.sql")
+  @Sql("/sql/controller/PhotoControllerIntegrationTest.sql")
   class savePhoto {
     @Test
     @Order(1)
@@ -928,7 +928,7 @@ public class PhotoRestControllerIntegrationTest {
   @Order(3)
   @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
   @Sql("/sql/common/cleanup.sql")
-  @Sql("/sql/controller/PhotoRestControllerIntegrationTest.sql")
+  @Sql("/sql/controller/PhotoControllerIntegrationTest.sql")
   class deletePhoto {
     @Test
     @Order(1)
@@ -1140,7 +1140,7 @@ public class PhotoRestControllerIntegrationTest {
   @Order(4)
   @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
   @Sql("/sql/common/cleanup.sql")
-  @Sql("/sql/controller/PhotoRestControllerIntegrationTest.sql")
+  @Sql("/sql/controller/PhotoControllerIntegrationTest.sql")
   class getPhotoUpperLimit {
     @Test
     @Order(1)
