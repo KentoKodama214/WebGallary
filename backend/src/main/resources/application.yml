@@ -5,6 +5,10 @@ spring:
     multipart:
       max-file-size: 6MB
       max-request-size: 6MB
+  mvc:
+    # CommonControllerAdviceで処理済みの例外を、フレームワークが重ねてスタックトレース付きで
+    # WARNログ出力するのを抑止する（ログ集約基盤へ内部情報を残さない）
+    log-resolved-exception: false
 
 server:
   # X-Forwarded-* を信頼して発信元IP・プロトコルを復元する処理はTomcatのRemoteIpValveに委ねる
@@ -18,6 +22,16 @@ server:
       # 既定値はループバック + RFC1918（Tomcat既定と同等）。本番では前段のALB/リバースプロキシが
       # 存在するサブネットのCIDRだけに狭めること（環境変数 TRUSTED_PROXIES で上書き）。
       internal-proxies: '${TRUSTED_PROXIES:127\.\d{1,3}\.\d{1,3}\.\d{1,3}|::1|0:0:0:0:0:0:0:1|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|172\.1[6-9]\.\d{1,3}\.\d{1,3}|172\.2\d\.\d{1,3}\.\d{1,3}|172\.3[01]\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}}'
+  # エラーレスポンスから内部情報（例外メッセージ・スタックトレース・バインドエラー詳細・例外クラス名）を
+  # 一切出さない。フィルタ内で発生しCommonControllerAdviceで捕捉されない例外（認証フィルタ・
+  # レートリミット等）が /error ディスパッチに落ちても内部構造を推測されないようにするための多層防御。
+  error:
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+    include-exception: false
+    whitelabel:
+      enabled: false
 
 springdoc:
   api-docs:

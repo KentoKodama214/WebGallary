@@ -32,13 +32,22 @@ Spring SecurityによるJWT（JSON Web Token）認証を採用しています。
 |----------|--------------|
 | 認証API（`/api/v1/auth/**`） | 公開 |
 | アカウント登録（`POST /api/v1/accounts`） | 公開 |
-| アカウント一覧（`GET /api/v1/accounts`） | 公開 |
+| アカウント一覧（`GET /api/v1/accounts`） | 公開（アカウント名のみ表示。詳細は下記） |
 | 写真の閲覧（`GET /api/v1/accounts/{id}/photos/**`） | 公開 |
 | 都道府県一覧（`GET /api/v1/prefectures`） | 公開 |
 | 写真の登録・編集・削除 | 認証必須（本人のみ） |
 | お気に入り登録・解除 | 認証必須 |
 | アカウント詳細取得・更新 | 認証必須（本人のみ） |
 | パスワード変更・アカウント削除 | 認証必須（本人のみ）＋ 現在のパスワードによる再認証 |
+
+### アカウントID（ログインID）の露出抑制
+
+アカウント一覧画面（`/account_list`）では**アカウント名のみを表示**し、アカウントID（ログインID）は
+画面に表示しない。他ユーザーのログインIDを一覧で機械的に収集され、クレデンシャルスタッフィングや
+標的型のアカウントロックに悪用されるのを避けるため。
+
+> 現状、ギャラリーへのリンク URL（`/photo/{accountId}/photo_list`）には引き続きアカウントID が含まれる。
+> URL からの完全な秘匿には、ルーティングを内部の不透明 ID へ移行する必要がある（別対応）。
 
 パスワード変更（`PUT /api/v1/accounts/{id}` で新しいパスワードを指定）とアカウント削除
 （`POST /api/v1/accounts/{id}/deletion`）は、アクセストークンの有効性に加えてリクエストボディ（JSON）の
@@ -121,6 +130,28 @@ CORS（`corsConfigurationSource`）は標準構成（同一オリジンの `/api
 `Authorization` / `Content-Type` のみに絞る。`app.cors.allowed-origins` の形式は
 `CorsConfig#validateAllowedOrigins`（全プロファイル）で、`https://` 限定・ワイルドカード禁止は
 `ProdConfigValidationRunner`（`prod` のみ）で起動時に検証する。
+
+### エラーレスポンスからの内部情報の抑止
+
+`application.yml` で `server.error.*` をすべて `never` / `false` に固定し、エラーレスポンスに
+例外メッセージ・スタックトレース・バインドエラー詳細・例外クラス名・ホワイトラベルページを
+一切含めない。`CommonControllerAdvice` は `@RestControllerAdvice(assignableTypes = {...})`
+で列挙した Controller の例外のみを汎用レスポンスへ変換するため、認証フィルタやレートリミット等
+**フィルタ内で発生した例外**が `/error` ディスパッチに落ちたときの多層防御として設定している。
+併せて `spring.mvc.log-resolved-exception: false` で、処理済み例外のスタックトレース重複ログを抑止する。
+
+### 本番プロファイルの起動時設定検証
+
+`config/ProdConfigValidationRunner`（`@Profile("prod")`）が起動完了時に本番設定を検証し、
+危険な構成を検出したら `IllegalStateException` を投げて**起動自体を失敗させる**（フェイルクローズ）。
+
+- `app.cors.allowed-origins`（環境変数 `FRONTEND_ORIGIN`）が 1 件以上・すべて `https://` の
+  絶対オリジン・ワイルドカード（`*`）やパス・クエリを含まないこと
+- `app.s3.endpoint` / `app.s3.public-base-url` が設定されている場合、`https://` であること（平文通信の禁止）
+
+`JWT_SECRET` の 256bit 長チェックは `helper/JwtTokenProvider` の `@PostConstruct` で全プロファイル共通に行う。
+`prod` プロファイルでは OpenAPI ドキュメント（`/scalar`・`/v3/api-docs`）用の `SecurityFilterChain` を
+登録しないため、デフォルトの `denyAll` チェーンにより拒否される。
 
 ## フロントエンド（API プロキシ）側の防御
 
