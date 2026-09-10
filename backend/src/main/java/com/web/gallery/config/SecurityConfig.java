@@ -14,11 +14,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -71,18 +73,43 @@ public class SecurityConfig {
   /**
    * CORS設定を定義します
    *
+   * <p>標準構成では同一オリジンの `/api` プロキシ経由でアクセスするためCORSは発動しないが、 `NEXT_PUBLIC_API_BASE_URL`
+   * で別オリジンのバックエンドを直接叩く構成に備え、必要最小限のみ許可する。 許可オリジンは環境変数 `FRONTEND_ORIGIN`
+   * の値に限定し、許可ヘッダー・メソッドもクライアントが実際に 使用するものだけに絞る（`OPTIONS` はプリフライトとして自動的に許可されるため列挙しない）。
+   *
    * @return CorsConfigurationSourceオブジェクト
    */
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
     config.setAllowedOrigins(corsConfig.getAllowedOrigins());
-    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-    config.setAllowedHeaders(List.of("*"));
+    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+    config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
     config.setAllowCredentials(true);
+    config.setMaxAge(3600L);
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", config);
     return source;
+  }
+
+  /**
+   * APIレスポンスに付与するセキュリティヘッダーを設定します
+   *
+   * <p>フロント（Next.js）のページレスポンスには `next.config.ts` / `src/proxy.ts` でヘッダーを付与しているが、
+   * バックエンドを直接叩く経路（別オリジン構成・前段プロキシのすり抜け等）に備えた多層防御として、 バックエンド側にも付与する。APIはJSONのみを返すため CSP は
+   * `default-src 'none'` まで絞れる。 HSTS は HTTPS リクエスト（ALB 経由の `x-forwarded-proto: https`）に対してのみ送出される。
+   *
+   * @param headers ヘッダー設定オブジェクト
+   */
+  private static void applyApiResponseHeaders(HeadersConfigurer<HttpSecurity> headers) {
+    headers
+        .httpStrictTransportSecurity(
+            hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(63_072_000))
+        .referrerPolicy(
+            referrer -> referrer.policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.NO_REFERRER))
+        .contentSecurityPolicy(
+            csp -> csp.policyDirectives("default-src 'none'; frame-ancestors 'none'"))
+        .frameOptions(HeadersConfigurer.FrameOptionsConfig::deny);
   }
 
   /**
@@ -117,6 +144,7 @@ public class SecurityConfig {
     http.securityMatcher("/api/**")
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .csrf(csrf -> csrf.disable())
+        .headers(SecurityConfig::applyApiResponseHeaders)
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(
@@ -189,6 +217,7 @@ public class SecurityConfig {
   @Order(Integer.MAX_VALUE)
   SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable())
+        .headers(SecurityConfig::applyApiResponseHeaders)
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(

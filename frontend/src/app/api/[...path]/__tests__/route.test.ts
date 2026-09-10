@@ -343,4 +343,35 @@ describe("APIプロキシ route", () => {
 
     expect(res.headers.get("location")).toBeNull();
   });
+
+  it("同時中継数が上限に達している間は 503 を返し、バックエンドへ中継しない", async () => {
+    jest.resetModules();
+    process.env.PROXY_MAX_CONCURRENCY = "2";
+
+    let releaseBackend: () => void = () => {};
+    const pending = new Promise<Response>((resolve) => {
+      releaseBackend = () => resolve(new Response(null, { status: 204 }));
+    });
+    const gatedFetch = jest.fn().mockReturnValue(pending);
+    global.fetch = gatedFetch as unknown as typeof fetch;
+
+    const route = await import("../route");
+    const makeReq = () => new NextRequest("http://localhost/api/v1/accounts");
+
+    // 上限（2）まではバックエンドへ中継され、応答待ちで滞留する
+    const inflight1 = route.GET(makeReq(), ctx(["v1", "accounts"]));
+    const inflight2 = route.GET(makeReq(), ctx(["v1", "accounts"]));
+
+    // 3件目は上限超過で即座に 503（fetch は呼ばれない）
+    const shed = await route.GET(makeReq(), ctx(["v1", "accounts"]));
+    expect(shed.status).toBe(503);
+    expect(shed.headers.get("retry-after")).toBe("5");
+    expect(gatedFetch).toHaveBeenCalledTimes(2);
+
+    releaseBackend();
+    await Promise.all([inflight1, inflight2]);
+
+    delete process.env.PROXY_MAX_CONCURRENCY;
+    jest.resetModules();
+  });
 });
