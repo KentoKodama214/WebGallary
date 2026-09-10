@@ -54,14 +54,14 @@
 |----------------|------|
 | 言語 | Java 21 |
 | ビルドツール | Gradle 8.14 |
-| フレームワーク | Spring Boot 4.0.6 |
-| セキュリティ | Spring Security 7.0.5（BCrypt + JWT） |
+| フレームワーク | Spring Boot 4.1.1 |
+| セキュリティ | Spring Security 7.1.1（BCrypt + JWT） |
 | ORM | MyBatis 4.0.1 |
-| データベース | PostgreSQL（ドライバ 42.7.11） |
+| データベース | PostgreSQL（ドライバ 42.7.13） |
 | コード生成 | Lombok 1.18.42 |
 | オブジェクトマッピング | ModelMapper 3.2.6 |
 | JWT | jjwt 0.13.0 |
-| テスト | JUnit Jupiter 6.0.3 / Mockito 5.20.0 |
+| テスト | JUnit Jupiter 6.0.3 / Mockito 5.23.0 |
 | パッケージング | WAR（Tomcatデプロイ） |
 
 ### フロントエンド
@@ -148,6 +148,11 @@ just db-up
 | `APP_S3_PUBLIC_BASE_URL` | 署名付き URL のホストをブラウザ到達可能なものへ差し替える場合に指定 | `http://localhost:9000` |
 | `APP_S3_PRESIGN_EXPIRY_SECONDS` | 署名付き URL の有効期限（秒） | `900` |
 | `MINI_USER_UPPER_LIMIT` / `NORMAL_USER_UPPER_LIMIT` | 権限別の写真登録上限 | `10` / `1000` |
+| `FRONTEND_ORIGIN` | CORS 許可オリジン | `http://localhost:3000` |
+| `RATE_LIMIT_ENABLED` | 送信元IP別レート制限の有効化（`test`・E2E は無効） | `true` |
+| `RATE_LIMIT_AUTH_CAPACITY` / `RATE_LIMIT_AUTH_WINDOW_SECONDS` | ログインのしきい値（回数 / ウィンドウ秒） | `30` / `60` |
+| `RATE_LIMIT_REGISTER_CAPACITY` / `RATE_LIMIT_REGISTER_WINDOW_SECONDS` | アカウント登録のしきい値 | `10` / `3600` |
+| `RATE_LIMIT_GENERAL_CAPACITY` / `RATE_LIMIT_GENERAL_WINDOW_SECONDS` | その他 `/api/**` のしきい値 | `300` / `60` |
 | `FRONTEND_ORIGIN` | CORS 許可オリジン（1 値のみ。`prod` では `https://` 必須） | `http://localhost:3000` |
 | `TRUSTED_PROXIES` | `X-Forwarded-For` を信頼する直前送信元 IP の正規表現。**本番では ALB のサブネット CIDR に狭める** | ループバック＋RFC1918（Tomcat 既定と同等） |
 

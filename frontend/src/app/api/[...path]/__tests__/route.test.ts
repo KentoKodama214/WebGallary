@@ -38,13 +38,13 @@ describe("APIプロキシ route", () => {
     expect((init.headers as Headers).get("cookie")).toBe("refreshToken=abc");
   });
 
-  it("クライアント由来の X-Forwarded-* / X-Real-IP を除去する", async () => {
+  it("クライアント由来の X-Forwarded-Host / X-Forwarded-Proto / Forwarded / X-Real-IP を除去する", async () => {
     fetchMock.mockResolvedValueOnce(new Response(null, { status: 204 }));
 
     const req = new NextRequest("http://localhost/api/v1/accounts", {
       headers: {
-        "x-forwarded-for": "1.2.3.4",
         "x-forwarded-host": "evil.example",
+        "x-forwarded-proto": "http",
         "x-real-ip": "1.2.3.4",
         forwarded: "for=1.2.3.4",
       },
@@ -52,10 +52,35 @@ describe("APIプロキシ route", () => {
     await GET(req, ctx(["v1", "accounts"]));
 
     const headers = fetchMock.mock.calls[0][1].headers as Headers;
-    expect(headers.get("x-forwarded-for")).toBeNull();
     expect(headers.get("x-forwarded-host")).toBeNull();
+    expect(headers.get("x-forwarded-proto")).toBeNull();
     expect(headers.get("x-real-ip")).toBeNull();
     expect(headers.get("forwarded")).toBeNull();
+  });
+
+  it("前段プロキシが付与した X-Forwarded-For の左端を実クライアント IP として載せ直す", async () => {
+    fetchMock.mockResolvedValueOnce(new Response(null, { status: 204 }));
+
+    const req = new NextRequest("http://localhost/api/v1/accounts", {
+      headers: {
+        // 左端＝ALB が記録した実クライアント IP、以降＝中継プロキシ
+        "x-forwarded-for": "203.0.113.9, 10.0.1.5",
+      },
+    });
+    await GET(req, ctx(["v1", "accounts"]));
+
+    const headers = fetchMock.mock.calls[0][1].headers as Headers;
+    expect(headers.get("x-forwarded-for")).toBe("203.0.113.9");
+  });
+
+  it("X-Forwarded-For が無ければバックエンドへも付与しない", async () => {
+    fetchMock.mockResolvedValueOnce(new Response(null, { status: 204 }));
+
+    const req = new NextRequest("http://localhost/api/v1/accounts");
+    await GET(req, ctx(["v1", "accounts"]));
+
+    const headers = fetchMock.mock.calls[0][1].headers as Headers;
+    expect(headers.get("x-forwarded-for")).toBeNull();
   });
 
   it("バックエンド未到達時は502を返す", async () => {

@@ -66,6 +66,23 @@ app:
     refreshTokenExpirationDays: 7
     # ローテーション済みトークンの再送をこの秒数以内なら正常系リトライとみなす（全セッション失効しない）
     refreshTokenReuseGraceSeconds: 30
+  rate-limit:
+    # 送信元IPごとのエンドポイント別レート制限（前段WAF/LBのレート制限に加えた多層防御）。
+    # プロセスローカルのカウンタのため、複数インスタンス構成では実効しきい値がインスタンス数倍になる。
+    # IP単位のため共有NAT配下では誤検知しうる。しきい値は環境に応じて調整すること。
+    enabled: ${RATE_LIMIT_ENABLED:true}
+    # ログイン（総当たり対策で低め。アカウント単位のロックと併用）
+    auth:
+      capacity: ${RATE_LIMIT_AUTH_CAPACITY:30}
+      window-seconds: ${RATE_LIMIT_AUTH_WINDOW_SECONDS:60}
+    # アカウント登録（スパム対策で低め）
+    register:
+      capacity: ${RATE_LIMIT_REGISTER_CAPACITY:10}
+      window-seconds: ${RATE_LIMIT_REGISTER_WINDOW_SECONDS:3600}
+    # 上記以外の /api/** リクエスト（トークンリフレッシュ・写真アップロード等を含む）
+    general:
+      capacity: ${RATE_LIMIT_GENERAL_CAPACITY:300}
+      window-seconds: ${RATE_LIMIT_GENERAL_WINDOW_SECONDS:60}
 
 auth:
   login:

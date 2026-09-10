@@ -18,10 +18,10 @@ import { type NextRequest, NextResponse } from "next/server";
  *   メモリ上限の担保はこのハンドラー自身で行う）
  * - バックエンドへの中継には 30 秒のタイムアウトを設け、応答が無い場合は 504 を返す
  * - Cookie（refreshToken 等）とバックエンドの Set-Cookie を双方向に転送する
- * - クライアントが詐称しうる転送系ヘッダー（X-Forwarded-* 等）は除去する。
- *   これはあくまで詐称防止であり、バックエンドは現状クライアント IP に依存した
- *   判定（ロックはアカウント単位）を行っていない。IP ベースのレート制限等を
- *   導入する場合は、信頼できる送信元 IP を別途載せ直す必要がある。
+ * - クライアントが詐称しうる転送系ヘッダー（X-Forwarded-* / Forwarded / X-Real-IP）は一旦除去し、
+ *   バックエンドのレート制限が使う X-Forwarded-For だけを、前段プロキシ（ALB / CloudFront）が
+ *   付与した値の左端＝実クライアント IP に載せ直してから中継する。このアプリは信頼できる L7
+ *   プロキシ経由でのみ到達可能な構成を前提とする（バックエンドの `TRUSTED_PROXIES` と対で機能）。
  */
 
 const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:8080";
@@ -71,6 +71,22 @@ const EXCLUDED_RESPONSE_HEADERS = new Set([
   "transfer-encoding",
   "connection",
 ]);
+
+/**
+ * 実クライアント IP を求める
+ *
+ * 前段プロキシ（ALB / CloudFront）が付与した `X-Forwarded-For` の左端を実クライアント IP とみなす。
+ * このアプリは信頼できる L7 プロキシ経由でのみ到達可能な構成を前提とし、バックエンドは
+ * この載せ直した `X-Forwarded-For` を `TRUSTED_PROXIES` の範囲でのみ信頼する。
+ *
+ * @param request 受信したリクエスト
+ * @returns 実クライアント IP。特定できなければ null
+ */
+function resolveClientIp(request: NextRequest): string | null {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const first = forwardedFor?.split(",")[0]?.trim();
+  return first ? first : null;
+}
 
 /** リクエストボディが上限を超えたことを表すエラー */
 class BodyTooLargeError extends Error {
@@ -233,6 +249,13 @@ async function forwardToBackend(
       headers.set(key, value);
     }
   });
+
+  // バックエンドのレート制限が参照する X-Forwarded-For を、前段プロキシが付与した
+  // 実クライアント IP に載せ直す（クライアント詐称値は EXCLUDED_REQUEST_HEADERS で除去済み）
+  const clientIp = resolveClientIp(request);
+  if (clientIp) {
+    headers.set("x-forwarded-for", clientIp);
+  }
 
   const hasBody = request.method !== "GET" && request.method !== "HEAD";
 
