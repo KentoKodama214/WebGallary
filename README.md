@@ -148,7 +148,8 @@ just db-up
 | `APP_S3_PUBLIC_BASE_URL` | 署名付き URL のホストをブラウザ到達可能なものへ差し替える場合に指定 | `http://localhost:9000` |
 | `APP_S3_PRESIGN_EXPIRY_SECONDS` | 署名付き URL の有効期限（秒） | `900` |
 | `MINI_USER_UPPER_LIMIT` / `NORMAL_USER_UPPER_LIMIT` | 権限別の写真登録上限 | `10` / `1000` |
-| `FRONTEND_ORIGIN` | CORS 許可オリジン | `http://localhost:3000` |
+| `FRONTEND_ORIGIN` | CORS 許可オリジン（1 値のみ。`prod` では `https://` 必須） | `http://localhost:3000` |
+| `TRUSTED_PROXIES` | `X-Forwarded-For` を信頼する直前送信元 IP の正規表現。**本番では ALB のサブネット CIDR に狭める** | ループバック＋RFC1918（Tomcat 既定と同等） |
 
 > **IntelliJ IDEA で起動する場合**
 > Dock やランチャーから起動した IntelliJ はシェルの `export` を引き継がないため、`JWT_SECRET` を渡す必要があります。共有の実行構成 `backend/.run/WebGalleryApplication_local.run.xml`（実行構成名「WebGalleryApplication (local)」、プロファイル `local` ＋ ローカル用 `JWT_SECRET` を設定済み）を選択して実行してください。独自の実行構成を使う場合は「Environment variables」に `JWT_SECRET` を追加してください。
@@ -162,6 +163,7 @@ just db-up
 | `BACKEND_URL` | APIプロキシ（`/api/*`）の転送先バックエンドオリジン | `http://localhost:8080` |
 | `NEXT_PUBLIC_API_BASE_URL` | 別オリジンのバックエンドを直接叩く場合のベースURL | 同一オリジンの `/api` プロキシを使用 |
 | `NEXT_PUBLIC_IMAGE_BASE_URL` | 写真の配信元オリジン（例: `https://cdn.example.com/`）。CSP の `img-src` と `sanitizeImageUrl` の許可オリジンに反映される | **外部ホストからの画像読み込みを一切許可しない**（`img-src 'self' data: blob:`）。本番/検証環境で S3・CloudFront から画像を配信する場合は必ず設定すること。**開発環境（`next dev`）では `http://localhost:9000`（MinIO）が自動許可されるため設定不要** |
+| `PROXY_MAX_CONCURRENCY` | `/api/*` プロキシがバックエンドへ同時中継するリクエスト数の上限。超過分は `503`＋`Retry-After` で即時応答（ロードシェディング） | `100` |
 
 ##### 構成上の注意
 
@@ -174,8 +176,9 @@ just db-up
   - 本番/検証環境: `APP_S3_*`（バックエンド）で実 S3 を指し、フロントの `NEXT_PUBLIC_IMAGE_BASE_URL` に
     署名付き URL のオリジン（S3 または CloudFront）を設定する。
 - **アップロードのボディサイズ / 同時接続**: `/api/*` プロキシはリクエストボディを最大 6MB までメモリにバッファしてから
-  バックエンドへ転送する（1 リクエストあたりは 6MB で頭打ちだが同時実行数の上限は持たない）。本番では前段の
-  リバースプロキシで `client_max_body_size`（6MB 程度）と同時接続数の制限をかけること。
+  バックエンドへ転送する。同時にバックエンドへ中継するリクエスト数は `PROXY_MAX_CONCURRENCY`（既定 100）で頭打ちにし、
+  超過分は `503` で突き放す。あわせて本番では前段のリバースプロキシ／ロードバランサで `client_max_body_size`
+  （6MB 程度）と同時接続数・レート制限をかけること。
 - **CSRF 対策のスコープ**: `/api/*` プロキシの Origin / `Sec-Fetch-Site` 検証は同一オリジンプロキシ経由でのみ機能する。
   `NEXT_PUBLIC_API_BASE_URL` で別オリジンのバックエンドを直接叩く構成にした場合、この検証はバイパスされるため、
   バックエンド側の CSRF 対策（SameSite Cookie 等）に完全に依存する。
