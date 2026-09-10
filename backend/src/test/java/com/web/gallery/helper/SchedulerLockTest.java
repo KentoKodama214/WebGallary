@@ -55,5 +55,26 @@ public class SchedulerLockTest {
 
       verify(task, never()).run();
     }
+
+    @Test
+    @Order(3)
+    @DisplayName("異常系：taskが例外を投げた場合はそのまま再スローする")
+    void runIfLocked_taskThrows() {
+      doReturn(true)
+          .when(schedulerLockRepositoryImpl)
+          .tryLock(SchedulerLockName.REFRESH_TOKEN_CLEANUP);
+      RuntimeException cause = new RuntimeException("処理失敗");
+      Runnable task =
+          () -> {
+            throw cause;
+          };
+
+      RuntimeException actual =
+          assertThrows(
+              RuntimeException.class,
+              () -> schedulerLock.runIfLocked(SchedulerLockName.REFRESH_TOKEN_CLEANUP, task));
+
+      assertSame(cause, actual);
+    }
   }
 }
